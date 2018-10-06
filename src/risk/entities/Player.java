@@ -1,4 +1,4 @@
-package risk.pojo;
+package risk.entities;
 
 import java.util.List;
 

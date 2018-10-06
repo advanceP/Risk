@@ -5,7 +5,11 @@ package risk.action;
  *This is where game start
  */
 
+import java.io.FileNotFoundException;
+
 import javax.swing.JFrame;
+
+import risk.entities.Graph;
 
 public class RiskGame 
 {

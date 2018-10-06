@@ -1,0 +1,87 @@
+package risk.entities;
+
+import java.util.List;
+
+/**
+ *This is the node
+ */
+public class Node {
+	private String name;
+	private int armies;
+	private String continent;
+	private int x;  //coordinate for graph
+	private int y;  //coordinate for graph
+	private List<String> adjacencyList;
+	private boolean isVisited=false;
+	public Node(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+	
+	
+	public Node(String name, int x, int y, String continent, List<String> adjacencyList) {
+		super();
+		this.name = name;
+		this.continent = continent;
+		this.x = x;
+		this.y = y;
+		this.adjacencyList = adjacencyList;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getArmies() {
+		return armies;
+	}
+	public void setArmies(int armies) {
+		this.armies = armies;
+	}
+	public String getContinent() {
+		return continent;
+	}
+	public void setContinentName(String continent) {
+		this.continent = continent;
+	}
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public List<String> getAdjacencyList() {
+		return adjacencyList;
+	}
+
+	public void setAdjacencyList(List<String> adjacencyList) {
+		this.adjacencyList = adjacencyList;
+	}
+
+
+	public boolean isVisited() {
+		return isVisited;
+	}
+
+
+	public void setVisited(boolean isVisited) {
+		this.isVisited = isVisited;
+	}
+	public void addToAdjacency(String node){
+		this.adjacencyList.add(node);
+	}
+	
+	
+	
+}
