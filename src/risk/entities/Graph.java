@@ -12,8 +12,15 @@ import java.util.regex.Pattern;
 public class Graph {
 	private static Graph graph=null;
 	List<Node> graphNodes;
+	List<Continent>continents;
 	
 	
+public List<Continent> getContinents() {
+		return continents;
+	}
+	public void setContinents(List<Continent> continents) {
+		this.continents = continents;
+	}
 public List<Node> getGraphNodes() {
 		return graphNodes;
 	}
@@ -30,9 +37,34 @@ public List<Node> getGraphNodes() {
 			graph=new Graph();
 		return graph;
 	}
-	
+	public void createContinents(String fileAddress) throws FileNotFoundException
+	{
+		List<Continent>continentlist=new ArrayList<>();
+		File file=new File(fileAddress);
+		Scanner input = new Scanner(file);
+		String line;
+		while(input.hasNextLine())
+		{
+			line=input.nextLine();
+			if(line.contains("[Continents]"))
+			{
+				while(input.hasNextLine())
+				{
+				line=input.nextLine();
+				if(line.equals(""))
+					break;
+				List<String>tokens=Arrays.asList(line.split("="));
+				Continent continent=new Continent(tokens.get(0), Integer.parseInt(tokens.get(1)));
+				continentlist.add(continent);
+				}
+			}
+		}
+		setContinents(continentlist);
+		
+	}
 public void createGraph(String fileAddress) throws FileNotFoundException
 {
+	createContinents(fileAddress);
 	List<Node>nodeList = new ArrayList<>() ;
 	File file=new File(fileAddress);
 	Scanner input = new Scanner(file);
@@ -49,7 +81,8 @@ public void createGraph(String fileAddress) throws FileNotFoundException
 			
 			List<String>tokens=Arrays.asList(line.split(","));
 			List<String>adjacency=tokens.subList(4, tokens.size());
-			Node template=new Node(tokens.get(0),Integer.parseInt(tokens.get(1)),Integer.parseInt(tokens.get(2)),tokens.get(3),adjacency);
+			Continent continent=continents.stream().filter(item->item.getName().equals(tokens.get(3))).findFirst().get();
+			Node template=new Node(tokens.get(0),Integer.parseInt(tokens.get(1)),Integer.parseInt(tokens.get(2)),continent,adjacency);
 			nodeList.add(template);
 		    }
 	    }
@@ -58,13 +91,16 @@ public void createGraph(String fileAddress) throws FileNotFoundException
 }
 public void addNode(Node node)
 {
-	Iterator<String>nodeAdjacency=node.getAdjacencyList().listIterator();
-	while(nodeAdjacency.hasNext())
-	{
-		String name=nodeAdjacency.next();
-		graph.getGraphNodes().stream().filter(item->item.getName().equals(name)).findFirst().get().addToAdjacency(node.getName());;
-	}
 	graph.graphNodes.add(node);
+}
+public void connectNodes(Node firstNode,Node secondNode)
+{
+	firstNode.addToAdjacency(secondNode.getName());
+	secondNode.addToAdjacency(firstNode.getName());
+}
+public void addContinent(Continent continent)
+{
+	graph.getContinents().add(continent);
 }
 public void DFS(Graph graph,Node root)
 {
@@ -78,6 +114,7 @@ public void DFS(Graph graph,Node root)
 		{
 			DFS(graph,src);
 		}
+		System.out.println(src.getContinent().getName());
 	}
 }
 public void setGraphVisited()

@@ -7,6 +7,14 @@ public class Continent {
 	
 	
 	
+	public Continent(String name, int awardUnits) {
+		super();
+		this.name = name;
+		this.awardUnits = awardUnits;
+	}
+	public Continent() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getName() {
 		return name;
 	}

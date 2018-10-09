@@ -8,7 +8,7 @@ import java.util.List;
 public class Node {
 	private String name;
 	private int armies;
-	private String continent;
+	private Continent continent;
 	private int x;  //coordinate for graph
 	private int y;  //coordinate for graph
 	private List<String> adjacencyList;
@@ -20,7 +20,7 @@ public class Node {
 	}
 	
 	
-	public Node(String name, int x, int y, String continent, List<String> adjacencyList) {
+	public Node(String name, int x, int y, Continent continent, List<String> adjacencyList) {
 		super();
 		this.name = name;
 		this.continent = continent;
@@ -42,10 +42,10 @@ public class Node {
 	public void setArmies(int armies) {
 		this.armies = armies;
 	}
-	public String getContinent() {
+	public Continent getContinent() {
 		return continent;
 	}
-	public void setContinentName(String continent) {
+	public void setContinentName(Continent continent) {
 		this.continent = continent;
 	}
 	public int getX() {
