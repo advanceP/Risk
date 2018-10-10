@@ -5,11 +5,7 @@ package risk.action;
  *This is where game start
  */
 
-import java.io.FileNotFoundException;
-
 import javax.swing.JFrame;
-
-import risk.entities.Graph;
 
 public class RiskGame 
 {
@@ -23,8 +19,7 @@ public class RiskGame
 		frame.setSize(1000, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		mainPanel.start();
+		mainPanel.start(frame);
 		
 	}
 

@@ -1,12 +1,21 @@
 package risk.entities;
-
+/**
+ * 
+ * @author Hao Chen <br>
+ * This is the class for Continent
+ */
 public class Continent {
-	
+
 	private String name;
-	private int awardUnits; //When player conqur a continent,he will receive extra units
-	
-	
-	
+	private int awardUnits; 
+	/** 
+	 * constructor 
+	 * @param name This param is for name
+	 */
+	public Continent(String name) {
+		super();
+		this.name = name;
+	}
 	public Continent(String name, int awardUnits) {
 		super();
 		this.name = name;
