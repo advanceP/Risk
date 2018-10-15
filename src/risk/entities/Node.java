@@ -10,6 +10,8 @@ public class Node {
 	private String name;
 	private int armies;
 	private Continent continent;
+	private Player player;
+	
 	private int x;  //coordinate for graph
 	private int y;  //coordinate for graph
 	private List<String> adjacencyList=new ArrayList<>();
@@ -30,6 +32,13 @@ public class Node {
 		this.y = y;
 		this.adjacencyList = adjacencyList;
 	}
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
 	public String getName() {
 		return name;
 	}
