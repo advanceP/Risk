@@ -115,7 +115,6 @@ public void DFS(Graph graph,Node root)
 		{
 			DFS(graph,src);
 		}
-		System.out.println(src.getContinent().getName());
 	}
 }
 public void setGraphVisited()
