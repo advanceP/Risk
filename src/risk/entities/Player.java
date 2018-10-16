@@ -1,6 +1,7 @@
 package risk.entities;
 
 import java.awt.Color;
+import java.util.List;
 
 public class Player {
 	private String name;
@@ -11,6 +12,18 @@ public class Player {
 	
 	public int getReinforcement() {
 		return reinforcement;
+	}
+	public void decreaseReinforcement()
+	{
+		this.reinforcement--;
+	}
+	public void increaseReinforcement()
+	{
+		this.reinforcement++;
+	}
+	public void increaseReinforcement(int army)
+	{
+		this.reinforcement+=army;
 	}
 	public void setReinforcement(int reinforcement) {
 		this.reinforcement = reinforcement;
