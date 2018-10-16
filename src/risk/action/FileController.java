@@ -4,13 +4,12 @@ import risk.entities.Continent;
 import risk.entities.Graph;
 import risk.entities.Node;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class ExportFile {
+public class FileController {
 
     /**
      * @Description: write and save as a txt file
@@ -82,9 +81,32 @@ public class ExportFile {
         return mapInfo;
     }
 
-  /*  public static void main(String arg[]){
+    public static boolean verifyMapFile(String filePath){
+
+        try{
+
+            InputStream is = new FileInputStream(filePath);
+            String line;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            line = reader.readLine();
+            while (line != null){
+                if (line.equals("\r\n")){
+                    line = reader.readLine();
+                    continue;
+                }
+                if (line.equals("[Continents]")){
+
+                }
+            }
+        }catch (IOException e){
+            System.out.print("failed");
+        }
+
+        return false;
+    }
+/*    public static void main(String arg[]){
         Graph graph = Graph.getGraphInstance();
-        ExportFile exportFile = new ExportFile();
+        FileController exportFile = new FileController();
         List<Continent> continentList = new ArrayList<>();
         Continent c1 = new Continent("aaa", 2);
         Continent c2 = new Continent("bbb", 1);
@@ -111,5 +133,13 @@ public class ExportFile {
         String map = exportFile.getMapInfo(graph).toString();
         writeFile("D:/node.map", map);
         System.out.print("finish");
-    }*/
+    }
+    */
+    public static void main(String arg[]){
+        String str="territory";
+        String regEx="[`~!@#$%^&*()+=|{}':;'\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。、？]";
+        Pattern p=Pattern.compile(regEx);
+        Matcher m=p.matcher(str);
+        System.out.println(m.find(26));
+    }
 }
