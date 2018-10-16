@@ -1,7 +1,6 @@
 package risk.entities;
 
 import java.awt.Color;
-import java.util.List;
 
 public class Player {
 	private String name;

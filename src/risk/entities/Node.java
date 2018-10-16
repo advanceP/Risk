@@ -7,10 +7,10 @@ import java.util.List;
  *This is the node
  */
 public class Node {
-	private String name;
-	private int armies;
-	private Continent continent;
-	private Player player;
+	private String name;	// name of country
+	private int armies;		// armies' number in this country
+	private Continent continent;	// the continent which this country belongs
+	private Player player;		// this country's owner
 	
 	private int x;  //coordinate for graph
 	private int y;  //coordinate for graph

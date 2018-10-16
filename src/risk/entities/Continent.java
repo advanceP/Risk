@@ -6,11 +6,11 @@ package risk.entities;
  */
 public class Continent {
 
-	private String name;
-	private int awardUnits; 
+	private String name;	// name of continent
+	private int awardUnits; 	// extra number of soldiers got after conquering whole continent
 	/** 
 	 * constructor 
-	 * @param name This param is for name
+	 * @param name This param is for continent's name
 	 */
 	public Continent(String name) {
 		super();
