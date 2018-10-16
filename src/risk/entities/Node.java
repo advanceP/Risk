@@ -23,6 +23,7 @@ public class Node {
 		this.continent = continent;
 		this.x = x;
 		this.y = y;
+		this.armies=1;
 	}
 	public Node(String name, int x, int y, Continent continent, List<String> adjacencyList) {
 		super();
@@ -31,6 +32,7 @@ public class Node {
 		this.x = x;
 		this.y = y;
 		this.adjacencyList = adjacencyList;
+		this.armies=1;
 	}
 	public Player getPlayer() {
 		return player;

@@ -182,7 +182,5 @@ public class FileController {
         System.out.print("finish");
     }
     */
-    public static void main(String arg[]){
-        System.out.print(verifyMapFile("D:/Montreal.map"));
-    }
+ 
 }

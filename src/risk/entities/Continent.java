@@ -1,4 +1,7 @@
 package risk.entities;
+
+import java.awt.Color;
+
 /**
  * 
  * @author Hao Chen <br>
@@ -6,11 +9,12 @@ package risk.entities;
  */
 public class Continent {
 
-	private String name;	// name of continent
-	private int awardUnits; 	// extra number of soldiers got after conquering whole continent
+	private String name;
+	private int awardUnits; 
+	private Color color;
 	/** 
 	 * constructor 
-	 * @param name This param is for continent's name
+	 * @param name This param is for name
 	 */
 	public Continent(String name) {
 		super();
@@ -20,9 +24,16 @@ public class Continent {
 		super();
 		this.name = name;
 		this.awardUnits = awardUnits;
+		
 	}
 	public Continent() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Continent(String name, int awardUnits, Color color) {
+		this.name = name;
+		this.awardUnits = awardUnits;
+		this.color=color;
 	}
 	public String getName() {
 		return name;
@@ -37,6 +48,12 @@ public class Continent {
 		this.awardUnits = awardUnits;
 	}
 	
-	
+	private void chooseColor(String color) {
+		Color decode = Color.decode(color);
+		this.color=decode;
+	}
+	public Color getColor() {
+		return color;
+	}
 	
 }
