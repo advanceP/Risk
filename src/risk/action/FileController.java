@@ -108,7 +108,7 @@ public class FileController {
                 }
                 if (contFlag){
                     String continent[] = line.split("=");
-                    continentList.put(continent[0], 0);
+                    continentList.put(continent[0].replace(" ",""), 0);
                 }
 
                 if (nodeFlag){
@@ -126,13 +126,13 @@ public class FileController {
                 String[] nodeDetail = nodeList.get(key).split(",");
                 String continentName = nodeDetail[2];
                 // make sure x and y are Integer
-                int x = Integer.parseInt(nodeDetail[0]);
-                int y = Integer.parseInt(nodeDetail[1]);
+                Integer x = Integer.parseInt(nodeDetail[0].replace(" ",""));
+                Integer y = Integer.parseInt(nodeDetail[1].replace(" ",""));
 
-                if (!continentList.containsKey(continentName)){
+                if (!continentList.containsKey(continentName.replace(" ",""))){
                     return false;
                 } else{
-                   continentList.put(continentName, continentList.get(continentName) + 1);
+                   continentList.put(continentName.replace(" ",""), continentList.get(continentName.replace(" ","")) + 1);
                 }
 
             }
@@ -183,6 +183,6 @@ public class FileController {
     }
     */
     public static void main(String arg[]){
-        System.out.print(verifyMapFile("D:/Idea Projects/Risk/graph.map"));
+        System.out.print(verifyMapFile("D:/Montreal.map"));
     }
 }
