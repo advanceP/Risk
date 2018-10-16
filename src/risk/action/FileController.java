@@ -47,8 +47,8 @@ public class FileController {
     public StringBuffer getMapInfo(Graph graph){
         StringBuffer mapInfo = new StringBuffer();
         List<Node> nodeList = graph.getGraphNodes();
+        List<Continent> continentList = graph.getContinents();
 
-        Map<String, Integer> nodeInContNum = new HashMap<>();
         StringBuffer continentsInfo = new StringBuffer();
         continentsInfo.append("[Continents]" + "\r\n");
         StringBuffer nodesInfo = new StringBuffer();
@@ -63,17 +63,11 @@ public class FileController {
                                     + continentName + "," + adjacencyList + "\r\n";
             nodesInfo.append(nodeDetail);
 
-            if (nodeInContNum.containsKey(continentName)){
-                nodeInContNum.put(continentName, nodeInContNum.get(continentName) + 1);
-            }
-            else{
-                nodeInContNum.put(continentName, 1);
-            }
         }
 
-        Set<String> keySet = nodeInContNum.keySet();
-        for (String key : keySet) {
-            String continentDetail = key + "=" + nodeInContNum.get(key) + "\r\n";
+        for (int i = 0; i < continentList.size(); i++){
+            Continent continent = continentList.get(i);
+            String continentDetail = continent.getName() + "=" + continent.getAwardUnits() + "\r\n";
             continentsInfo.append(continentDetail);
         }
         mapInfo.append(continentsInfo.append("\r\n"));
@@ -114,7 +108,7 @@ public class FileController {
                 }
                 if (contFlag){
                     String continent[] = line.split("=");
-                    continentList.put(continent[0], Integer.parseInt(continent[1]));
+                    continentList.put(continent[0], 0);
                 }
 
                 if (nodeFlag){
@@ -135,17 +129,19 @@ public class FileController {
                 int x = Integer.parseInt(nodeDetail[0]);
                 int y = Integer.parseInt(nodeDetail[1]);
 
-                if (continentList.containsKey(continentName)){
-                    continentList.put(continentName , continentList.get(continentName) - 1);
-                    if (continentList.get(continentName) == 0){
-                        continentList.remove(continentName);
-                    }
-                } else{
+                if (!continentList.containsKey(continentName)){
                     return false;
+                } else{
+                   continentList.put(continentName, continentList.get(continentName) + 1);
                 }
 
             }
-            if (continentList.size() > 0){
+            int sum = 0;
+            Set<String> keySetList = continentList.keySet();
+            for (String keySet: keySetList) {
+                sum += continentList.get(keySet);
+            }
+            if (sum != nodeList.size()){
                 return false;
             }
 
@@ -186,7 +182,7 @@ public class FileController {
         System.out.print("finish");
     }
     */
-/*    public static void main(String arg[]){
+    public static void main(String arg[]){
         System.out.print(verifyMapFile("D:/Idea Projects/Risk/graph.map"));
-    }*/
+    }
 }
