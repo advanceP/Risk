@@ -80,29 +80,80 @@ public class FileController {
         mapInfo.append(nodesInfo.append("\r\n"));
         return mapInfo;
     }
-
+    /**
+     * @Description: to verify wheather the map is correct
+     * @param filePath the Path of map file
+     * @return:  true : map is correct      false : map is incorrect
+     * @Author: Yiying Liu
+     * @Date: 2018-10-16
+     */
     public static boolean verifyMapFile(String filePath){
 
         try{
-
+            Map<String, Integer> continentList = new HashMap<>();
+            Map<String, String> nodeList = new HashMap<>();
             InputStream is = new FileInputStream(filePath);
             String line;
+            boolean contFlag = false;
+            boolean nodeFlag = false;
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             line = reader.readLine();
             while (line != null){
-                if (line.equals("\r\n")){
+                if (line.equals("\r\n") || line.equals("")){
                     line = reader.readLine();
                     continue;
                 }
                 if (line.equals("[Continents]")){
-
+                    contFlag = true;
+                    line = reader.readLine();
                 }
+                if (line.equals("[Territories]")){
+                    contFlag = false;
+                    nodeFlag = true;
+                    line = reader.readLine();
+                }
+                if (contFlag){
+                    String continent[] = line.split("=");
+                    continentList.put(continent[0], Integer.parseInt(continent[1]));
+                }
+
+                if (nodeFlag){
+                    String node[] = line.split(",");
+                    int index = line.indexOf(',');
+                    nodeList.put(node[0], line.substring(index + 1));
+                }
+                line = reader.readLine();
             }
-        }catch (IOException e){
-            System.out.print("failed");
+            reader.close();
+            is.close();
+
+            Set<String> keys = nodeList.keySet();
+            for (String key : keys) {
+                String[] nodeDetail = nodeList.get(key).split(",");
+                String continentName = nodeDetail[2];
+                // make sure x and y are Integer
+                int x = Integer.parseInt(nodeDetail[0]);
+                int y = Integer.parseInt(nodeDetail[1]);
+
+                if (continentList.containsKey(continentName)){
+                    continentList.put(continentName , continentList.get(continentName) - 1);
+                    if (continentList.get(continentName) == 0){
+                        continentList.remove(continentName);
+                    }
+                } else{
+                    return false;
+                }
+
+            }
+            if (continentList.size() > 0){
+                return false;
+            }
+
+        }catch (Exception e){
+            return false;
         }
 
-        return false;
+        return true;
     }
 /*    public static void main(String arg[]){
         Graph graph = Graph.getGraphInstance();
@@ -135,11 +186,7 @@ public class FileController {
         System.out.print("finish");
     }
     */
-    public static void main(String arg[]){
-        String str="territory";
-        String regEx="[`~!@#$%^&*()+=|{}':;'\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。、？]";
-        Pattern p=Pattern.compile(regEx);
-        Matcher m=p.matcher(str);
-        System.out.println(m.find(26));
-    }
+/*    public static void main(String arg[]){
+        System.out.print(verifyMapFile("D:/Idea Projects/Risk/graph.map"));
+    }*/
 }
