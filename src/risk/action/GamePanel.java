@@ -64,6 +64,7 @@ public class GamePanel extends JPanel{
 		add(phaseText);
 		Player currentplayer=driver.getCurrentPlayer();
 		phaseText.setText(currentplayer.getName()+" "+driver.getCurrentPlayer().getReinforcement());
+		
 		repaint();
 		
 	}
@@ -81,10 +82,18 @@ public class GamePanel extends JPanel{
 	}
 
 	private void paintPhaseInformation(Graphics g) {
-		if(driver.getPlayers()!=null)
+		if(!CountryLabelForGame.isStartPhase) {
+			Player player=driver.getReinforcementPlayer();
+			String playername=player.getName();
+			phaseText.setText(playername+" "+"Reinforcement"+" "+player.getReinforcement());
+		}
+		if(CountryLabelForGame.isStartPhase)
 		{
-			Player currentplayer=driver.getCurrentPlayer();
-			phaseText.setText(currentplayer.getName()+" "+driver.getCurrentPlayer().getReinforcement());
+			if(driver.getPlayers()!=null)
+			{
+				Player currentplayer=driver.getCurrentPlayer();
+				phaseText.setText(currentplayer.getName()+" "+driver.getCurrentPlayer().getReinforcement());
+			}
 		}
 	}
 	private void paintArmies(Graphics g) {
@@ -161,8 +170,6 @@ public class GamePanel extends JPanel{
 		});
 		
 	}
-	
-	
 	
 	
 

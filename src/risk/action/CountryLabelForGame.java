@@ -5,16 +5,23 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
+import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
+
 import risk.entities.CountryLabel;
 import risk.entities.GameDriver;
 import risk.entities.Graph;
 import risk.entities.Node;
+import risk.entities.Player;
 
 public class CountryLabelForGame extends JLabel{
 	
 	private Graph graph;
 	private GameDriver driver;
 	private GamePanel gamePanel;
+	private MouseAdapter mouseAdapter;
+	private MouseAdapter mouseAdapterForPhase;
+	public static boolean isStartPhase=true;
+	
 	public CountryLabelForGame(String text) {
 		super(text);
 		graph=Graph.getGraphInstance();
@@ -25,34 +32,92 @@ public class CountryLabelForGame extends JLabel{
 
 	public void addListener()
 	{
-		MouseAdapter mouseAdapter=new MouseAdapter()
+		mouseAdapter=new MouseAdapter()
 		{		
 			public void mouseClicked(MouseEvent e)
 			{	
-				CountryLabelForGame label=(CountryLabelForGame)e.getSource();
-				String labelName=label.getText();
-				for(Node country:graph.getGraphNodes())
+				if(CountryLabelForGame.isStartPhase)
 				{
-					if(labelName==country.getName())
-					{
-						if(country.getPlayer()==driver.getCurrentPlayer())
+					if(driver.getAllArmies()>0)
+					{	
+						CountryLabelForGame label=(CountryLabelForGame)e.getSource();
+						String labelName=label.getText();
+						for(Node country:graph.getGraphNodes())
 						{
-							if(country.getPlayer().getReinforcement()>0)
+							if(labelName.equals(country.getName()))
 							{
-								country.increaseArmy();
-								driver.changeCurrentPlayer();
-							}
-							else
-							{
-								driver.changeCurrentPlayer();
+								if(country.getPlayer()==driver.getCurrentPlayer())
+								{
+									if(country.getPlayer().getReinforcement()>0)
+									{
+										country.increaseArmy();
+										driver.changeCurrentPlayer();
+									}
+									else
+									{
+										driver.changeCurrentPlayer();
+									}
+									gamePanel.repaint();
+								}
 							}
 						}
+						//gamePanel.repaint();
+					}
+					else
+					{
+						for(int i=0;i<driver.getPlayers().size();i++)
+						{
+							driver.getPlayers().get(i).setState("StartUp");
+						}
+						//removeMouseListener(mouseAdapter);
+						//change phase
+						CountryLabelForGame.isStartPhase=false;
+						gamePanel.repaint();
 					}
 				}
-				gamePanel.repaint();
+				else
+				{
+					Player player=driver.getReinforcementPlayer();
+					if(player!=null)
+					{
+						int reinforces=player.getReinforcement();
+						if(reinforces>0)
+						{
+							CountryLabelForGame label=(CountryLabelForGame)e.getSource();
+							String labelName=label.getText();
+							for(Node country:graph.getGraphNodes())
+							{
+								if(country.getName().equals(labelName))
+								{
+									if(country.getPlayer()==player)
+									{
+										country.increaseArmy();
+									}
+								}
+							}
+						}	
+					}
+					else
+					{
+						player.setState("Fortifition");
+					}
+				}
     	    }	
 		};
-		addMouseListener(mouseAdapter);	
+		addMouseListener(mouseAdapter);
+		
 	}
+	
+	
+	
+		
+			
+			
+				
+			
+		
+	
+	
+	
 	
 }

@@ -151,36 +151,5 @@ public class FileController {
 
         return true;
     }
-/*    public static void main(String arg[]){
-        Graph graph = Graph.getGraphInstance();
-        FileController exportFile = new FileController();
-        List<Continent> continentList = new ArrayList<>();
-        Continent c1 = new Continent("aaa", 2);
-        Continent c2 = new Continent("bbb", 1);
-        continentList.add(c1);
-        continentList.add(c2);
-        List<Node> nodeList = new ArrayList<>();
-        List<String> str1 = new ArrayList<>();
-        str1.add("a1");
-        str1.add("b1");
-        List<String> str2 = new ArrayList<>();
-        str2.add("b1");
-        str2.add("a");
-        List<String>str3 = new ArrayList<>();
-        str3.add("a");
-        str3.add("a1");
-        Node node1 = new Node("a", 300, 400,c1, str1);
-        Node node2 = new Node("a1", 304,405,c1,str2);
-        Node node3 = new Node("b1", 400, 450, c2, str3);
-        nodeList.add(node1);
-        nodeList.add(node2);
-        nodeList.add(node3);
-        graph.setContinents(continentList);
-        graph.setGraphNodes(nodeList);
-        String map = exportFile.getMapInfo(graph).toString();
-        writeFile("D:/node.map", map);
-        System.out.print("finish");
-    }
-    */
- 
+
 }

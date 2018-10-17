@@ -23,10 +23,10 @@ public class GameDriver {
 	public Player getReinforcementPlayer()
 	{
 		Player reinforcement=getCurrentPlayer();
-		if(!reinforcement.getState().equals("Fortification"))
+		if(reinforcement.getState().equals("Fortification"))
 			return null;
 		reinforcement.setState("Reinforcement");
-		int additionalreinforcement=reinforcement.getNumberOfCountries()/3;
+		int additionalreinforcement=reinforcement.getNumberOfCountries()/3+1;
 		reinforcement.increaseReinforcement(additionalreinforcement);
 		return reinforcement;
 	}
@@ -63,7 +63,7 @@ public class GameDriver {
 		}
 		for(int i=0;i<players.size();i++)
 		{
-			for(int j=0;j<graph.getGraphNodes().size();i++)
+			for(int j=0;j<graph.getGraphNodes().size();j++)
 				if(graph.getGraphNodes().get(j).getPlayer().getName().equals(players.get(i).getName()))
 					players.get(i).increaseNumberOfCountries();
 		}

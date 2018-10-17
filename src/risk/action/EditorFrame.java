@@ -68,6 +68,7 @@ public class EditorFrame extends JFrame{
 		private JButton changeButton;
 		private JComboBox<String> chooseAdjacency;
 		private JButton addAdjacency;
+		private JButton saveMap;
 		
 		public EditMap() {
 			super();
@@ -114,6 +115,9 @@ public class EditorFrame extends JFrame{
 			changeButton=new JButton("save change");
 			changeButton.setBounds(970, 630, 120, 30);
 			
+			saveMap=new JButton("save Map");
+			saveMap.setBounds(970, 680, 120, 30);
+			add(saveMap);
 			addListener();
 			
 		}
@@ -141,6 +145,11 @@ public class EditorFrame extends JFrame{
 					for(String str:node.getAdjacencyList()) {
 						for(Node adjaency:graph.getGraphNodes()) {
 							if(str.equals(adjaency.getName())) {
+								if(adjaency.getContinent()==node.getContinent()) {
+									Color color=node.getContinent().getColor();
+									g.setColor(color);
+									g.drawLine(node.getX()+15, node.getY()+15, adjaency.getX()+15, adjaency.getY()+15);
+								}
 								g.drawLine(node.getX()+15, node.getY()+15, adjaency.getX()+15, adjaency.getY()+15);
 							}
 						}
@@ -256,13 +265,13 @@ public class EditorFrame extends JFrame{
 								temp=node;
 							}
 						}
-						for(String str:temp.getAdjacencyList()) {
+						/*for(String str:temp.getAdjacencyList()) {
 							for(Node n:graph.getGraphNodes()) {
 								if(n.getName().equals(str)) {
-									n.getAdjacencyList().remove(countryName);
+									n.getAdjacencyList().remove(countryName);	
 								}
 							}
-						}
+						}*/
 						graph.getGraphNodes().remove(temp);
 						for(JLabel label:labelList) {
 							if(label.getText().equals(countryName)) panelForEdit.remove(label);
@@ -270,6 +279,16 @@ public class EditorFrame extends JFrame{
 						hideUpdateMenu();
 						repaint();
 					}	
+				}
+			});
+			
+			saveMap.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					FileController fileController=new FileController();
+					StringBuffer mapInfo = fileController.getMapInfo(graph);
+					fileController.writeFile("a.map", mapInfo.toString());
 				}
 			});
 			
