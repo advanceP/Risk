@@ -20,6 +20,16 @@ public class GameDriver {
 		staticColorList.add(Color.RED);
 		staticColorList.add(Color.YELLOW);
 	}
+	public Player getReinforcementPlayer()
+	{
+		Player reinforcement=getCurrentPlayer();
+		if(!reinforcement.getState().equals("Fortification"))
+			return null;
+		reinforcement.setState("Reinforcement");
+		int additionalreinforcement=reinforcement.getNumberOfCountries()/3;
+		reinforcement.increaseReinforcement(additionalreinforcement);
+		return reinforcement;
+	}
 	public static GameDriver getGameDriverInstance()
 	{
 		if(gameDriver==null)
@@ -50,6 +60,12 @@ public class GameDriver {
 		{
 			players.get(i).setColor(staticColorList.get(colorindex));
 			colorindex++;
+		}
+		for(int i=0;i<players.size();i++)
+		{
+			for(int j=0;j<graph.getGraphNodes().size();i++)
+				if(graph.getGraphNodes().get(j).getPlayer().getName().equals(players.get(i).getName()))
+					players.get(i).increaseNumberOfCountries();
 		}
 	}
 

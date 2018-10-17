@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Graph {
 	private static Graph graph=null;
@@ -150,6 +151,19 @@ public boolean isGraphConnected()
 		return true;
 	}
 	return false;
+}
+public boolean ifContinentConquered(Continent continent)
+{
+	List<Node>continentnodes=graph.getGraphNodes().stream().filter(item->item.getContinent().getName().equals(continent.getName())).collect(Collectors.toList());
+	List<Player>continentPlayers =null;
+	
+	for(int i=0;i<continentnodes.size();i++)
+	{
+		continentPlayers.add(continentnodes.get(i).getPlayer());
+	}
+	boolean allEqual = continentPlayers.stream().distinct().limit(2).count() <= 1;
+	
+	return allEqual;
 }
 }
 
