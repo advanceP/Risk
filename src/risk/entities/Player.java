@@ -1,7 +1,10 @@
 package risk.entities;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Player {
 	private String name;
@@ -9,6 +12,7 @@ public class Player {
 	private String state;
 	private Color color;
 	private int reinforcement;
+//	private ArrayList<Node> nodeList=new ArrayList<>();
 	
 	public int getReinforcement() {
 		return reinforcement;
@@ -56,5 +60,12 @@ public class Player {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	public List<Node> getNodeList() {
+		return Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getPlayer().getName().equals(this.name)).collect(Collectors.toList());
+	}
+	/*public void setNodeList(ArrayList<Node> nodeList) {
+		this.nodeList = nodeList;
+	}*/
+	
 }
 

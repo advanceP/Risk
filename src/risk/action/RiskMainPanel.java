@@ -29,7 +29,8 @@ import risk.entities.Graph;
  * This is the panel for map editor
  *
  */
-public class RiskMainPanel extends JPanel {
+public class RiskMainPanel extends JPanel
+{
 	
 	private JButton buttonForEdit;
 	private JButton buttonForGame;
@@ -40,13 +41,15 @@ public class RiskMainPanel extends JPanel {
 	private List<Continent> listContinents;
 	private Graph graph;
 	
-	public RiskMainPanel() {
+	public RiskMainPanel()
+	{
 		super();
 		setLayout(null);
 		initial();	
 	}
 
-	private void initial() {
+	private void initial() 
+	{
 		
 		graph=Graph.getGraphInstance();
 		buttonForEdit=new JButton("map editor");
@@ -66,25 +69,31 @@ public class RiskMainPanel extends JPanel {
 		
 	}
 
-	public void start(JFrame frame) {	
+	public void start(JFrame frame)
+	{	
 
 		addListenerForButtons(frame);
 		
 	}
 
-	public void addListenerForButtons(JFrame frame) {
+	public void addListenerForButtons(JFrame frame)
+	{
 		//click the button
-		buttonForEdit.addActionListener(new ActionListener() {
+		buttonForEdit.addActionListener(new ActionListener()
+		{
 					
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==buttonForEdit) {
+			public void actionPerformed(ActionEvent e)
+			{
+				if(e.getSource()==buttonForEdit) 
+				{
 					intoMapEditor();
 				}
 						
 			}
 			//redraw buttons
-			private void intoMapEditor() {
+			private void intoMapEditor()
+			{
 				remove(buttonForEdit);
 				remove(buttonForGame);
 				add(createNewMap);
@@ -102,7 +111,8 @@ public class RiskMainPanel extends JPanel {
 				{
 					JFileChooser jFileChooser=new JFileChooser();
 					int select=jFileChooser.showOpenDialog(frame); //this method need a JFrame as parameter
-					if(select==JFileChooser.APPROVE_OPTION) {
+					if(select==JFileChooser.APPROVE_OPTION)
+					{
 						File file=jFileChooser.getSelectedFile();
 						try {
 							graph.createGraph(file.getAbsolutePath());
@@ -116,8 +126,7 @@ public class RiskMainPanel extends JPanel {
 					{
 						System.out.println("file has been cancel");
 					}
-				}
-						
+				}		
 			}
 		});
 		

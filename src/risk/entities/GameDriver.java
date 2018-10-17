@@ -23,6 +23,8 @@ public class GameDriver {
 	public Player getReinforcementPlayer()
 	{
 		Player reinforcement=getCurrentPlayer();
+		if(reinforcement.getState().equals("Reinforcement")) 
+			return reinforcement;
 		if(reinforcement.getState().equals("Fortification"))
 			return null;
 		reinforcement.setState("Reinforcement");
@@ -67,6 +69,17 @@ public class GameDriver {
 				if(graph.getGraphNodes().get(j).getPlayer().getName().equals(players.get(i).getName()))
 					players.get(i).increaseNumberOfCountries();
 		}
+		//give node to players
+	/*	for(int i=0;i<players.size();i++)
+		{
+			for(Node node:graph.getGraphNodes())
+			{
+				if(node.getPlayer()==players.get(i))
+				{
+					players.get(i).getNodeList().add(node);
+				}
+			}
+		}*/
 	}
 
 	public List<Player> getPlayers() {
@@ -93,6 +106,12 @@ public class GameDriver {
 		}
 		return allarmies;
 	}
+	public void fortify(Node node1, Node node2, int armies) {
+		node1.setArmies(node1.getArmies()-armies);
+		node2.setArmies(node2.getArmies()+armies);
+	}
+	
+	
 	
 	
 }

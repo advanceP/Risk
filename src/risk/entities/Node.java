@@ -104,6 +104,10 @@ public class Node {
 	public void addToAdjacency(String node){
 		this.adjacencyList.add(node);
 	}
+	@Override
+	public String toString() {
+		return name;
+	}
 	
 	
 }

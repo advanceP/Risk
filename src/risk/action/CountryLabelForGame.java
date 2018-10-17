@@ -13,16 +13,17 @@ import risk.entities.Graph;
 import risk.entities.Node;
 import risk.entities.Player;
 
-public class CountryLabelForGame extends JLabel{
+public class CountryLabelForGame extends JLabel
+{
 	
 	private Graph graph;
 	private GameDriver driver;
 	private GamePanel gamePanel;
 	private MouseAdapter mouseAdapter;
 	private MouseAdapter mouseAdapterForPhase;
-	public static boolean isStartPhase=true;
 	
-	public CountryLabelForGame(String text) {
+	public CountryLabelForGame(String text)
+	{
 		super(text);
 		graph=Graph.getGraphInstance();
 		driver=GameDriver.getGameDriverInstance();
@@ -36,7 +37,7 @@ public class CountryLabelForGame extends JLabel{
 		{		
 			public void mouseClicked(MouseEvent e)
 			{	
-				if(CountryLabelForGame.isStartPhase)
+				if(GamePanel.isStartPhase)
 				{
 					if(driver.getAllArmies()>0)
 					{	
@@ -57,11 +58,10 @@ public class CountryLabelForGame extends JLabel{
 									{
 										driver.changeCurrentPlayer();
 									}
-									gamePanel.repaint();
 								}
 							}
 						}
-						//gamePanel.repaint();
+						gamePanel.repaint();
 					}
 					else
 					{
@@ -71,7 +71,7 @@ public class CountryLabelForGame extends JLabel{
 						}
 						//removeMouseListener(mouseAdapter);
 						//change phase
-						CountryLabelForGame.isStartPhase=false;
+						GamePanel.isStartPhase=false;
 						gamePanel.repaint();
 					}
 				}
@@ -92,15 +92,18 @@ public class CountryLabelForGame extends JLabel{
 									if(country.getPlayer()==player)
 									{
 										country.increaseArmy();
+										gamePanel.repaint();
 									}
 								}
 							}
+						}
+						else
+						{
+							player.setState("Fortifition");
+							gamePanel.fortifitionPhase();
 						}	
 					}
-					else
-					{
-						player.setState("Fortifition");
-					}
+					
 				}
     	    }	
 		};

@@ -25,39 +25,42 @@ import risk.entities.CountryLabel;
 import risk.entities.Graph;
 import risk.entities.Node;
 
-public class EditorFrame extends JFrame{
+public class EditorFrame extends JFrame
+{
 	private static EditMap panelForEdit;
 	private int x;
 	private int y;
 	private List<JLabel> labelList;
 	private static Graph graph;
 
-	public static List<Node> getCountries() {
+	public static List<Node> getCountries()
+	{
 		return graph.getGraphNodes();
 	}
 	
-	public static EditMap getPanelForEdit() {
+	public static EditMap getPanelForEdit()
+	{
 		return panelForEdit;
 	}
 
-	public EditorFrame()  throws HeadlessException {
+	public EditorFrame()  throws HeadlessException 
+	{
 		super();
-		
-		//continentsList=list;
-		//countries=new ArrayList<Node>();
 		graph=Graph.getGraphInstance();
 		labelList=new ArrayList<>();
 		panelForEdit=new EditMap();
 		add(panelForEdit);
 	}
 	
-	public void createNode() {
+	public void createNode()
+	{
 		panelForEdit.showMenu();
 		panelForEdit.repaint();
 	}
 	
 
-	public class EditMap extends JPanel{
+	public class EditMap extends JPanel
+	{
 		
 		private JTextField inputName;
 		private JLabel nameLable;
@@ -70,22 +73,26 @@ public class EditorFrame extends JFrame{
 		private JButton addAdjacency;
 		private JButton saveMap;
 		
-		public EditMap() {
+		public EditMap()
+		{
 			super();
 			setLayout(null);
 			setBounds(0,0,1200,800);
 			initial();
 		}
 		
-		public JTextField getInputName() {
+		public JTextField getInputName()
+		{
 			return inputName;
 		}
 
-		public JComboBox<String> getContinents() {
+		public JComboBox<String> getContinents()
+		{
 			return continents;
 		}
 
-		private void initial() {
+		private void initial()
+		{
 			
 			inputName=new JTextField();
 			inputName.setBounds(1050,30,120,30);
@@ -96,7 +103,8 @@ public class EditorFrame extends JFrame{
 			continents.setBounds(1050,100,120,30);
 			selectContinent=new JLabel("Continent");
 			selectContinent.setBounds(970,100,120,30);
-			for(Continent obj:graph.getContinents()) {
+			for(Continent obj:graph.getContinents())
+			{
 				continents.addItem(obj.getName());
 			}
 			
@@ -119,19 +127,22 @@ public class EditorFrame extends JFrame{
 			saveMap.setBounds(970, 680, 120, 30);
 			add(saveMap);
 			addListener();
-			
 		}
 
 
-		public void searchForAllCountries() {
-			if(graph.getGraphNodes()!=null) {
-				for(Node node:graph.getGraphNodes()) {
+		public void searchForAllCountries()
+		{
+			if(graph.getGraphNodes()!=null)
+			{
+				for(Node node:graph.getGraphNodes())
+				{
 					chooseAdjacency.addItem(node.getName());
 				}
 			}
 		}
 
-		public void paint(Graphics g) {
+		public void paint(Graphics g)
+		{
 			super.paint(g);
 			g.drawLine(900,0, 900, 800);
 			paintNode(g);	
@@ -139,13 +150,20 @@ public class EditorFrame extends JFrame{
 		}
 		
 		
-		private void paintAdjacency(Graphics g) {
-			if(!graph.getGraphNodes().isEmpty()) {	
-				for(Node node:graph.getGraphNodes()) {
-					for(String str:node.getAdjacencyList()) {
-						for(Node adjaency:graph.getGraphNodes()) {
-							if(str.equals(adjaency.getName())) {
-								if(adjaency.getContinent()==node.getContinent()) {
+		private void paintAdjacency(Graphics g) 
+		{
+			if(!graph.getGraphNodes().isEmpty())
+			{	
+				for(Node node:graph.getGraphNodes())
+				{
+					for(String str:node.getAdjacencyList())
+					{
+						for(Node adjaency:graph.getGraphNodes())
+						{
+							if(str.equals(adjaency.getName()))
+							{
+								if(adjaency.getContinent()==node.getContinent())
+								{
 									Color color=node.getContinent().getColor();
 									g.setColor(color);
 									g.drawLine(node.getX()+15, node.getY()+15, adjaency.getX()+15, adjaency.getY()+15);
@@ -158,11 +176,13 @@ public class EditorFrame extends JFrame{
 			}
 		}
 
-		public void paintNode(Graphics g) {
+		public void paintNode(Graphics g) 
+		{
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(Color.blue);
 			if(x!=0&&y!=0&&x<900) g2.fillOval(x,y, 30, 30);
-			for(Node country:graph.getGraphNodes()) {
+			for(Node country:graph.getGraphNodes())
+			{
 				g2.fillOval(country.getX(), country.getY(), 30, 30);
 				//JLabel label = new JLabel(country.getName());
 				CountryLabel label =new CountryLabel(country.getName());
@@ -172,43 +192,56 @@ public class EditorFrame extends JFrame{
 			}
 		}
 		
-		public void addListener() {
-			createButton.addActionListener(new ActionListener() {		
+		public void addListener()
+		{
+			createButton.addActionListener(new ActionListener() 
+			{		
 				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(e.getSource()==createButton) {
-						String countryName=panelForEdit.inputName.getText();
-						String contientName=(String)panelForEdit.getContinents().getSelectedItem();
-						if(countryName.equals("")||contientName.equals("")) {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(e.getSource()==createButton)
+					{
+						String countryname=panelForEdit.inputName.getText();
+						String contientname=(String)panelForEdit.getContinents().getSelectedItem();
+						if(countryname.equals("")||contientname.equals(""))
+						{
 				           throw new RuntimeException("empty name or continent");
 						}
 						Continent continent=null;
-						for(Continent c:graph.getContinents()) {
-							if(c.getName().equals(contientName)) continent=c;
+						for(Continent c:graph.getContinents())
+						{
+							if(c.getName().equals(contientname)) continent=c;
 						}
-						Node country=new Node(countryName, continent, x, y);
+						Node country=new Node(countryname, continent, x, y);
 						graph.getGraphNodes().add(country);
 						hideMenu();
-						chooseAdjacency.addItem(countryName);
+						chooseAdjacency.addItem(countryname);
 						panelForEdit.repaint();
 					}
 				}
 			});
 			
-			changeButton.addActionListener(new ActionListener() {
+			changeButton.addActionListener(new ActionListener()
+			{
 				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(e.getSource()==changeButton) {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(e.getSource()==changeButton)
+					{
 						String countryName=panelForEdit.inputName.getText();
 						String contientName=(String)panelForEdit.getContinents().getSelectedItem();
-						if(countryName.equals("")||contientName.equals("")) {
+						if(countryName.equals("")||contientName.equals(""))
+						{
 					           throw new RuntimeException("empty name or continent");
 						}
-						for(Node node:graph.getGraphNodes()) {
-							if(node.isChoose()) {
+						for(Node node:graph.getGraphNodes())
+						{
+							if(node.isChoose())
+							{
 								node.setName(countryName);
 								String continentName=(String)panelForEdit.getContinents().getSelectedItem();
-								for(Continent c:graph.getContinents()) {
+								for(Continent c:graph.getContinents())
+								{
 									if(c.getName().equals(contientName)) node.setContinent(c);
 								}
 							}
@@ -219,8 +252,10 @@ public class EditorFrame extends JFrame{
 				}
 			});
 			
-			MouseAdapter mouseAdapter=new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
+			MouseAdapter mouseAdapter=new MouseAdapter()
+			{
+				public void mouseClicked(MouseEvent e)
+				{
 	    	    	x=e.getX()-15;
 	    	    	y=e.getY()-15;
 	    	    	hideUpdateMenu();
@@ -229,39 +264,50 @@ public class EditorFrame extends JFrame{
 	    	    }
 			};
 			
-			addAdjacency.addActionListener(new ActionListener() {		
+			addAdjacency.addActionListener(new ActionListener()
+			{		
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e)
+				{
 					Node node1=null;
 					Node node2=null;
-					if(e.getSource()==addAdjacency) {
-						for(Node node:graph.getGraphNodes()) {
-							if(node.isChoose()) {
+					if(e.getSource()==addAdjacency)
+					{
+						for(Node node:graph.getGraphNodes())
+						{
+							if(node.isChoose())
+							{
 								node1=node;
 							}
 						}
 						String adjaency = (String)chooseAdjacency.getSelectedItem();
-						for(Node node:graph.getGraphNodes()) {
+						for(Node node:graph.getGraphNodes())
+						{
 							if(node.getName().equals(adjaency)) node2=node;
 						}
-						if(node1!=node2) {
+						if(node1!=node2)
+						{
 							node1.getAdjacencyList().add(node2.getName());
 							node2.getAdjacencyList().add(node1.getName());
 							repaint();
 						}
-					}
-					
+					}	
 				}
 			});
 			
-			deleteButton.addActionListener(new ActionListener() {	
+			deleteButton.addActionListener(new ActionListener()
+			{	
 				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(e.getSource()==deleteButton) {
+				public void actionPerformed(ActionEvent e)
+				{
+					if(e.getSource()==deleteButton)
+					{
 						Node temp=null;
 						String countryName=panelForEdit.inputName.getText();
-						for(Node node:graph.getGraphNodes()) {
-							if(node.isChoose()) {
+						for(Node node:graph.getGraphNodes())
+						{
+							if(node.isChoose())
+							{
 								temp=node;
 							}
 						}
@@ -273,7 +319,8 @@ public class EditorFrame extends JFrame{
 							}
 						}*/
 						graph.getGraphNodes().remove(temp);
-						for(JLabel label:labelList) {
+						for(JLabel label:labelList)
+						{
 							if(label.getText().equals(countryName)) panelForEdit.remove(label);
 						}
 						hideUpdateMenu();
@@ -285,17 +332,18 @@ public class EditorFrame extends JFrame{
 			saveMap.addActionListener(new ActionListener()
 			{
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e)
+				{
 					FileController fileController=new FileController();
 					StringBuffer mapInfo = fileController.getMapInfo(graph);
 					fileController.writeFile("a.map", mapInfo.toString());
 				}
 			});
-			
 			addMouseListener(mouseAdapter);
 		}
 		
-		public void showMenu() {
+		public void showMenu()
+		{
 			inputName.setText("");
 			add(inputName);
 			add(nameLable);
@@ -306,14 +354,16 @@ public class EditorFrame extends JFrame{
 			add(addAdjacency);
 		}	
 		
-		public void showUpdateMenu() {
+		public void showUpdateMenu()
+		{
 			remove(createButton);
 			add(deleteButton);
 			add(changeButton);
 			repaint();
 		}
 		
-		public void hideUpdateMenu() {
+		public void hideUpdateMenu()
+		{
 			remove(inputName);
 			remove(nameLable);
 			remove(continents);
@@ -326,7 +376,8 @@ public class EditorFrame extends JFrame{
 		}
 		
 		
-		public void hideMenu() {
+		public void hideMenu()
+		{
 			remove(chooseAdjacency);
 			remove(inputName);
 			remove(nameLable);
