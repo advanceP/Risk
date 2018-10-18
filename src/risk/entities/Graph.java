@@ -159,13 +159,17 @@ import java.util.stream.Collectors;
 	public boolean ifContinentConquered(Continent continent)
 	{
 		List<Node>continentnodes=graph.getGraphNodes().stream().filter(item->item.getContinent().getName().equals(continent.getName())).collect(Collectors.toList());
-		List<Player>continentPlayers =null;
+		List<Player>continentPlayers =new ArrayList<Player>();
 		
 		for(int i=0;i<continentnodes.size();i++)
 		{
 			continentPlayers.add(continentnodes.get(i).getPlayer());
 		}
-		boolean allEqual = continentPlayers.stream().distinct().limit(2).count() <= 1;
+		if(continentPlayers.size()<1)
+		{
+			return false;
+		}
+		boolean allEqual = continentPlayers.stream().distinct().limit(continentPlayers.size()).count() <= 1;
 		
 		return allEqual;
 	}
