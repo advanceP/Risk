@@ -57,7 +57,7 @@ public class FileController
         StringBuffer mapInfo = new StringBuffer();
         List<Node> nodeList = graph.getGraphNodes();
         List<Continent> continentList = graph.getContinents();
-        int a = 0;
+
         StringBuffer continentsInfo = new StringBuffer();
         continentsInfo.append("[Continents]" + "\r\n");
         StringBuffer nodesInfo = new StringBuffer();
