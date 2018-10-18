@@ -38,11 +38,13 @@ public class EditorFrame extends JFrame
 		return graph.getGraphNodes();
 	}
 	
+	
 	public static EditMap getPanelForEdit()
 	{
 		return panelForEdit;
 	}
 
+	
 	public EditorFrame()  throws HeadlessException 
 	{
 		super();
@@ -51,6 +53,7 @@ public class EditorFrame extends JFrame
 		panelForEdit=new EditMap();
 		add(panelForEdit);
 	}
+	
 	
 	public void createNode()
 	{
@@ -81,16 +84,19 @@ public class EditorFrame extends JFrame
 			initial();
 		}
 		
+		
 		public JTextField getInputName()
 		{
 			return inputName;
 		}
 
+		
 		public JComboBox<String> getContinents()
 		{
 			return continents;
 		}
 
+		
 		private void initial()
 		{
 			
@@ -141,6 +147,7 @@ public class EditorFrame extends JFrame
 			}
 		}
 
+		
 		public void paint(Graphics g)
 		{
 			super.paint(g);
@@ -176,6 +183,7 @@ public class EditorFrame extends JFrame
 			}
 		}
 
+		
 		public void paintNode(Graphics g) 
 		{
 			Graphics2D g2 = (Graphics2D) g;
@@ -191,6 +199,7 @@ public class EditorFrame extends JFrame
 				labelList.add(label);
 			}
 		}
+
 		
 		public void addListener()
 		{
@@ -342,6 +351,7 @@ public class EditorFrame extends JFrame
 			addMouseListener(mouseAdapter);
 		}
 		
+		
 		public void showMenu()
 		{
 			inputName.setText("");
@@ -354,6 +364,7 @@ public class EditorFrame extends JFrame
 			add(addAdjacency);
 		}	
 		
+		
 		public void showUpdateMenu()
 		{
 			remove(createButton);
@@ -361,6 +372,7 @@ public class EditorFrame extends JFrame
 			add(changeButton);
 			repaint();
 		}
+		
 		
 		public void hideUpdateMenu()
 		{

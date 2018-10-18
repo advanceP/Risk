@@ -6,7 +6,9 @@ import java.util.List;
 /**
  *This is the node
  */
-public class Node {
+
+public class Node 
+{
 	private String name;
 	private int armies;
 	private Continent continent;
@@ -15,9 +17,13 @@ public class Node {
 	private int x;  //coordinate for graph
 	private int y;  //coordinate for graph
 	private List<String> adjacencyList=new ArrayList<>();
+	
 	private boolean choose;
 	private boolean isVisited=false;
-	public Node(String name, Continent continent, int x, int y) {
+	
+	
+	public Node(String name, Continent continent, int x, int y) 
+	{
 		super();
 		this.name = name;
 		this.continent = continent;
@@ -25,6 +31,8 @@ public class Node {
 		this.y = y;
 		this.armies=1;
 	}
+	
+	
 	public Node(String name, int x, int y, Continent continent, List<String> adjacencyList) {
 		super();
 		this.name = name;
@@ -34,78 +42,138 @@ public class Node {
 		this.adjacencyList = adjacencyList;
 		this.armies=1;
 	}
-	public Player getPlayer() {
+	
+	
+	public Player getPlayer() 
+	{
 		return player;
 	}
-	public void setPlayer(Player player) {
+	
+	
+	public void setPlayer(Player player) 
+	{
 		this.player = player;
 	}
 	
-	public String getName() {
+	
+	public String getName() 
+	{
 		return name;
 	}
-	public void setName(String name) {
+	
+	
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
-	public int getArmies() {
+	
+	
+	public int getArmies() 
+	{
 		return armies;
 	}
-	public void setArmies(int armies) {
+	
+	
+	public void setArmies(int armies) 
+	{
 		this.armies = armies;
 	}
+	
+	
 	public void increaseArmy()
 	{
 		this.armies++;
 		this.player.decreaseReinforcement();
 	}
+	
+	
 	public void increaseArmy(int armies)
 	{
 		this.armies+=armies;
 	}
-	public Continent getContinent() {
+	
+	
+	public Continent getContinent() 
+	{
 		return continent;
 	}
-	public void setContinent(Continent continent) {
+	
+	
+	public void setContinent(Continent continent) 
+	{
 		this.continent = continent;
 	}
-	public int getX() {
+	
+	
+	public int getX() 
+	{
 		return x;
 	}
-	public void setX(int x) {
+	
+	
+	public void setX(int x) 
+	{
 		this.x = x;
 	}
-	public int getY() {
+	
+	
+	public int getY() 
+	{
 		return y;
 	}
-	public void setY(int y) {
+	
+	
+	public void setY(int y) 
+	{
 		this.y = y;
 	}
+	
 
-	public List<String> getAdjacencyList() {
+	public List<String> getAdjacencyList() 
+	{
 		return adjacencyList;
 	}
-	public void setAdjacencyList(List<String> adjacencyList) {
+	
+	
+	public void setAdjacencyList(List<String> adjacencyList) 
+	{
 		this.adjacencyList = adjacencyList;
 	}
-	public boolean isChoose() {
+	
+	
+	public boolean isChoose() 
+	{
 		return choose;
 	}
-	public void setChoose(boolean choose) {
+	
+	
+	public void setChoose(boolean choose) 
+	{
 		this.choose = choose;
 	}
 	
-	public boolean isVisited() {
+	
+	public boolean isVisited() 
+	{
 		return isVisited;
 	}
 
-	public void setVisited(boolean isVisited) {
+	
+	public void setVisited(boolean isVisited) 
+	{
 		this.isVisited = isVisited;
 	}
-	public void addToAdjacency(String node){
+	
+	
+	public void addToAdjacency(String node)
+	{
 		this.adjacencyList.add(node);
 	}
+	
+	
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return name;
 	}
 	

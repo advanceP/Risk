@@ -48,6 +48,7 @@ public class RiskMainPanel extends JPanel
 		initial();	
 	}
 
+	
 	private void initial() 
 	{
 		
@@ -69,6 +70,7 @@ public class RiskMainPanel extends JPanel
 		
 	}
 
+	
 	public void start(JFrame frame)
 	{	
 
@@ -76,6 +78,7 @@ public class RiskMainPanel extends JPanel
 		
 	}
 
+	
 	public void addListenerForButtons(JFrame frame)
 	{
 		//click the button
@@ -204,7 +207,9 @@ public class RiskMainPanel extends JPanel
 		});
 	}
 
-	protected void startGame(Graph graph2) {
+	
+	protected void startGame(Graph graph2) 
+	{
 		JFrame risk=new JFrame();
 		GamePanel panel=GamePanel.getPanelInstance();
 		risk.add(panel);
@@ -213,7 +218,9 @@ public class RiskMainPanel extends JPanel
 		risk.setVisible(true);
 	}
 
-	protected void startEditing(Graph graph) {
+	
+	protected void startEditing(Graph graph) 
+	{
 		EditorFrame editorFrame=new EditorFrame();
 		editorFrame.setSize(1200, 800);
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -221,7 +228,9 @@ public class RiskMainPanel extends JPanel
 		
 	}
 
-	protected void startEditing() {
+	
+	protected void startEditing() 
+	{
 		graph.setContinents(listContinents);
 		EditorFrame editorFrame=new EditorFrame();
 		editorFrame.setSize(1200, 800);

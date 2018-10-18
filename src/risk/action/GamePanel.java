@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements ItemListener
 	private JButton fortify;
 	private JButton endPhase;
 	private static GamePanel gamePanel=null;
+	
 	public static boolean isStartPhase=true;
 	
 	
@@ -55,6 +56,8 @@ public class GamePanel extends JPanel implements ItemListener
 		addButtonListener();
 		driver=GameDriver.getGameDriverInstance();
 	}
+	
+	
 	public static GamePanel getPanelInstance()
 	{
 		if(gamePanel==null)
@@ -62,6 +65,7 @@ public class GamePanel extends JPanel implements ItemListener
 		return gamePanel;
 	}
 
+	
 	private void initial()
 	{
 		inputPlayerNumber=new JTextField();
@@ -83,6 +87,7 @@ public class GamePanel extends JPanel implements ItemListener
 		add(inputPlayerNumber);
 		add(setPlayer);	
 	}
+
 	
 	private void startPhase()
 	{
@@ -105,9 +110,11 @@ public class GamePanel extends JPanel implements ItemListener
 		paintPhaseInformation(g);
 	}
 
+	
 	private void paintPhaseInformation(Graphics g)
 	{
-		if(!GamePanel.isStartPhase) {
+		if(!GamePanel.isStartPhase)
+		{
 			Player player=driver.getReinforcementPlayer();
 			String playername=player.getName();
 			phaseText.setText(playername+" "+"Reinforcement"+" "+player.getReinforcement());
@@ -121,6 +128,8 @@ public class GamePanel extends JPanel implements ItemListener
 			}
 		}
 	}
+	
+	
 	private void paintArmies(Graphics g)
 	{
 		g.setColor(Color.WHITE);
@@ -162,6 +171,7 @@ public class GamePanel extends JPanel implements ItemListener
 			labelList.add(label);
 		}
 	}
+	
 	
 	private void paintAdjacency(Graphics g)
 	{
@@ -238,6 +248,7 @@ public class GamePanel extends JPanel implements ItemListener
 		
 	}
 	
+	
 	protected void showReinforementMenu()
 	{
 		add(phaseText);
@@ -249,6 +260,7 @@ public class GamePanel extends JPanel implements ItemListener
 		repaint();
 		
 	}
+	
 	
 	public void fortifitionPhase()
 	{
@@ -263,6 +275,7 @@ public class GamePanel extends JPanel implements ItemListener
 		repaint();
 	}
 	
+	
 	private void searchNodeByPlyaer()
 	{
 		fortifyFrom.removeAllItems();
@@ -272,6 +285,7 @@ public class GamePanel extends JPanel implements ItemListener
 			fortifyFrom.addItem(node);
 		}
 	}
+	
 	
 	@Override
 	public void itemStateChanged(ItemEvent e)
@@ -285,6 +299,7 @@ public class GamePanel extends JPanel implements ItemListener
 		}
 	}
 	
+	
 	private void getReachableNode(Node node)
 	{
 		fortifyTo.removeAllItems();
@@ -294,6 +309,8 @@ public class GamePanel extends JPanel implements ItemListener
 			fortifyTo.addItem(country);
 		}
 	}
+	
+	
 	private void getFortifyArmy(Node node)
 	{
 		fortifyArmies.removeAllItems();

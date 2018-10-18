@@ -31,10 +31,12 @@ public class CountryLabelForGame extends JLabel
 		addListener();
 	}
 
+	
 	public void addListener()
 	{
 		mouseAdapter=new MouseAdapter()
-		{		
+		{	
+			
 			public void mouseClicked(MouseEvent e)
 			{	
 				if(GamePanel.isStartPhase)

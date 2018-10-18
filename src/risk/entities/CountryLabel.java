@@ -7,24 +7,31 @@ import javax.swing.JLabel;
 
 import risk.action.EditorFrame;
 
-public class CountryLabel extends JLabel{
+public class CountryLabel extends JLabel
+{
 
-	public CountryLabel(String text) {
+	public CountryLabel(String text) 
+	{
 		super(text);
 		initial();
 	}
 	
 	
-	private void initial() {
+	private void initial() 
+	{
 		
-		MouseAdapter mouseAdapter=new MouseAdapter() {
+		MouseAdapter mouseAdapter=new MouseAdapter() 
+		{
 			
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) 
+			{
 				clearChoose();
 				CountryLabel label=(CountryLabel)e.getSource();
 				String labelName=label.getText();
-				for(Node node:EditorFrame.getCountries()) {
-					if(labelName.equals(node.getName())) {
+				for(Node node:EditorFrame.getCountries()) 
+				{
+					if(labelName.equals(node.getName())) 
+					{
 						EditorFrame.EditMap editor=EditorFrame.getPanelForEdit();
 						editor.getInputName().setText(node.getName());
 						editor.getContinents().setSelectedItem(node.getContinent().getName());
@@ -37,9 +44,12 @@ public class CountryLabel extends JLabel{
 		};
 		addMouseListener(mouseAdapter);
 	}
+
 	
-	private void clearChoose() {
-		for(Node node:EditorFrame.getCountries()) {
+	private void clearChoose() 
+	{
+		for(Node node:EditorFrame.getCountries()) 
+		{
 			node.setChoose(false);
 		}
 	}

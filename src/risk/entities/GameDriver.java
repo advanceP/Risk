@@ -9,11 +9,16 @@ import java.util.Random;
 public class GameDriver
 {
 	private static GameDriver gameDriver=null;
+	
 	Graph graph;
 	List<Player> players;
 	List<Color>staticColorList;
+	
 	int index;
-	private GameDriver() {
+	
+	
+	private GameDriver() 
+	{
 		index=0;
 		graph=Graph.getGraphInstance();
 		staticColorList=new ArrayList<Color>();
@@ -22,6 +27,8 @@ public class GameDriver
 		staticColorList.add(Color.RED);
 		staticColorList.add(Color.YELLOW);
 	}
+	
+	
 	public Player getReinforcementPlayer()
 	{
 		Player reinforcement=getCurrentPlayer();
@@ -49,6 +56,7 @@ public class GameDriver
 		//System.out.println("after:"+reinforcement.getName()+"  "+reinforcement.getReinforcement());
 		return reinforcement;
 	}
+	
 	public static GameDriver getGameDriverInstance()
 	{
 		if(gameDriver==null)
@@ -56,7 +64,8 @@ public class GameDriver
 		return gameDriver;
 	}
 	
-	public void setPlayers(int numberOfPlayers) {
+	public void setPlayers(int numberOfPlayers) 
+	{
 		if(numberOfPlayers>4)
 			throw new RuntimeException("number of players should be less than 4");
 		int colorindex=0;
@@ -100,13 +109,19 @@ public class GameDriver
 		}
 	}
 
-	public List<Player> getPlayers() {
+	
+	public List<Player> getPlayers() 
+	{
 		return players;
 	}
+	
+	
 	public Player getCurrentPlayer()
 	{
 		return players.get(index);
 	}
+	
+	
 	public void changeCurrentPlayer()
 	{
 		if(index<players.size()-1)
@@ -115,6 +130,8 @@ public class GameDriver
 			index=0;
 		}
 	}
+	
+	
 	public int getAllArmies()
 	{
 		int allarmies = 0;
@@ -124,7 +141,10 @@ public class GameDriver
 		}
 		return allarmies;
 	}
-	public void fortify(Node node1, Node node2, int armies) {
+	
+	
+	public void fortify(Node node1, Node node2, int armies) 
+	{
 		node1.setArmies(node1.getArmies()-armies);
 		node2.setArmies(node2.getArmies()+armies);
 	}

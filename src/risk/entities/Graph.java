@@ -14,37 +14,55 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-	public class Graph {
-		private static Graph graph=null;
-		List<Node> graphNodes;
-		List<Continent>continents;
+public class Graph 
+{
+	private static Graph graph=null;
+		
+	List<Node> graphNodes;
+	List<Continent>continents;
 		
 		
-	public List<Continent> getContinents() {
+	public List<Continent> getContinents() 
+	{
 			return continents;
-		}
-		public void setContinents(List<Continent> continents) {
+	}
+	
+	
+	public void setContinents(List<Continent> continents) 
+	{
 			this.continents = continents;
-		}
-	public List<Node> getGraphNodes() {
+	}
+	
+	
+	public List<Node> getGraphNodes() 
+	{
 			return graphNodes;
-		}
-		public void setGraphNodes(List<Node> graphNodes) {
+	}
+	
+	
+	public void setGraphNodes(List<Node> graphNodes) 
+	{
 			this.graphNodes = graphNodes;
-		}
-		private Graph()
-		{
+	}
+	
+	
+	private Graph()
+	{
 			this.graphNodes=new ArrayList<Node>();
 			this.continents=new ArrayList<Continent>();
-		}
-		public static Graph getGraphInstance()
-		{
+	}
+	
+	
+	public static Graph getGraphInstance()
+	{
 			if(graph==null)
 				graph=new Graph();
 			return graph;
-		}
-		public void createContinents(String fileAddress) throws FileNotFoundException
-		{
+	}
+	
+	
+	public void createContinents(String fileAddress) throws FileNotFoundException
+	{
 			List<Continent>continentlist=new ArrayList<>();
 			File file=new File(fileAddress);
 			Scanner input = new Scanner(file);
@@ -67,7 +85,9 @@ import java.util.stream.Collectors;
 			}
 			setContinents(continentlist);
 			
-		}
+	}
+	
+	
 	public void createGraph(String fileAddress) throws FileNotFoundException
 	{
 		createContinents(fileAddress);
@@ -95,19 +115,27 @@ import java.util.stream.Collectors;
 		}
 		setGraphNodes(nodeList);
 	}
+	
+	
 	public void addNode(Node node)
 	{
 		graph.graphNodes.add(node);
 	}
+	
+	
 	public void connectNodes(Node firstNode,Node secondNode)
 	{
 		firstNode.addToAdjacency(secondNode.getName());
 		secondNode.addToAdjacency(firstNode.getName());
 	}
+	
+	
 	public void addContinent(Continent continent)
 	{
 		graph.getContinents().add(continent);
 	}
+	
+	
 	public void DFS(Graph graph,Node root)
 	{
 		graph.getGraphNodes().stream().filter(item->item.getName().equals(root.getName())).findFirst().get().setVisited(true);
@@ -122,6 +150,8 @@ import java.util.stream.Collectors;
 			}
 		}
 	}
+	
+	
 	public void setGraphVisited()
 	{
 		for(Node node :Graph.getGraphInstance().getGraphNodes())
@@ -129,6 +159,8 @@ import java.util.stream.Collectors;
 			node.setVisited(true);
 		}
 	}
+	
+	
 	public void setGraphUnvisited()
 	{
 		for(Node node :Graph.getGraphInstance().getGraphNodes())
@@ -136,6 +168,8 @@ import java.util.stream.Collectors;
 			node.setVisited(false);
 		}
 	}
+	
+	
 	public boolean ifGraphVisited()
 	{
 		for(Node node :Graph.getGraphInstance().getGraphNodes())
@@ -145,6 +179,7 @@ import java.util.stream.Collectors;
 		}
 		return true;
 	}
+
 	
 	public boolean isGraphConnected()
 	{
@@ -156,6 +191,8 @@ import java.util.stream.Collectors;
 		}
 		return false;
 	}
+	
+	
 	public boolean ifContinentConquered(Continent continent)
 	{
 		List<Node>continentnodes=graph.getGraphNodes().stream().filter(item->item.getContinent().getName().equals(continent.getName())).collect(Collectors.toList());
@@ -174,6 +211,8 @@ import java.util.stream.Collectors;
 		return allEqual;
 	}
 
+	
+	
 	public List<Node>reachableNodes(Node root)
 	{
 		String playername=root.getPlayer().getName();
@@ -221,6 +260,8 @@ import java.util.stream.Collectors;
 	     reachnodes.remove(root);
 	     return reachnodes;
 	}
+	
+	
 	public void subSetDFS(List<Node>nodeList,Node root)
 	{
 		nodeList.stream().filter(item->item.getName().equals(root.getName())).findFirst().get().setVisited(true);
@@ -243,6 +284,8 @@ import java.util.stream.Collectors;
 			
 		}
 	}
+	
+	
 	public void verifyGraph()
 	{
 		if(checkContinentsNodesNumbers()==false)
@@ -272,6 +315,7 @@ import java.util.stream.Collectors;
 		}
 	}
 	
+	
 	public boolean ifSetConnected(List<Node>nodeList)
 	{
 		this.subSetDFS(nodeList, nodeList.get(0));
@@ -282,6 +326,8 @@ import java.util.stream.Collectors;
 		}
 		return false;
 	}
+	
+	
 	public boolean ifSetVisited(List<Node>nodelist)
 	{
 		for(Node node :nodelist)
@@ -291,6 +337,8 @@ import java.util.stream.Collectors;
 		}
 		return true;
 	}
+	
+	
 	public void setSetUnvisited(List<Node>nodelist)
 	{
 		for(Node node :nodelist)
@@ -298,10 +346,14 @@ import java.util.stream.Collectors;
 			node.setVisited(false);
 		}
 	}
+	
+	
 	public List<Node> getContinentNodes(Continent continent)
 	{
 		return this.graphNodes.stream().filter(item->item.getContinent().getName().equals(continent.getName())).collect(Collectors.toList());
 	}
+	
+	
 	public boolean checkContinentsNodesNumbers()
 	{
 		int numberofcontinents=this.getContinents().size();

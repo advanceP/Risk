@@ -13,7 +13,7 @@ public class RiskGame
 	public static void main(String[] args) 
 	{
 		JFrame frame=new JFrame("Risk");
-		RiskMainPanel mainPanel=new RiskMainPanel(); //initional map
+		RiskMainPanel mainPanel=new RiskMainPanel(); //initialize map
 		
 		frame.add(mainPanel);
 		frame.setSize(1000, 700);
