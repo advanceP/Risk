@@ -23,7 +23,10 @@ import risk.entities.GameDriver;
 import risk.entities.Graph;
 import risk.entities.Node;
 import risk.entities.Player;
-
+/**
+ * This is also is a panel for user play the game 
+ * @author Hao CHEN
+ */
 public class GamePanel extends JPanel implements ItemListener
 {
 	
@@ -45,7 +48,10 @@ public class GamePanel extends JPanel implements ItemListener
 	public static boolean isStartPhase=true;
 	
 	
-	
+	/**
+	 * constructor <br/>
+	 * using freelayout
+	 */
 	private  GamePanel()
 	{
 		super();
@@ -57,7 +63,10 @@ public class GamePanel extends JPanel implements ItemListener
 		driver=GameDriver.getGameDriverInstance();
 	}
 	
-	
+	/**
+	 * this using singleton to get the instance for GamePanel class
+	 * @return gamePanel instance for GamePanel
+	 */
 	public static GamePanel getPanelInstance()
 	{
 		if(gamePanel==null)
@@ -65,7 +74,9 @@ public class GamePanel extends JPanel implements ItemListener
 		return gamePanel;
 	}
 
-	
+	/**
+	 * add some button the create the button
+	 */
 	private void initial()
 	{
 		inputPlayerNumber=new JTextField();
@@ -88,7 +99,9 @@ public class GamePanel extends JPanel implements ItemListener
 		add(setPlayer);	
 	}
 
-	
+	/**
+	 * let the game going to start phase,change some menu
+	 */
 	private void startPhase()
 	{
 		add(phaseText);
@@ -97,7 +110,9 @@ public class GamePanel extends JPanel implements ItemListener
 		repaint();
 	}
 
-
+	/**
+	 * paint something on the panel
+	 */
 	@Override
 	public void paint(Graphics g)
 	{
@@ -110,7 +125,9 @@ public class GamePanel extends JPanel implements ItemListener
 		paintPhaseInformation(g);
 	}
 
-	
+	/**
+	 * show the phase on the text
+	 */
 	private void paintPhaseInformation(Graphics g)
 	{
 		if(!GamePanel.isStartPhase)
@@ -129,7 +146,9 @@ public class GamePanel extends JPanel implements ItemListener
 		}
 	}
 	
-	
+	/**
+	 * show the armies for each node
+	 */
 	private void paintArmies(Graphics g)
 	{
 		g.setColor(Color.WHITE);
@@ -138,7 +157,9 @@ public class GamePanel extends JPanel implements ItemListener
 		}
 	}
 
-
+	/**
+	 * show players on the panel
+	 */
 	private void paintPlayer(Graphics g)
 	{
 		List<Player> players=driver.getPlayers();
@@ -156,7 +177,9 @@ public class GamePanel extends JPanel implements ItemListener
 		}	
 	}
 
-
+	/**
+	 * show countries on the node
+	 */
 	private void paintNode(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
@@ -172,7 +195,9 @@ public class GamePanel extends JPanel implements ItemListener
 		}
 	}
 	
-	
+	/**
+	 * draw lines for adjacency country
+	 */
 	private void paintAdjacency(Graphics g)
 	{
 		if(!graph.getGraphNodes().isEmpty())
@@ -199,7 +224,9 @@ public class GamePanel extends JPanel implements ItemListener
 		}
 	}
 	
-	
+	/**
+	 * add buttons for buttons
+	 */
 	private void addButtonListener()
 	{
 		setPlayer.addActionListener(new ActionListener()
@@ -248,7 +275,9 @@ public class GamePanel extends JPanel implements ItemListener
 		
 	}
 	
-	
+	/**
+	 * when in the repforement,show which palyer and what phase  and how many armies on the text
+	 */
 	protected void showReinforementMenu()
 	{
 		add(phaseText);
@@ -261,7 +290,9 @@ public class GamePanel extends JPanel implements ItemListener
 		
 	}
 	
-	
+	/**
+	 * going to fortifitionPhase in the menu
+	 */
 	public void fortifitionPhase()
 	{
 		remove(phaseText);

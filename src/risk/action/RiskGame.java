@@ -6,10 +6,17 @@ package risk.action;
  */
 
 import javax.swing.JFrame;
-
+/**
+ * This is where game start,main methods is here
+ * @author Hao Chen
+ *
+ */
 public class RiskGame 
 {
-	
+	/**
+	 *this method is create a frame for UI,and add a panel to the frame,add start the menu
+	 * @param args
+	 */
 	public static void main(String[] args) 
 	{
 		JFrame frame=new JFrame("Risk");

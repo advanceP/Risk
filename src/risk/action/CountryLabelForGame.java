@@ -12,7 +12,10 @@ import risk.entities.GameDriver;
 import risk.entities.Graph;
 import risk.entities.Node;
 import risk.entities.Player;
-
+/**
+ * this show the label display the country's name on UI,and it will react by click the label
+ * @author Hao Chen
+ */
 public class CountryLabelForGame extends JLabel
 {
 	
@@ -22,6 +25,11 @@ public class CountryLabelForGame extends JLabel
 	private MouseAdapter mouseAdapter;
 	private MouseAdapter mouseAdapterForPhase;
 	
+	/**
+	 * constructor<br/>
+	 * initialise the member in this class
+	 * @param text this will give the country name for 
+	 */
 	public CountryLabelForGame(String text)
 	{
 		super(text);
@@ -31,7 +39,9 @@ public class CountryLabelForGame extends JLabel
 		addListener();
 	}
 
-	
+	/**
+	 * give the button some reaction,for startup phase, reinforcement and switch to fortify phase
+	 */
 	public void addListener()
 	{
 		mouseAdapter=new MouseAdapter()

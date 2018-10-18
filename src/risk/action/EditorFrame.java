@@ -24,7 +24,11 @@ import risk.entities.Continent;
 import risk.entities.CountryLabel;
 import risk.entities.Graph;
 import risk.entities.Node;
-
+/**
+ * this frame is for editing or creating a map,it has a inner class implement jpanel
+ * @author Hao Chen
+ *
+ */
 public class EditorFrame extends JFrame
 {
 	private static EditMap panelForEdit;
@@ -32,19 +36,28 @@ public class EditorFrame extends JFrame
 	private int y;
 	private List<JLabel> labelList;
 	private static Graph graph;
-
+	/**
+	 * To get countries from graph
+	 * @return countres in the graph
+	 */
 	public static List<Node> getCountries()
 	{
 		return graph.getGraphNodes();
 	}
 	
-	
+	/**
+	 * @return return the panel for editor
+	 */
 	public static EditMap getPanelForEdit()
 	{
 		return panelForEdit;
 	}
 
-	
+	/**
+	 * constructor<br/>
+	 * initialise the class member and put panel in frame
+	 * @throws HeadlessException
+	 */
 	public EditorFrame()  throws HeadlessException 
 	{
 		super();
@@ -54,14 +67,18 @@ public class EditorFrame extends JFrame
 		add(panelForEdit);
 	}
 	
-	
+	/**
+	 * this is for showing a menu when user click a blank space
+	 */
 	public void createNode()
 	{
 		panelForEdit.showMenu();
 		panelForEdit.repaint();
 	}
 	
-
+	/**
+	 * inner class,extends from jpanel as  a panel,it is a UI for editing
+	 */
 	public class EditMap extends JPanel
 	{
 		
@@ -84,19 +101,27 @@ public class EditorFrame extends JFrame
 			initial();
 		}
 		
-		
+		/**
+		 * get input name from the textField
+		 * @return inputName is the name for choosen country 
+		 */
 		public JTextField getInputName()
 		{
 			return inputName;
 		}
 
-		
+		/**
+		 * get continents from the droplist
+		 * @return continents name
+		 */
 		public JComboBox<String> getContinents()
 		{
 			return continents;
 		}
 
-		
+		/**
+		 * initialise some components in the panel 
+		 */
 		private void initial()
 		{
 			
@@ -135,7 +160,9 @@ public class EditorFrame extends JFrame
 			addListener();
 		}
 
-
+		/**
+		 * this method will search the country in the fraph and add them in the droplist for user to choose
+		 */
 		public void searchForAllCountries()
 		{
 			if(graph.getGraphNodes()!=null)
@@ -147,7 +174,9 @@ public class EditorFrame extends JFrame
 			}
 		}
 
-		
+		/**
+		 * paint country,line in the panel
+		 */
 		public void paint(Graphics g)
 		{
 			super.paint(g);
@@ -156,7 +185,10 @@ public class EditorFrame extends JFrame
 			paintAdjacency(g);
 		}
 		
-		
+		/**
+		 * paint a line for adjacence country
+		 * @param g is a type of Graphics,it paint something
+		 */
 		private void paintAdjacency(Graphics g) 
 		{
 			if(!graph.getGraphNodes().isEmpty())
@@ -183,7 +215,10 @@ public class EditorFrame extends JFrame
 			}
 		}
 
-		
+		/**
+		 * paint country as a oval
+		 * @param g
+		 */
 		public void paintNode(Graphics g) 
 		{
 			Graphics2D g2 = (Graphics2D) g;
@@ -200,7 +235,9 @@ public class EditorFrame extends JFrame
 			}
 		}
 
-		
+		/**
+		 * add Listener to buttons
+		 */
 		public void addListener()
 		{
 			createButton.addActionListener(new ActionListener() 
@@ -351,7 +388,9 @@ public class EditorFrame extends JFrame
 			addMouseListener(mouseAdapter);
 		}
 		
-		
+		/**
+		 * show the create country Menu(the some components visible) 
+		 */
 		public void showMenu()
 		{
 			inputName.setText("");
@@ -364,7 +403,9 @@ public class EditorFrame extends JFrame
 			add(addAdjacency);
 		}	
 		
-		
+		/**
+		 * if user want to chang the name or continent about the coutry,it will show this menu
+		 */
 		public void showUpdateMenu()
 		{
 			remove(createButton);
@@ -373,7 +414,9 @@ public class EditorFrame extends JFrame
 			repaint();
 		}
 		
-		
+		/**
+		 * if user doesn't want change,the updated menu will hide
+		 */
 		public void hideUpdateMenu()
 		{
 			remove(inputName);
@@ -387,7 +430,9 @@ public class EditorFrame extends JFrame
 			repaint();
 		}
 		
-		
+		/**
+		 * hide menu
+		 */
 		public void hideMenu()
 		{
 			remove(chooseAdjacency);

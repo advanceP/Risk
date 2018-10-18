@@ -1,5 +1,6 @@
 package risk.entities;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -366,6 +367,25 @@ public class Graph
 			return true;
 		
 		return false;
+	}
+	/**
+	 * in the initial phase,give every continent a color
+	 */
+	public void getColorTOContinent()
+	{
+		ArrayList<Color> colors=new ArrayList<>();
+		colors.add(Color.BLACK);
+		colors.add(Color.cyan);
+		colors.add(Color.DARK_GRAY);
+		colors.add(Color.GRAY);
+		colors.add(Color.MAGENTA);
+		colors.add(Color.PINK);
+		colors.add(Color.ORANGE);
+		colors.add(Color.LIGHT_GRAY);
+		for(int i=0;i<graph.getContinents().size();i++)
+		{
+			graph.getContinents().get(i).setColor(colors.get(i));
+		}
 	}
 }
 

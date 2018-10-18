@@ -71,9 +71,20 @@ public class Continent
 		this.color=decode;
 	}
 	
-	public Color getColor() 
-	{
+	
+	/**
+	 * 
+	 * @param color to give the continents a color
+ 	 */
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
 		return color;
 	}
+	
+
+	
 	
 }

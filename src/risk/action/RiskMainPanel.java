@@ -24,10 +24,9 @@ import risk.entities.Continent;
 import risk.entities.Graph;
 
 /**
- * 
- * @author Admin
- * This is the panel for map editor
- *
+ * This is the panel for map editor<br/>
+ * using free layout for the whole project
+ * @author Hao Chen
  */
 public class RiskMainPanel extends JPanel
 {
@@ -40,7 +39,10 @@ public class RiskMainPanel extends JPanel
 	private JTextField continentInformation;
 	private List<Continent> listContinents;
 	private Graph graph;
-	
+	/**
+	 * overwrite the constructor<br/>
+	 * use free layout for the whole project
+	 */
 	public RiskMainPanel()
 	{
 		super();
@@ -48,7 +50,9 @@ public class RiskMainPanel extends JPanel
 		initial();	
 	}
 
-	
+	/**
+	 * initialise some buttons,and show them on the menu
+	 */
 	private void initial() 
 	{
 		
@@ -70,7 +74,10 @@ public class RiskMainPanel extends JPanel
 		
 	}
 
-	
+	/**
+	 * This is for start the game
+	 * @param frame we need to use this frame in the later method
+	 */
 	public void start(JFrame frame)
 	{	
 
@@ -78,7 +85,10 @@ public class RiskMainPanel extends JPanel
 		
 	}
 
-	
+	/**
+	 * give listener to buttons to mointor them if its be cliecked
+	 * @param frame
+	 */
 	public void addListenerForButtons(JFrame frame)
 	{
 		//click the button
@@ -207,7 +217,10 @@ public class RiskMainPanel extends JPanel
 		});
 	}
 
-	
+	/**
+	 * this is a for start to play the game,to create a new frame for game 
+	 * @param graph2
+	 */
 	protected void startGame(Graph graph2) 
 	{
 		JFrame risk=new JFrame();
@@ -218,7 +231,10 @@ public class RiskMainPanel extends JPanel
 		risk.setVisible(true);
 	}
 
-	
+	/**
+	 * This method is to create a map from empty
+	 * @param graph
+	 */
 	protected void startEditing(Graph graph) 
 	{
 		EditorFrame editorFrame=new EditorFrame();
@@ -228,7 +244,9 @@ public class RiskMainPanel extends JPanel
 		
 	}
 
-	
+	/**
+	 * this methos is editing map from a existing file
+	 */
 	protected void startEditing() 
 	{
 		graph.setContinents(listContinents);
