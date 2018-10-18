@@ -6,6 +6,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * this class controls the flow of the game based on the risk game rules, this class uses singleton design pattern
+ * it has following data memebers:
+ * <ul>
+ * <li> graph
+ * <li> players
+ * <li>staticColorList colors of the players
+ * <li>gameDriver a dataType of GameDriver class
+ * <li>index contains the index of current player in round robin fashion
+ * </ul>
+ * @author Farid Omarzadeh
+ *
+ */
 public class GameDriver
 {
 	private static GameDriver gameDriver=null;
@@ -17,6 +30,9 @@ public class GameDriver
 	int index;
 	
 	
+	/**
+	 * Constructor , initialize the graph,index,staticColorList
+	 */
 	private GameDriver() 
 	{
 		index=0;
@@ -29,6 +45,11 @@ public class GameDriver
 	}
 	
 	
+	/**
+	 * this method calculate the amount of armies each player receives based on the number of countries they own
+	 *  and continents they conquered
+	 * @return Player that will be used in reinforcement phase
+	 */
 	public Player getReinforcementPlayer()
 	{
 		Player reinforcement=getCurrentPlayer();
@@ -53,10 +74,14 @@ public class GameDriver
 		}
 			
 		reinforcement.increaseReinforcement(additionalreinforcement);
-		//System.out.println("after:"+reinforcement.getName()+"  "+reinforcement.getReinforcement());
 		return reinforcement;
 	}
 	
+	/**
+	 * this method returns an instance of the GameDriver class, if the instance is null the object will be newed,
+	 *  otherwise it will return the already existing instance of the class.
+	 * @return gameDriver an instance of the class's dataType
+	 */
 	public static GameDriver getGameDriverInstance()
 	{
 		if(gameDriver==null)
@@ -64,6 +89,10 @@ public class GameDriver
 		return gameDriver;
 	}
 	
+	/**
+	 * this method create players for the game ,randomly assign countries to them, and initialize number of armies for them.
+	 * @param numberOfPlayers number of players.
+	 */
 	public void setPlayers(int numberOfPlayers) 
 	{
 		if(numberOfPlayers>4)
@@ -110,18 +139,29 @@ public class GameDriver
 	}
 
 	
+	/**
+	 * get method for players
+	 * @return List of the Game's players
+	 */
 	public List<Player> getPlayers() 
 	{
 		return players;
 	}
 	
 	
+	/**
+	 * this method returns the current player who is going to play
+	 * @return Player that is going to play
+	 */
 	public Player getCurrentPlayer()
 	{
 		return players.get(index);
 	}
 	
 	
+	/**
+	 * this method changes the current player in a round robin fashion
+	 */
 	public void changeCurrentPlayer()
 	{
 		if(index<players.size()-1)
@@ -132,6 +172,10 @@ public class GameDriver
 	}
 	
 	
+	/**
+	 * this method returns the sum of the all armies that each player has
+	 * @return integer number of armies
+	 */
 	public int getAllArmies()
 	{
 		int allarmies = 0;
@@ -143,6 +187,12 @@ public class GameDriver
 	}
 	
 	
+	/**
+	 * this method is being used in fortification phase it transfer armies from one country to another.
+	 * @param node1 the country whose armies will be moved
+	 * @param node2 the country who will receive armies
+	 * @param armies number of armies that will be transfered
+	 */
 	public void fortify(Node node1, Node node2, int armies) 
 	{
 		node1.setArmies(node1.getArmies()-armies);
