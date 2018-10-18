@@ -221,5 +221,99 @@ import java.util.stream.Collectors;
 	     reachnodes.remove(root);
 	     return reachnodes;
 	}
+	public void subSetDFS(List<Node>nodeList,Node root)
+	{
+		nodeList.stream().filter(item->item.getName().equals(root.getName())).findFirst().get().setVisited(true);
+		Iterator<String> i=root.getAdjacencyList().listIterator();
+		while(i.hasNext())
+		{
+			String name=i.next();
+			Node src=null;
+			if(nodeList.stream().filter(item->item.getName().equals(name)).findAny().isPresent())
+			{
+				src=nodeList.stream().filter(item->item.getName().equals(name)).findAny().get();
+			}
+			if(src!=null)
+			{
+				if(src.isVisited()==false)
+				{
+					subSetDFS(nodeList,src);
+				}
+			}
+			
+		}
+	}
+	public void verifyGraph()
+	{
+		if(checkContinentsNodesNumbers()==false)
+		{
+			this.setGraphNodes(null);
+			throw new RuntimeException("Numbers of Continents,Countries are not correct. Potential Reason:the Number of Continents is bigger than the Number of Countries,try again");
+		}
+		
+		if(isGraphConnected()==false)
+		{
+			this.setGraphNodes(null);
+			throw new RuntimeException("the Graph is not connected,try again");
+		}
+		for(int i=0;i<this.getContinents().size();i++)
+		{
+			List<Node> continentnodes=getContinentNodes(this.getContinents().get(i));
+			if(ifSetConnected(continentnodes)==false)
+			{
+				this.setGraphNodes(null);
+				throw new RuntimeException("the Continent:"+this.getContinents().get(i).getName()+" is not connected,try again");
+			}
+		}
+		if(checkContinentsNodesNumbers()==false)
+		{
+			this.setGraphNodes(null);
+			throw new RuntimeException("the Number of Continents is bigger than the Number of Countries,try again");
+		}
+	}
+	
+	public boolean ifSetConnected(List<Node>nodeList)
+	{
+		this.subSetDFS(nodeList, nodeList.get(0));
+		if(ifSetVisited(nodeList))
+		{
+			setSetUnvisited(nodeList);
+			return true;
+		}
+		return false;
+	}
+	public boolean ifSetVisited(List<Node>nodelist)
+	{
+		for(Node node :nodelist)
+		{
+			if(node.isVisited()==false)
+				return false;
+		}
+		return true;
+	}
+	public void setSetUnvisited(List<Node>nodelist)
+	{
+		for(Node node :nodelist)
+		{
+			node.setVisited(false);
+		}
+	}
+	public List<Node> getContinentNodes(Continent continent)
+	{
+		return this.graphNodes.stream().filter(item->item.getContinent().getName().equals(continent.getName())).collect(Collectors.toList());
+	}
+	public boolean checkContinentsNodesNumbers()
+	{
+		int numberofcontinents=this.getContinents().size();
+		int numberofnodes=this.getGraphNodes().size();
+		if(numberofcontinents<1)
+			return false;
+		if(numberofnodes<2)
+			return false;
+		if(numberofnodes>=numberofcontinents)
+			return true;
+		
+		return false;
+	}
 }
 
