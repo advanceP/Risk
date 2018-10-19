@@ -171,6 +171,10 @@ public class FileController
                 if (contFlag)
                 {
                     String continent[] = line.split("=");
+                    if (continent.length > 2){
+                        return false;
+                    }
+                    Integer num = Integer.parseInt(continent[1]);
                     continentList.put(continent[0].replace(" ",""), 0);
                 }
 
