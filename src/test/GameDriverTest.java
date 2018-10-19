@@ -1,11 +1,12 @@
 package test;
 
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertSame;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +14,6 @@ import org.junit.Test;
 
 import risk.entities.GameDriver;
 import risk.entities.Graph;
-import risk.entities.Player;
 
 public class GameDriverTest {
 	GameDriver driver;
@@ -57,6 +57,7 @@ public class GameDriverTest {
 		driver.getCurrentPlayer().setState("StartUp");
 		assertSame(expectedvalue, driver.getReinforcementPlayer().getReinforcement());
 	}
+	
 	@After public void after()
 	{
 		Graph.getGraphInstance().setGraphNodes(null);
