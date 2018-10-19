@@ -146,6 +146,7 @@ public class FileController
             String line;
             boolean contFlag = false;
             boolean nodeFlag = false;
+            boolean notNode = false;
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             line = reader.readLine();
             while (line != null)
@@ -158,6 +159,7 @@ public class FileController
                 if (line.equals("[Continents]"))
                 {
                     contFlag = true;
+                    notNode=true;
                     line = reader.readLine();
                 }
                 if (line.equals("[Territories]"))
@@ -210,6 +212,8 @@ public class FileController
             {
                 return false;
             }
+            if(notNode==false || nodeFlag==false)
+            	return false;
 
         }
         

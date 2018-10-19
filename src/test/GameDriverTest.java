@@ -27,7 +27,7 @@ public class GameDriverTest {
 	}
 	@Test public void testReinforcementWithNoConqueredContinents()
 	{
-		firstFileName="a.map";
+		firstFileName="src/test/a.map";
 		graph=Graph.getGraphInstance();
 		try {
 			graph.createGraph(firstFileName);
@@ -43,7 +43,7 @@ public class GameDriverTest {
 	}
 	@Test public void testReinforcementWithConqueredContinents()
 	{
-		secondFileName="c.map";
+		secondFileName="src/test/c.map";
 		graph=Graph.getGraphInstance();
 		try {
 			graph.createGraph(secondFileName);
@@ -56,6 +56,40 @@ public class GameDriverTest {
 		driver.setPlayers(2);
 		driver.getCurrentPlayer().setState("StartUp");
 		assertSame(expectedvalue, driver.getReinforcementPlayer().getReinforcement());
+	}
+	
+	@Test public void testInitialArmy()
+	{
+
+		firstFileName="src/test/a.map";
+		graph=Graph.getGraphInstance();
+		try {
+			graph.createGraph(firstFileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver =GameDriver.getGameDriverInstance();
+		int expectedvalue=4;
+		driver.setPlayers(2);
+		driver.getCurrentPlayer().setState("StartUp");
+		assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
+	}
+	@Test public void testGetAllArmy()
+	{
+		firstFileName="src/test/a.map";
+		graph=Graph.getGraphInstance();
+		try {
+			graph.createGraph(firstFileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver =GameDriver.getGameDriverInstance();
+		int expectedvalue=8;
+		driver.setPlayers(2);
+		driver.getCurrentPlayer().setState("StartUp");
+		assertSame(expectedvalue, driver.getAllArmies());
 	}
 	
 	@After public void after()

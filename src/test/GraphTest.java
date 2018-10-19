@@ -19,8 +19,8 @@ public class GraphTest {
 	@Before public void before()
 	{
 		graph=Graph.getGraphInstance();
-		invalidMap="b.map";
-		validMap="a.map";
+		invalidMap="src/test/d.map";
+		validMap="src/test/a.map";
 	}
 	@Test public void testUnValidVerify()
 	{
