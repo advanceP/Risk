@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
-
 import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
 
 import risk.entities.CountryLabel;
