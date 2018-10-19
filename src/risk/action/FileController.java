@@ -41,6 +41,48 @@ public class FileController
         {
             System.out.print("fail to write a file !");
         }
+        RandomAccessFile f = null;
+		try {
+			f = new RandomAccessFile(filePath, "rw");
+		} catch (FileNotFoundException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+        long length = 0;
+		try {
+			length = f.length() - 1;
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+        byte b=0;
+        do {                     
+          length -= 1;
+          try {
+			f.seek(length);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+          try {
+			b = f.readByte();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        }while(b != 10);
+        try {
+			f.setLength(length+1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			f.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return flag;
     }
 

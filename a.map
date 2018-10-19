@@ -1,9 +1,9 @@
 [Continents]
 a=5
-b=6
+b=2
 
 [Territories]
-abc,800,218,a,adcd,efg
-adcd,442,163,a,abc,hij
-efg,758,403,b,abc
-hij,688,455,b,adcd
+india,285,247,a,china
+china,632,244,a,uk,india
+uk,568,473,b,usa,china
+usa,709,497,b,uk
