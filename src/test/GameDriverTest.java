@@ -1,4 +1,4 @@
-package test.gameplayer;
+package test;
 
 
 import static org.junit.Assert.assertEquals;
@@ -12,14 +12,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< HEAD:src/test/gameplayer/GameDriverTest.java
-import risk.editormodule.Graph;
-import risk.gameplayermodule.GameDriver;
-=======
 import risk.gamePlayer.GameDriver;
 import risk.mapEditor.Graph;
 
->>>>>>> 860504d7c634ade95729dc567bec6a957fe7a872:src/test/GameDriverTest.java
 
 public class GameDriverTest {
 	GameDriver driver;

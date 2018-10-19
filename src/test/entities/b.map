@@ -1,8 +1,0 @@
-[Continents]
-a=5
-b=6
-
-[Territories]
-india,392,185,a,china
-china,691,261,b,india
-

@@ -1,6 +1,5 @@
 package risk.main;
 
-import risk.editormodule.Graph;
 import risk.entities.Continent;
 import risk.entities.Node;
 import risk.mapEditor.Graph;

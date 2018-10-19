@@ -1,8 +1,0 @@
-[Continents]
-aaa==2
-bbb=1
-
-[Territories]
-a,300,400,aaa,a1,b1
-a1,304,405,aaa,b1,a
-b1,400,450,bbb,a,a1

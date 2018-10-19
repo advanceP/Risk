@@ -6,11 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-<<<<<<< HEAD
-import risk.editormodule.Graph;
-=======
 import risk.mapEditor.Graph;
->>>>>>> 860504d7c634ade95729dc567bec6a957fe7a872
 
 /**
  * this class represent the player of the Game it contains :

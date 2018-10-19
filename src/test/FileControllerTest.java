@@ -1,4 +1,4 @@
-package test.gameplayer;
+package test;
 
 import org.junit.Test;
 
