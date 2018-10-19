@@ -225,6 +225,7 @@ public class RiskMainPanel extends JPanel
 	{
 		JFrame risk=new JFrame();
 		GamePanel panel=GamePanel.getPanelInstance();
+		graph.getColorTOContinent();
 		risk.add(panel);
 		risk.setSize(1400,1000);
 		//risk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -238,6 +239,7 @@ public class RiskMainPanel extends JPanel
 	protected void startEditing(Graph graph) 
 	{
 		EditorFrame editorFrame=new EditorFrame();
+		graph.getColorTOContinent();
 		editorFrame.setSize(1200, 800);
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		editorFrame.setVisible(true);
@@ -250,6 +252,7 @@ public class RiskMainPanel extends JPanel
 	protected void startEditing() 
 	{
 		graph.setContinents(listContinents);
+		graph.getColorTOContinent();
 		EditorFrame editorFrame=new EditorFrame();
 		editorFrame.setSize(1200, 800);
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

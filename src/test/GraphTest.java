@@ -42,5 +42,25 @@ public class GraphTest {
 		}
 		assertTrue(graph.verifyGraph());
 	}
+	
+	@Test public void testIsGraphConnected()
+	{
+		try {
+			graph.createGraph(validMap);
+			assertTrue(graph.isGraphConnected());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test public void testIsGraphVisited()
+	{
+		try {
+			graph.createGraph(validMap);
+			assertTrue(graph.ifGraphVisited());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
