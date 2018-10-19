@@ -88,7 +88,6 @@ public class GameDriverTest {
 		driver =GameDriver.getGameDriverInstance();
 		int expectedvalue=8;
 		driver.setPlayers(2);
-		driver.getCurrentPlayer().setState("StartUp");
 		assertSame(expectedvalue, driver.getAllArmies());
 	}
 	
