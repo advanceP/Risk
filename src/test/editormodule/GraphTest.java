@@ -1,4 +1,4 @@
-package test;
+package test.editormodule;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,8 +9,12 @@ import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
+<<<<<<< HEAD:src/test/editormodule/GraphTest.java
+import risk.editormodule.Graph;
+=======
 import risk.mapEditor.Graph;
 
+>>>>>>> 860504d7c634ade95729dc567bec6a957fe7a872:src/test/GraphTest.java
 
 public class GraphTest {
 	Graph graph;

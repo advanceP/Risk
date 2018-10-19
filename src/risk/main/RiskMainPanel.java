@@ -20,10 +20,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import risk.editormodule.Graph;
+import risk.editorui.EditorFrame;
 import risk.entities.Continent;
+<<<<<<< HEAD:src/risk/main/RiskMainPanel.java
+import risk.gameplayerui.GamePanel;
+=======
 import risk.gamePlayerUI.GamePanel;
 import risk.mapEditor.Graph;
 import risk.mapEditorUI.EditorFrame;
+>>>>>>> 860504d7c634ade95729dc567bec6a957fe7a872:src/risk/main/RiskMainPanel.java
 
 /**
  * This is the panel for map editor<br/>
