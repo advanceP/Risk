@@ -1,4 +1,4 @@
-package risk.action;
+package risk.gamePlayerUI;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,11 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import risk.entities.CountryLabel;
-import risk.entities.GameDriver;
-import risk.entities.Graph;
 import risk.entities.Node;
 import risk.entities.Player;
+import risk.gamePlayer.GameDriver;
+import risk.mapEditor.Graph;
 /**
  * This is also is a panel for user play the game 
  * @author Hao CHEN

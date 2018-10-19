@@ -1,4 +1,4 @@
-package risk.action;
+package risk.gamePlayerUI;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -6,11 +6,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
 
-import risk.entities.CountryLabel;
-import risk.entities.GameDriver;
-import risk.entities.Graph;
 import risk.entities.Node;
 import risk.entities.Player;
+import risk.gamePlayer.GameDriver;
+import risk.mapEditor.Graph;
 /**
  * this show the label display the country's name on UI,and it will react by click the label
  * @author Hao Chen

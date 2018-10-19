@@ -1,4 +1,4 @@
-package risk.entities;
+package risk.mapEditor;
 
 import java.awt.Color;
 import java.io.File;
@@ -15,7 +15,10 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import risk.action.FileController;
+import risk.entities.Continent;
+import risk.entities.Node;
+import risk.entities.Player;
+
 
 /**
  * this class holds the graph for the game, this class implements sigleton design pattern.

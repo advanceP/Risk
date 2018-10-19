@@ -1,4 +1,4 @@
-package risk.action;
+package risk.main;
 /**
  * 
  * @author Admin

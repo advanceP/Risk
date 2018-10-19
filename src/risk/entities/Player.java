@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import risk.mapEditor.Graph;
+
 /**
  * this class represent the player of the Game it contains :
  * <ul>

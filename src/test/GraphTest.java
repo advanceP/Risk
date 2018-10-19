@@ -9,7 +9,8 @@ import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.entities.Graph;
+import risk.mapEditor.Graph;
+
 
 public class GraphTest {
 	Graph graph;
@@ -57,6 +58,7 @@ public class GraphTest {
 	{
 		try {
 			graph.createGraph(validMap);
+			graph.setGraphVisited();
 			assertTrue(graph.ifGraphVisited());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

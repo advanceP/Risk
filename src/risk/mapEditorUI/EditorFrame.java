@@ -1,4 +1,4 @@
-package risk.action;
+package risk.mapEditorUI;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,11 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import risk.action.EditorFrame.EditMap;
 import risk.entities.Continent;
-import risk.entities.CountryLabel;
-import risk.entities.Graph;
 import risk.entities.Node;
+import risk.main.FileController;
+import risk.mapEditor.Graph;
 /**
  * this frame is for editing or creating a map,it has a inner class implement jpanel
  * @author Hao Chen

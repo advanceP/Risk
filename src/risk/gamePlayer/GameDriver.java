@@ -1,10 +1,14 @@
-package risk.entities;
+package risk.gamePlayer;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import risk.entities.Node;
+import risk.entities.Player;
+import risk.mapEditor.Graph;
 
 /**
  * this class controls the flow of the game based on the risk game rules, this class uses singleton design pattern

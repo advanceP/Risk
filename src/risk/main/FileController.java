@@ -1,8 +1,8 @@
-package risk.action;
+package risk.main;
 
 import risk.entities.Continent;
-import risk.entities.Graph;
 import risk.entities.Node;
+import risk.mapEditor.Graph;
 
 import java.io.*;
 import java.util.*;

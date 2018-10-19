@@ -1,4 +1,4 @@
-package risk.action;
+package risk.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,7 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import risk.entities.Continent;
-import risk.entities.Graph;
+import risk.gamePlayerUI.GamePanel;
+import risk.mapEditor.Graph;
+import risk.mapEditorUI.EditorFrame;
 
 /**
  * This is the panel for map editor<br/>

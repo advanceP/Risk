@@ -1,11 +1,11 @@
-package risk.entities;
+package risk.mapEditorUI;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
-import risk.action.EditorFrame;
+import risk.entities.Node;
 
 public class CountryLabel extends JLabel
 {

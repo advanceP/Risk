@@ -1,7 +1,8 @@
 package test;
 
 import org.junit.Test;
-import risk.action.FileController;
+
+import risk.main.FileController;
 
 import java.io.File;
 
