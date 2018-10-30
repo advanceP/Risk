@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.gamePlayer.GameDriver;
-import risk.mapEditor.Graph;
+import risk.controller.GameDriver;
+import risk.model.Graph;
 
 
 public class PlayerTest {

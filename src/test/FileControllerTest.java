@@ -2,9 +2,7 @@ package test;
 
 import org.junit.Test;
 
-import risk.main.FileController;
-
-import java.io.File;
+import risk.controller.FileController;
 
 import static org.junit.Assert.*;
 
