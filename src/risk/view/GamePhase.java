@@ -1,6 +1,6 @@
 package risk.view;
 
-import risk.controller.GameDriver;
+import risk.model.GameDriver;
 import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;

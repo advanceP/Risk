@@ -1,13 +1,10 @@
-package risk.controller;
-
-import risk.model.Node;
-import risk.model.Player;
-import risk.model.Graph;
+package risk.model;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
 import java.util.Random;
 
 /**
@@ -23,15 +20,15 @@ import java.util.Random;
  * @author Farid Omarzadeh
  *
  */
-public class GameDriver
+public class GameDriver extends Observable
 {
 	private static GameDriver gameDriver=null;
 	
 	Graph graph;
 	List<Player> players;
 	List<Color>staticColorList;
-	
 	int index;
+	
 	
 	
 	/**
@@ -57,7 +54,6 @@ public class GameDriver
 	public Player getReinforcementPlayer()
 	{
 		Player reinforcement=getCurrentPlayer();
-	//	System.out.println("from begining:"+reinforcement.getName()+"  "+reinforcement.getReinforcement());
 		if(reinforcement.getState().equals("StartUp"))
 			reinforcement.setReinforcement(0);
 		if(reinforcement.getState().equals("Reinforcement")) 
@@ -118,7 +114,6 @@ public class GameDriver
 		Collections.shuffle(graph.getGraphNodes());
 		for(int i=0;i<graph.getGraphNodes().size();i++)
 		{
-			//int index=rnd.nextInt(players.size());
 			graph.getGraphNodes().get(i).setPlayer(players.get(playerindex));
 			if(playerindex<players.size()-1)
 			{
@@ -140,6 +135,7 @@ public class GameDriver
 				if(graph.getGraphNodes().get(j).getPlayer().getName().equals(players.get(i).getName()))
 					players.get(i).increaseNumberOfCountries();
 		}
+		notifyObservers();
 	}
 
 	
