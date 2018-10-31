@@ -23,7 +23,7 @@ import java.util.List;
  * @author Farid Omarzadeh
  *
  */
-public class Node 
+public class Node
 {
 	private String name;
 	private int armies;
@@ -36,7 +36,7 @@ public class Node
 	
 	private boolean choose;
 	private boolean isVisited=false;
-	
+
 	
 	/**
 	 * constructor
@@ -141,7 +141,6 @@ public class Node
 	public void increaseArmy()
 	{
 		this.armies++;
-		this.player.decreaseReinforcement();
 	}
 	
 	

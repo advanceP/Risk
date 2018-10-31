@@ -23,7 +23,6 @@ public class RiskGameController
 	private Graph graph;
 	private MapEditorController mapEditorController;
 	private GamePhaseController gamePhaseController;
-	private LabelController labelController;
 
 	public RiskGameController(RiskGame view) {
 		this.view = view;

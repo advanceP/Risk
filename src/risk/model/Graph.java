@@ -24,7 +24,7 @@ public class Graph
 	private static Graph graph=null;
 		
 	List<Node> graphNodes;
-	List<Continent>continents;
+	List<Continent> continents;
 		
 	
 	/**
@@ -292,7 +292,7 @@ public class Graph
 	 * @param root the starting node
 	 * @return a List of nodes that can be reached
 	 */
-	public List<Node>reachableNodes(Node root)
+	public List<Node> reachableNodes(Node root)
 	{
 		String playername=root.getPlayer().getName();
 		List <Node>reachnodes=new ArrayList<Node>();

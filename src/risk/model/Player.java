@@ -2,6 +2,7 @@ package risk.model;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Observable;
 import java.util.stream.Collectors;
 
 /**
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * @author Farid Omarzadeh
  *
  */
-public class Player 
+public class Player extends Observable
 {
 	private String name;
 	private int numberOfCountries;
@@ -41,6 +42,8 @@ public class Player
 	public void decreaseReinforcement()
 	{
 		this.reinforcement--;
+		setChanged();
+		notifyObservers();
 	}
 	
 	
@@ -61,8 +64,7 @@ public class Player
 	{
 		this.reinforcement+=army;
 	}
-	
-	
+
 	/**
 	 * set Number of Reinforcement
 	 * @param reinforcement Integer
@@ -109,7 +111,8 @@ public class Player
 	public void increaseNumberOfCountries()
 	{
 		this.numberOfCountries++;
-		
+		setChanged();
+		notifyObservers();
 	}
 	
 	
@@ -140,6 +143,8 @@ public class Player
 	public void setState(String state) 
 	{
 		this.state = state;
+		setChanged();
+		notifyObservers();
 	}
 	
 	
@@ -169,7 +174,7 @@ public class Player
 	 */
 	public List<Node> getNodeList()
 	{
-		return Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getPlayer().getName().equals(this.name)).collect(Collectors.toList());
+		return Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getPlayer().getName().equals(this.name)).collect(Collectors.toList());
 	}
 
 	public void Reinforcement()
@@ -194,28 +199,15 @@ public class Player
 
 		increaseReinforcement(additionalreinforcement);
 	}
-	
-	
 	public int getPercentage() {
 		float result=0;
-
 		result=((float)(this.getNodeList().size())/Graph.getGraphInstance().getGraphNodes().size());
 		return (Math.round(result*100));
 	}
-	
-	
-	/**
-	 * this method is being used in fortification phase it transfer armies from one country to another.
-	 * @param node1 the country whose armies will be moved
-	 * @param node2 the country who will receive armies
-	 * @param armies number of armies that will be transfered
-	 */
-	public void fortify(Node node1, Node node2, int armies) 
-	{
-		node1.setArmies(node1.getArmies()-armies);
-		node2.setArmies(node2.getArmies()+armies);
+
+	public void addReinforcementToNode(Node country) {
+		country.increaseArmy();
+		decreaseReinforcement();
 	}
-	
-	
 }
 

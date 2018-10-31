@@ -1,18 +1,17 @@
 package test;
 
-import static org.junit.Assert.assertSame;
+import org.junit.Before;
+import org.junit.Test;
+import risk.controller.GameDriverController;
+import risk.model.Graph;
 
 import java.io.FileNotFoundException;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import risk.model.GameDriver;
-import risk.model.Graph;
+import static org.junit.Assert.assertSame;
 
 
 public class PlayerTest {
-	GameDriver driver;
+	GameDriverController driver;
 	Graph graph;
 	int numberOfPlayers;
 	String fileName;
@@ -26,7 +25,7 @@ public class PlayerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver =GameDriver.getGameDriverInstance();
+		driver = GameDriverController.getGameDriverInstance();
 	}
 	@Test public void testNumberOfCountries()
 	{

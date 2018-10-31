@@ -10,7 +10,7 @@ public class GameLabel extends JLabel
 {
 	
 	//private Graph graph;
-	//private GameDriver driver;
+	//private GameDriverController driver;
 	//private GamePhase gamePhase;
 	private MouseAdapter mouseAdapter;
 	private MouseAdapter mouseAdapterForPhase;
@@ -24,7 +24,7 @@ public class GameLabel extends JLabel
 	{
 		super(text);
 		//graph=Graph.getGraphInstance();
-		//driver=GameDriver.getGameDriverInstance();
+		//driver=GameDriverController.getGameDriverInstance();
 		//gamePhase = GamePhase.getPanelInstance();
 		//addListener();
 	}

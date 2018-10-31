@@ -1,23 +1,27 @@
 package risk.controller;
 
-import risk.model.GameDriver;
 import risk.model.Graph;
 import risk.model.Node;
+import risk.model.Player;
+import risk.view.GameLabel;
 import risk.view.GamePhase;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 
 public class GamePhaseController {
     private Graph graph;
     private GamePhase gamePhase;
-    private GameDriver driver;
+    private GameDriverController driver;
+    private String state;
 
     public GamePhaseController() {
         this.graph = Graph.getGraphInstance();
-        this.driver=GameDriver.getGameDriverInstance();
+        this.driver= GameDriverController.getGameDriverInstance();
     }
 
 
@@ -34,16 +38,16 @@ public class GamePhaseController {
         JFrame risk=new JFrame();
         gamePhase= GamePhase.getPanelInstance();
         graph.getColorTOContinent();
+        gamePhase.addLabel();
         risk.add(gamePhase);
         risk.setSize(1400,1000);
         risk.setVisible(true);
-        driver.addObserver(gamePhase);
         startupPhase();
     }
 
-    private void startupPhase()
+    public void startupPhase()
     {
-        boolean flag=true;
+        state="StartUp";
         gamePhase.getSetPlayer().addActionListener(new ActionListener()
         {
             @Override
@@ -55,48 +59,103 @@ public class GamePhaseController {
             }
         });
 
-
-
-
+        for (GameLabel label:gamePhase.getLabelList())
+        {
+            label.addMouseListener(new MouseAdapter()
+            {
+                @Override
+                public void mouseClicked(MouseEvent e)
+                {
+                    super.mouseClicked(e);
+                    if(state.equals("StartUp"))
+                    {
+                        addArmyByPlayer(e);
+                    }
+                }
+            });
+        }
     }
 
-    public void addListener() {
-
-
-
-        gamePhase.getFortify().addActionListener(new ActionListener()
+    public void addArmyByPlayer(MouseEvent e)
+    {
+        if(driver.getAllArmies()>0)
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            GameLabel label=(GameLabel)e.getSource();
+            String labelName=label.getText();
+            for(Node country:graph.getGraphNodes())
             {
-                if(e.getSource()==gamePhase.getFortify())
+                if(labelName.equals(country.getName()))
                 {
-                    Node node1=(Node)gamePhase.getFortifyFrom().getSelectedItem();
-                    Node node2=(Node)gamePhase.getFortifyTo().getSelectedItem();
-                    int armies=(Integer)gamePhase.getFortifyArmies().getSelectedItem();
-                    driver.fortify(node1,node2,armies);
-                    gamePhase.repaint();
+                    if(country.getPlayer()==driver.getCurrentPlayer())
+                    {
+                        if(country.getPlayer().getReinforcement()>0)
+                        {
+                            country.getPlayer().addReinforcementToNode(country);
+                            driver.changeCurrentPlayer();
+                            if(driver.getAllArmies()==0)
+                            {
+                                state="Reinforcement";
+                                reinforcementPhase();
+                            }
+                        }
+                        else
+                        {
+                            driver.changeCurrentPlayer();
+                        }
+                    }
                 }
             }
-        });
-
-        gamePhase.getEndPhase().addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                if(e.getSource()==gamePhase.getEndPhase())
-                {
-                    driver.getCurrentPlayer().setState("StartUp");
-                    driver.changeCurrentPlayer();
-                    gamePhase.showReinforementMenu();
-                }
-            }
-        });
-
-
-
-
-
+        }
     }
+
+    public void reinforcementPhase() {
+        Player currentPlayer=driver.getCurrentPlayer();
+        currentPlayer.Reinforcement();
+        for (GameLabel label:gamePhase.getLabelList())
+        {
+            label.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    if(state.equals("Reinforcement"))
+                    {
+                        addReinforement(e,currentPlayer);
+                    }
+                }
+            });
+        }
+    }
+
+    public void addReinforement(MouseEvent e,Player player)
+    {
+        int reinforces=player.getReinforcement();
+        if(reinforces>0)
+        {
+            GameLabel label=(GameLabel)e.getSource();
+            String labelName=label.getText();
+            for(Node country:graph.getGraphNodes())
+            {
+                if(country.getName().equals(labelName))
+                {
+                    if(country.getPlayer()==player)
+                    {
+                        //country.increaseArmy();
+                        player.addReinforcementToNode(country);
+                    }
+                }
+            }
+        }
+        else
+        {
+            playerFortifition(player);
+
+        }
+    }
+
+    public void playerFortifition(Player player) {
+        player.setState("Fortifition");
+    }
+
+
 }
+

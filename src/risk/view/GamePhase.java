@@ -1,6 +1,6 @@
 package risk.view;
 
-import risk.model.GameDriver;
+import risk.controller.GameDriverController;
 import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;
@@ -20,14 +20,12 @@ import java.util.Observer;
  */
 public class GamePhase extends JPanel implements ItemListener, Observer
 {
-	
 	private static Graph graph;
 	private int x;
 	private int y;
 	private List<GameLabel> labelList;
 	private JTextField inputPlayerNumber;
 	private JButton setPlayer;
-	private GameDriver driver;
 	private JTextField phaseText;
 	private JComboBox<Node> fortifyFrom;
 	private JComboBox<Node> fortifyTo;
@@ -35,7 +33,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	private JButton fortify;
 	private JButton endPhase;
 	private static GamePhase gamePhase =null;
-	
 	public static boolean isStartPhase=true;
 	
 	
@@ -50,7 +47,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		graph=Graph.getGraphInstance();
 		labelList=new ArrayList<>();
 		initial();
-		driver=GameDriver.getGameDriverInstance();
 	}
 	
 	/**
@@ -87,27 +83,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		endPhase.setBounds(1120, 620, 100, 30);
 		add(inputPlayerNumber);
 		add(setPlayer);
-		for(Node country:graph.getGraphNodes()) {
-			GameLabel label =new GameLabel(country.getName());
-			label.setBounds(country.getX(), country.getY()+33,120,30);
-			add(label);
-			labelList.add(label);
-		}
 	}
 
-	/**
-	 * let the game going to start phase,change some menu
-	 */
-	public void startPhase()
-	{
-		remove(inputPlayerNumber);
-		remove(setPlayer);
-		repaint();
-		add(phaseText);
-		Player currentplayer=driver.getCurrentPlayer();
-		phaseText.setText(currentplayer.getName()+" "+driver.getCurrentPlayer().getReinforcement());
-		repaint();
-	}
 
 	/**
 	 * paint something on the panel
@@ -129,20 +106,14 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	 */
 	private void paintPhaseInformation(Graphics g)
 	{
-		if(!GamePhase.isStartPhase)
-		{
-			Player player=driver.getReinforcementPlayer();
-			String playername=player.getName();
-			phaseText.setText(playername+" "+"Reinforcement"+" "+player.getReinforcement());
-		}
-		if(GamePhase.isStartPhase)
-		{
-			if(driver.getPlayers()!=null)
+
+			if(GameDriverController.getGameDriverInstance().getPlayers()!=null)
 			{
-				Player currentplayer=driver.getCurrentPlayer();
-				phaseText.setText(currentplayer.getName()+" "+driver.getCurrentPlayer().getReinforcement());
+				Player currentplayer= GameDriverController.getGameDriverInstance().getCurrentPlayer();
+				phaseText.setText(currentplayer.getState()+" "+currentplayer.getName()+
+						" "+ GameDriverController.getGameDriverInstance().getCurrentPlayer().getReinforcement());
 			}
-		}
+
 	}
 	
 	/**
@@ -161,7 +132,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	 */
 	private void paintPlayer(Graphics g)
 	{
-		List<Player> players=driver.getPlayers();
+		List<Player> players= GameDriverController.getGameDriverInstance().getPlayers();
 		if(players!=null) {
 			int x=1120;
 			int y=80;
@@ -242,9 +213,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	/**
 	 * going to fortifitionPhase in the menu
 	 */
-	public void fortifitionPhase()
+	public void showFortifitionPhase()
 	{
-		remove(phaseText);
 		add(fortifyFrom);
 		fortifyFrom.addItemListener(this);
 		add(fortifyTo);
@@ -259,7 +229,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	private void searchNodeByPlyaer()
 	{
 		fortifyFrom.removeAllItems();
-		Player player=driver.getCurrentPlayer();
+		Player player= GameDriverController.getGameDriverInstance().getCurrentPlayer();
 		for(Node node:player.getNodeList())
 		{
 			fortifyFrom.addItem(node);
@@ -359,7 +329,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	@Override
 	public void update(Observable obj, Object o)
 	{
-		List<Player> players=driver.getPlayers();
+		List<Player> players= GameDriverController.getGameDriverInstance().getPlayers();
 		if(players!=null) {
 			int x = 1120;
 			int y = 80;
@@ -370,6 +340,25 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 				x=x+100;
 			}
 		}
+		add(phaseText);
+
+		if(GameDriverController.getGameDriverInstance().getCurrentPlayer().getState()!=null)
+		{
+			if(GameDriverController.getGameDriverInstance().getCurrentPlayer().getState().equals("Fortifition"))
+			{
+				showFortifitionPhase();
+			}
+		}
 		repaint();
+	}
+
+	public void addLabel() {
+		for(Node country:graph.getGraphNodes())
+		{
+			GameLabel label =new GameLabel(country.getName());
+			label.setBounds(country.getX(), country.getY()+33,120,30);
+			add(label);
+			labelList.add(label);
+		}
 	}
 }
