@@ -176,7 +176,8 @@ public class Player extends Observable
 	{
 		return Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getPlayer().getName().equals(this.name)).collect(Collectors.toList());
 	}
-
+	
+	
 	public void Reinforcement()
 	{
 		if(this.state.equals("StartUp"))
@@ -199,6 +200,8 @@ public class Player extends Observable
 
 		increaseReinforcement(additionalreinforcement);
 	}
+	
+	
 	public int getPercentage() {
 		float result=0;
 		result=((float)(this.getNodeList().size())/Graph.getGraphInstance().getGraphNodes().size());
@@ -208,6 +211,19 @@ public class Player extends Observable
 	public void addReinforcementToNode(Node country) {
 		country.increaseArmy();
 		decreaseReinforcement();
+	}
+	
+	
+	/**
+	 * this method is being used in fortification phase it transfer armies from one country to another.
+	 * @param node1 the country whose armies will be moved
+	 * @param node2 the country who will receive armies
+	 * @param armies number of armies that will be transfered
+	 */
+	public void Fortification(Node from,Node to,int armies)
+	{
+		from.setArmies(from.getArmies()-armies);
+		to.setArmies(to.getArmies()+armies);
 	}
 }
 

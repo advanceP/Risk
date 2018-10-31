@@ -3,13 +3,21 @@ package risk.controller;
 import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;
+import risk.view.GameLabel;
 import risk.view.GamePhase;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.JFrame;
 
 /**
  * this class controls the flow of the game based on the risk game rules, this class uses singleton design pattern
@@ -33,6 +41,9 @@ public class GameDriverController
 	List<Color> staticColorList;
 	GamePhase view;
 	int index;
+	private GamePhase gamePhase;
+	private String state;
+	
 	
 	
 	/**
@@ -51,36 +62,137 @@ public class GameDriverController
 	}
 	
 	
-	/**
-	 * this method calculate the amount of armies each player receives based on the number of countries they own
-	 *  and continents they conquered
-	 * @return Player that will be used in reinforcement phase
-	 */
-	/*public Player getReinforcementPlayer()
-	{
-		Player reinforcement=getCurrentPlayer();
-		if(reinforcement.getState().equals("StartUp"))
-			reinforcement.setReinforcement(0);
-		if(reinforcement.getState().equals("Reinforcement")) 
-			return reinforcement;
-		if(reinforcement.getState().equals("Fortification"))
-			return null;
-		reinforcement.setState("Reinforcement");
-		int additionalreinforcement=reinforcement.getNumberOfCountries()/3+1;
-		for(int i=0;i<graph.getContinents().size();i++)
-		{
-			if(graph.ifContinentConquered(graph.getContinents().get(i)))
-			{
-				String continentname=graph.getContinents().get(i).getName();
-				Node continentnode=graph.getGraphNodes().stream().filter(item->item.getContinent().getName().equals(continentname)).findAny().get();
-				if(continentnode.getPlayer().getName().equals(reinforcement.getName()))
-					additionalreinforcement+=graph.getContinents().get(i).getAwardUnits();
-			}
-		}
-			
-		reinforcement.increaseReinforcement(additionalreinforcement);
-		return reinforcement;
-	}*/
+	 public void loadFile(String absolutePath) {
+	        try {
+	            graph.createGraph(absolutePath);
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	 
+	 
+	 public void startGame() {
+	        JFrame risk=new JFrame();
+	        gamePhase= GamePhase.getPanelInstance();
+	        graph.getColorTOContinent();
+	        gamePhase.addLabel();
+	        risk.add(gamePhase);
+	        risk.setSize(1400,1000);
+	        risk.setVisible(true);
+	        startupPhase();
+	    }
+
+	    public void startupPhase()
+	    {
+	        state="StartUp";
+	        gamePhase.getSetPlayer().addActionListener(new ActionListener()
+	        {
+	            @Override
+	            public void actionPerformed(ActionEvent e)
+	            {
+	                Integer number=Integer.valueOf(gamePhase.getInputPlayerNumber().getText());
+	                setPlayers(number);
+	                gamePhase.removeButtonSetPlayer();
+	            }
+	        });
+
+	        for (GameLabel label:gamePhase.getLabelList())
+	        {
+	            label.addMouseListener(new MouseAdapter()
+	            {
+	                @Override
+	                public void mouseClicked(MouseEvent e)
+	                {
+	                    super.mouseClicked(e);
+	                    if(state.equals("StartUp"))
+	                    {
+	                        addArmyByPlayer(e);
+	                    }
+	                }
+	            });
+	        }
+	    }
+
+	    public void addArmyByPlayer(MouseEvent e)
+	    {
+	        if(getAllArmies()>0)
+	        {
+	            GameLabel label=(GameLabel)e.getSource();
+	            String labelName=label.getText();
+	            for(Node country:graph.getGraphNodes())
+	            {
+	                if(labelName.equals(country.getName()))
+	                {
+	                    if(country.getPlayer()==getCurrentPlayer())
+	                    {
+	                        if(country.getPlayer().getReinforcement()>0)
+	                        {
+	                            country.getPlayer().addReinforcementToNode(country);
+	                            changeCurrentPlayer();
+	                            if(getAllArmies()==0)
+	                            {
+	                                state="Reinforcement";
+	                                reinforcementPhase();
+	                            }
+	                        }
+	                        else
+	                        {
+	                            changeCurrentPlayer();
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	    }
+
+	    public void reinforcementPhase() {
+	        Player currentPlayer=getCurrentPlayer();
+	        currentPlayer.Reinforcement();
+	        for (GameLabel label:gamePhase.getLabelList())
+	        {
+	            label.addMouseListener(new MouseAdapter() {
+	                @Override
+	                public void mouseClicked(MouseEvent e) {
+	                    super.mouseClicked(e);
+	                    if(state.equals("Reinforcement"))
+	                    {
+	                        addReinforement(e,currentPlayer);
+	                    }
+	                }
+	            });
+	        }
+	    }
+
+	    public void addReinforement(MouseEvent e,Player player)
+	    {
+	        int reinforces=player.getReinforcement();
+	        if(reinforces>0)
+	        {
+	            GameLabel label=(GameLabel)e.getSource();
+	            String labelName=label.getText();
+	            for(Node country:graph.getGraphNodes())
+	            {
+	                if(country.getName().equals(labelName))
+	                {
+	                    if(country.getPlayer()==player)
+	                    {
+	                        //country.increaseArmy();
+	                        player.addReinforcementToNode(country);
+	                    }
+	                }
+	            }
+	        }
+	        else
+	        {
+	            playerFortifition(player);
+
+	        }
+	    }
+
+	    public void playerFortifition(Player player) {
+	        player.setState("Fortifition");
+	    }
+	
 	
 	/**
 	 * this method returns an instance of the GameDriverController class, if the instance is null the object will be newed,
@@ -198,22 +310,5 @@ public class GameDriverController
 			allarmies+=players.get(i).getReinforcement();
 		}
 		return allarmies;
-	}
-	
-	
-	/**
-	 * this method is being used in fortification phase it transfer armies from one country to another.
-	 * @param node1 the country whose armies will be moved
-	 * @param node2 the country who will receive armies
-	 * @param armies number of armies that will be transfered
-	 */
-	public void fortify(Node node1, Node node2, int armies)
-	{
-		node1.setArmies(node1.getArmies()-armies);
-		node2.setArmies(node2.getArmies()+armies);
-	}
-	
-	
-	
-	
+	}	
 }

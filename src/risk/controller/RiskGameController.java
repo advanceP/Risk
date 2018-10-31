@@ -22,13 +22,13 @@ public class RiskGameController
 	private RiskGame view;
 	private Graph graph;
 	private MapEditorController mapEditorController;
-	private GamePhaseController gamePhaseController;
+	private GameDriverController gameDriverController;
 
 	public RiskGameController(RiskGame view) {
 		this.view = view;
 		graph=Graph.getGraphInstance();
 		mapEditorController=new MapEditorController();
-		gamePhaseController=new GamePhaseController();
+		gameDriverController=GameDriverController.getGameDriverInstance();
 	}
 
 	public RiskGame getView() {
@@ -109,8 +109,8 @@ public class RiskGameController
 					if(select==JFileChooser.APPROVE_OPTION)
 					{
 						File file=jFileChooser.getSelectedFile();
-						gamePhaseController.loadFile(file.getAbsolutePath());
-						gamePhaseController.startGame();
+						gameDriverController.loadFile(file.getAbsolutePath());
+						gameDriverController.startGame();
 					}
 					else
 					{
