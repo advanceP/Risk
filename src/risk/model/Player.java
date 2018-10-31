@@ -194,12 +194,28 @@ public class Player
 
 		increaseReinforcement(additionalreinforcement);
 	}
+	
+	
 	public int getPercentage() {
 		float result=0;
 
 		result=((float)(this.getNodeList().size())/Graph.getGraphInstance().getGraphNodes().size());
 		return (Math.round(result*100));
 	}
+	
+	
+	/**
+	 * this method is being used in fortification phase it transfer armies from one country to another.
+	 * @param node1 the country whose armies will be moved
+	 * @param node2 the country who will receive armies
+	 * @param armies number of armies that will be transfered
+	 */
+	public void fortify(Node node1, Node node2, int armies) 
+	{
+		node1.setArmies(node1.getArmies()-armies);
+		node2.setArmies(node2.getArmies()+armies);
+	}
+	
 	
 }
 
