@@ -171,14 +171,14 @@ public class Player
 	{
 		return Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getPlayer().getName().equals(this.name)).collect(Collectors.toList());
 	}
-	
+
 	public void Reinforcement()
 	{
 		if(this.state.equals("StartUp"))
 			this.setReinforcement(0);
-		if(this.state.equals("Reinforcement")) 
+		if(this.state.equals("Reinforcement"))
 			this.setReinforcement(reinforcement);
-		
+
 		this.setState("Reinforcement");
 		int additionalreinforcement=this.getNumberOfCountries()/3+1;
 		for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
@@ -191,13 +191,14 @@ public class Player
 					additionalreinforcement+=Graph.getGraphInstance().getContinents().get(i).getAwardUnits();
 			}
 		}
-			
+
 		increaseReinforcement(additionalreinforcement);
 	}
-	public float getPercentage() {
+	public int getPercentage() {
 		float result=0;
-		result=(float)(this.getNodeList().size()/Graph.getGraphInstance().getGraphNodes().size());
-		return result*100;
+
+		result=((float)(this.getNodeList().size())/Graph.getGraphInstance().getGraphNodes().size());
+		return (Math.round(result*100));
 	}
 	
 }

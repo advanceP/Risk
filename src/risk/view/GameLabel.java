@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
  * this show the label display the country's name on UI,and it will react by click the label
  * @author Hao Chen
  */
-public class CountryLabelForGame extends JLabel
+public class GameLabel extends JLabel
 {
 	
 	//private Graph graph;
@@ -18,9 +18,9 @@ public class CountryLabelForGame extends JLabel
 	/**
 	 * constructor<br/>
 	 * initialise the member in this class
-	 * @param text this will give the country name for 
+	 * @param text this will give the country name for
 	 */
-	public CountryLabelForGame(String text)
+	public GameLabel(String text)
 	{
 		super(text);
 		//graph=Graph.getGraphInstance();
@@ -43,7 +43,7 @@ public class CountryLabelForGame extends JLabel
 				{
 					if(driver.getAllArmies()>0)
 					{	
-						CountryLabelForGame label=(CountryLabelForGame)e.getSource();
+						GameLabel label=(GameLabel)e.getSource();
 						String labelName=label.getText();
 						for(Node country:graph.getGraphNodes())
 						{
@@ -85,7 +85,7 @@ public class CountryLabelForGame extends JLabel
 						int reinforces=player.getReinforcement();
 						if(reinforces>0)
 						{
-							CountryLabelForGame label=(CountryLabelForGame)e.getSource();
+							GameLabel label=(GameLabel)e.getSource();
 							String labelName=label.getText();
 							for(Node country:graph.getGraphNodes())
 							{

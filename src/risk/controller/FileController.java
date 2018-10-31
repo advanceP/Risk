@@ -14,7 +14,7 @@ public class FileController
      * @Description: write and save as a txt file
      * @param filePath filepath of this txt file
      * @param content information of the map and user
-     * @return: flag     whether write and save a file successfully
+     * @return: flag whether write and save a file successfully
      * @Author: Yiying Liu
      * @Date: 2018-10-16
      */

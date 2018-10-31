@@ -1,11 +1,11 @@
 package risk.controller;
 
-import risk.view.CountryLabelForGame;
+import risk.view.GameLabel;
 
 import java.util.List;
 
 public class LabelController {
 
-    private List<CountryLabelForGame> labelList;
+    private List<GameLabel> labelList;
 
 }

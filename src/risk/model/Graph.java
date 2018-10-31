@@ -32,8 +32,8 @@ public class Graph
 	 */
 	private Graph()
 	{
-			this.graphNodes=new ArrayList<Node>();
-			this.continents=new ArrayList<Continent>();
+		this.graphNodes=new ArrayList<Node>();
+		this.continents=new ArrayList<Continent>();
 	}
 	
 	

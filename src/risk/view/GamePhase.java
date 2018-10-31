@@ -24,7 +24,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	private static Graph graph;
 	private int x;
 	private int y;
-	private List<CountryLabelForGame> labelList;
+	private List<GameLabel> labelList;
 	private JTextField inputPlayerNumber;
 	private JButton setPlayer;
 	private GameDriver driver;
@@ -88,7 +88,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		add(inputPlayerNumber);
 		add(setPlayer);
 		for(Node country:graph.getGraphNodes()) {
-			CountryLabelForGame label =new CountryLabelForGame(country.getName());
+			GameLabel label =new GameLabel(country.getName());
 			label.setBounds(country.getX(), country.getY()+33,120,30);
 			add(label);
 			labelList.add(label);
@@ -165,10 +165,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		if(players!=null) {
 			int x=1120;
 			int y=80;
-			for(Player player:players) {
-				JLabel playername=new JLabel(player.getName());
-				playername.setBounds(x, y, 50, 30);
-				add(playername);
+			for(Player player:players)
+			{
 				g.setColor(player.getColor());
 				g.fillOval(x, y+40, 20, 20); 
 				x=x+60;
@@ -234,6 +232,12 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		repaint();
 		
 	}
+
+	public void removeButtonSetPlayer()
+	{
+		remove(setPlayer);
+		remove(inputPlayerNumber);
+	}
 	
 	/**
 	 * going to fortifitionPhase in the menu
@@ -287,7 +291,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	}
 	
 	
-	private void getFortifyArmy(Node node)
+	public void getFortifyArmy(Node node)
 	{
 		fortifyArmies.removeAllItems();
 		int armies=node.getArmies();
@@ -332,24 +336,40 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		return fortifyArmies;
 	}
 
-	public JButton getFortify() {
+	public JButton getFortify()
+	{
 		return fortify;
 	}
 
-	public JButton getEndPhase() {
+	public JButton getEndPhase()
+	{
 		return endPhase;
 	}
 
-	public static boolean isIsStartPhase() {
+	public static boolean isIsStartPhase()
+	{
 		return isStartPhase;
 	}
 
-	public List<CountryLabelForGame> getLabelList() {
+	public List<GameLabel> getLabelList()
+	{
 		return labelList;
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-
+	public void update(Observable obj, Object o)
+	{
+		List<Player> players=driver.getPlayers();
+		if(players!=null) {
+			int x = 1120;
+			int y = 80;
+			for (Player player : players) {
+				JLabel playername = new JLabel(player.getName() +" "+ player.getPercentage()+"%");
+				playername.setBounds(x, y, 100, 30);
+				add(playername);
+				x=x+100;
+			}
+		}
+		repaint();
 	}
 }

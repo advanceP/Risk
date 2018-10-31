@@ -37,13 +37,13 @@ public class GamePhaseController {
         risk.add(gamePhase);
         risk.setSize(1400,1000);
         risk.setVisible(true);
-
-        addListener();
-
+        driver.addObserver(gamePhase);
+        startupPhase();
     }
 
-    public void addListener() {
-
+    private void startupPhase()
+    {
+        boolean flag=true;
         gamePhase.getSetPlayer().addActionListener(new ActionListener()
         {
             @Override
@@ -51,9 +51,18 @@ public class GamePhaseController {
             {
                 Integer number=Integer.valueOf(gamePhase.getInputPlayerNumber().getText());
                 driver.setPlayers(number);
-                gamePhase.startPhase();
+                gamePhase.removeButtonSetPlayer();
             }
         });
+
+
+
+
+    }
+
+    public void addListener() {
+
+
 
         gamePhase.getFortify().addActionListener(new ActionListener()
         {

@@ -1,11 +1,8 @@
 package risk.model;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.Observable;
-import java.util.Random;
 
 /**
  * this class controls the flow of the game based on the risk game rules, this class uses singleton design pattern
@@ -27,8 +24,8 @@ public class GameDriver extends Observable
 	Graph graph;
 	List<Player> players;
 	List<Color>staticColorList;
-	int index;
 	
+	int index;
 	
 	
 	/**
@@ -54,6 +51,7 @@ public class GameDriver extends Observable
 	public Player getReinforcementPlayer()
 	{
 		Player reinforcement=getCurrentPlayer();
+	//	System.out.println("from begining:"+reinforcement.getName()+"  "+reinforcement.getReinforcement());
 		if(reinforcement.getState().equals("StartUp"))
 			reinforcement.setReinforcement(0);
 		if(reinforcement.getState().equals("Reinforcement")) 
@@ -114,6 +112,7 @@ public class GameDriver extends Observable
 		Collections.shuffle(graph.getGraphNodes());
 		for(int i=0;i<graph.getGraphNodes().size();i++)
 		{
+			//int index=rnd.nextInt(players.size());
 			graph.getGraphNodes().get(i).setPlayer(players.get(playerindex));
 			if(playerindex<players.size()-1)
 			{
@@ -135,6 +134,7 @@ public class GameDriver extends Observable
 				if(graph.getGraphNodes().get(j).getPlayer().getName().equals(players.get(i).getName()))
 					players.get(i).increaseNumberOfCountries();
 		}
+		setChanged();
 		notifyObservers();
 	}
 
