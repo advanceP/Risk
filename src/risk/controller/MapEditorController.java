@@ -48,6 +48,7 @@ public class MapEditorController {
         frame.add(mapEditor);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        mapEditor.initial();
         addListener();
     }
 

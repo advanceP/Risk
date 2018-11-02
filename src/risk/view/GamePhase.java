@@ -219,21 +219,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		fortifyFrom.addItemListener(this);
 		add(fortifyTo);
 		add(fortifyArmies);
-		searchNodeByPlyaer();
 		add(fortify);
 		add(endPhase);
 		repaint();
-	}
-	
-	
-	private void searchNodeByPlyaer()
-	{
-		fortifyFrom.removeAllItems();
-		Player player= GameDriverController.getGameDriverInstance().getCurrentPlayer();
-		for(Node node:player.getNodeList())
-		{
-			fortifyFrom.addItem(node);
-		}
 	}
 	
 	
@@ -361,4 +349,5 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 			labelList.add(label);
 		}
 	}
+
 }

@@ -79,7 +79,7 @@ public class MapEditor extends JPanel
 		/**
 		 * initialise some components in the panel 
 		 */
-		private void initial()
+		public void initial()
 		{
 			
 			inputName=new JTextField();
@@ -93,6 +93,7 @@ public class MapEditor extends JPanel
 			selectContinent.setBounds(970,100,120,30);
 			for(Continent obj:graph.getContinents())
 			{
+				System.out.println(111);
 				continents.addItem(obj.getName());
 			}
 			

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="24fe501f-0e7c-40c2-8792-16cec6f59762" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Risk.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/FileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/GamePhaseController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/GamePhaseController$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/GamePhaseController$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/GamePhaseController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/LabelController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/MapEditorController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/MapEditorController$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/MapEditorController$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/MapEditorController$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/MapEditorController$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/MapEditorController$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/MapEditorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/RiskGameController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/RiskGameController$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/RiskGameController$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/RiskGameController$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/RiskGameController$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/controller/RiskGameController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/model/Continent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/model/GameDriver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/model/Graph.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/model/Node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/model/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/view/GameLabel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/view/GamePhase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/view/MapEditor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/view/MapEditorLabel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/view/MapEditorLabel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/risk/view/RiskGame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/FileControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/GameDriverTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/GraphTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/Montreal.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/PlayerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/a.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/b.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/c.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/correctFile1.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/correctFile2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/d.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/error1.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/error2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/error3.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/production/Risk/test/error4.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/risk/controller/GameDriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/risk/controller/GameDriverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/risk/controller/LabelController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/risk/controller/MapEditorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/risk/controller/MapEditorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/risk/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/risk/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/risk/view/GameLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/risk/view/GameLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/risk/view/GamePhase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/risk/view/GamePhase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/risk/view/MapEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/risk/view/MapEditor.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/bin/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1890786172">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="13" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="13" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="331" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="331" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.js.language.service.starts" />
+      <usages-collector id="statistics.spring.boot.mvc.usages" />
+      <usages-collector id="statistics.spring.boot.run.usages" />
+      <usages-collector id="statistics.vcs.git.usages" />
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/risk/controller/MapEditorController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/risk/view/MapEditor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="401">
+              <caret line="81" column="14" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/risk/view/RiskGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/risk/controller/RiskGameController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="130" column="46" lean-forward="true" selection-start-line="130" selection-start-column="46" selection-end-line="130" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/risk/view/GameLabel.java" />
+        <option value="$PROJECT_DIR$/src/risk/view/GamePhase.java" />
+        <option value="$PROJECT_DIR$/src/risk/model/Player.java" />
+        <option value="$PROJECT_DIR$/src/risk/controller/GameDriverController.java" />
+        <option value="$PROJECT_DIR$/src/risk/view/MapEditor.java" />
+        <option value="$PROJECT_DIR$/src/risk/controller/MapEditorController.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="279" />
+    <option name="y" value="102" />
+    <option name="width" value="1400" />
+    <option name="height" value="776" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Risk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Risk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Risk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Risk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Risk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Risk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="risk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Risk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Risk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="risk" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Risk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Risk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="risk" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Risk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Risk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="risk" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541091421246" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="RiskGameController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="risk.controller.RiskGameController" />
+      <module name="Risk" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="risk.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.RiskGameController" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="24fe501f-0e7c-40c2-8792-16cec6f59762" name="Default Changelist" comment="" />
+      <created>1541082477809</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1541082477809</updated>
+      <workItem from="1541082482578" duration="2183000" />
+      <workItem from="1541089827970" duration="1302000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="3485000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15938166" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32925472" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/risk/controller/LabelController.java" />
+    <entry file="file://$PROJECT_DIR$/src/risk/view/MapEditorLabel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/view/GameLabel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="8" column="37" lean-forward="true" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+          <folding>
+            <element signature="e#478#479#0" expanded="true" />
+            <element signature="e#496#497#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/controller/GameDriverController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="211" column="34" selection-start-line="211" selection-start-column="34" selection-end-line="211" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/model/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="725">
+          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <folding>
+            <element signature="e#623#624#0" expanded="true" />
+            <element signature="e#650#651#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/view/GamePhase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7875">
+          <caret line="351" selection-start-line="351" selection-end-line="351" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/view/RiskGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/controller/RiskGameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="130" column="46" lean-forward="true" selection-start-line="130" selection-start-column="46" selection-end-line="130" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/view/MapEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="81" column="14" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/risk/controller/MapEditorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

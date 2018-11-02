@@ -185,15 +185,48 @@ public class GameDriverController
 	        else
 	        {
 	            playerFortifition(player);
-
 	        }
 	    }
 
-	    public void playerFortifition(Player player) {
+	    public void playerFortifition(Player player)
+		{
 	        player.setState("Fortifition");
+			searchNodeByPlyaer();
+			gamePhase.getFortify().addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					Node from=(Node)gamePhase.getFortifyFrom().getSelectedItem();
+					Node to=(Node) gamePhase.getFortifyTo().getSelectedItem();
+					int number=(Integer)gamePhase.getFortifyArmies().getSelectedItem();
+					player.Fortification(from, to, number);
+				}
+			});
+
+			gamePhase.getEndPhase().addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					changeCurrentPlayer();
+					Player currentPlayer=getCurrentPlayer();
+					currentPlayer.Reinforcement();
+				}
+			});
 	    }
-	
-	
+
+		public void searchNodeByPlyaer()
+		{
+			gamePhase.getFortifyFrom().removeAllItems();
+			Player player= GameDriverController.getGameDriverInstance().getCurrentPlayer();
+			for(Node node:player.getNodeList())
+			{
+				gamePhase.getFortifyFrom().addItem(node);
+			}
+		}
+
+
+
+
 	/**
 	 * this method returns an instance of the GameDriverController class, if the instance is null the object will be newed,
 	 *  otherwise it will return the already existing instance of the class.

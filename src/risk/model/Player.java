@@ -224,6 +224,8 @@ public class Player extends Observable
 	{
 		from.setArmies(from.getArmies()-armies);
 		to.setArmies(to.getArmies()+armies);
+		setChanged();
+		notifyObservers();
 	}
 }
 

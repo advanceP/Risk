@@ -8,13 +8,6 @@ import java.awt.event.MouseAdapter;
  */
 public class GameLabel extends JLabel
 {
-	
-	//private Graph graph;
-	//private GameDriverController driver;
-	//private GamePhase gamePhase;
-	private MouseAdapter mouseAdapter;
-	private MouseAdapter mouseAdapterForPhase;
-	
 	/**
 	 * constructor<br/>
 	 * initialise the member in this class
@@ -23,95 +16,6 @@ public class GameLabel extends JLabel
 	public GameLabel(String text)
 	{
 		super(text);
-		//graph=Graph.getGraphInstance();
-		//driver=GameDriverController.getGameDriverInstance();
-		//gamePhase = GamePhase.getPanelInstance();
-		//addListener();
 	}
-
-	/**
-	 * give the button some reaction,for startup phase, reinforcement and switch to fortify phase
-	 */
-	/*public void addListener()
-	{
-		mouseAdapter=new MouseAdapter()
-		{	
-			
-			public void mouseClicked(MouseEvent e)
-			{	
-				if(GamePhase.isStartPhase)
-				{
-					if(driver.getAllArmies()>0)
-					{	
-						GameLabel label=(GameLabel)e.getSource();
-						String labelName=label.getText();
-						for(Node country:graph.getGraphNodes())
-						{
-							if(labelName.equals(country.getName()))
-							{
-								if(country.getPlayer()==driver.getCurrentPlayer())
-								{
-									if(country.getPlayer().getReinforcement()>0)
-									{
-										country.increaseArmy();
-										driver.changeCurrentPlayer();
-									}
-									else
-									{
-										driver.changeCurrentPlayer();
-									}
-								}
-							}
-						}
-						gamePhase.repaint();
-					}
-					else
-					{
-						for(int i=0;i<driver.getPlayers().size();i++)
-						{
-							driver.getPlayers().get(i).setState("StartUp");
-						}
-						//removeMouseListener(mouseAdapter);
-						//change phase
-						GamePhase.isStartPhase=false;
-						gamePhase.repaint();
-					}
-				}
-				else
-				{
-					Player player=driver.getReinforcementPlayer();
-					if(player!=null)
-					{
-						int reinforces=player.getReinforcement();
-						if(reinforces>0)
-						{
-							GameLabel label=(GameLabel)e.getSource();
-							String labelName=label.getText();
-							for(Node country:graph.getGraphNodes())
-							{
-								if(country.getName().equals(labelName))
-								{
-									if(country.getPlayer()==player)
-									{
-										country.increaseArmy();
-										gamePhase.repaint();
-									}
-								}
-							}
-						}
-						else
-						{
-							player.setState("Fortifition");
-							gamePhase.fortifitionPhase();
-						}	
-					}
-					
-				}
-    	    }	
-		};
-		addMouseListener(mouseAdapter);
-		
-	}*/
-
 	
 }
