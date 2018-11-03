@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapEditorController {
@@ -29,6 +30,7 @@ public class MapEditorController {
     public MapEditorController() {
         graph= Graph.getGraphInstance();
         mapEditor=new MapEditor();
+        labelList=new ArrayList<>();
     }
 
 
@@ -75,7 +77,7 @@ public class MapEditorController {
                     {
                         if(c.getName().equals(contientname)) continent=c;
                     }
-                    Node country=new Node(countryname, continent, mapEditor.getX(),mapEditor.getY());
+                    Node country=new Node(countryname, continent, mapEditor.x,mapEditor.y);
                     MapEditorLabel label=new MapEditorLabel(countryname);
                     labelList.add(label);
                     graph.getGraphNodes().add(country);

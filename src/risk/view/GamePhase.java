@@ -1,6 +1,7 @@
 package risk.view;
 
 import risk.controller.GameDriverController;
+import risk.model.Continent;
 import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;
@@ -32,6 +33,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	private JComboBox<Integer> fortifyArmies;
 	private JButton fortify;
 	private JButton endPhase;
+	private JLabel view1;
+	private JLabel view2;
 	private static GamePhase gamePhase =null;
 	public static boolean isStartPhase=true;
 	
@@ -70,7 +73,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		setPlayer=new JButton("setPlayer");
 		setPlayer.setBounds(1150, 280, 100, 30);
 		phaseText=new JTextField();
-		phaseText.setBounds(1120, 200, 200, 200);
+		phaseText.setBounds(1120, 200, 200, 100);
 		fortifyFrom=new JComboBox<>();
 		fortifyFrom.setBounds(1120, 400, 200, 30);
 		fortifyTo=new JComboBox<>();
@@ -81,6 +84,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		fortify.setBounds(1120,570, 100, 30);
 		endPhase=new JButton("endPhase");
 		endPhase.setBounds(1120, 620, 100, 30);
+		view1=new JLabel("players world domination view");
+		view1.setBounds(1120, 50, 200, 20);
+		view2=new JLabel("phase view");
+		view2.setBounds(1120, 180, 200, 20);
 		add(inputPlayerNumber);
 		add(setPlayer);
 	}
@@ -142,6 +149,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 				g.fillOval(x, y+40, 20, 20); 
 				x=x+60;
 			}
+
 		}	
 	}
 
@@ -325,9 +333,18 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 				JLabel playername = new JLabel(player.getName() +" "+ player.getPercentage()+"%");
 				playername.setBounds(x, y, 100, 30);
 				add(playername);
+				JComboBox<Continent> continentsOwnByPlayer=new JComboBox<>();
+				continentsOwnByPlayer.setBounds(x, 150, 50, 30);
+				for(Continent con:player.getContinents()){
+					continentsOwnByPlayer.addItem(con);
+				}
+				add(continentsOwnByPlayer);
 				x=x+100;
 			}
+
 		}
+		add(view1);
+		add(view2);
 		add(phaseText);
 
 		if(GameDriverController.getGameDriverInstance().getCurrentPlayer().getState()!=null)

@@ -184,7 +184,8 @@ public class GameDriverController
 	        }
 	        else
 	        {
-	            playerFortifition(player);
+	            //playerFortifition(player);
+
 	        }
 	    }
 

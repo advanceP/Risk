@@ -107,7 +107,6 @@ public class Continent
 		this.color=decode;
 	}
 	
-	
 	/**
 	 * 
 	 * @param color to give the continents a color
@@ -124,5 +123,11 @@ public class Continent
 	{
 		return color;
 	}
-	
+
+	@Override
+	public String toString() {
+		return  name;
+	}
+
+
 }

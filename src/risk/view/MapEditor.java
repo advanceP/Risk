@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class MapEditor extends JPanel
 {
-	private int x;
-	private int y;
+	public int x;
+	public int y;
 	private List<JLabel> labelList;
 	private static Graph graph;
 
@@ -81,7 +81,6 @@ public class MapEditor extends JPanel
 		 */
 		public void initial()
 		{
-			
 			inputName=new JTextField();
 			inputName.setBounds(1050,30,120,30);
 			nameLable=new JLabel("Name");
@@ -93,7 +92,6 @@ public class MapEditor extends JPanel
 			selectContinent.setBounds(970,100,120,30);
 			for(Continent obj:graph.getContinents())
 			{
-				System.out.println(111);
 				continents.addItem(obj.getName());
 			}
 			
