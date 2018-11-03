@@ -14,7 +14,6 @@ import java.awt.Color;
  */
 public class Continent 
 {
-
 	private String name;
 	private int awardUnits; 
 	private Color color;

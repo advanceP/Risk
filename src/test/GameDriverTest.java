@@ -36,7 +36,8 @@ public class GameDriverTest {
 		int expectedvalue=1;
 		driver.setPlayers(2);
 		driver.getCurrentPlayer().setState("StartUp");
-	//	assertSame(expectedvalue, driver.getReinforcementPlayer().getReinforcement());
+		driver.getCurrentPlayer().Reinforcement();
+		assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
 	}
 	@Test public void testReinforcementWithConqueredContinents()
 	{
@@ -52,7 +53,8 @@ public class GameDriverTest {
 		int expectedvalue=3;
 		driver.setPlayers(2);
 		driver.getCurrentPlayer().setState("StartUp");
-	//	assertSame(expectedvalue, driver.getReinforcementPlayer().getReinforcement());
+		driver.getCurrentPlayer().Reinforcement();
+		assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
 	}
 	
 	@Test public void testInitialArmy()

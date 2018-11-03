@@ -1,6 +1,7 @@
 package risk.model;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.stream.Collectors;
@@ -24,8 +25,21 @@ public class Player extends Observable
 	private String state;
 	private Color color;
 	private int reinforcement;
+	List<Card> cards=new ArrayList<Card>();
+	List<Continent> continents=new ArrayList<Continent>();
 
 	
+	public List<Card> getCards() {
+		return cards;
+	}
+	
+	
+	public void addCards(Card card)
+	{
+		this.cards.add(card);
+	}
+
+
 	/**
 	 * returns the number of reinforcement for the player
 	 * @return an Integer
@@ -177,7 +191,20 @@ public class Player extends Observable
 		return Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getPlayer().getName().equals(this.name)).collect(Collectors.toList());
 	}
 	
-	
+	public List<Continent>getContinents()
+	{
+		for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
+		{
+			if(Graph.getGraphInstance().ifContinentConquered(Graph.getGraphInstance().getContinents().get(i)))
+			{
+				String continentname=Graph.getGraphInstance().getContinents().get(i).getName();
+				Node continentnode=Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getContinent().getName().equals(continentname)).findAny().get();
+				if(continentnode.getPlayer().getName().equals(this.name))
+					continents.add(Graph.getGraphInstance().getContinents().get(i));
+			}
+		}
+		return continents;
+	}
 	public void Reinforcement()
 	{
 		if(this.state.equals("StartUp"))
