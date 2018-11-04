@@ -232,45 +232,54 @@ public class Player extends Observable
      * @Description:    get the arrayList of numbers that attacker and defender rolling the dice
      * @param attacker  the country which attacks others
      * @param defender  the country which is attacked
-     * @param automate  true:   attacker attacks defender automatically until conquer it or no more armies
-     *                  false:  attacker attacks defender just once
      * @return: the result of dice number lists of two countries. the first list is dice numbers of attacker, and second
      *          is defender's
      * @Author: Yiying Liu
      * @Date: 2018-11-04
      */
-    public List<List<Integer>> getDiceNumList(Node attacker, Node defender, boolean automate){
+    public List<List<Integer>> getDiceNumList(Node attacker, Node defender){
         List<List<Integer>> resultList = new ArrayList<>();
         List<Integer> attackerList = new ArrayList<>();
         List<Integer> defenderList = new ArrayList<>();
         resultList.add(attackerList);
         resultList.add(defenderList);
         Random random = new Random();
-        if (!automate){
-            int attackDice = random.nextInt(6) + 1;
-            int defenderDice = random.nextInt(6) + 1;
-            attackerList.add(attackDice);
-            defenderList.add(defenderDice);
-            return resultList;
-        }else {
-            for (int i = 0; i < attacker.getArmies() && i < 3; i++){
-                attackerList.add(random.nextInt(6) + 1);
-            }
-            for (int j = 0; j < defender.getArmies() && j < 2; j++){
-                defenderList.add(random.nextInt(6) + 1);
-            }
-            if (attackerList.size() > 1){
-                Collections.sort(attackerList, Collections.reverseOrder());
-            }
-            if (defenderList.size() > 1){
-                Collections.sort(defenderList, Collections.reverseOrder());
-            }
-            return resultList;
-        }
+
+		for (int i = 0; i < attacker.getArmies() - 1 && i < 3; i++){
+			attackerList.add(random.nextInt(6) + 1);
+		}
+		for (int j = 0; j < defender.getArmies() - 1 && j < 2; j++){
+			defenderList.add(random.nextInt(6) + 1);
+		}
+		if (attackerList.size() > 1){
+			Collections.sort(attackerList, Collections.reverseOrder());
+		}
+		if (defenderList.size() > 1){
+			Collections.sort(defenderList, Collections.reverseOrder());
+		}
+		return resultList;
 
     }
-    
-    
+
+	/**
+	 * @Description:	get the result of attacking
+	 * @param attackerList		dice number list of attacker
+	 * @param defenderList 		dice number list of defender
+	 * @return:  true: attacker wins		false: defender wins
+	 * @Author: Yiying Liu
+	 * @Date: 2018-11-04
+	 */
+	public void attackResult(Node attack, Node defender, List<Integer> attackerList, List<Integer> defenderList){
+		if (attackerList.isEmpty() || defenderList.isEmpty()){
+
+		}
+		if (attackerList.get(0) > defenderList.get(0)){
+
+		} else{
+
+		}
+	}
+
     public int[] getDiceNumbers(Node attacker,Node defender)
 	{
 
