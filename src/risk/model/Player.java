@@ -269,6 +269,33 @@ public class Player extends Observable
         }
 
     }
+    
+    
+    public int[] getDiceNumbers(Node attacker,Node defender)
+	{
+
+		int[] list=new int[2];
+		int attackerdicenumber=0;
+		int defenderdicenumber=0;
+		if(attacker.getArmies()<2)
+			return null;
+		
+		switch(attacker.getArmies())
+		{
+		case 3:attackerdicenumber=2;break;
+		case 2:attackerdicenumber=1;break;
+		default:
+			attackerdicenumber=3;
+		}		
+		switch(defender.getArmies())
+		{
+		case 1: defenderdicenumber=1;break;
+		default : defenderdicenumber=2;
+		}
+		list[0]=attackerdicenumber;
+		list[1]=defenderdicenumber;
+		return list;
+	}
 
     public int getPercentage() {
         float result = 0;
