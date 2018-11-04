@@ -246,10 +246,10 @@ public class Player extends Observable
         Random random = new Random();
 
 		for (int i = 0; i < attacker.getArmies() - 1 && i < 3; i++){
-			attackerList.add(random.nextInt(6) + 1);
+			attackerList.add(random.nextInt() % 6 + 1);
 		}
 		for (int j = 0; j < defender.getArmies() - 1 && j < 2; j++){
-			defenderList.add(random.nextInt(6) + 1);
+			defenderList.add(random.nextInt() % 6 + 1);
 		}
 		if (attackerList.size() > 1){
 			Collections.sort(attackerList, Collections.reverseOrder());
