@@ -43,8 +43,7 @@ public class GameDriverController
 	int index;
 	private GamePhase gamePhase;
 	private String state;
-	
-	
+	Node[] countriesForAttack=new Node[2];
 	
 	/**
 	 * Constructor , initialize the graph,index,staticColorList
@@ -68,7 +67,7 @@ public class GameDriverController
 	        } catch (FileNotFoundException e) {
 	            e.printStackTrace();
 	        }
-	    }
+	 }
 	 
 	 
 	 public void startGame() {
@@ -77,7 +76,7 @@ public class GameDriverController
 	        graph.getColorTOContinent();
 	        gamePhase.addLabel();
 	        risk.add(gamePhase);
-	        risk.setSize(1400,1000);
+	        risk.setSize(1600,1000);
 	        risk.setVisible(true);
 	        startupPhase();
 	    }
@@ -185,11 +184,71 @@ public class GameDriverController
 	        else
 	        {
 	            //playerFortifition(player);
-
+				attckPhase(player);
 	        }
 	    }
 
-	    public void playerFortifition(Player player)
+	public void attckPhase(Player player) {
+		player.setState("Attack");
+		state="Attack";
+		for (GameLabel label:gamePhase.getLabelList())
+		{
+			label.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseClicked(MouseEvent e)
+				{
+					super.mouseClicked(e);
+					if(state.equals("Attack"))
+					{
+						getAttacker(e);
+						if(countriesForAttack[0]!=null)
+						{
+							getDefender(e);
+						}
+						if(countriesForAttack[0]!=null&&countriesForAttack[1]!=null)
+						{
+
+							gamePhase.showAttackMenu();
+						}
+					}
+				}
+			});
+		}
+	}
+
+	private void getDefender(MouseEvent e) {
+		GameLabel label=(GameLabel)e.getSource();
+		String labelName=label.getText();
+		for(Node country:graph.getGraphNodes())
+		{
+			if(labelName.equals(country.getName())&&country.getPlayer()!=getCurrentPlayer())
+			{
+				Node attacker=countriesForAttack[0];
+				for(String adjacencyname:attacker.getAdjacencyList())
+				{
+					if(labelName.equals(adjacencyname))
+					{
+						countriesForAttack[1]=country;
+					}
+				}
+			}
+		}
+	}
+
+	public void getAttacker(MouseEvent e) {
+		GameLabel label=(GameLabel)e.getSource();
+		String labelName=label.getText();
+		for(Node country:graph.getGraphNodes())
+		{
+			if(labelName.equals(country.getName())&&country.getPlayer()==getCurrentPlayer()&&country.getArmies()>1)
+			{
+				countriesForAttack[0]=country;
+			}
+		}
+	}
+
+	public void playerFortifition(Player player)
 		{
 	        player.setState("Fortifition");
 			searchNodeByPlyaer();

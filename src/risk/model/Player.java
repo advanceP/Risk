@@ -204,6 +204,8 @@ public class Player extends Observable
 		}
 		return continents;
 	}
+
+
 	public void Reinforcement()
 	{
 		if(this.state.equals("StartUp"))
@@ -292,6 +294,17 @@ public class Player extends Observable
 		to.setArmies(to.getArmies()+armies);
 		setChanged();
 		notifyObservers();
+	}
+
+	public int getTotalArmies()
+	{
+		List<Node> nodes=getNodeList();
+		int armies=0;
+		for(Node node:nodes)
+		{
+			armies+=node.getArmies();
+		}
+		return armies;
 	}
 }
 

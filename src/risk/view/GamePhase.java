@@ -35,6 +35,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	private JButton endPhase;
 	private JLabel view1;
 	private JLabel view2;
+	public JButton attack;
+	public JButton retreat;
+	public JButton autoFight;
 	private static GamePhase gamePhase =null;
 	public static boolean isStartPhase=true;
 	
@@ -73,7 +76,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		setPlayer=new JButton("setPlayer");
 		setPlayer.setBounds(1150, 280, 100, 30);
 		phaseText=new JTextField();
-		phaseText.setBounds(1120, 200, 200, 100);
+		phaseText.setBounds(1120, 200, 400, 100);
 		fortifyFrom=new JComboBox<>();
 		fortifyFrom.setBounds(1120, 400, 200, 30);
 		fortifyTo=new JComboBox<>();
@@ -88,6 +91,12 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		view1.setBounds(1120, 50, 200, 20);
 		view2=new JLabel("phase view");
 		view2.setBounds(1120, 180, 200, 20);
+		attack=new JButton("attack");
+		attack.setBounds(1100, 400, 100, 20);
+		retreat=new JButton("retreat");
+		retreat.setBounds(1210,400, 100, 20);
+		autoFight=new JButton("autoFight");
+		autoFight.setBounds(1320, 400, 100, 20);
 		add(inputPlayerNumber);
 		add(setPlayer);
 	}
@@ -142,11 +151,13 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		List<Player> players= GameDriverController.getGameDriverInstance().getPlayers();
 		if(players!=null) {
 			int x=1120;
-			int y=80;
+			int y=110;
 			for(Player player:players)
 			{
 				g.setColor(player.getColor());
-				g.fillOval(x, y+40, 20, 20); 
+				g.fillOval(x, y, 30, 30);
+				g.setColor(Color.WHITE);
+				g.drawString(Integer.toString(player.getTotalArmies()), x+15, y+15);
 				x=x+60;
 			}
 
@@ -322,6 +333,26 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		return labelList;
 	}
 
+
+	public void addLabel() {
+		for(Node country:graph.getGraphNodes())
+		{
+			GameLabel label =new GameLabel(country.getName());
+			label.setBounds(country.getX(), country.getY()+33,120,30);
+			add(label);
+			labelList.add(label);
+		}
+	}
+
+
+	public void showAttackMenu() {
+		add(attack);
+		add(retreat);
+		add(autoFight);
+		repaint();
+	}
+
+
 	@Override
 	public void update(Observable obj, Object o)
 	{
@@ -357,14 +388,5 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		repaint();
 	}
 
-	public void addLabel() {
-		for(Node country:graph.getGraphNodes())
-		{
-			GameLabel label =new GameLabel(country.getName());
-			label.setBounds(country.getX(), country.getY()+33,120,30);
-			add(label);
-			labelList.add(label);
-		}
-	}
 
 }
