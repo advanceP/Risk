@@ -1,9 +1,8 @@
 package risk.model;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Observable;
 import java.util.stream.Collectors;
 
 /**
@@ -15,8 +14,8 @@ import java.util.stream.Collectors;
  * <li>color
  * <li>reinforcement
  * </ul>
- * @author Farid Omarzadeh
  *
+ * @author Farid Omarzadeh
  */
 public class Player extends Observable
 {
@@ -28,12 +27,12 @@ public class Player extends Observable
 	List<Card> cards=new ArrayList<Card>();
 	List<Continent> continents=new ArrayList<Continent>();
 
-	
+
 	public List<Card> getCards() {
 		return cards;
 	}
-	
-	
+
+
 	public void addCards(Card card)
 	{
 		this.cards.add(card);
@@ -225,15 +224,55 @@ public class Player extends Observable
 			}
 		}
 
-		increaseReinforcement(additionalreinforcement);
-	}
-	
-	
-	public int getPercentage() {
-		float result=0;
-		result=((float)(this.getNodeList().size())/Graph.getGraphInstance().getGraphNodes().size());
-		return (Math.round(result*100));
-	}
+        increaseReinforcement(additionalreinforcement);
+    }
+    /**
+     * @Description:    get the arrayList of numbers that attacker and defender rolling the dice
+     * @param attacker  the country which attacks others
+     * @param defender  the country which is attacked
+     * @param automate  true:   attacker attacks defender automatically until conquer it or no more armies
+     *                  false:  attacker attacks defender just once
+     * @return: the result of dice number lists of two countries. the first list is dice numbers of attacker, and second
+     *          is defender's
+     * @Author: Yiying Liu
+     * @Date: 2018-11-04
+     */
+    public List<List<Integer>> getDiceNumList(Node attacker, Node defender, boolean automate){
+        List<List<Integer>> resultList = new ArrayList<>();
+        List<Integer> attackerList = new ArrayList<>();
+        List<Integer> defenderList = new ArrayList<>();
+        resultList.add(attackerList);
+        resultList.add(defenderList);
+        Random random = new Random();
+        if (!automate){
+            int attackDice = random.nextInt(6) + 1;
+            int defenderDice = random.nextInt(6) + 1;
+            attackerList.add(attackDice);
+            defenderList.add(defenderDice);
+            return resultList;
+        }else {
+            for (int i = 0; i < attacker.getArmies() && i < 3; i++){
+                attackerList.add(random.nextInt(6) + 1);
+            }
+            for (int j = 0; j < defender.getArmies() && j < 2; j++){
+                defenderList.add(random.nextInt(6) + 1);
+            }
+            if (attackerList.size() > 1){
+                Collections.sort(attackerList, Collections.reverseOrder());
+            }
+            if (defenderList.size() > 1){
+                Collections.sort(defenderList, Collections.reverseOrder());
+            }
+            return resultList;
+        }
+
+    }
+
+    public int getPercentage() {
+        float result = 0;
+        result = ((float) (this.getNodeList().size()) / Graph.getGraphInstance().getGraphNodes().size());
+        return (Math.round(result * 100));
+    }
 
 	public void addReinforcementToNode(Node country) {
 		country.increaseArmy();
@@ -243,8 +282,8 @@ public class Player extends Observable
 	
 	/**
 	 * this method is being used in fortification phase it transfer armies from one country to another.
-	 * @param node1 the country whose armies will be moved
-	 * @param node2 the country who will receive armies
+	 * @param from the country whose armies will be moved
+	 * @param to the country who will receive armies
 	 * @param armies number of armies that will be transfered
 	 */
 	public void Fortification(Node from,Node to,int armies)
