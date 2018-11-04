@@ -262,22 +262,36 @@ public class Player extends Observable
     }
 
 	/**
-	 * @Description:	get the result of attacking
-	 * @param attackerList		dice number list of attacker
-	 * @param defenderList 		dice number list of defender
-	 * @return:  true: attacker wins		false: defender wins
+	 * @Description:	get the result of attacking(includes changing the armies of nodes)
+	 * @param diceNumberList    diceNumberList of attacker( list.get(0) ) and defender( list.get(1) )
+	 * @param attacker			the node of attacker
+	 * @param defender			the node of defender
+	 * @return:  				a list of numbers that node lost	list.get(0) is attacker's and list.get(1) is defender's
 	 * @Author: Yiying Liu
 	 * @Date: 2018-11-04
 	 */
-	public void attackResult(Node attack, Node defender, List<Integer> attackerList, List<Integer> defenderList){
+	public List<Integer> attackResult(Node attacker, Node defender, List<List<Integer>> diceNumberList){
+	    if (diceNumberList.isEmpty()){
+	        return null;
+        }
+        List<Integer> attackerList = diceNumberList.get(0);
+        List<Integer> defenderList = diceNumberList.get(1);
 		if (attackerList.isEmpty() || defenderList.isEmpty()){
-
+			return null;
 		}
-		if (attackerList.get(0) > defenderList.get(0)){
-
-		} else{
-
+		List<Integer> list = new ArrayList<>();
+		list.add(0);
+		list.add(0);
+		for (int i = 0; i < attackerList.size() && i < defenderList.size() && i < 2; i++){
+			if (attackerList.get(i) > defenderList.get(i)){
+				defender.setArmies(defender.getArmies() - 1);
+				list.set(1, list.get(1) + 1);
+			} else{
+				attacker.setArmies(attacker.getArmies() - 1);
+				list.set(0, list.get(0) + 1);
+			}
 		}
+		return list;
 	}
 
     public int[] getDiceNumbers(Node attacker,Node defender)
