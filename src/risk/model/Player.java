@@ -246,10 +246,10 @@ public class Player extends Observable
         Random random = new Random();
 
 		for (int i = 0; i < attacker.getArmies() - 1 && i < 3; i++){
-			attackerList.add(random.nextInt() % 6 + 1);
+			attackerList.add(random.nextInt(6)+1);
 		}
 		for (int j = 0; j < defender.getArmies() - 1 && j < 2; j++){
-			defenderList.add(random.nextInt() % 6 + 1);
+			defenderList.add(random.nextInt(6)+1);
 		}
 		if (attackerList.size() > 1){
 			Collections.sort(attackerList, Collections.reverseOrder());
@@ -270,28 +270,36 @@ public class Player extends Observable
 	 * @Author: Yiying Liu
 	 * @Date: 2018-11-04
 	 */
-	public List<Integer> attackResult(Node attacker, Node defender, List<List<Integer>> diceNumberList){
+	public void attackResult(Node attacker, Node defender, List<List<Integer>> diceNumberList){
 	    if (diceNumberList.isEmpty()){
-	        return null;
+	        return;
         }
         List<Integer> attackerList = diceNumberList.get(0);
         List<Integer> defenderList = diceNumberList.get(1);
 		if (attackerList.isEmpty() || defenderList.isEmpty()){
-			return null;
+			return;
 		}
-		List<Integer> list = new ArrayList<>();
-		list.add(0);
-		list.add(0);
+		//List<Integer> list = new ArrayList<>();
+        HashMap<Node,Integer> result=new HashMap<>();
+		//list.add(0);
+		//list.add(0);
+        int defenderlost=0;
+        int attackerlost=0;
 		for (int i = 0; i < attackerList.size() && i < defenderList.size() && i < 2; i++){
 			if (attackerList.get(i) > defenderList.get(i)){
 				defender.setArmies(defender.getArmies() - 1);
-				list.set(1, list.get(1) + 1);
+				defenderlost+=1;
+				//list.set(1, list.get(1) + 1);
+                result.put(defender, defenderlost);
 			} else{
 				attacker.setArmies(attacker.getArmies() - 1);
-				list.set(0, list.get(0) + 1);
+				//list.set(0, list.get(0) + 1);
+                attackerlost+=1;
+                result.put(attacker, attackerlost);
 			}
 		}
-		return list;
+		setChanged();
+		notifyObservers();
 	}
 
     public int[] getDiceNumbers(Node attacker,Node defender)

@@ -10,10 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * This is also is a panel for user play the game 
@@ -38,7 +36,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	public JButton attack;
 	public JButton retreat;
 	public JButton autoFight;
-	private static GamePhase gamePhase =null;
+	public JTextArea attackinformation;
+	private static GamePhase gamePhase=null;
 	public static boolean isStartPhase=true;
 	
 	
@@ -92,11 +91,14 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		view2=new JLabel("phase view");
 		view2.setBounds(1120, 180, 200, 20);
 		attack=new JButton("attack");
-		attack.setBounds(1100, 400, 100, 20);
+		attack.setBounds(1100, 350, 100, 20);
 		retreat=new JButton("retreat");
-		retreat.setBounds(1210,400, 100, 20);
+		retreat.setBounds(1210,350, 100, 20);
 		autoFight=new JButton("autoFight");
-		autoFight.setBounds(1320, 400, 100, 20);
+		autoFight.setBounds(1320, 350, 100, 20);
+		attackinformation=new JTextArea();
+		attackinformation.setLineWrap(true);
+		attackinformation.setBounds(1120, 400, 250, 100);
 		add(inputPlayerNumber);
 		add(setPlayer);
 	}
@@ -129,6 +131,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 				phaseText.setText(currentplayer.getState()+" "+currentplayer.getName()+
 						" "+ GameDriverController.getGameDriverInstance().getCurrentPlayer().getReinforcement());
 			}
+
 
 	}
 	
@@ -345,11 +348,39 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	}
 
 
-	public void showAttackMenu() {
+	public void showAttackMenu(Node attacker,Node defender) {
+		int[] playerdice=getDiceNumbers(attacker,defender);
 		add(attack);
 		add(retreat);
 		add(autoFight);
+		attackinformation.setText(attacker.getName()+" has "+playerdice[0]+"dice "+defender.getName()+" has "+playerdice[1]+" dice");
+		add(attackinformation);
 		repaint();
+	}
+
+
+	public int[] getDiceNumbers(Node attacker,Node defender)
+	{
+		int[] list=new int[2];
+		int attackerdicenumber=0;
+		int defenderdicenumber=0;
+		if(attacker.getArmies()<2)
+			return null;
+		switch(attacker.getArmies())
+		{
+			case 3:attackerdicenumber=2;break;
+			case 2:attackerdicenumber=1;break;
+			default:
+				attackerdicenumber=3;
+		}
+		switch(defender.getArmies())
+		{
+			case 1: defenderdicenumber=1;break;
+			default : defenderdicenumber=2;
+		}
+		list[0]=attackerdicenumber;
+		list[1]=defenderdicenumber;
+		return list;
 	}
 
 
@@ -372,7 +403,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 				add(continentsOwnByPlayer);
 				x=x+100;
 			}
-
 		}
 		add(view1);
 		add(view2);
@@ -385,8 +415,29 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 				showFortifitionPhase();
 			}
 		}
+
+
 		repaint();
 	}
 
 
+	public void showAttackResult(List<List<Integer>> numberofdice) {
+		String text="";
+		for(List<Integer> countrysequence:numberofdice){
+			for(Integer number:countrysequence){
+				text+=(number+" ");
+			}
+			text+="\r\n";
+		}
+		attackinformation.setText(text);
+		repaint();
+	}
+
+	public void hideAttackMenu() {
+		remove(attack);
+		remove(retreat);
+		remove(autoFight);
+		remove(attackinformation);
+		repaint();
+	}
 }

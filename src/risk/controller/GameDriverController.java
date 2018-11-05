@@ -44,7 +44,7 @@ public class GameDriverController
 	private GamePhase gamePhase;
 	private String state;
 	Node[] countriesForAttack=new Node[2];
-	
+
 	/**
 	 * Constructor , initialize the graph,index,staticColorList
 	 */
@@ -191,6 +191,7 @@ public class GameDriverController
 	public void attckPhase(Player player) {
 		player.setState("Attack");
 		state="Attack";
+		addButtonListenerForAttack();
 		for (GameLabel label:gamePhase.getLabelList())
 		{
 			label.addMouseListener(new MouseAdapter()
@@ -208,14 +209,14 @@ public class GameDriverController
 						}
 						if(countriesForAttack[0]!=null&&countriesForAttack[1]!=null)
 						{
-
-							gamePhase.showAttackMenu();
+							gamePhase.showAttackMenu(countriesForAttack[0],countriesForAttack[1]);
 						}
 					}
 				}
 			});
 		}
 	}
+
 
 	private void getDefender(MouseEvent e) {
 		GameLabel label=(GameLabel)e.getSource();
@@ -260,7 +261,7 @@ public class GameDriverController
 					Node from=(Node)gamePhase.getFortifyFrom().getSelectedItem();
 					Node to=(Node) gamePhase.getFortifyTo().getSelectedItem();
 					int number=(Integer)gamePhase.getFortifyArmies().getSelectedItem();
-					player.Fortification(from, to, number);
+					player.Fortification(from,to,number);
 				}
 			});
 
@@ -284,6 +285,29 @@ public class GameDriverController
 			}
 		}
 
+	public void addButtonListenerForAttack()
+	{
+		gamePhase.attack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Player player=getCurrentPlayer();
+				List<List<Integer>> numberofdice=player.getDiceNumList(countriesForAttack[0],countriesForAttack[1]);
+				gamePhase.showAttackResult(numberofdice);
+				player.attackResult(countriesForAttack[0],countriesForAttack[1] ,numberofdice );
+			}
+		});
+
+
+		gamePhase.retreat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(int i=0;i<countriesForAttack.length;i++){
+					countriesForAttack[i]=null;
+				}
+				gamePhase.hideAttackMenu();
+			}
+		});
+	}
 
 
 
@@ -403,5 +427,8 @@ public class GameDriverController
 			allarmies+=players.get(i).getReinforcement();
 		}
 		return allarmies;
-	}	
+	}
+
+
+
 }
