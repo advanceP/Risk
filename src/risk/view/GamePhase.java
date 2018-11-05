@@ -37,9 +37,11 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	public JButton retreat;
 	public JButton autoFight;
 	public JTextArea attackinformation;
+	public JButton move;
+	public JButton endAttackPhase;
 	private static GamePhase gamePhase=null;
 	public static boolean isStartPhase=true;
-	
+
 	
 	/**
 	 * constructor <br/>
@@ -99,6 +101,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		attackinformation=new JTextArea();
 		attackinformation.setLineWrap(true);
 		attackinformation.setBounds(1120, 400, 250, 100);
+		move=new JButton("move");
+		move.setBounds(1120,570, 100, 30);
+		endAttackPhase=new JButton("endAttackPhase");
+		endAttackPhase.setBounds(1120, 620, 100, 30);
 		add(inputPlayerNumber);
 		add(setPlayer);
 	}
@@ -242,6 +248,16 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		add(fortifyArmies);
 		add(fortify);
 		add(endPhase);
+		repaint();
+	}
+
+	public void hideFortifitionPhase()
+	{
+		remove(fortifyFrom);
+		remove(fortifyTo);
+		remove(fortifyArmies);
+		remove(fortify);
+		remove(endPhase);
 		repaint();
 	}
 	
@@ -438,12 +454,22 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		repaint();
 	}
 
-	public void moveArmiesToQuest() {
+	public void moveArmiesToQuest(Node attacker, Node defender) {
 		add(fortifyFrom);
 		add(fortifyTo);
 		add(fortifyArmies);
-		add(fortify);
-		add(endPhase);
+		add(move);
+		fortifyFrom.addItem(attacker);
+		fortifyTo.addItem(defender);
+		getFortifyArmy(attacker);
+		repaint();
+	}
+
+	public void hideMoveArmyToQuestMenu() {
+		remove(fortifyFrom);
+		remove(fortifyTo);
+		remove(fortifyArmies);
+		remove(move);
 		repaint();
 	}
 }

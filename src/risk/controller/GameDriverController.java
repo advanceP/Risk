@@ -183,7 +183,6 @@ public class GameDriverController
 	        }
 	        else
 	        {
-	            //playerFortifition(player);
 				attckPhase(player);
 	        }
 	    }
@@ -191,6 +190,7 @@ public class GameDriverController
 	public void attckPhase(Player player) {
 		player.setState("Attack");
 		state="Attack";
+		gamePhase.add(gamePhase.endAttackPhase);
 		addButtonListenerForAttack();
 		for (GameLabel label:gamePhase.getLabelList())
 		{
@@ -258,24 +258,28 @@ public class GameDriverController
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					Node from=(Node)gamePhase.getFortifyFrom().getSelectedItem();
-					Node to=(Node) gamePhase.getFortifyTo().getSelectedItem();
-					int number=(Integer)gamePhase.getFortifyArmies().getSelectedItem();
-					player.Fortification(from,to,number);
+					fortify(player);
 				}
 			});
 
 			gamePhase.getEndPhase().addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					gamePhase.hideFortifitionPhase();
 					changeCurrentPlayer();
-					Player currentPlayer=getCurrentPlayer();
-					currentPlayer.Reinforcement();
+					reinforcementPhase();
 				}
 			});
 	    }
 
-		public void searchNodeByPlyaer()
+	public void fortify(Player player) {
+		Node from=(Node)gamePhase.getFortifyFrom().getSelectedItem();
+		Node to=(Node) gamePhase.getFortifyTo().getSelectedItem();
+		int number=(Integer)gamePhase.getFortifyArmies().getSelectedItem();
+		player.Fortification(from,to,number);
+	}
+
+	public void searchNodeByPlyaer()
 		{
 			gamePhase.getFortifyFrom().removeAllItems();
 			Player player= GameDriverController.getGameDriverInstance().getCurrentPlayer();
@@ -302,8 +306,8 @@ public class GameDriverController
 				}
 				if(defender.getArmies()==0)
 				{
-					retreat();
 					defender.setPlayer(player);
+					gamePhase.hideAttackMenu();
 					moveArmriesToConquest(attacker,defender);
 				}
 			}
@@ -316,10 +320,29 @@ public class GameDriverController
 				retreat();
 			}
 		});
+
+
+		gamePhase.move.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Player player=getCurrentPlayer();
+				fortify(player);
+				gamePhase.hideMoveArmyToQuestMenu();
+			}
+		});
+
+		gamePhase.endAttackPhase.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gamePhase.remove(gamePhase.endAttackPhase);
+				Player player=getCurrentPlayer();
+				playerFortifition(player);
+			}
+		});
 	}
 
 	public void moveArmriesToConquest(Node attacker, Node defender) {
-		gamePhase.moveArmiesToQuest();
+		gamePhase.moveArmiesToQuest(attacker,defender);
 	}
 
 	public void retreat() {
