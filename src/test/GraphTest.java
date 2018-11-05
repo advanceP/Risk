@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.mapEditor.Graph;
+import risk.model.Graph;
 
 
 public class GraphTest {
