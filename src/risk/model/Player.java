@@ -280,19 +280,21 @@ public class Player extends Observable
 		if (attackerList.isEmpty() || defenderList.isEmpty()){
 			return;
 		}
-		//List<Integer> list = new ArrayList<>();
-        HashMap<Node,Integer> result=new HashMap<>();
-		//list.add(0);
-		//list.add(0);
 		for (int i = 0; i < attackerList.size() && i < defenderList.size() && i < 2; i++){
 			if (attackerList.get(i) > defenderList.get(i)){
 				defender.setArmies(defender.getArmies() - 1);
-				//list.set(1, list.get(1) + 1);
 			} else{
 				attacker.setArmies(attacker.getArmies() - 1);
-				//list.set(0, list.get(0) + 1);
 			}
 		}
+		
+		if(defender.getArmies()<1)
+		{
+		   List<Card> list=Collections.unmodifiableList(Arrays.asList(Card.values()));
+		   int size = list.size();
+	       Random rnd = new Random();
+	       attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
+		}	    
 		setChanged();
 		notifyObservers();
 	}
