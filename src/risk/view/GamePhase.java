@@ -212,7 +212,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 
 	
 	/**
-	 * when in the repforement,show which palyer and what phase  and how many armies on the text
+	 * when in the repforement,show which palyer and what phase and how many armies on the text
 	 */
 	public void showReinforementMenu()
 	{
@@ -223,7 +223,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		remove(fortify);
 		remove(endPhase);
 		repaint();
-		
 	}
 
 	public void removeButtonSetPlayer()
@@ -415,8 +414,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 				showFortifitionPhase();
 			}
 		}
-
-
 		repaint();
 	}
 
@@ -438,6 +435,15 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		remove(retreat);
 		remove(autoFight);
 		remove(attackinformation);
+		repaint();
+	}
+
+	public void moveArmiesToQuest() {
+		add(fortifyFrom);
+		add(fortifyTo);
+		add(fortifyArmies);
+		add(fortify);
+		add(endPhase);
 		repaint();
 	}
 }

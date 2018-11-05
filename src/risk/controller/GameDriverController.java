@@ -290,10 +290,22 @@ public class GameDriverController
 		gamePhase.attack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Node attacker=countriesForAttack[0];
+				Node defender=countriesForAttack[1];
 				Player player=getCurrentPlayer();
-				List<List<Integer>> numberofdice=player.getDiceNumList(countriesForAttack[0],countriesForAttack[1]);
+				List<List<Integer>> numberofdice=player.getDiceNumList(attacker,defender);
 				gamePhase.showAttackResult(numberofdice);
-				player.attackResult(countriesForAttack[0],countriesForAttack[1] ,numberofdice );
+				player.attackResult(attacker,defender ,numberofdice );
+				if(attacker.getArmies()==1)
+				{
+					retreat();
+				}
+				if(defender.getArmies()==0)
+				{
+					retreat();
+					defender.setPlayer(player);
+					moveArmriesToConquest(attacker,defender);
+				}
 			}
 		});
 
@@ -301,14 +313,21 @@ public class GameDriverController
 		gamePhase.retreat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(int i=0;i<countriesForAttack.length;i++){
-					countriesForAttack[i]=null;
-				}
-				gamePhase.hideAttackMenu();
+				retreat();
 			}
 		});
 	}
 
+	public void moveArmriesToConquest(Node attacker, Node defender) {
+		gamePhase.moveArmiesToQuest();
+	}
+
+	public void retreat() {
+		for(int i=0;i<countriesForAttack.length;i++){
+			countriesForAttack[i]=null;
+		}
+		gamePhase.hideAttackMenu();
+	}
 
 
 	/**
