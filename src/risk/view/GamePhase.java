@@ -1,10 +1,7 @@
 package risk.view;
 
 import risk.controller.GameDriverController;
-import risk.model.Continent;
-import risk.model.Graph;
-import risk.model.Node;
-import risk.model.Player;
+import risk.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,6 +36,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	public JTextArea attackinformation;
 	public JButton move;
 	public JButton endAttackPhase;
+	public JButton exchangeCard;
+	private List<JCheckBox> cardList;
 	private static GamePhase gamePhase=null;
 	public static boolean isStartPhase=true;
 
@@ -53,6 +52,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		setLayout(null);
 		graph=Graph.getGraphInstance();
 		labelList=new ArrayList<>();
+		cardList=new ArrayList<>();
 		initial();
 	}
 	
@@ -105,6 +105,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		move.setBounds(1120,570, 100, 30);
 		endAttackPhase=new JButton("endAttackPhase");
 		endAttackPhase.setBounds(1120, 620, 100, 30);
+		exchangeCard=new JButton("exchanged");
+		exchangeCard.setBounds(1120,570, 100, 30);
 		add(inputPlayerNumber);
 		add(setPlayer);
 	}
@@ -471,5 +473,35 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		remove(fortifyArmies);
 		remove(move);
 		repaint();
+	}
+
+    public void createCardView(Player player) {
+		List<Card> cards =  player.getCards();
+		int x=1120;
+		int y=500;
+		if(cards!=null) {
+			for (Card card : cards) {
+				JCheckBox box = new JCheckBox(card.toString());
+				box.setBounds(x, y, 60, 20);
+				cardList.add(box);
+				x+=70;
+
+			}
+			add(exchangeCard);
+		}
+    }
+
+	public List<Card> getSelectCard() {
+		List<Card> result=new ArrayList<>();
+		for(JCheckBox box:cardList)
+		{
+			if(box.isSelected())
+			{
+				String cardname=box.getText();
+				Card card=Card.valueOf(cardname);
+				result.add(card);
+			}
+		}
+		return result;
 	}
 }

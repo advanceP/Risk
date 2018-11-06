@@ -1,5 +1,6 @@
 package risk.controller;
 
+import risk.model.Card;
 import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;
@@ -41,7 +42,6 @@ public class GameDriverController
 	List<Color> staticColorList;
 	GamePhase view;
 	int index;
-	private GamePhase gamePhase;
 	private String state;
 	Node[] countriesForAttack=new Node[2];
 
@@ -72,30 +72,98 @@ public class GameDriverController
 	 
 	 public void startGame() {
 	        JFrame risk=new JFrame();
-	        gamePhase= GamePhase.getPanelInstance();
+	        view= GamePhase.getPanelInstance();
 	        graph.getColorTOContinent();
-	        gamePhase.addLabel();
-	        risk.add(gamePhase);
+	        view.addLabel();
+	        risk.add(view);
 	        risk.setSize(1600,1000);
 	        risk.setVisible(true);
 	        startupPhase();
+	        addListener();
 	    }
 
-	    public void startupPhase()
+	public void addListener() {
+
+		addButtonListenerForAttack();
+		for (GameLabel label:view.getLabelList())
+		{
+			label.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					if(state.equals("Reinforcement"))
+					{
+						addReinforement(e);
+					}
+				}
+			});
+
+			label.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mouseClicked(MouseEvent e)
+				{
+					super.mouseClicked(e);
+					if(state.equals("Attack"))
+					{
+						getAttacker(e);
+						if(countriesForAttack[0]!=null)
+						{
+							getDefender(e);
+						}
+						if(countriesForAttack[0]!=null&&countriesForAttack[1]!=null)
+						{
+							view.showAttackMenu(countriesForAttack[0],countriesForAttack[1]);
+						}
+					}
+				}
+			});
+		}
+
+		view.getFortify().addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				fortify(getCurrentPlayer());
+			}
+		});
+
+		view.getEndPhase().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.hideFortifitionPhase();
+				changeCurrentPlayer();
+				state="Reinforcement";
+				reinforcementPhase();
+			}
+		});
+
+		view.exchangeCard.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Player player=getCurrentPlayer();
+				List<Card> cards=view.getSelectCard();
+				player.exchangeCardToArmies(cards);
+			}
+		});
+	}
+
+	public void startupPhase()
 	    {
 	        state="StartUp";
-	        gamePhase.getSetPlayer().addActionListener(new ActionListener()
+	        view.getSetPlayer().addActionListener(new ActionListener()
 	        {
 	            @Override
 	            public void actionPerformed(ActionEvent e)
 	            {
-	                Integer number=Integer.valueOf(gamePhase.getInputPlayerNumber().getText());
+	                Integer number=Integer.valueOf(view.getInputPlayerNumber().getText());
 	                setPlayers(number);
-	                gamePhase.removeButtonSetPlayer();
+	                view.removeButtonSetPlayer();
 	            }
 	        });
 
-	        for (GameLabel label:gamePhase.getLabelList())
+	        for (GameLabel label:view.getLabelList())
 	        {
 	            label.addMouseListener(new MouseAdapter()
 	            {
@@ -147,23 +215,12 @@ public class GameDriverController
 	    public void reinforcementPhase() {
 	        Player currentPlayer=getCurrentPlayer();
 	        currentPlayer.Reinforcement();
-	        for (GameLabel label:gamePhase.getLabelList())
-	        {
-	            label.addMouseListener(new MouseAdapter() {
-	                @Override
-	                public void mouseClicked(MouseEvent e) {
-	                    super.mouseClicked(e);
-	                    if(state.equals("Reinforcement"))
-	                    {
-	                        addReinforement(e,currentPlayer);
-	                    }
-	                }
-	            });
-	        }
+	        view.createCardView(currentPlayer);
 	    }
 
-	    public void addReinforement(MouseEvent e,Player player)
+	    public void addReinforement(MouseEvent e)
 	    {
+	    	Player player=getCurrentPlayer();
 	        int reinforces=player.getReinforcement();
 	        if(reinforces>0)
 	        {
@@ -175,7 +232,6 @@ public class GameDriverController
 	                {
 	                    if(country.getPlayer()==player)
 	                    {
-	                        //country.increaseArmy();
 	                        player.addReinforcementToNode(country);
 	                    }
 	                }
@@ -190,33 +246,8 @@ public class GameDriverController
 	public void attckPhase(Player player) {
 		player.setState("Attack");
 		state="Attack";
-		gamePhase.add(gamePhase.endAttackPhase);
-		addButtonListenerForAttack();
-		for (GameLabel label:gamePhase.getLabelList())
-		{
-			label.addMouseListener(new MouseAdapter()
-			{
-				@Override
-				public void mouseClicked(MouseEvent e)
-				{
-					super.mouseClicked(e);
-					if(state.equals("Attack"))
-					{
-						getAttacker(e);
-						if(countriesForAttack[0]!=null)
-						{
-							getDefender(e);
-						}
-						if(countriesForAttack[0]!=null&&countriesForAttack[1]!=null)
-						{
-							gamePhase.showAttackMenu(countriesForAttack[0],countriesForAttack[1]);
-						}
-					}
-				}
-			});
-		}
+		view.add(view.endAttackPhase);
 	}
-
 
 	private void getDefender(MouseEvent e) {
 		GameLabel label=(GameLabel)e.getSource();
@@ -253,52 +284,35 @@ public class GameDriverController
 		{
 	        player.setState("Fortifition");
 			searchNodeByPlyaer();
-			gamePhase.getFortify().addActionListener(new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent e)
-				{
-					fortify(player);
-				}
-			});
-
-			gamePhase.getEndPhase().addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					gamePhase.hideFortifitionPhase();
-					changeCurrentPlayer();
-					reinforcementPhase();
-				}
-			});
 	    }
 
 	public void fortify(Player player) {
-		Node from=(Node)gamePhase.getFortifyFrom().getSelectedItem();
-		Node to=(Node) gamePhase.getFortifyTo().getSelectedItem();
-		int number=(Integer)gamePhase.getFortifyArmies().getSelectedItem();
+		Node from=(Node)view.getFortifyFrom().getSelectedItem();
+		Node to=(Node) view.getFortifyTo().getSelectedItem();
+		int number=(Integer)view.getFortifyArmies().getSelectedItem();
 		player.Fortification(from,to,number);
 	}
 
 	public void searchNodeByPlyaer()
 		{
-			gamePhase.getFortifyFrom().removeAllItems();
+			view.getFortifyFrom().removeAllItems();
 			Player player= GameDriverController.getGameDriverInstance().getCurrentPlayer();
 			for(Node node:player.getNodeList())
 			{
-				gamePhase.getFortifyFrom().addItem(node);
+				view.getFortifyFrom().addItem(node);
 			}
 		}
 
 	public void addButtonListenerForAttack()
 	{
-		gamePhase.attack.addActionListener(new ActionListener() {
+		view.attack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Node attacker=countriesForAttack[0];
 				Node defender=countriesForAttack[1];
 				Player player=getCurrentPlayer();
 				List<List<Integer>> numberofdice=player.getDiceNumList(attacker,defender);
-				gamePhase.showAttackResult(numberofdice);
+				view.showAttackResult(numberofdice);
 				player.attackResult(attacker,defender ,numberofdice );
 				if(attacker.getArmies()==1)
 				{
@@ -307,14 +321,14 @@ public class GameDriverController
 				if(defender.getArmies()==0)
 				{
 					defender.setPlayer(player);
-					gamePhase.hideAttackMenu();
+					view.hideAttackMenu();
 					moveArmriesToConquest(attacker,defender);
 				}
 			}
 		});
 
 
-		gamePhase.retreat.addActionListener(new ActionListener() {
+		view.retreat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				retreat();
@@ -322,19 +336,20 @@ public class GameDriverController
 		});
 
 
-		gamePhase.move.addActionListener(new ActionListener() {
+		view.move.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Player player=getCurrentPlayer();
 				fortify(player);
-				gamePhase.hideMoveArmyToQuestMenu();
+				view.hideMoveArmyToQuestMenu();
 			}
 		});
 
-		gamePhase.endAttackPhase.addActionListener(new ActionListener() {
+		view.endAttackPhase.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gamePhase.remove(gamePhase.endAttackPhase);
+				view.remove(view.endAttackPhase);
+				retreat();
 				Player player=getCurrentPlayer();
 				playerFortifition(player);
 			}
@@ -342,14 +357,14 @@ public class GameDriverController
 	}
 
 	public void moveArmriesToConquest(Node attacker, Node defender) {
-		gamePhase.moveArmiesToQuest(attacker,defender);
+		view.moveArmiesToQuest(attacker,defender);
 	}
 
 	public void retreat() {
 		for(int i=0;i<countriesForAttack.length;i++){
 			countriesForAttack[i]=null;
 		}
-		gamePhase.hideAttackMenu();
+		view.hideAttackMenu();
 	}
 
 

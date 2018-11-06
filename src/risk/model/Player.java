@@ -361,5 +361,9 @@ public class Player extends Observable
 		}
 		return armies;
 	}
+
+	public void exchangeCardToArmies(List<Card> cards) {
+
+	}
 }
 

@@ -13,4 +13,5 @@ Cavalry(3);
 	{
 		return value;
 	}
+
 }
