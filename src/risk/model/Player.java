@@ -25,6 +25,10 @@ public class Player extends Observable
 	private Color color;
 	private int reinforcement;
 	List<Card> cards=new ArrayList<Card>();
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+
 	List<Continent> continents=new ArrayList<Continent>();
 
 
@@ -363,7 +367,65 @@ public class Player extends Observable
 	}
 
 	public void exchangeCardToArmies(List<Card> cards) {
-
+		List<Card>different=new ArrayList<Card>();
+		different.add(Card.Artillery);
+		different.add(Card.Infantry);
+		different.add(Card.Cavalry);
+		List<Card>artillery=new ArrayList<Card>();
+		artillery.add(Card.Artillery);
+		artillery.add(Card.Artillery);
+		artillery.add(Card.Artillery);
+		
+		List<Card>cavalry=new ArrayList<Card>();
+		cavalry.add(Card.Cavalry);
+		cavalry.add(Card.Cavalry);
+		cavalry.add(Card.Cavalry);
+		
+		List<Card>infantry=new ArrayList<Card>();
+		infantry.add(Card.Infantry);
+		infantry.add(Card.Infantry);
+		infantry.add(Card.Infantry);
+		if(cards.size()>=3)
+		{
+			if(cards.containsAll(different))
+			{
+				cards.remove(different.get(0));
+				cards.remove(different.get(1));
+				cards.remove(different.get(2));
+				increaseReinforcement(3);
+			}
+			else
+			{
+				if(cards.containsAll(artillery))
+				{
+					cards.remove(artillery.get(0));
+					cards.remove(artillery.get(0));
+					cards.remove(artillery.get(0));
+					increaseReinforcement(3);
+				}
+				else if(cards.containsAll(cavalry))
+				{
+					cards.remove(cavalry.get(0));
+					cards.remove(cavalry.get(0));
+					cards.remove(cavalry.get(0));
+					increaseReinforcement(3);
+				}
+				else if(cards.containsAll(infantry))
+				{
+					cards.remove(infantry.get(0));
+					cards.remove(infantry.get(0));
+					cards.remove(infantry.get(0));
+					increaseReinforcement(3);
+				}
+				else {
+					throw new RuntimeException("cannot be exchanged");
+				}
+			}
+		}
+		else
+		{
+			throw new RuntimeException("cannot be exchanged");
+		}
 	}
 }
 
