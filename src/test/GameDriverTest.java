@@ -29,7 +29,6 @@ public class GameDriverTest {
 		try {
 			graph.createGraph(firstFileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver = GameDriverController.getGameDriverInstance();
@@ -46,7 +45,6 @@ public class GameDriverTest {
 		try {
 			graph.createGraph(secondFileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver = GameDriverController.getGameDriverInstance();
@@ -65,7 +63,6 @@ public class GameDriverTest {
 		try {
 			graph.createGraph(firstFileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver = GameDriverController.getGameDriverInstance();
@@ -81,7 +78,6 @@ public class GameDriverTest {
 		try {
 			graph.createGraph(firstFileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver = GameDriverController.getGameDriverInstance();

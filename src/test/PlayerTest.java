@@ -6,6 +6,7 @@ import org.junit.Test;
 import risk.controller.GameDriverController;
 import risk.model.Card;
 import risk.model.Graph;
+import risk.model.Player;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class PlayerTest {
 		try {
 			graph.createGraph(fileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver = GameDriverController.getGameDriverInstance();
@@ -68,5 +68,37 @@ public class PlayerTest {
 		assertSame(expectedvalue,graph.getGraphNodes().get(0).getPlayer().getReinforcement());
 		assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
 	}
+	
+	@Test public void testSetNumberOfCountries() throws FileNotFoundException
+	{
+		int playerCoutries = 0;
+		int expectedNumberOfCountries  = 0;
+		
+		driver.setPlayers(2);
+		driver.getPlayers().get(0).setNumberOfCountries(3);
+		expectedNumberOfCountries = 3;
+		playerCoutries = driver.getPlayers().get(0).getNumberOfCountries();
+		
+		assertSame(expectedNumberOfCountries,playerCoutries);
+	}
+	
+	@Test public void testReinforcement() throws FileNotFoundException
+	{
+		int initialReinforcement = 0;
+		int expectedReinforcment  = 1;
+		int toTestReinforcment = 0;
+		
+		
+		driver.setPlayers(2);
+		driver.getPlayers().get(0).setReinforcement(initialReinforcement);
+		driver.getPlayers().get(0).increaseReinforcement();
+		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+		
+		assertSame(expectedReinforcment,toTestReinforcment);
+	}
+	
+
+	
+	
 
 }
