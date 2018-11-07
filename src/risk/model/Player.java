@@ -275,14 +275,14 @@ public class Player extends Observable
 	 * @Author: Yiying Liu
 	 * @Date: 2018-11-04
 	 */
-	public void attackResult(Node attacker, Node defender, List<List<Integer>> diceNumberList){
+	public boolean attackResult(Node attacker, Node defender, List<List<Integer>> diceNumberList){
 	    if (diceNumberList.isEmpty()){
-	        return;
+	        return false;
         }
         List<Integer> attackerList = diceNumberList.get(0);
         List<Integer> defenderList = diceNumberList.get(1);
 		if (attackerList.isEmpty() || defenderList.isEmpty()){
-			return;
+			return false;
 		}
 		for (int i = 0; i < attackerList.size() && i < defenderList.size() && i < 2; i++){
 			if (attackerList.get(i) > defenderList.get(i)){
@@ -290,17 +290,22 @@ public class Player extends Observable
 			} else{
 				attacker.setArmies(attacker.getArmies() - 1);
 			}
+			if(attacker.getArmies()==1)
+			{
+				return false;
+			}
+			if(defender.getArmies()==0)
+			{
+				List<Card> list=Collections.unmodifiableList(Arrays.asList(Card.values()));
+				int size = list.size();
+				Random rnd = new Random();
+				attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
+				return true;
+			}
 		}
-		
-		if(defender.getArmies()<1)
-		{
-		   List<Card> list=Collections.unmodifiableList(Arrays.asList(Card.values()));
-		   int size = list.size();
-	       Random rnd = new Random();
-	       attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
-		}	    
 		setChanged();
 		notifyObservers();
+		return false;
 	}
 
     public int[] getDiceNumbers(Node attacker,Node defender)

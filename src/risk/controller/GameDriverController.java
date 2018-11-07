@@ -239,6 +239,7 @@ public class GameDriverController
 	        }
 	        else
 	        {
+	        	view.remove(view.exchangeCard);
 				attckPhase(player);
 	        }
 	    }
@@ -311,14 +312,14 @@ public class GameDriverController
 				Node attacker=countriesForAttack[0];
 				Node defender=countriesForAttack[1];
 				Player player=getCurrentPlayer();
-				List<List<Integer>> numberofdice=player.getDiceNumList(attacker,defender);
-				view.showAttackResult(numberofdice);
-				player.attackResult(attacker,defender ,numberofdice );
-				if(attacker.getArmies()==1)
+				if(attacker.getArmies()<=1)
 				{
 					retreat();
 				}
-				if(defender.getArmies()==0)
+				List<List<Integer>> numberofdice=player.getDiceNumList(attacker,defender);
+				view.showAttackResult(numberofdice);
+				boolean flag=player.attackResult(attacker,defender ,numberofdice );
+				if(flag)
 				{
 					defender.setPlayer(player);
 					view.hideAttackMenu();
@@ -357,6 +358,36 @@ public class GameDriverController
 				retreat();
 				Player player=getCurrentPlayer();
 				playerFortifition(player);
+			}
+		});
+
+		view.autoFight.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Node attacker=countriesForAttack[0];
+				Node defender=countriesForAttack[1];
+				Player player=getCurrentPlayer();
+				if(attacker.getArmies()==1)
+				{
+					retreat();
+				}
+				boolean flag=false;
+				while(!flag) {
+					List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender);
+					view.showAttackResult(numberofdice);
+					flag=player.attackResult(attacker, defender, numberofdice);
+				}
+				if(flag)
+				{
+					defender.setPlayer(player);
+					view.hideAttackMenu();
+					moveArmriesToConquest(attacker,defender);
+				}
+				List<Node> nodes=graph.getGraphNodes();
+				if(player.isWin(nodes))
+				{
+					view.showWin();
+				}
 			}
 		});
 	}
