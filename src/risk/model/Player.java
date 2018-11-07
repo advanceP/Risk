@@ -427,5 +427,13 @@ public class Player extends Observable
 			throw new RuntimeException("cannot be exchanged");
 		}
 	}
+
+	public boolean isWin(List<Node> nodes) {
+		if(numberOfCountries==nodes.size())
+		{
+			return true;
+		}
+		return false;
+	}
 }
 

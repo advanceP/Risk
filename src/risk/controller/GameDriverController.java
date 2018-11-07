@@ -324,6 +324,11 @@ public class GameDriverController
 					view.hideAttackMenu();
 					moveArmriesToConquest(attacker,defender);
 				}
+				List<Node> nodes=graph.getGraphNodes();
+				if(player.isWin(nodes))
+                {
+                    view.showWin();
+                }
 			}
 		});
 

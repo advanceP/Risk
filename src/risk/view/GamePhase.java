@@ -504,4 +504,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		}
 		return result;
 	}
+
+	public void showWin() {
+		phaseText.setText("win");
+	}
 }
