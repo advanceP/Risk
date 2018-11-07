@@ -495,5 +495,16 @@ public class Graph
 			graph.getContinents().get(i).setColor(colors.get(i));
 		}
 	}
+	
+//	public ArrayList<Color> getColor()
+//	{
+//		ArrayList<Color> colors=new ArrayList<>();
+//		
+//		for(int i=0;i<this.getContinents().size();i++)
+//		{
+//			this.getContinents().get(i).setColor(colors.get(i));
+//		}
+//		return colors;
+//	}
 }
 
