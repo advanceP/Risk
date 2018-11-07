@@ -220,7 +220,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 
 	
 	/**
-	 * when in the repforement,show which palyer and what phase and how many armies on the text
+	 * when in the reinforcement,show which player and what phase and how many armies on the text
 	 */
 	public void showReinforementMenu()
 	{
