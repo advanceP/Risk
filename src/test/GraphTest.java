@@ -71,38 +71,8 @@ public class GraphTest {
 			e.printStackTrace();
 		}
 	}
-////	public void getColorTOContinent()
-////	{
-////		ArrayList<Color> colors=new ArrayList<>();
-////		colors.add(Color.BLACK);
-////		colors.add(Color.cyan);
-////		colors.add(Color.DARK_GRAY);
-////		colors.add(Color.GRAY);
-////		colors.add(Color.MAGENTA);
-////		colors.add(Color.PINK);
-////		colors.add(Color.ORANGE);
-////		colors.add(Color.LIGHT_GRAY);
-////		for(int i=0;i<graph.getContinents().size();i++)
-////		{
-////			graph.getContinents().get(i).setColor(colors.get(i));
-////		}
-////	}
-//	
-//	@test public void hasColor()
-//	{
-//		ArrayList<Color> colors=new ArrayList<>();
-//		try {
-//			graph.createGraph(validMap);
-//			
-//			colors.add(graph.getContinents().get(1).getColor());
-//			
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		assertTrue(graph.verifyGraph());
-//	}
-	@Test public void hasColor()
+
+	@Test public void testContinentsColor ()
 	{
 		ArrayList<Color> expectedColors=new ArrayList<>();
 		ArrayList<Color> initiatedColor=new ArrayList<>();
@@ -114,8 +84,7 @@ public class GraphTest {
 		expectedColors.add(Color.PINK);
 		expectedColors.add(Color.ORANGE);
 		expectedColors.add(Color.LIGHT_GRAY);
-		//Color black  = Color.BLACK; 
-		//Color color = null;
+
 		
 		try {
 			
