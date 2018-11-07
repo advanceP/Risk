@@ -82,6 +82,23 @@ public class PlayerTest {
 		assertSame(expectedNumberOfCountries,playerCoutries);
 	}
 	
+	@Test public void testReinforcement() throws FileNotFoundException
+	{
+		int initialReinforcement = 0;
+		int expectedReinforcment  = 1;
+		int toTestReinforcment = 0;
+		
+		
+		driver.setPlayers(2);
+		driver.getPlayers().get(0).setReinforcement(initialReinforcement);
+		driver.getPlayers().get(0).increaseReinforcement();
+		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+		
+		assertSame(expectedReinforcment,toTestReinforcment);
+	}
+	
+
+	
 	
 
 }
