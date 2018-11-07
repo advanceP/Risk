@@ -111,6 +111,22 @@ public class PlayerTest {
 		
 	}
 	
+	@Test public void testReinforcementReinforcementState() throws FileNotFoundException
+	{
+		int expectedReinforcment  = 11;
+		int toTestReinforcment = 0;
+		
+		
+		driver.setPlayers(2);
+		driver.getPlayers().get(0).setState("Reinforcement");
+		driver.getPlayers().get(0).setReinforcement(10);
+		driver.getPlayers().get(0).Reinforcement();
+		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+		
+		assertSame(expectedReinforcment,toTestReinforcment);
+		
+	}
+	
 	
 
 }
