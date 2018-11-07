@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,9 +178,12 @@ public class MapEditorController {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                FileController fileController=new FileController();
-                StringBuffer mapInfo = fileController.getMapInfo(graph);
-                fileController.writeFile("a.map", mapInfo.toString());
+                System.out.println(111);
+                if(e.getSource()==mapEditor.getSaveMap()) {
+                    FileController fileController = new FileController();
+                    StringBuffer mapInfo = fileController.getMapInfo(graph);
+                    fileController.writeFile("a.map", mapInfo.toString());
+                }
             }
         });
 

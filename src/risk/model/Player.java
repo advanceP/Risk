@@ -296,6 +296,8 @@ public class Player extends Observable
 			}
 			if(defender.getArmies()==0)
 			{
+				increaseNumberOfCountries();
+				defender.setPlayer(this);
 				List<Card> list=Collections.unmodifiableList(Arrays.asList(Card.values()));
 				int size = list.size();
 				Random rnd = new Random();
@@ -436,6 +438,7 @@ public class Player extends Observable
 	public boolean isWin(List<Node> nodes) {
 		if(numberOfCountries==nodes.size())
 		{
+			this.setState("Win");
 			return true;
 		}
 		return false;

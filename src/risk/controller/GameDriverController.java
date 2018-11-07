@@ -321,7 +321,6 @@ public class GameDriverController
 				boolean flag=player.attackResult(attacker,defender ,numberofdice );
 				if(flag)
 				{
-					defender.setPlayer(player);
 					view.hideAttackMenu();
 					moveArmriesToConquest(attacker,defender);
 				}
@@ -379,7 +378,6 @@ public class GameDriverController
 				}
 				if(flag)
 				{
-					defender.setPlayer(player);
 					view.hideAttackMenu();
 					moveArmriesToConquest(attacker,defender);
 				}
