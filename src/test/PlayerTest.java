@@ -26,7 +26,6 @@ public class PlayerTest {
 		try {
 			graph.createGraph(fileName);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver = GameDriverController.getGameDriverInstance();

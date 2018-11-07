@@ -34,7 +34,6 @@ public class GraphTest {
 		try {
 			graph.createGraph(invalidMap);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertFalse(graph.verifyGraph());
@@ -45,7 +44,6 @@ public class GraphTest {
 		try {
 			graph.createGraph(validMap);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertTrue(graph.verifyGraph());
@@ -100,7 +98,6 @@ public class GraphTest {
 			
 			e.printStackTrace();
 		}
-		//assertNull(color);
 		for	(int j = 0; j < graph.getContinents().size(); j++) 
 		{
 		assertEquals(expectedColors.get(j),initiatedColor.get(j));
