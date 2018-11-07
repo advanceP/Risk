@@ -96,8 +96,20 @@ public class PlayerTest {
 		
 		assertSame(expectedReinforcment,toTestReinforcment);
 	}
-	
-
+	@Test public void testReinforcementStartupState() throws FileNotFoundException
+	{
+		int expectedReinforcment  = 1;
+		int toTestReinforcment = 0;
+		
+		
+		driver.setPlayers(2);
+		driver.getPlayers().get(0).setState("StartUp");
+		driver.getPlayers().get(0).Reinforcement();
+		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+		
+		assertSame(expectedReinforcment,toTestReinforcment);
+		
+	}
 	
 	
 
