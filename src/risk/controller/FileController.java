@@ -7,26 +7,22 @@ import risk.model.Graph;
 import java.io.*;
 import java.util.*;
 
-public class FileController 
-{
+public class FileController {
 
     /**
-     * @Description: write and save as a txt file
      * @param filePath filepath of this txt file
-     * @param content information of the map and user
+     * @param content  information of the map and user
+     * @Description: write and save as a txt file
      * @return: flag whether write and save a file successfully
      * @Author: Yiying Liu
      * @Date: 2018-10-16
      */
-	
-    public static boolean writeFile(String filePath, String content) 
-    {
+
+    public static boolean writeFile(String filePath, String content) {
         boolean flag = false;
         File file = new File(filePath);
-        try
-        {
-            if (!file.exists())
-            {
+        try {
+            if (!file.exists()) {
                 file.createNewFile();
             }
 
@@ -34,66 +30,63 @@ public class FileController
             bw.write(content);
             bw.close();
             flag = true;
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.print("fail to write a file !");
         }
         RandomAccessFile f = null;
-		try {
-			f = new RandomAccessFile(filePath, "rw");
-		} catch (FileNotFoundException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
-		}
+        try {
+            f = new RandomAccessFile(filePath, "rw");
+        } catch (FileNotFoundException e3) {
+            // TODO Auto-generated catch block
+            e3.printStackTrace();
+        }
         long length = 0;
-		try {
-			length = f.length() - 1;
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-        byte b=0;
-        do {                     
-          length -= 1;
-          try {
-			f.seek(length);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-          try {
-			b = f.readByte();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        }while(b != 10);
         try {
-			f.setLength(length+1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            length = f.length() - 1;
+        } catch (IOException e2) {
+            // TODO Auto-generated catch block
+            e2.printStackTrace();
+        }
+        byte b = 0;
+        do {
+            length -= 1;
+            try {
+                f.seek(length);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            try {
+                b = f.readByte();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } while (b != 10);
         try {
-			f.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            f.setLength(length + 1);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            f.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return flag;
     }
 
     /**
+     * @param graph the map wanted to save
      * @Description: convert map information to StringBuffer type
-     * @param graph     the map wanted to save
      * @return: mapInfo     the result of conversion
      * @Author: Yiying Liu
      * @Date: 2018-10-16
      */
-    
-    public StringBuffer getMapInfo(Graph graph)
-    {
+
+    public StringBuffer getMapInfo(Graph graph) {
         StringBuffer mapInfo = new StringBuffer();
         List<Node> nodeList = graph.getGraphNodes();
         List<Continent> continentList = graph.getContinents();
@@ -103,20 +96,18 @@ public class FileController
         StringBuffer nodesInfo = new StringBuffer();
         nodesInfo.append("[Territories]" + "\r\n");
 
-        for (Node node : nodeList)
-        {
+        for (Node node : nodeList) {
 
             String adjacencyList = node.getAdjacencyList().toString();
-            adjacencyList = adjacencyList.substring(1,adjacencyList.length() - 1).replace(" ","");
+            adjacencyList = adjacencyList.substring(1, adjacencyList.length() - 1).replace(" ", "");
             String continentName = node.getContinent().getName();
             String nodeDetail = node.getName() + "," + node.getX() + "," + node.getY() + ","
-                                    + continentName + "," + adjacencyList + "\r\n";
+                    + continentName + "," + adjacencyList + "\r\n";
             nodesInfo.append(nodeDetail);
 
         }
 
-        for (int i = 0; i < continentList.size(); i++)
-        {
+        for (int i = 0; i < continentList.size(); i++) {
             Continent continent = continentList.get(i);
             String continentDetail = continent.getName() + "=" + continent.getAwardUnits() + "\r\n";
             continentsInfo.append(continentDetail);
@@ -125,19 +116,18 @@ public class FileController
         mapInfo.append(nodesInfo.append("\r\n"));
         return mapInfo;
     }
-    
+
     /**
-     * @Description: to verify wheather the map is correct
      * @param filePath the Path of map file
-     * @return:  true : map is correct      false : map is incorrect
+     * @Description: to verify wheather the map is correct
+     * @return: true : map is correct      false : map is incorrect
      * @Author: Yiying Liu
      * @Date: 2018-10-16
      */
-    
-    public static boolean verifyMapFile(String filePath)
-    {
 
-        try{
+    public static boolean verifyMapFile(String filePath) {
+
+        try {
             Map<String, Integer> continentList = new HashMap<>();
             Map<String, String> nodeList = new HashMap<>();
             InputStream is = new FileInputStream(filePath);
@@ -147,37 +137,31 @@ public class FileController
             boolean notNode = false;
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             line = reader.readLine();
-            while (line != null)
-            {
-                if (line.equals("\r\n") || line.equals(""))
-                {
+            while (line != null) {
+                if (line.equals("\r\n") || line.equals("")) {
                     line = reader.readLine();
                     continue;
                 }
-                if (line.equals("[Continents]"))
-                {
+                if (line.equals("[Continents]")) {
                     contFlag = true;
-                    notNode=true;
+                    notNode = true;
                     line = reader.readLine();
                 }
-                if (line.equals("[Territories]"))
-                {
+                if (line.equals("[Territories]")) {
                     contFlag = false;
                     nodeFlag = true;
                     line = reader.readLine();
                 }
-                if (contFlag)
-                {
+                if (contFlag) {
                     String continent[] = line.split("=");
-                    if (continent.length > 2){
+                    if (continent.length > 2) {
                         return false;
                     }
                     Integer num = Integer.parseInt(continent[1]);
-                    continentList.put(continent[0].replace(" ",""), 0);
+                    continentList.put(continent[0].replace(" ", ""), 0);
                 }
 
-                if (nodeFlag)
-                {
+                if (nodeFlag) {
                     String node[] = line.split(",");
                     int index = line.indexOf(',');
                     nodeList.put(node[0], line.substring(index + 1));
@@ -188,39 +172,32 @@ public class FileController
             is.close();
 
             Set<String> keys = nodeList.keySet();
-            for (String key : keys) 
-            {
+            for (String key : keys) {
                 String[] nodeDetail = nodeList.get(key).split(",");
                 String continentName = nodeDetail[2];
                 // make sure x and y are Integer
-                Integer x = Integer.parseInt(nodeDetail[0].replace(" ",""));
-                Integer y = Integer.parseInt(nodeDetail[1].replace(" ",""));
+                Integer x = Integer.parseInt(nodeDetail[0].replace(" ", ""));
+                Integer y = Integer.parseInt(nodeDetail[1].replace(" ", ""));
 
-                if (!continentList.containsKey(continentName.replace(" ","")))
-                {
+                if (!continentList.containsKey(continentName.replace(" ", ""))) {
                     return false;
-                } else{
-                   continentList.put(continentName.replace(" ",""), continentList.get(continentName.replace(" ","")) + 1);
+                } else {
+                    continentList.put(continentName.replace(" ", ""), continentList.get(continentName.replace(" ", "")) + 1);
                 }
 
             }
             int sum = 0;
             Set<String> keySetList = continentList.keySet();
-            for (String keySet: keySetList) 
-            {
+            for (String keySet : keySetList) {
                 sum += continentList.get(keySet);
             }
-            if (sum != nodeList.size())
-            {
+            if (sum != nodeList.size()) {
                 return false;
             }
-            if(notNode==false || nodeFlag==false)
-            	return false;
+            if (notNode == false || nodeFlag == false)
+                return false;
 
-        }
-        
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return false;
         }
 

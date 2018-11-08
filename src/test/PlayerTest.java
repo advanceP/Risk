@@ -16,134 +16,135 @@ import static org.junit.Assert.assertSame;
 
 
 public class PlayerTest {
-	GameDriverController driver;
-	Graph graph;
-	int numberOfPlayers;
-	String fileName;
-	@Before public void before()
-	{
-		fileName="src/test/a.map";
-		graph=Graph.getGraphInstance();
-		try {
-			graph.createGraph(fileName);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		driver = GameDriverController.getGameDriverInstance();
-	}
-	@Test public void testNumberOfCountries()
-	{
-		int expectedvalue=2;
-		driver.setPlayers(2);
-		assertSame(expectedvalue, driver.getPlayers().get(0).getNumberOfCountries());
-	}
-	@Test public void testSameExchangeCard()
-	{
-		driver.setPlayers(2);
-		int expectedvalue=7;
-		int cardnumbers=1;
-		List<Card>cards=new ArrayList<Card>();
-		cards.add(Card.Artillery);
-		cards.add(Card.Artillery);
-		cards.add(Card.Artillery);
-		cards.add(Card.Infantry);
-		graph.getGraphNodes().get(0).getPlayer().setCards(cards);
-		graph.getGraphNodes().get(0).getPlayer().exchangeCardToArmies(cards);
-		assertSame(expectedvalue,graph.getGraphNodes().get(0).getPlayer().getReinforcement());
-		assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
-	}
-	@Test public void testFiveExchangeCard()
-	{
-		driver.setPlayers(2);
-		int expectedvalue=7;
-		int cardnumbers=2;
-		List<Card>cards=new ArrayList<Card>();
-		cards.add(Card.Artillery);
-		cards.add(Card.Artillery);
-		cards.add(Card.Artillery);
-		cards.add(Card.Infantry);
-		cards.add(Card.Cavalry);
-		graph.getGraphNodes().get(0).getPlayer().setCards(cards);
-		graph.getGraphNodes().get(0).getPlayer().exchangeCardToArmies(cards);
-		assertSame(expectedvalue,graph.getGraphNodes().get(0).getPlayer().getReinforcement());
-		assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
-	}
-	
-	@Test public void testSetNumberOfCountries() throws FileNotFoundException
-	{
-		int playerCoutries = 0;
-		int expectedNumberOfCountries  = 0;
-		
-		driver.setPlayers(2);
-		driver.getPlayers().get(0).setNumberOfCountries(3);
-		expectedNumberOfCountries = 3;
-		playerCoutries = driver.getPlayers().get(0).getNumberOfCountries();
-		
-		assertSame(expectedNumberOfCountries,playerCoutries);
-	}
-	
-	@Test public void testReinforcement() throws FileNotFoundException
-	{
-		int initialReinforcement = 0;
-		int expectedReinforcment  = 1;
-		int toTestReinforcment = 0;
-		
-		
-		driver.setPlayers(2);
-		driver.getPlayers().get(0).setReinforcement(initialReinforcement);
-		driver.getPlayers().get(0).increaseReinforcement();
-		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
-		
-		assertSame(expectedReinforcment,toTestReinforcment);
-	}
-	@Test public void testReinforcementStartupState() throws FileNotFoundException
-	{
-		int expectedReinforcment  = 1;
-		int toTestReinforcment = 0;
-		
-		
-		driver.setPlayers(2);
-		driver.getPlayers().get(0).setState("StartUp");
-		driver.getPlayers().get(0).Reinforcement();
-		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
-		
-		assertSame(expectedReinforcment,toTestReinforcment);
-		
-	}
-	
-	@Test public void testReinforcementReinforcementState() throws FileNotFoundException
-	{
-		int expectedReinforcment  = 11;
-		int toTestReinforcment = 0;
-		
-		
-		driver.setPlayers(2);
-		driver.getPlayers().get(0).setState("Reinforcement");
-		driver.getPlayers().get(0).setReinforcement(10);
-		driver.getPlayers().get(0).Reinforcement();
-		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
-		
-		assertSame(expectedReinforcment,toTestReinforcment);
-		
-	}
-	
-	@Test public void testAditionalReinforcement() throws FileNotFoundException
-	{
-		int expectedAdditionalreinforcement  = 14;
-		int toTestReinforcment = 0;
-		
-		
-		driver.setPlayers(2);
-		driver.getPlayers().get(0).setState("Reinforcement");
-		driver.getPlayers().get(0).setReinforcement(10);
-		driver.getPlayers().get(0).setNumberOfCountries(10);
-		driver.getPlayers().get(0).Reinforcement();
-		toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
-		
-		assertSame(expectedAdditionalreinforcement,toTestReinforcment);
-		
-	}
-	
+    GameDriverController driver;
+    Graph graph;
+    int numberOfPlayers;
+    String fileName;
+
+    @Before
+    public void before() {
+        fileName = "src/test/a.map";
+        graph = Graph.getGraphInstance();
+        try {
+            graph.createGraph(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        driver = GameDriverController.getGameDriverInstance();
+    }
+
+    @Test
+    public void testNumberOfCountries() {
+        int expectedvalue = 2;
+        driver.setPlayers(2);
+        assertSame(expectedvalue, driver.getPlayers().get(0).getNumberOfCountries());
+    }
+
+    @Test
+    public void testSameExchangeCard() {
+        driver.setPlayers(2);
+        int expectedvalue = 7;
+        int cardnumbers = 1;
+        List<Card> cards = new ArrayList<Card>();
+        cards.add(Card.Artillery);
+        cards.add(Card.Artillery);
+        cards.add(Card.Artillery);
+        cards.add(Card.Infantry);
+        graph.getGraphNodes().get(0).getPlayer().setCards(cards);
+        graph.getGraphNodes().get(0).getPlayer().exchangeCardToArmies(cards);
+        assertSame(expectedvalue, graph.getGraphNodes().get(0).getPlayer().getReinforcement());
+        assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
+    }
+
+    @Test
+    public void testFiveExchangeCard() {
+        driver.setPlayers(2);
+        int expectedvalue = 7;
+        int cardnumbers = 2;
+        List<Card> cards = new ArrayList<Card>();
+        cards.add(Card.Artillery);
+        cards.add(Card.Artillery);
+        cards.add(Card.Artillery);
+        cards.add(Card.Infantry);
+        cards.add(Card.Cavalry);
+        graph.getGraphNodes().get(0).getPlayer().setCards(cards);
+        graph.getGraphNodes().get(0).getPlayer().exchangeCardToArmies(cards);
+        assertSame(expectedvalue, graph.getGraphNodes().get(0).getPlayer().getReinforcement());
+        assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
+    }
+
+    @Test
+    public void testSetNumberOfCountries() throws FileNotFoundException {
+        int playerCoutries = 0;
+        int expectedNumberOfCountries = 0;
+
+        driver.setPlayers(2);
+        driver.getPlayers().get(0).setNumberOfCountries(3);
+        expectedNumberOfCountries = 3;
+        playerCoutries = driver.getPlayers().get(0).getNumberOfCountries();
+
+        assertSame(expectedNumberOfCountries, playerCoutries);
+    }
+
+    @Test
+    public void testReinforcement() throws FileNotFoundException {
+        int initialReinforcement = 0;
+        int expectedReinforcment = 1;
+        int toTestReinforcment = 0;
+
+
+        driver.setPlayers(2);
+        driver.getPlayers().get(0).setReinforcement(initialReinforcement);
+        driver.getPlayers().get(0).increaseReinforcement();
+        toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+
+        assertSame(expectedReinforcment, toTestReinforcment);
+    }
+
+    @Test
+    public void testReinforcementStartupState() throws FileNotFoundException {
+        int expectedReinforcment = 1;
+        int toTestReinforcment = 0;
+
+
+        driver.setPlayers(2);
+        driver.getPlayers().get(0).setState("StartUp");
+        driver.getPlayers().get(0).Reinforcement();
+        toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+
+        assertSame(expectedReinforcment, toTestReinforcment);
+
+    }
+
+    @Test
+    public void testReinforcementReinforcementState() throws FileNotFoundException {
+        int expectedReinforcment = 11;
+        int toTestReinforcment = 0;
+
+
+        driver.setPlayers(2);
+        driver.getPlayers().get(0).setState("Reinforcement");
+        driver.getPlayers().get(0).setReinforcement(10);
+        driver.getPlayers().get(0).Reinforcement();
+        toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+
+        assertSame(expectedReinforcment, toTestReinforcment);
+
+    }
+
+
+    @Test
+    public void testAditionalReinforcement() throws FileNotFoundException {
+        int expectedAdditionalreinforcement = 14;
+        int toTestReinforcment = 0;
+        driver.setPlayers(2);
+        driver.getPlayers().get(0).setState("Reinforcement");
+        driver.getPlayers().get(0).setReinforcement(10);
+        driver.getPlayers().get(0).setNumberOfCountries(10);
+        driver.getPlayers().get(0).Reinforcement();
+        toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
+        assertSame(expectedAdditionalreinforcement, toTestReinforcment);
+    }
 
 
 }

@@ -9,11 +9,13 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-	FileControllerTest.class,
-	GameDriverTest.class,
-	GraphTest.class,
-	PlayerTest.class
+        FileControllerTest.class,
+        GameDriverTest.class,
+        GraphTest.class,
+        PlayerTest.class
 })
+
+
 public class JunitTestSuite {
 
 
