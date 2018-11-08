@@ -226,6 +226,7 @@ public class GameDriverController
 	        Player currentPlayer=getCurrentPlayer();
 	        currentPlayer.Reinforcement();
 	        view.createCardView(currentPlayer);
+			currentPlayer.checkPlyaerCard();
 	    }
 
 	    public void addReinforement(MouseEvent e)

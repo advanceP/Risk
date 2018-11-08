@@ -467,5 +467,34 @@ public class Player extends Observable
 		}
 		return resultList;
 	}
+
+	public int checkPlyaerCard() {
+		List<Card> cardlist = getCards();
+		Card Artillery= Card.Artillery;
+		Card cavalry = Card.Cavalry;
+		Card infantry = Card.Infantry;
+		ArrayList<Card> type=new ArrayList<>();
+		type.add(Artillery);
+		type.add(cavalry);
+		type.add(infantry);
+		int i=0;
+		ArrayList<Card> exchangecards=new ArrayList<>();
+		while(cardlist.size()>5){
+			Card card=cardlist.get(i);
+			if(card==type.get(i)){
+				exchangecards.add(card);
+				cardlist.remove(card);
+				i++;
+			}
+			if(exchangecards.size()==3){
+				exchangeCardToArmies(exchangecards);
+				exchangecards.clear();
+				i=0;
+			}
+		}
+		int result=getCards().size()-cardlist.size();
+		setCards(cardlist);
+		return result;
+	}
 }
 
