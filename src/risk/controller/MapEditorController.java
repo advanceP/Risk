@@ -157,6 +157,10 @@ public class MapEditorController {
             public void actionPerformed(ActionEvent e) {
                 FileController fileController = new FileController();
                 StringBuffer mapInfo = fileController.getMapInfo(graph);
+                if(graph.verifyGraph()==false)
+                {
+                	throw new RuntimeException("invalid graph");
+                }
                 fileController.writeFile("a.map", mapInfo.toString());
             }
         });

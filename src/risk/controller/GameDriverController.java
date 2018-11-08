@@ -63,7 +63,17 @@ public class GameDriverController
 	
 	 public void loadFile(String absolutePath) {
 	        try {
+	        	if(FileController.verifyMapFile(absolutePath)==false)
+	        	{
+	        		throw new RuntimeException("invalid file");
+	        	}
 	            graph.createGraph(absolutePath);
+	            if(graph.verifyGraph()==false)
+	            {
+	            	graph.setContinents(null);
+	            	graph.setGraphNodes(null);
+	            	throw new RuntimeException("invalid graph");
+	            }
 	        } catch (FileNotFoundException e) {
 	            e.printStackTrace();
 	        }

@@ -1,4 +1,8 @@
 [Continents]
-a=5
+a=3
+b=4
 
 [Territories]
+ac,627,201,a,d
+cd,563,395,b,d
+d,706,372,b,cd,ac
