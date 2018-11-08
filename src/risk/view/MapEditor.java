@@ -1,11 +1,14 @@
 package risk.view;
 
+import risk.controller.FileController;
 import risk.model.Continent;
 import risk.model.Node;
 import risk.model.Graph;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,8 +115,7 @@ public class MapEditor extends JPanel
 			
 			saveMap=new JButton("save Map");
 			saveMap.setBounds(970, 680, 120, 30);
-			add(saveMap);
-		}
+}
 
 		/**
 		 * this method will search the country in the fraph and add them in the droplist for user to choose

@@ -53,6 +53,7 @@ public class MapEditorController {
         frame.setVisible(true);
         mapEditor.initial();
         addListener();
+        mapEditor.add(mapEditor.getSaveMap());
     }
 
     public static MapEditor getMapEditor() {
@@ -151,6 +152,15 @@ public class MapEditorController {
             }
         });
 
+        mapEditor.getSaveMap().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FileController fileController = new FileController();
+                StringBuffer mapInfo = fileController.getMapInfo(graph);
+                fileController.writeFile("a.map", mapInfo.toString());
+            }
+        });
+
         mapEditor.getDeleteButton().addActionListener(new ActionListener()
         {
             @Override
@@ -173,19 +183,6 @@ public class MapEditorController {
             }
         });
 
-        mapEditor.getSaveMap().addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                System.out.println(111);
-                if(e.getSource()==mapEditor.getSaveMap()) {
-                    FileController fileController = new FileController();
-                    StringBuffer mapInfo = fileController.getMapInfo(graph);
-                    fileController.writeFile("a.map", mapInfo.toString());
-                }
-            }
-        });
 
         MouseAdapter mouseAdapter=new MouseAdapter()
         {
