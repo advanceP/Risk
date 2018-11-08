@@ -177,12 +177,13 @@ public class PlayerTest
     public void testFortification()
     {
     	int[] expectedvalue= {2,0};
-    	driver.setPlayers(2);
-    	Node from=new Node("from",driver.getCurrentPlayer().getContinents().get(0),110,120);
+    	Player testplayer=new Player();
+    	Continent testcontinent=new Continent();
+    	Node from=new Node("from",testcontinent,110,120);
     	from.setArmies(1);
-    	Node to=new Node("from",driver.getCurrentPlayer().getContinents().get(0),110,130);
+    	Node to=new Node("from",testcontinent,110,130);
     	to.setArmies(1);
-    	driver.getCurrentPlayer().Fortification(from, to, 1);
+    	testplayer.Fortification(from, to, 1);
     	assertSame(expectedvalue[0], to.getArmies());
     	assertSame(expectedvalue[1], from.getArmies());
     }
