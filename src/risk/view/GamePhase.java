@@ -38,6 +38,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 	public JButton endAttackPhase;
 	public JButton exchangeCard;
 	private List<JCheckBox> cardList;
+	private JComboBox<Integer> attackerDice;
+	private JComboBox<Integer> defenderDice;
 	private static GamePhase gamePhase=null;
 	public static boolean isStartPhase=true;
 
@@ -66,6 +68,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 			gamePhase =new GamePhase();
 		return gamePhase;
 	}
+
 
 	/**
 	 * add some button the create the button
@@ -107,6 +110,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		endAttackPhase.setBounds(1120, 620, 100, 30);
 		exchangeCard=new JButton("exchanged");
 		exchangeCard.setBounds(1120,570, 100, 30);
+		attackerDice=new JComboBox<>();
+		attackerDice.setBounds(1120,600 , 100, 20);
+		defenderDice=new JComboBox();
+		defenderDice.setBounds(1220, 600, 100, 20);
 		add(inputPlayerNumber);
 		add(setPlayer);
 	}
@@ -353,6 +360,13 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		return labelList;
 	}
 
+	public JComboBox<Integer> getAttackerDice() {
+		return attackerDice;
+	}
+
+	public JComboBox<Integer> getDefenderDice() {
+		return defenderDice;
+	}
 
 	public void addLabel() {
 		for(Node country:graph.getGraphNodes())
@@ -370,8 +384,17 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		add(attack);
 		add(retreat);
 		add(autoFight);
+		add(attackerDice);
+		add(defenderDice);
 		attackinformation.setText(attacker.getName()+" has "+playerdice[0]+"dice "+defender.getName()+" has "+playerdice[1]+" dice");
 		add(attackinformation);
+		int[] dices=getDiceNumbers(attacker, defender);
+		for(int i=1;i<=dices[0];i++){
+			attackerDice.addItem(i);
+		}
+		for(int i=1;i<=dices[1];i++){
+			defenderDice.addItem(i);
+		}
 		repaint();
 	}
 
@@ -453,6 +476,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer
 		remove(retreat);
 		remove(autoFight);
 		remove(attackinformation);
+		remove(attackerDice);
+		remove(defenderDice);
 		repaint();
 	}
 

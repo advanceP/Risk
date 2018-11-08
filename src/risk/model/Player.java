@@ -443,5 +443,29 @@ public class Player extends Observable
 		}
 		return false;
 	}
+
+	public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerdice, int defenderdice) {
+		List<List<Integer>> resultList = new ArrayList<>();
+		List<Integer> attackerList = new ArrayList<>();
+		List<Integer> defenderList = new ArrayList<>();
+		resultList.add(attackerList);
+		resultList.add(defenderList);
+		Random random = new Random();
+		int[] numbers=getDiceNumbers(attacker, defender);
+
+		for (int i = 0; i <attackerdice; i++){
+			attackerList.add(random.nextInt(6)+1);
+		}
+		for (int j = 0; j <defenderdice; j++){
+			defenderList.add(random.nextInt(6)+1);
+		}
+		if (attackerList.size() > 1){
+			Collections.sort(attackerList, Collections.reverseOrder());
+		}
+		if (defenderList.size() > 1){
+			Collections.sort(defenderList, Collections.reverseOrder());
+		}
+		return resultList;
+	}
 }
 

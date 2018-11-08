@@ -316,7 +316,9 @@ public class GameDriverController
 				{
 					retreat();
 				}
-				List<List<Integer>> numberofdice=player.getDiceNumList(attacker,defender);
+				int attackerdice=(Integer)view.getAttackerDice().getSelectedItem();
+				int defenderdice=(Integer)view.getDefenderDice().getSelectedItem();
+				List<List<Integer>> numberofdice=player.getDiceNumList(attacker,defender,attackerdice,defenderdice);
 				view.showAttackResult(numberofdice);
 				boolean flag=player.attackResult(attacker,defender ,numberofdice );
 				if(flag)
