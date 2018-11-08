@@ -4,14 +4,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import risk.controller.GameDriverController;
-import risk.model.Card;
-import risk.model.Graph;
-import risk.model.Player;
+import risk.model.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 
 
@@ -144,6 +143,24 @@ public class PlayerTest {
         driver.getPlayers().get(0).Reinforcement();
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
         assertSame(expectedAdditionalreinforcement, toTestReinforcment);
+    }
+
+    @Test
+    public void testAttackResult(){
+        driver.setPlayers(2);
+        Player p1=driver.getPlayers().get(0);
+        Player p2=driver.getPlayers().get(1);
+        Continent con=new Continent("asia", 2);
+        Node attacker=new Node("a", con, 11, 22);
+        Node defender=new Node("b", con, 15, 24);
+        attacker.addToAdjacency(defender.getName());
+        defender.addToAdjacency(attacker.getName());
+        attacker.setPlayer(p1);
+        defender.setPlayer(p2);
+        attacker.setArmies(8);
+        defender.setArmies(3);
+        List<List<Integer>> diceNumList = p1.getDiceNumList(attacker, defender);
+        assertFalse(p1.attackResult(attacker,defender ,diceNumList ));
     }
 
 

@@ -109,9 +109,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         exchangeCard = new JButton("exchanged");
         exchangeCard.setBounds(1120, 570, 100, 30);
         attackerDice = new JComboBox<>();
-        attackerDice.setBounds(1120, 600, 100, 20);
+        attackerDice.setBounds(1120, 500, 100, 20);
         defenderDice = new JComboBox();
-        defenderDice.setBounds(1220, 600, 100, 20);
+        defenderDice.setBounds(1220, 500, 100, 20);
         add(inputPlayerNumber);
         add(setPlayer);
     }
@@ -357,6 +357,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         attackinformation.setText(attacker.getName() + " has " + playerdice[0] + "dice " + defender.getName() + " has " + playerdice[1] + " dice");
         add(attackinformation);
         int[] dices = getDiceNumbers(attacker, defender);
+        attackerDice.removeAllItems();
+        defenderDice.removeAllItems();
         for (int i = 1; i <= dices[0]; i++) {
             attackerDice.addItem(i);
         }
