@@ -59,6 +59,9 @@ public class GameDriverController {
     }
 
 
+    /**
+     * @param absolutePath
+     */
     public void loadFile(String absolutePath) {
         try {
             if (FileController.verifyMapFile(absolutePath) == false) {
@@ -76,6 +79,9 @@ public class GameDriverController {
     }
 
 
+    /**
+     * 
+     */
     public void startGame() {
         JFrame risk = new JFrame();
         view = GamePhase.getPanelInstance();
@@ -88,6 +94,9 @@ public class GameDriverController {
         addListener();
     }
 
+    /**
+     * 
+     */
     public void addListener() {
 
         addButtonListenerForAttack();
@@ -146,6 +155,9 @@ public class GameDriverController {
         });
     }
 
+    /**
+     * 
+     */
     public void startupPhase() {
         state = "StartUp";
         view.getSetPlayer().addActionListener(new ActionListener() {
@@ -170,6 +182,9 @@ public class GameDriverController {
         }
     }
 
+    /**
+     * @param e
+     */
     public void addArmyByPlayer(MouseEvent e) {
         if (getAllArmies() > 0) {
             GameLabel label = (GameLabel) e.getSource();
@@ -193,6 +208,9 @@ public class GameDriverController {
         }
     }
 
+    /**
+     * 
+     */
     public void reinforcementPhase() {
         Player currentPlayer = getCurrentPlayer();
         currentPlayer.Reinforcement();
@@ -200,6 +218,9 @@ public class GameDriverController {
         currentPlayer.checkPlyaerCard();
     }
 
+    /**
+     * @param e
+     */
     public void addReinforement(MouseEvent e) {
         Player player = getCurrentPlayer();
         int reinforces = player.getReinforcement();
@@ -219,12 +240,18 @@ public class GameDriverController {
         }
     }
 
+    /**
+     * @param player
+     */
     public void attckPhase(Player player) {
         player.setState("Attack");
         state = "Attack";
         view.add(view.endAttackPhase);
     }
 
+    /**
+     * @param e
+     */
     private void getDefender(MouseEvent e) {
         GameLabel label = (GameLabel) e.getSource();
         String labelName = label.getText();
@@ -240,6 +267,9 @@ public class GameDriverController {
         }
     }
 
+    /**
+     * @param e
+     */
     public void getAttacker(MouseEvent e) {
         GameLabel label = (GameLabel) e.getSource();
         String labelName = label.getText();
@@ -250,11 +280,17 @@ public class GameDriverController {
         }
     }
 
+    /**
+     * @param player
+     */
     public void playerFortifition(Player player) {
         player.setState("Fortifition");
         searchNodeByPlyaer();
     }
 
+    /**
+     * @param player
+     */
     public void fortify(Player player) {
         Node from = (Node) view.getFortifyFrom().getSelectedItem();
         Node to = (Node) view.getFortifyTo().getSelectedItem();
@@ -262,6 +298,9 @@ public class GameDriverController {
         player.Fortification(from, to, number);
     }
 
+    /**
+     * 
+     */
     public void searchNodeByPlyaer() {
         view.getFortifyFrom().removeAllItems();
         Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
@@ -270,6 +309,9 @@ public class GameDriverController {
         }
     }
 
+    /**
+     * 
+     */
     public void addButtonListenerForAttack() {
         view.attack.addActionListener(new ActionListener() {
             @Override
@@ -351,10 +393,17 @@ public class GameDriverController {
         });
     }
 
+    /**
+     * @param attacker
+     * @param defender
+     */
     public void moveArmriesToConquest(Node attacker, Node defender) {
         view.moveArmiesToQuest(attacker, defender);
     }
 
+    /**
+     * 
+     */
     public void retreat() {
         for (int i = 0; i < countriesForAttack.length; i++) {
             countriesForAttack[i] = null;
@@ -400,7 +449,6 @@ public class GameDriverController {
         int playerindex = 0;
         Collections.shuffle(graph.getGraphNodes());
         for (int i = 0; i < graph.getGraphNodes().size(); i++) {
-            //int index=rnd.nextInt(players.size());
             graph.getGraphNodes().get(i).setPlayer(players.get(playerindex));
             if (playerindex < players.size() - 1) {
                 playerindex++;

@@ -15,6 +15,10 @@ import org.junit.Test;
 import risk.model.Graph;
 
 
+/**
+ * @author Farid Omarzadeh
+ *
+ */
 public class GraphTest 
 {
     Graph graph;
@@ -22,6 +26,9 @@ public class GraphTest
     String validMap;
     String colorsMap;
 
+    /**
+     * 
+     */
     @Before
     public void before() 
     {
@@ -31,6 +38,9 @@ public class GraphTest
         colorsMap = "src/test/colors.map";
     }
 
+    /**
+     * 
+     */
     @Test
     public void testUnValidVerify() 
     {
@@ -42,6 +52,9 @@ public class GraphTest
         assertFalse(graph.verifyGraph());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testValidVerify() 
     {
@@ -53,6 +66,9 @@ public class GraphTest
         assertTrue(graph.verifyGraph());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testIsGraphConnected() 
     {
@@ -64,6 +80,9 @@ public class GraphTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testIsGraphVisited() 
     {
@@ -76,6 +95,9 @@ public class GraphTest
         }
     }
 
+    /**
+     * 
+     */
     @Test
     public void testContinentsColor() 
     {

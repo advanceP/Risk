@@ -12,6 +12,10 @@ import java.io.FileNotFoundException;
 import static org.junit.Assert.assertSame;
 
 
+/**
+ * @author Farid Omarzadeh
+ *
+ */
 public class GameDriverTest 
 {
     GameDriverController driver;
@@ -20,12 +24,18 @@ public class GameDriverTest
     String firstFileName;
     String secondFileName;
 
+    /**
+     * 
+     */
     @Before
     public void before() 
     {
 
     }
 
+    /**
+     * 
+     */
     @Test
     public void testReinforcementWithNoConqueredContinents() 
     {
@@ -46,6 +56,9 @@ public class GameDriverTest
         assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testReinforcementWithConqueredContinents() 
     {
@@ -65,6 +78,9 @@ public class GameDriverTest
         assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testInitialArmy() 
     {
@@ -84,6 +100,9 @@ public class GameDriverTest
         assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGetAllArmy() 
     {
@@ -102,6 +121,9 @@ public class GameDriverTest
         assertSame(expectedvalue, driver.getAllArmies());
     }
 
+    /**
+     * 
+     */
     @After
     public void after() 
     {

@@ -24,6 +24,9 @@ public class RiskGameController {
     private MapEditorController mapEditorController;
     private GameDriverController gameDriverController;
 
+    /**
+     * @param view
+     */
     public RiskGameController(RiskGame view) {
         this.view = view;
         graph = Graph.getGraphInstance();
@@ -31,6 +34,9 @@ public class RiskGameController {
         gameDriverController = GameDriverController.getGameDriverInstance();
     }
 
+    /**
+     * @return
+     */
     public RiskGame getView() {
         return view;
     }
@@ -88,7 +94,6 @@ public class RiskGameController {
             }
         });
 
-        //click the button "start game"
         view.getButtonForGame().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

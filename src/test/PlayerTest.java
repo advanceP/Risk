@@ -18,6 +18,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 
 
+/**
+ * @author Farid Omarzadeh
+ *
+ */
 public class PlayerTest 
 
 {
@@ -26,6 +30,9 @@ public class PlayerTest
     int numberOfPlayers;
     String fileName;
 
+    /**
+     * 
+     */
     @Before
     public void before() 
     
@@ -41,6 +48,9 @@ public class PlayerTest
     }
 
     
+    /**
+     * 
+     */
     @Test
     public void testNumberOfCountries() 
     
@@ -50,6 +60,9 @@ public class PlayerTest
         assertSame(expectedvalue, driver.getPlayers().get(0).getNumberOfCountries());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testSameExchangeCard() 
     {
@@ -67,6 +80,9 @@ public class PlayerTest
         assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testFiveExchangeCard() 
     {
@@ -85,6 +101,9 @@ public class PlayerTest
         assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     @Test
     public void testSetNumberOfCountries() throws FileNotFoundException
     {
@@ -99,6 +118,9 @@ public class PlayerTest
         assertSame(expectedNumberOfCountries, playerCoutries);
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     @Test
     public void testReinforcement() throws FileNotFoundException 
     {
@@ -115,6 +137,9 @@ public class PlayerTest
         assertSame(expectedReinforcment, toTestReinforcment);
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     @Test
     public void testReinforcementStartupState() throws FileNotFoundException 
     {
@@ -131,6 +156,9 @@ public class PlayerTest
 
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     @Test
     public void testReinforcementReinforcementState() throws FileNotFoundException 
     {
@@ -149,6 +177,9 @@ public class PlayerTest
     }
 
 
+    /**
+     * @throws FileNotFoundException
+     */
     @Test
     public void testAditionalReinforcement() throws FileNotFoundException 
     {
@@ -164,6 +195,9 @@ public class PlayerTest
     }
     
     
+    /**
+     * 
+     */
     @Test
     public void testPercentage()
     {
@@ -173,6 +207,9 @@ public class PlayerTest
     	assertSame(expectedvalue, driver.getPlayers().get(1).getPercentage());
     }
     
+    /**
+     * 
+     */
     @Test
     public void testFortification()
     {
@@ -188,6 +225,9 @@ public class PlayerTest
     	assertSame(expectedvalue[1], from.getArmies());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testAttackResult()
     {

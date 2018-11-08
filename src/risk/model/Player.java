@@ -208,6 +208,9 @@ public class Player extends Observable {
     }
 
 
+    /**
+     * 
+     */
     public void Reinforcement() {
         if (this.state.equals("StartUp"))
             this.setReinforcement(0);
@@ -311,6 +314,11 @@ public class Player extends Observable {
         return false;
     }
 
+    /**
+     * @param attacker
+     * @param defender
+     * @return
+     */
     public int[] getDiceNumbers(Node attacker, Node defender) {
 
         int[] list = new int[2];
@@ -341,12 +349,18 @@ public class Player extends Observable {
         return list;
     }
 
+    /**
+     * @return
+     */
     public int getPercentage() {
         float result = 0;
         result = ((float) (this.getNodeList().size()) / Graph.getGraphInstance().getGraphNodes().size());
         return (Math.round(result * 100));
     }
 
+    /**
+     * @param country
+     */
     public void addReinforcementToNode(Node country) {
         country.increaseArmy();
         decreaseReinforcement();
@@ -367,6 +381,9 @@ public class Player extends Observable {
         notifyObservers();
     }
 
+    /**
+     * @return
+     */
     public int getTotalArmies() {
         List<Node> nodes = getNodeList();
         int armies = 0;
@@ -376,6 +393,9 @@ public class Player extends Observable {
         return armies;
     }
 
+    /**
+     * @param cards
+     */
     public void exchangeCardToArmies(List<Card> cards) {
         List<Card> different = new ArrayList<Card>();
         different.add(Card.Artillery);
@@ -426,6 +446,10 @@ public class Player extends Observable {
         }
     }
 
+    /**
+     * @param nodes
+     * @return
+     */
     public boolean isWin(List<Node> nodes) {
         if (numberOfCountries == nodes.size()) {
             this.setState("Win");
@@ -434,6 +458,13 @@ public class Player extends Observable {
         return false;
     }
 
+    /**
+     * @param attacker
+     * @param defender
+     * @param attackerdice
+     * @param defenderdice
+     * @return
+     */
     public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerdice, int defenderdice) {
         List<List<Integer>> resultList = new ArrayList<>();
         List<Integer> attackerList = new ArrayList<>();
@@ -458,6 +489,9 @@ public class Player extends Observable {
         return resultList;
     }
 
+    /**
+     * @return
+     */
     public int checkPlyaerCard() {
         List<Card> cardlist = getCards();
         Card Artillery = Card.Artillery;

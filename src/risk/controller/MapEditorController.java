@@ -16,6 +16,9 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class MapEditorController {
 
     private Graph graph;
@@ -23,11 +26,17 @@ public class MapEditorController {
     private List<MapEditorLabel> labelList;
 
 
+    /**
+     * @param listContinents
+     */
     public void addContinentsToGraph(List<Continent> listContinents) {
         graph.getContinents().addAll(listContinents);
     }
 
 
+    /**
+     * 
+     */
     public MapEditorController() {
         graph = Graph.getGraphInstance();
         mapEditor = new MapEditor();
@@ -35,6 +44,9 @@ public class MapEditorController {
     }
 
 
+    /**
+     * @param absolutePath
+     */
     public void loadFile(String absolutePath) {
         try {
             graph.createGraph(absolutePath);
@@ -44,6 +56,9 @@ public class MapEditorController {
     }
 
 
+    /**
+     * 
+     */
     public void startEditing() {
         graph.getColorTOContinent();
         JFrame frame = new JFrame("map editor");
@@ -56,10 +71,16 @@ public class MapEditorController {
         mapEditor.add(mapEditor.getSaveMap());
     }
 
+    /**
+     * @return
+     */
     public static MapEditor getMapEditor() {
         return mapEditor;
     }
 
+    /**
+     * 
+     */
     public void addListener() {
         mapEditor.getCreateButton().addActionListener(new ActionListener() {
             @Override
