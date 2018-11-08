@@ -42,6 +42,11 @@ public class Player extends Observable {
     }
 
 
+    public void addCards(List<Card> cards) {
+        this.cards.addAll(cards);
+    }
+    
+    
     /**
      * returns the number of reinforcement for the player
      *
@@ -291,6 +296,11 @@ public class Player extends Observable {
                 int size = list.size();
                 Random rnd = new Random();
                 attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
+                if(defender.getPlayer().getNodeList().size()<1)
+                {
+                	attacker.getPlayer().addCards(defender.getPlayer().getCards());
+                	defender.getPlayer().setCards(null);
+                }
                 return true;
             }
         }
