@@ -6,10 +6,12 @@ import risk.controller.FileController;
 
 import static org.junit.Assert.*;
 
-public class FileControllerTest {
+public class FileControllerTest 
+{
 
     @Test
-    public void verifyMapFile() {
+    public void verifyMapFile() 
+    {
         FileController fileController = new FileController();
         String commonPath = "src/test/";
 

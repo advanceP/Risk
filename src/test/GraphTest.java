@@ -15,14 +15,16 @@ import org.junit.Test;
 import risk.model.Graph;
 
 
-public class GraphTest {
+public class GraphTest 
+{
     Graph graph;
     String invalidMap;
     String validMap;
     String colorsMap;
 
     @Before
-    public void before() {
+    public void before() 
+    {
         graph = Graph.getGraphInstance();
         invalidMap = "src/test/d.map";
         validMap = "src/test/a.map";
@@ -30,7 +32,8 @@ public class GraphTest {
     }
 
     @Test
-    public void testUnValidVerify() {
+    public void testUnValidVerify() 
+    {
         try {
             graph.createGraph(invalidMap);
         } catch (FileNotFoundException e) {
@@ -40,7 +43,8 @@ public class GraphTest {
     }
 
     @Test
-    public void testValidVerify() {
+    public void testValidVerify() 
+    {
         try {
             graph.createGraph(validMap);
         } catch (FileNotFoundException e) {
@@ -50,7 +54,8 @@ public class GraphTest {
     }
 
     @Test
-    public void testIsGraphConnected() {
+    public void testIsGraphConnected() 
+    {
         try {
             graph.createGraph(validMap);
             assertTrue(graph.isGraphConnected());
@@ -60,7 +65,8 @@ public class GraphTest {
     }
 
     @Test
-    public void testIsGraphVisited() {
+    public void testIsGraphVisited() 
+    {
         try {
             graph.createGraph(validMap);
             graph.setGraphVisited();
@@ -71,7 +77,8 @@ public class GraphTest {
     }
 
     @Test
-    public void testContinentsColor() {
+    public void testContinentsColor() 
+    {
         ArrayList<Color> expectedColors = new ArrayList<>();
         ArrayList<Color> initiatedColor = new ArrayList<>();
         expectedColors.add(Color.BLACK);

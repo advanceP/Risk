@@ -12,7 +12,8 @@ import java.io.FileNotFoundException;
 import static org.junit.Assert.assertSame;
 
 
-public class GameDriverTest {
+public class GameDriverTest 
+{
     GameDriverController driver;
     Graph graph;
     int numberOfPlayers;
@@ -20,17 +21,21 @@ public class GameDriverTest {
     String secondFileName;
 
     @Before
-    public void before() {
+    public void before() 
+    {
 
     }
 
     @Test
-    public void testReinforcementWithNoConqueredContinents() {
+    public void testReinforcementWithNoConqueredContinents() 
+    {
         firstFileName = "src/test/a.map";
         graph = Graph.getGraphInstance();
-        try {
+        try 
+        {
             graph.createGraph(firstFileName);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e)
+        {
             e.printStackTrace();
         }
         driver = GameDriverController.getGameDriverInstance();
@@ -42,12 +47,14 @@ public class GameDriverTest {
     }
 
     @Test
-    public void testReinforcementWithConqueredContinents() {
+    public void testReinforcementWithConqueredContinents() 
+    {
         secondFileName = "src/test/c.map";
         graph = Graph.getGraphInstance();
         try {
             graph.createGraph(secondFileName);
-        } catch (FileNotFoundException e) {
+        } 
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         driver = GameDriverController.getGameDriverInstance();
@@ -59,11 +66,13 @@ public class GameDriverTest {
     }
 
     @Test
-    public void testInitialArmy() {
+    public void testInitialArmy() 
+    {
 
         firstFileName = "src/test/a.map";
         graph = Graph.getGraphInstance();
-        try {
+        try 
+        {
             graph.createGraph(firstFileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -76,12 +85,15 @@ public class GameDriverTest {
     }
 
     @Test
-    public void testGetAllArmy() {
+    public void testGetAllArmy() 
+    {
         firstFileName = "src/test/a.map";
         graph = Graph.getGraphInstance();
-        try {
+        try 
+        {
             graph.createGraph(firstFileName);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) 
+        {
             e.printStackTrace();
         }
         driver = GameDriverController.getGameDriverInstance();
@@ -91,7 +103,8 @@ public class GameDriverTest {
     }
 
     @After
-    public void after() {
+    public void after() 
+    {
         Graph.getGraphInstance().setGraphNodes(null);
     }
 }

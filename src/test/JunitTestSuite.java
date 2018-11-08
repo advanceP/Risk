@@ -8,14 +8,16 @@ import org.junit.runners.Suite;
 
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
+@Suite.SuiteClasses(
+		{
         FileControllerTest.class,
         GameDriverTest.class,
         GraphTest.class,
         PlayerTest.class
 })
 
-public class JunitTestSuite {
+public class JunitTestSuite 
+{
 
 
 }
