@@ -1,7 +1,4 @@
-risk.entities
-risk.gamePlayer
-risk.gamePlayerUI
-risk.main
-risk.mapEditor
-risk.mapEditorUI
+risk.controller
+risk.model
+risk.view
 test
