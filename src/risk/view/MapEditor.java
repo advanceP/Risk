@@ -231,42 +231,82 @@ public class MapEditor extends JPanel {
         remove(addAdjacency);
     }
 
+    /**
+     * generate
+     * @return List<JLabel>
+     */
     public List<JLabel> getLabelList() {
         return labelList;
     }
 
+    /**
+     * getter
+     * @return JButton deletebutton
+     */
     public JButton getDeleteButton() {
         return deleteButton;
     }
 
+    /**
+     * getter
+     * @return JButton create node button
+     */
     public JButton getCreateButton() {
         return createButton;
     }
 
+    /**
+     *  get change node button
+     * @return JButton
+     */
     public JButton getChangeButton() {
         return changeButton;
     }
 
+    /**
+     * add adjacency
+     * @return JButton
+     */
     public JButton getAddAdjacency() {
         return addAdjacency;
     }
 
+    /**
+     * save map button
+     * @return JButton
+     */
     public JButton getSaveMap() {
         return saveMap;
     }
 
+    /**
+     * get adjacency
+     * @return JComboBox<String>
+     */
     public JComboBox<String> getChooseAdjacency() {
         return chooseAdjacency;
     }
 
+    /**
+     * set coordinate
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * set coordinate
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * this medhod is called by some node is remove
+     * @param countryName
+     */
     public void removeLable(String countryName) {
         for (JLabel label : labelList) {
             if (label.getText().equals(countryName)) remove(label);

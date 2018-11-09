@@ -7,14 +7,22 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * this label if  for maoeditor,to show the name
+ */
 public class MapEditorLabel extends JLabel {
-
+    /**
+     * constructor
+     * @param countryname the node name
+     */
     public MapEditorLabel(String countryname) {
         super(countryname);
         initial();
     }
 
-
+    /**
+     * this method is to initialise the map component
+     */
     private void initial() {
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -37,7 +45,9 @@ public class MapEditorLabel extends JLabel {
         addMouseListener(mouseAdapter);
     }
 
-
+    /**
+     * clear the choose feature
+     */
     public void clearChoose() {
         for (Node node : MapEditor.getCountries()) {
             node.setChoose(false);

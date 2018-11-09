@@ -60,6 +60,7 @@ public class GameDriverController {
 
 
     /**
+     * load the map file
      * @param absolutePath
      */
     public void loadFile(String absolutePath) {
@@ -80,7 +81,7 @@ public class GameDriverController {
 
 
     /**
-     * 
+     * start game by button
      */
     public void startGame() {
         JFrame risk = new JFrame();
@@ -95,7 +96,7 @@ public class GameDriverController {
     }
 
     /**
-     * 
+     * put some button listener on the view
      */
     public void addListener() {
 
@@ -156,7 +157,7 @@ public class GameDriverController {
     }
 
     /**
-     * 
+     * go in to start up phase
      */
     public void startupPhase() {
         state = "StartUp";
@@ -183,7 +184,8 @@ public class GameDriverController {
     }
 
     /**
-     * @param e
+     * in startup phase,click them by using mouse
+     * @param e mouse event
      */
     public void addArmyByPlayer(MouseEvent e) {
         if (getAllArmies() > 0) {
@@ -209,7 +211,7 @@ public class GameDriverController {
     }
 
     /**
-     * 
+     * go into reinforcementphase
      */
     public void reinforcementPhase() {
         Player currentPlayer = getCurrentPlayer();
@@ -219,7 +221,8 @@ public class GameDriverController {
     }
 
     /**
-     * @param e
+     * choose to add reinforcecment
+     * @param e mouse event
      */
     public void addReinforement(MouseEvent e) {
         Player player = getCurrentPlayer();
@@ -241,6 +244,7 @@ public class GameDriverController {
     }
 
     /**
+     * go in to attack phase
      * @param player
      */
     public void attckPhase(Player player) {
@@ -250,7 +254,8 @@ public class GameDriverController {
     }
 
     /**
-     * @param e
+     * get defender
+     * @param e mouse event
      */
     private void getDefender(MouseEvent e) {
         GameLabel label = (GameLabel) e.getSource();
@@ -268,7 +273,8 @@ public class GameDriverController {
     }
 
     /**
-     * @param e
+     * get attacker
+     * @param e mouse event
      */
     public void getAttacker(MouseEvent e) {
         GameLabel label = (GameLabel) e.getSource();
@@ -281,7 +287,8 @@ public class GameDriverController {
     }
 
     /**
-     * @param player
+     * go into fortifition
+     * @param player the current player
      */
     public void playerFortifition(Player player) {
         player.setState("Fortifition");
@@ -289,7 +296,8 @@ public class GameDriverController {
     }
 
     /**
-     * @param player
+     * select fortify army from view
+     * @param player current player
      */
     public void fortify(Player player) {
         Node from = (Node) view.getFortifyFrom().getSelectedItem();
@@ -299,7 +307,7 @@ public class GameDriverController {
     }
 
     /**
-     * 
+     * search the fortify army by player
      */
     public void searchNodeByPlyaer() {
         view.getFortifyFrom().removeAllItems();
@@ -310,7 +318,7 @@ public class GameDriverController {
     }
 
     /**
-     * 
+     * these listener only use in attack phase
      */
     public void addButtonListenerForAttack() {
         view.attack.addActionListener(new ActionListener() {
@@ -394,15 +402,16 @@ public class GameDriverController {
     }
 
     /**
-     * @param attacker
-     * @param defender
+     * when a attcked success,move your army
+     * @param attacker the country attacking
+     * @param defender the attacked country
      */
     public void moveArmriesToConquest(Node attacker, Node defender) {
         view.moveArmiesToQuest(attacker, defender);
     }
 
     /**
-     * 
+     * can't attack
      */
     public void retreat() {
         for (int i = 0; i < countriesForAttack.length; i++) {

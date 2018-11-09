@@ -491,9 +491,9 @@ public class Player extends Observable {
 
 
     /**
-     * @return
+     * @return how many card in the player
      */
-    public int checkPlyaerCard() {
+    public int checkPlayerCard() {
         List<Card> cardlist = getCards();
         Card Artillery = Card.Artillery;
         Card cavalry = Card.Cavalry;

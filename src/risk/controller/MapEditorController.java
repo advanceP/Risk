@@ -17,7 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ *this class is the controller for maoEditor
+ * <li/> graph
+ * <li/>mapEditor view
+ * <li/> labelList
  */
 public class MapEditorController {
 
@@ -27,6 +30,7 @@ public class MapEditorController {
 
 
     /**
+     * add continents on the graph
      * @param listContinents
      */
     public void addContinentsToGraph(List<Continent> listContinents) {
@@ -35,7 +39,7 @@ public class MapEditorController {
 
 
     /**
-     * 
+     * constructor,initial some feature
      */
     public MapEditorController() {
         graph = Graph.getGraphInstance();
@@ -45,6 +49,7 @@ public class MapEditorController {
 
 
     /**
+     * load the file
      * @param absolutePath
      */
     public void loadFile(String absolutePath) {
@@ -57,7 +62,7 @@ public class MapEditorController {
 
 
     /**
-     * 
+     * start the program
      */
     public void startEditing() {
         graph.getColorTOContinent();
@@ -72,14 +77,15 @@ public class MapEditorController {
     }
 
     /**
-     * @return
+     * give the MapEditor instance
+     * @return static mapEditor,the view
      */
     public static MapEditor getMapEditor() {
         return mapEditor;
     }
 
     /**
-     * 
+     * add Listener on the game
      */
     public void addListener() {
         mapEditor.getCreateButton().addActionListener(new ActionListener() {

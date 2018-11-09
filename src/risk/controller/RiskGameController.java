@@ -25,7 +25,8 @@ public class RiskGameController {
     private GameDriverController gameDriverController;
 
     /**
-     * @param view
+     * conctructor
+     * @param view the view
      */
     public RiskGameController(RiskGame view) {
         this.view = view;
@@ -35,7 +36,8 @@ public class RiskGameController {
     }
 
     /**
-     * @return
+     * return view instance
+     * @return view
      */
     public RiskGame getView() {
         return view;
@@ -66,7 +68,6 @@ public class RiskGameController {
      */
     public void addListenerForButtons(JFrame frame) {
 
-        //click the button
         view.getButtonForEdit().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

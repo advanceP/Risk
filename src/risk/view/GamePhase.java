@@ -241,6 +241,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
+    /**
+     * hide the fortifition menu from view
+     */
     public void hideFortifitionPhase() {
         remove(fortifyFrom);
         remove(fortifyTo);
@@ -250,7 +253,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
-
+    /**
+     * when checbox's item changed,it changed
+     * @param e
+     */
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -261,7 +267,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         }
     }
 
-
+    /**
+     * in fortification,it will get the adjancy node
+     * @param node
+     */
     private void getReachableNode(Node node) {
         fortifyTo.removeAllItems();
         List<Node> reachableNodes = graph.reachableNodes(node);
@@ -270,7 +279,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         }
     }
 
-
+    /**
+     * return the fortifyArmy from country
+     * @param node country
+     */
     public void getFortifyArmy(Node node) {
         fortifyArmies.removeAllItems();
         int armies = node.getArmies();
@@ -289,54 +301,87 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         }
     }
 
+    /**
+     * read the text field
+     * @return text field
+     */
     public JTextField getInputPlayerNumber() {
         return inputPlayerNumber;
     }
 
+    /**
+     * @return button
+     */
     public JButton getSetPlayer() {
         return setPlayer;
     }
 
+    /**
+     * @return testfield
+     */
     public JTextField getPhaseText() {
         return phaseText;
     }
 
+    /**
+     * @return JComboBox<Node>
+     */
     public JComboBox<Node> getFortifyFrom() {
         return fortifyFrom;
     }
 
+    /**
+     * @return JComboBox<Node>
+     */
     public JComboBox<Node> getFortifyTo() {
         return fortifyTo;
     }
 
+    /**
+     * @return JComboBox<Node>
+     */
     public JComboBox<Integer> getFortifyArmies() {
         return fortifyArmies;
     }
 
+    /**
+     * @return Jbutton
+     */
     public JButton getFortify() {
         return fortify;
     }
 
+    /**
+     * @return JButton
+     */
     public JButton getEndPhase() {
         return endPhase;
     }
 
-    public static boolean isIsStartPhase() {
-        return isStartPhase;
-    }
-
+    /**
+     * @return List<GameLabel>
+     */
     public List<GameLabel> getLabelList() {
         return labelList;
     }
 
+    /**
+     * @return JComboBox<Integer>
+     */
     public JComboBox<Integer> getAttackerDice() {
         return attackerDice;
     }
 
+    /**
+     * @return JComboBox<Integer>
+     */
     public JComboBox<Integer> getDefenderDice() {
         return defenderDice;
     }
 
+    /**
+     * draw the country name using label
+     */
     public void addLabel() {
         for (Node country : graph.getGraphNodes()) {
             GameLabel label = new GameLabel(country.getName());
@@ -346,7 +391,11 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         }
     }
 
-
+    /**
+     * show user the attack menu
+     * @param attacker attack country
+     * @param defender attacked country
+     */
     public void showAttackMenu(Node attacker, Node defender) {
         int[] playerdice = getDiceNumbers(attacker, defender);
         add(attack);
@@ -368,7 +417,12 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
-
+    /**
+     * return two player's dices
+     * @param attacker
+     * @param defender
+     * @return two player's dices
+     */
     public int[] getDiceNumbers(Node attacker, Node defender) {
         int[] list = new int[2];
         int attackerdicenumber = 0;
@@ -397,7 +451,11 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         return list;
     }
 
-
+    /**
+     * using observale pattern
+     * @param obj
+     * @param o
+     */
     @Override
     public void update(Observable obj, Object o) {
         List<Player> players = GameDriverController.getGameDriverInstance().getPlayers();
@@ -429,7 +487,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
-
+    /**
+     * tell the user how it goes
+     * @param numberofdice the dice given by controller
+     */
     public void showAttackResult(List<List<Integer>> numberofdice) {
         String text = "";
         for (List<Integer> countrysequence : numberofdice) {
@@ -442,6 +503,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
+    /**
+     * hide some menu when attack end
+     */
     public void hideAttackMenu() {
         remove(attack);
         remove(retreat);
@@ -452,6 +516,11 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
+    /**
+     * if a attack success,show fortify menu
+     * @param attacker
+     * @param defender
+     */
     public void moveArmiesToQuest(Node attacker, Node defender) {
         add(fortifyFrom);
         add(fortifyTo);
@@ -463,6 +532,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
+    /**
+     * hide some buttons
+     */
     public void hideMoveArmyToQuestMenu() {
         remove(fortifyFrom);
         remove(fortifyTo);
@@ -471,6 +543,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
+    /**
+     * show the card view
+     * @param player the current player
+     */
     public void createCardView(Player player) {
         List<Card> cards = player.getCards();
         int x = 1120;
@@ -481,12 +557,15 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
                 box.setBounds(x, y, 60, 20);
                 cardList.add(box);
                 x += 70;
-
             }
             add(exchangeCard);
         }
     }
 
+    /**
+     * select the card
+     * @return
+     */
     public List<Card> getSelectCard() {
         List<Card> result = new ArrayList<>();
         for (JCheckBox box : cardList) {
@@ -499,6 +578,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         return result;
     }
 
+    /**
+     * show who win
+     */
     public void showWin() {
         phaseText.setText("win");
     }

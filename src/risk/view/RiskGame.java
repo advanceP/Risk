@@ -33,26 +33,50 @@ public class RiskGame extends JPanel {
         initial();
     }
 
+    /**
+     * get the button for edit
+     * @return JButton
+     */
     public JButton getButtonForEdit() {
         return buttonForEdit;
     }
 
+    /**
+     * get the button for playing game
+     * @return jbutton
+     */
     public JButton getButtonForGame() {
         return buttonForGame;
     }
 
+    /**
+     * get the button for create map
+     * @return jbutton
+     */
     public JButton getCreateNewMap() {
         return createNewMap;
     }
 
+    /**
+     * get the button for load a map
+     * @return jbutton
+     */
     public JButton getLoadExistFile() {
         return loadExistFile;
     }
 
+    /**
+     * get the button for create continent
+     * @return jbutton
+     */
     public JButton getCreateContinent() {
         return createContinent;
     }
 
+    /**
+     * get the button for continent information
+     * @return JTextField
+     */
     public JTextField getContinentInformation() {
         return continentInformation;
     }
@@ -78,7 +102,9 @@ public class RiskGame extends JPanel {
 
     }
 
-    //redraw buttons
+    /**
+     *  redraw buttons
+     */
     public void intoMapEditor() {
         remove(buttonForEdit);
         remove(buttonForGame);
@@ -87,7 +113,9 @@ public class RiskGame extends JPanel {
         repaint();
     }
 
-
+    /**
+     * draw continent
+     */
     public void showInputContinent() {
         JLabel label = new JLabel("please create your continent and separate by ','");
         label.setBounds(280, 100, 400, 100);
