@@ -137,6 +137,7 @@ public class PlayerTest {
         driver.getPlayers().get(0).Reinforcement();
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
 
+        
         assertSame(expectedReinforcment, toTestReinforcment);
 
     }
