@@ -343,6 +343,7 @@ public class GameDriverController {
                 if (player.isWin(nodes)) {
                     view.showWin();
                 }
+                view.showAttackMenu(attacker,defender);
             }
         });
 
@@ -451,8 +452,7 @@ public class GameDriverController {
             temporaryplayer.addObserver(view);
             players.add(temporaryplayer);
         }
-
-
+        view.createPlayerLabel(players);
         for (int i = 0; i < players.size(); i++)
             players.get(i).setReinforcement(numberofarmies);
         int playerindex = 0;
@@ -477,6 +477,7 @@ public class GameDriverController {
         for (Player player : players) {
             player.setState("StartUp");
         }
+
 
     }
 

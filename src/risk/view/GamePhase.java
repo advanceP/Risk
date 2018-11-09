@@ -41,9 +41,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     private JComboBox<Integer> attackerDice;
     private JComboBox<Integer> defenderDice;
     private static GamePhase gamePhase = null;
-    public static boolean isStartPhase = true;
-
-
+    private ArrayList<JLabel> playerList;
     /**
      * constructor <br/>
      * using freelayout
@@ -54,6 +52,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         graph = Graph.getGraphInstance();
         labelList = new ArrayList<>();
         cardList = new ArrayList<>();
+        playerList = new ArrayList<>();
         initial();
     }
 
@@ -462,10 +461,12 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         if (players != null) {
             int x = 1120;
             int y = 80;
+            int i=0;
             for (Player player : players) {
-                JLabel playername = new JLabel(player.getName() + " " + player.getPercentage() + "%");
-                playername.setBounds(x, y, 100, 30);
-                add(playername);
+                //JLabel playername = new JLabel(player.getName() + " " + player.getPercentage() + "%");
+                //playername.setBounds(x, y, 100, 30);
+                //add(playername);
+                playerList.get(i).setText(player.getName() + " " + player.getPercentage() + "%");
                 JComboBox<Continent> continentsOwnByPlayer = new JComboBox<>();
                 continentsOwnByPlayer.setBounds(x, 150, 50, 30);
                 for (Continent con : player.getContinents()) {
@@ -473,6 +474,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
                 }
                 add(continentsOwnByPlayer);
                 x = x + 100;
+                i++;
             }
         }
         add(view1);
@@ -557,8 +559,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
                 box.setBounds(x, y, 60, 20);
                 cardList.add(box);
                 x += 70;
+                add(box);
             }
             add(exchangeCard);
+
         }
     }
 
@@ -583,5 +587,21 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
      */
     public void showWin() {
         phaseText.setText("win");
+    }
+
+    /**
+     * emergy
+     * @param players players
+     */
+    public void createPlayerLabel(List<Player> players) {
+        int x = 1120;
+        int y = 80;
+        for (Player player : players) {
+            JLabel playername = new JLabel(player.getName());
+            playername.setBounds(x, y, 100, 30);
+            add(playername);
+            x = x + 100;
+            playerList.add(playername);
+        }
     }
 }
