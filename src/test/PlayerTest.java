@@ -4,10 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import risk.controller.GameDriverController;
-import risk.model.Card;
-import risk.model.Graph;
-import risk.model.Node;
-import risk.model.Player;
 import risk.model.*;
 
 import java.io.FileNotFoundException;
@@ -18,25 +14,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 
 
-/**
- * @author Farid Omarzadeh
- *
- */
-public class PlayerTest 
-
-{
+public class PlayerTest {
     GameDriverController driver;
     Graph graph;
     int numberOfPlayers;
     String fileName;
 
-    /**
-     * 
-     */
     @Before
-    public void before() 
-    
-    {
+    public void before() {
         fileName = "src/test/a.map";
         graph = Graph.getGraphInstance();
         try {
@@ -47,25 +32,15 @@ public class PlayerTest
         driver = GameDriverController.getGameDriverInstance();
     }
 
-    
-    /**
-     * 
-     */
     @Test
-    public void testNumberOfCountries() 
-    
-    {
+    public void testNumberOfCountries() {
         int expectedvalue = 2;
         driver.setPlayers(2);
         assertSame(expectedvalue, driver.getPlayers().get(0).getNumberOfCountries());
     }
 
-    /**
-     * 
-     */
     @Test
-    public void testSameExchangeCard() 
-    {
+    public void testSameExchangeCard() {
         driver.setPlayers(2);
         int expectedvalue = 7;
         int cardnumbers = 1;
@@ -80,12 +55,8 @@ public class PlayerTest
         assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
     }
 
-    /**
-     * 
-     */
     @Test
-    public void testFiveExchangeCard() 
-    {
+    public void testFiveExchangeCard() {
         driver.setPlayers(2);
         int expectedvalue = 7;
         int cardnumbers = 2;
@@ -101,12 +72,8 @@ public class PlayerTest
         assertSame(cardnumbers, graph.getGraphNodes().get(0).getPlayer().getCards().size());
     }
 
-    /**
-     * @throws FileNotFoundException
-     */
     @Test
-    public void testSetNumberOfCountries() throws FileNotFoundException
-    {
+    public void testSetNumberOfCountries() throws FileNotFoundException {
         int playerCoutries = 0;
         int expectedNumberOfCountries = 0;
 
@@ -118,12 +85,8 @@ public class PlayerTest
         assertSame(expectedNumberOfCountries, playerCoutries);
     }
 
-    /**
-     * @throws FileNotFoundException
-     */
     @Test
-    public void testReinforcement() throws FileNotFoundException 
-    {
+    public void testReinforcement() throws FileNotFoundException {
         int initialReinforcement = 0;
         int expectedReinforcment = 1;
         int toTestReinforcment = 0;
@@ -137,12 +100,8 @@ public class PlayerTest
         assertSame(expectedReinforcment, toTestReinforcment);
     }
 
-    /**
-     * @throws FileNotFoundException
-     */
     @Test
-    public void testReinforcementStartupState() throws FileNotFoundException 
-    {
+    public void testReinforcementStartupState() throws FileNotFoundException {
         int expectedReinforcment = 1;
         int toTestReinforcment = 0;
 
@@ -156,12 +115,8 @@ public class PlayerTest
 
     }
 
-    /**
-     * @throws FileNotFoundException
-     */
     @Test
-    public void testReinforcementReinforcementState() throws FileNotFoundException 
-    {
+    public void testReinforcementReinforcementState() throws FileNotFoundException {
         int expectedReinforcment = 11;
         int toTestReinforcment = 0;
 
@@ -177,12 +132,8 @@ public class PlayerTest
     }
 
 
-    /**
-     * @throws FileNotFoundException
-     */
     @Test
-    public void testAditionalReinforcement() throws FileNotFoundException 
-    {
+    public void testAditionalReinforcement() throws FileNotFoundException {
         int expectedAdditionalreinforcement = 14;
         int toTestReinforcment = 0;
         driver.setPlayers(2);
@@ -193,44 +144,9 @@ public class PlayerTest
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
         assertSame(expectedAdditionalreinforcement, toTestReinforcment);
     }
-    
-    
-    /**
-     * 
-     */
-    @Test
-    public void testPercentage()
-    {
-    	int expectedvalue=50;
-    	driver.setPlayers(2);
-    	assertSame(expectedvalue, driver.getPlayers().get(0).getPercentage());
-    	assertSame(expectedvalue, driver.getPlayers().get(1).getPercentage());
-    }
-    
-    /**
-     * 
-     */
-    @Test
-    public void testFortification()
-    {
-    	int[] expectedvalue= {2,0};
-    	Player testplayer=new Player();
-    	Continent testcontinent=new Continent();
-    	Node from=new Node("from",testcontinent,110,120);
-    	from.setArmies(1);
-    	Node to=new Node("from",testcontinent,110,130);
-    	to.setArmies(1);
-    	testplayer.Fortification(from, to, 1);
-    	assertSame(expectedvalue[0], to.getArmies());
-    	assertSame(expectedvalue[1], from.getArmies());
-    }
 
-    /**
-     * 
-     */
     @Test
-    public void testAttackResult()
-    {
+    public void testAttackResult(){
         driver.setPlayers(2);
         Player p1=driver.getPlayers().get(0);
         Player p2=driver.getPlayers().get(1);

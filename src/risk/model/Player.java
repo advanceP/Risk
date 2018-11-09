@@ -209,7 +209,7 @@ public class Player extends Observable {
 
 
     /**
-     * 
+     *
      */
     public void Reinforcement() {
         if (this.state.equals("StartUp"))
@@ -489,6 +489,7 @@ public class Player extends Observable {
         return resultList;
     }
 
+
     /**
      * @return
      */
@@ -501,23 +502,31 @@ public class Player extends Observable {
         type.add(Artillery);
         type.add(cavalry);
         type.add(infantry);
-        int i = 0;
-        ArrayList<Card> exchangecards = new ArrayList<>();
         while (cardlist.size() > 5) {
-            Card card = cardlist.get(i);
-            if (card == type.get(i)) {
-                exchangecards.add(card);
-                cardlist.remove(card);
-                i++;
+            int[] flag=new int[3];
+            int[] index={-1,-1,-1};
+            for(Card c:cardlist){
+                if(c==Artillery){
+                    flag[0]=1;
+                    index[0]=cardlist.indexOf(c);
+                }
+                if(c==cavalry){
+                    flag[1]=1;
+                    index[1]=cardlist.indexOf(c);
+                }
+                if(c==infantry){
+                    flag[2]=1;
+                    index[2]=cardlist.indexOf(c);
+                }
             }
-            if (exchangecards.size() == 3) {
-                exchangeCardToArmies(exchangecards);
-                exchangecards.clear();
-                i = 0;
+            if (index[0]!=-1&&index[1]!=-1&&index[2]!=-1) {
+                exchangeCardToArmies(type);
+                for(int i=0;i<index.length;i++){
+                    cardlist.remove(index[i]);
+                }
             }
         }
-        int result = getCards().size() - cardlist.size();
-        setCards(cardlist);
+        int result =  cardlist.size();
         return result;
     }
 }
