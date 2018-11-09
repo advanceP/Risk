@@ -11,14 +11,14 @@ public enum Card {
     private int value;
 
     /**
-     * @param value
+     * @param value the value of a card
      */
     private Card(int value) {
         this.value = value;
     }
 
     /**
-     * @return
+     * @return the value of the enum
      */
     public int getValue() {
         return value;

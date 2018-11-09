@@ -41,7 +41,7 @@ public class GameDriverTest
             e.printStackTrace();
         }
         driver = GameDriverController.getGameDriverInstance();
-        int expectedvalue = 1;
+        int expectedvalue = 3;
         driver.setPlayers(2);
         driver.getCurrentPlayer().setState("StartUp");
         driver.getCurrentPlayer().Reinforcement();
@@ -63,7 +63,7 @@ public class GameDriverTest
             e.printStackTrace();
         }
         driver = GameDriverController.getGameDriverInstance();
-        int expectedvalue = 3;
+        int expectedvalue = 5;
         driver.setPlayers(2);
         driver.getCurrentPlayer().setState("StartUp");
         driver.getCurrentPlayer().Reinforcement();

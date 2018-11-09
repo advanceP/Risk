@@ -208,8 +208,9 @@ public class Player extends Observable {
     }
 
 
+
     /**
-     *
+     *this method calculate the number of reinforcement for each player
      */
     public void Reinforcement() {
         if (this.state.equals("StartUp"))
@@ -218,7 +219,9 @@ public class Player extends Observable {
             this.setReinforcement(reinforcement);
 
         this.setState("Reinforcement");
-        int additionalreinforcement = this.getNumberOfCountries() / 3 + 1;
+        int additionalreinforcement = Math.round((float)this.getNumberOfCountries() / 3);
+        if(additionalreinforcement<3)
+        	additionalreinforcement=3;
         for (int i = 0; i < Graph.getGraphInstance().getContinents().size(); i++) {
             if (Graph.getGraphInstance().ifContinentConquered(Graph.getGraphInstance().getContinents().get(i))) {
                 String continentname = Graph.getGraphInstance().getContinents().get(i).getName();
@@ -315,9 +318,9 @@ public class Player extends Observable {
     }
 
     /**
-     * @param attacker
-     * @param defender
-     * @return
+     * @param attacker the country used by attacker to attack the other one
+     * @param defender the country which is being attacked
+     * @return array the first element is number of dices for attacker and second element number of dices for defender
      */
     public int[] getDiceNumbers(Node attacker, Node defender) {
 
@@ -350,7 +353,7 @@ public class Player extends Observable {
     }
 
     /**
-     * @return
+     * @return the percentage of map being controlled for each player
      */
     public int getPercentage() {
         float result = 0;
@@ -359,7 +362,7 @@ public class Player extends Observable {
     }
 
     /**
-     * @param country
+     * @param country increase the number of armies in each country and decrease its player's reinforcement armies
      */
     public void addReinforcementToNode(Node country) {
         country.increaseArmy();
@@ -382,7 +385,7 @@ public class Player extends Observable {
     }
 
     /**
-     * @return
+     * @return the overall number of armies for the player
      */
     public int getTotalArmies() {
         List<Node> nodes = getNodeList();
@@ -394,9 +397,9 @@ public class Player extends Observable {
     }
 
     /**
-     * @param cards
+     * @param card list of cards to be exchanged with armies according to risk rules
      */
-    public void exchangeCardToArmies(List<Card> cards) {
+    public void exchangeCardToArmies(List<Card> card) {
         List<Card> different = new ArrayList<Card>();
         different.add(Card.Artillery);
         different.add(Card.Infantry);
@@ -415,27 +418,27 @@ public class Player extends Observable {
         infantry.add(Card.Infantry);
         infantry.add(Card.Infantry);
         infantry.add(Card.Infantry);
-        if (cards.size() >= 3) {
-            if (cards.containsAll(different)) {
-                cards.remove(different.get(0));
-                cards.remove(different.get(1));
-                cards.remove(different.get(2));
+        if (card.size() >= 3) {
+            if (card.containsAll(different)) {
+                this.cards.remove(different.get(0));
+                this.cards.remove(different.get(1));
+                this.cards.remove(different.get(2));
                 increaseReinforcement(3);
             } else {
-                if (cards.containsAll(artillery)) {
-                    cards.remove(artillery.get(0));
-                    cards.remove(artillery.get(0));
-                    cards.remove(artillery.get(0));
+                if (card.containsAll(artillery)) {
+                    this.cards.remove(artillery.get(0));
+                    this.cards.remove(artillery.get(0));
+                    this.cards.remove(artillery.get(0));
                     increaseReinforcement(3);
-                } else if (cards.containsAll(cavalry)) {
-                    cards.remove(cavalry.get(0));
-                    cards.remove(cavalry.get(0));
-                    cards.remove(cavalry.get(0));
+                } else if (card.containsAll(cavalry)) {
+                    this.cards.remove(cavalry.get(0));
+                    this.cards.remove(cavalry.get(0));
+                    this.cards.remove(cavalry.get(0));
                     increaseReinforcement(3);
-                } else if (cards.containsAll(infantry)) {
-                    cards.remove(infantry.get(0));
-                    cards.remove(infantry.get(0));
-                    cards.remove(infantry.get(0));
+                } else if (card.containsAll(infantry)) {
+                    this.cards.remove(infantry.get(0));
+                    this.cards.remove(infantry.get(0));
+                    this.cards.remove(infantry.get(0));
                     increaseReinforcement(3);
                 } else {
                     throw new RuntimeException("cannot be exchanged");
@@ -447,8 +450,9 @@ public class Player extends Observable {
     }
 
     /**
-     * @param nodes
-     * @return
+     * this method determine whether a player won the game or not
+     * @param overall number of nodes
+     * @return boolean
      */
     public boolean isWin(List<Node> nodes) {
         if (numberOfCountries == nodes.size()) {
@@ -459,11 +463,11 @@ public class Player extends Observable {
     }
 
     /**
-     * @param attacker
-     * @param defender
-     * @param attackerdice
-     * @param defenderdice
-     * @return
+     * @param attacker country being used by the player for attack 
+     * @param defender country that is being attacked
+     * @param attackerdice number of dices for attacker
+     * @param defenderdice number of armies for defender
+     * @return the results of rolled dices
      */
     public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerdice, int defenderdice) {
         List<List<Integer>> resultList = new ArrayList<>();

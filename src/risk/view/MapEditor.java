@@ -127,6 +127,7 @@ public class MapEditor extends JPanel {
 
     /**
      * paint country,line in the panel
+     * @param g type of Graphics
      */
     public void paint(Graphics g) {
         super.paint(g);
@@ -162,7 +163,7 @@ public class MapEditor extends JPanel {
     /**
      * paint country as a oval
      *
-     * @param g
+     * @param g Graphics
      */
     public void paintNode(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -297,7 +298,7 @@ public class MapEditor extends JPanel {
 
     /**
      * set coordinate
-     * @param y
+     * @param y coordination 
      */
     public void setY(int y) {
         this.y = y;
@@ -305,7 +306,7 @@ public class MapEditor extends JPanel {
 
     /**
      * this medhod is called by some node is remove
-     * @param countryName
+     * @param countryName Name of the country , its type is String
      */
     public void removeLable(String countryName) {
         for (JLabel label : labelList) {
