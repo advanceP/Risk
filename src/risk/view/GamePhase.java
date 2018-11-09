@@ -255,7 +255,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
 
     /**
      * when checbox's item changed,it changed
-     * @param e
+     * @param e ItemEvent
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
@@ -269,7 +269,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
 
     /**
      * in fortification,it will get the adjancy node
-     * @param node
+     * @param node the node for which the accessible nodes will be returned
      */
     private void getReachableNode(Node node) {
         fortifyTo.removeAllItems();

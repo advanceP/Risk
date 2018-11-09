@@ -128,7 +128,7 @@ public class PlayerTest {
      */
     @Test
     public void testReinforcementStartupState() throws FileNotFoundException {
-        int expectedReinforcment = 1;
+        int expectedReinforcment = 3;
         int toTestReinforcment = 0;
 
 
@@ -147,7 +147,7 @@ public class PlayerTest {
      */
     @Test
     public void testReinforcementReinforcementState() throws FileNotFoundException {
-        int expectedReinforcment = 11;
+        int expectedReinforcment = 13;
         int toTestReinforcment = 0;
 
 
@@ -167,7 +167,7 @@ public class PlayerTest {
      */
     @Test
     public void testAditionalReinforcement() throws FileNotFoundException {
-        int expectedAdditionalreinforcement = 14;
+        int expectedAdditionalreinforcement = 13;
         int toTestReinforcment = 0;
         driver.setPlayers(2);
         driver.getPlayers().get(0).setState("Reinforcement");
