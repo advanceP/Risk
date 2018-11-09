@@ -6,9 +6,11 @@ import risk.controller.FileController;
 
 import static org.junit.Assert.*;
 
+/**
+ * test Filecontroller
+ */
 public class FileControllerTest 
 {
-
     @Test
     public void verifyMapFile() 
     {

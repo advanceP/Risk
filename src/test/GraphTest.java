@@ -27,7 +27,7 @@ public class GraphTest
     String colorsMap;
 
     /**
-     * 
+     * initial graph
      */
     @Before
     public void before() 
@@ -39,7 +39,7 @@ public class GraphTest
     }
 
     /**
-     * 
+     * test validVerify
      */
     @Test
     public void testUnValidVerify() 
@@ -53,7 +53,7 @@ public class GraphTest
     }
 
     /**
-     * 
+     * test validVerify
      */
     @Test
     public void testValidVerify() 
@@ -67,7 +67,7 @@ public class GraphTest
     }
 
     /**
-     * 
+     * test is Graphconnected
      */
     @Test
     public void testIsGraphConnected() 
@@ -81,7 +81,7 @@ public class GraphTest
     }
 
     /**
-     * 
+     * test is visited
      */
     @Test
     public void testIsGraphVisited() 
@@ -96,7 +96,7 @@ public class GraphTest
     }
 
     /**
-     * 
+     * test ContinentColor
      */
     @Test
     public void testContinentsColor() 

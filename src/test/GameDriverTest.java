@@ -13,8 +13,8 @@ import static org.junit.Assert.assertSame;
 
 
 /**
+ * test gamedriver
  * @author Farid Omarzadeh
- *
  */
 public class GameDriverTest 
 {
@@ -24,17 +24,9 @@ public class GameDriverTest
     String firstFileName;
     String secondFileName;
 
-    /**
-     * 
-     */
-    @Before
-    public void before() 
-    {
-
-    }
 
     /**
-     * 
+     * test reinforement
      */
     @Test
     public void testReinforcementWithNoConqueredContinents() 
@@ -57,7 +49,7 @@ public class GameDriverTest
     }
 
     /**
-     * 
+     * test reinforement
      */
     @Test
     public void testReinforcementWithConqueredContinents() 
@@ -79,7 +71,7 @@ public class GameDriverTest
     }
 
     /**
-     * 
+     * testInitial
      */
     @Test
     public void testInitialArmy() 
@@ -101,7 +93,7 @@ public class GameDriverTest
     }
 
     /**
-     * 
+     * test GetAllArmy
      */
     @Test
     public void testGetAllArmy() 
@@ -122,7 +114,7 @@ public class GameDriverTest
     }
 
     /**
-     * 
+     * clear node
      */
     @After
     public void after() 
