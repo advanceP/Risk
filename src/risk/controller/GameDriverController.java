@@ -335,6 +335,7 @@ public class GameDriverController {
                 List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender, attackerdice, defenderdice);
                 view.showAttackResult(numberofdice);
                 boolean flag = player.attackResult(attacker, defender, numberofdice);
+                view.showAttackMenu(attacker,defender);
                 if (flag) {
                     view.hideAttackMenu();
                     moveArmriesToConquest(attacker, defender);
@@ -343,7 +344,7 @@ public class GameDriverController {
                 if (player.isWin(nodes)) {
                     view.showWin();
                 }
-                view.showAttackMenu(attacker,defender);
+                
             }
         });
 
