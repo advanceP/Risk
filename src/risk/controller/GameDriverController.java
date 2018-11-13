@@ -101,6 +101,7 @@ public class GameDriverController {
     public void addListener() {
 
         addButtonListenerForAttack();
+
         for (GameLabel label : view.getLabelList()) {
             label.addMouseListener(new MouseAdapter() {
                 @Override
@@ -303,7 +304,7 @@ public class GameDriverController {
         Node from = (Node) view.getFortifyFrom().getSelectedItem();
         Node to = (Node) view.getFortifyTo().getSelectedItem();
         int number = (Integer) view.getFortifyArmies().getSelectedItem();
-        player.Fortification(from, to, number);
+        player.fortification(from, to, number);
     }
 
     /**
@@ -339,6 +340,10 @@ public class GameDriverController {
                 if (flag) {
                     view.hideAttackMenu();
                     moveArmriesToConquest(attacker, defender);
+                }else{
+                    if(attacker.getArmies()==1){
+                        retreat();
+                    }
                 }
                 List<Node> nodes = graph.getGraphNodes();
                 if (player.isWin(nodes)) {
@@ -410,6 +415,7 @@ public class GameDriverController {
      */
     public void moveArmriesToConquest(Node attacker, Node defender) {
         view.moveArmiesToQuest(attacker, defender);
+        retreat();
     }
 
     /**

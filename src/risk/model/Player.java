@@ -145,7 +145,7 @@ public class Player extends Observable {
 
 
     /**
-     * returns the Player's State i.e. Reinforcement, StartUp, Fortification, Attack etc.
+     * returns the Player's State i.e. Reinforcement, StartUp, fortification, Attack etc.
      *
      * @return a String
      */
@@ -155,7 +155,7 @@ public class Player extends Observable {
 
 
     /**
-     * set the Player's State. i.e Reinforcement, StartUp, Fortification, Attack etc.
+     * set the Player's State. i.e Reinforcement, StartUp, fortification, Attack etc.
      *
      * @param state Player's state
      */
@@ -297,7 +297,6 @@ public class Player extends Observable {
             }
             if (defender.getArmies() == 0) {
                 increaseNumberOfCountries();
-                defender.setPlayer(this);
                 List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
                 int size = list.size();
                 Random rnd = new Random();
@@ -308,7 +307,9 @@ public class Player extends Observable {
                 	attacker.getPlayer().addCards(defender.getPlayer().getCards());
                 	defender.getPlayer().setCards(null);
                 }
-                defender.setPlayer(attacker.getPlayer());
+                defender.setPlayer(this);
+                setChanged();
+                notifyObservers();
                 return true;
             }
         }
@@ -377,7 +378,7 @@ public class Player extends Observable {
      * @param to     the country who will receive armies
      * @param armies number of armies that will be transfered
      */
-    public void Fortification(Node from, Node to, int armies) {
+    public void fortification(Node from, Node to, int armies) {
         from.setArmies(from.getArmies() - armies);
         to.setArmies(to.getArmies() + armies);
         setChanged();
