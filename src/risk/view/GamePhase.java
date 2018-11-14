@@ -528,7 +528,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         add(fortifyTo);
         add(fortifyArmies);
         add(move);
+        fortifyFrom.removeAllItems();
         fortifyFrom.addItem(attacker);
+        fortifyTo.removeAllItems();
         fortifyTo.addItem(defender);
         getFortifyArmy(attacker);
         repaint();
