@@ -556,6 +556,12 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         int x = 1120;
         int y = 500;
         if (cards != null) {
+            if(!cardList.isEmpty()) {
+                for(JCheckBox box:cardList) {
+                    remove(box);
+                }
+                cardList.removeAll(cardList);
+            }
             for (Card card : cards) {
                 JCheckBox box = new JCheckBox(card.toString());
                 box.setBounds(x, y, 60, 20);
@@ -564,7 +570,17 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
                 add(box);
             }
             add(exchangeCard);
+        }
+    }
 
+    /**
+     * hide card view
+     */
+    public void hideCardView() {
+        if(!cardList.isEmpty()) {
+            for(JCheckBox box:cardList) {
+                remove(box);
+            }
         }
     }
 
@@ -606,4 +622,5 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
             playerList.add(playername);
         }
     }
+
 }

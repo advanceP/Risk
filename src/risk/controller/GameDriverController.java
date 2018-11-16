@@ -249,6 +249,7 @@ public class GameDriverController {
      * @param player
      */
     public void attckPhase(Player player) {
+        view.hideCardView();
         player.setState("Attack");
         state = "Attack";
         view.add(view.endAttackPhase);
