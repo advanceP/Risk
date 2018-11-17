@@ -23,6 +23,7 @@ public class Player extends Observable {
     private String state;
     private Color color;
     private int reinforcement;
+    private String strategie;
     List<Card> cards = new ArrayList<Card>();
 
     public void setCards(List<Card> cards) {
@@ -534,5 +535,9 @@ public class Player extends Observable {
         int result =  cardlist.size();
         return result;
     }
+
+
+
+
 }
 
