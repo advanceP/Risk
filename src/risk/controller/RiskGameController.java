@@ -96,18 +96,11 @@ public class RiskGameController {
         });
 
         view.getButtonForGame().addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == view.getButtonForGame()) {
-                    JFileChooser jFileChooser = new JFileChooser();
-                    int select = jFileChooser.showOpenDialog(frame); //this method need a JFrame as parameter
-                    if (select == JFileChooser.APPROVE_OPTION) {
-                        File file = jFileChooser.getSelectedFile();
-                        gameDriverController.loadFile(file.getAbsolutePath());
-                        gameDriverController.startGame();
-                    } else {
-                        System.out.println("file has been cancel");
-                    }
+                    view.chooseMode();
                 }
             }
         });
@@ -144,6 +137,21 @@ public class RiskGameController {
                         mapEditorController.addContinentsToGraph(listContinents);
                         mapEditorController.startEditing();
                     }
+                }
+            }
+        });
+
+        view.getSingleGameMode().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jFileChooser = new JFileChooser();
+                int select = jFileChooser.showOpenDialog(frame); //this method need a JFrame as parameter
+                if (select == JFileChooser.APPROVE_OPTION) {
+                    File file = jFileChooser.getSelectedFile();
+                    gameDriverController.loadFile(file.getAbsolutePath());
+                    gameDriverController.startGame();
+                } else {
+                        System.out.println("file has been cancel");
                 }
             }
         });

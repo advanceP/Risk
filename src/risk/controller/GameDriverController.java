@@ -41,7 +41,7 @@ public class GameDriverController {
     List<Color> staticColorList;
     GamePhase view;
     int index;
-    private String state;
+    private String state="";
     Node[] countriesForAttack = new Node[2];
 
     /**
@@ -155,19 +155,30 @@ public class GameDriverController {
                 player.exchangeCardToArmies(cards);
             }
         });
+
+        view.getStartPlay().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<String> strategie = view.getstrategieInformation();
+                giveStrategieToPlayer(strategie);
+                view.removeChooseStrategie();
+                state = "StartUp";
+            }
+        });
     }
+
 
     /**
      * go in to start up phase
      */
     public void startupPhase() {
-        state = "StartUp";
         view.getSetPlayer().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Integer number = Integer.valueOf(view.getInputPlayerNumber().getText());
                 setPlayers(number);
                 view.removeButtonSetPlayer();
+                view.chooseStrategieForPlayer(players);
             }
         });
 
@@ -457,7 +468,6 @@ public class GameDriverController {
         for (int i = 0; i < numberOfPlayers; i++) {
             Player temporaryplayer = new Player();
             temporaryplayer.setName("Player_" + i);
-            temporaryplayer.addObserver(view);
             players.add(temporaryplayer);
         }
         view.createPlayerLabel(players);
@@ -482,11 +492,16 @@ public class GameDriverController {
                 if (graph.getGraphNodes().get(j).getPlayer().getName().equals(players.get(i).getName()))
                     players.get(i).increaseNumberOfCountries();
         }
+    }
+
+    public void giveStrategieToPlayer(List<String> strategie) {
         for (Player player : players) {
+            int index=0;
+            player.setStrategie(strategie.get(index));
+            player.addObserver(view);
             player.setState("StartUp");
+            index++;
         }
-
-
     }
 
 

@@ -453,7 +453,7 @@ public class Player extends Observable {
 
     /**
      * this method determine whether a player won the game or not
-     * @param overall number of nodes
+     * @param nodes number of nodes
      * @return boolean
      */
     public boolean isWin(List<Node> nodes) {
@@ -537,7 +537,12 @@ public class Player extends Observable {
     }
 
 
-
-
+    /**
+     * give player a strategie
+     * @param s
+     */
+    public void setStrategie(String s) {
+        strategie=s;
+    }
 }
 

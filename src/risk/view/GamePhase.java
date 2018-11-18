@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     private JComboBox<Integer> defenderDice;
     private static GamePhase gamePhase = null;
     private ArrayList<JLabel> playerList;
+    private JButton startPlay;
+    private List<JComboBox> tempStrategie;
+    private List<JLabel> tempLabel;
     /**
      * constructor <br/>
      * using freelayout
@@ -111,6 +115,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         attackerDice.setBounds(1120, 500, 100, 20);
         defenderDice = new JComboBox();
         defenderDice.setBounds(1220, 500, 100, 20);
+        startPlay = new JButton("start Play");
+        startPlay.setBounds(1120, 700, 100, 30);
         add(inputPlayerNumber);
         add(setPlayer);
     }
@@ -378,6 +384,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         return defenderDice;
     }
 
+    public JButton getStartPlay() {
+        return startPlay;
+    }
+
     /**
      * draw the country name using label
      */
@@ -623,4 +633,50 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         }
     }
 
+    /**
+     * chooseStrategieForPlayer
+     * @param players List player
+     */
+    public void chooseStrategieForPlayer(List<Player> players) {
+        int x=1150;
+        int y=500;
+        add(startPlay);
+        tempStrategie=new ArrayList<JComboBox>();
+        tempLabel=new ArrayList<>();
+        for(Player player:players) {
+            JLabel label=new JLabel(player.getName());
+            label.setBounds(x, y, 100, 30);
+            add(label);
+            JComboBox strategiebox=new JComboBox();
+            strategiebox.addItem("human");
+            strategiebox.addItem("aggressive");
+            strategiebox.addItem("benevolent");
+            strategiebox.addItem("random");
+            strategiebox.addItem("cheater");
+            strategiebox.setBounds(x+110, y, 150,30 );
+            add(strategiebox);
+            y+=50;
+            tempStrategie.add(strategiebox);
+            tempLabel.add(label);
+        }
+        repaint();
+    }
+
+    public void removeChooseStrategie() {
+        remove(startPlay);
+        for(JComboBox jb:tempStrategie) {
+           remove(jb);
+        }
+        for(JLabel label:tempLabel) {
+            remove(label);
+        }
+    }
+
+    public List<String> getstrategieInformation() {
+        ArrayList<String> list=new ArrayList<>();
+        for(JComboBox jb:tempStrategie) {
+            list.add((String) jb.getSelectedItem());
+        }
+        return list;
+    }
 }

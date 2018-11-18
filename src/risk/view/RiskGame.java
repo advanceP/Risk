@@ -20,8 +20,9 @@ public class RiskGame extends JPanel {
     private JButton loadExistFile;
     private JButton createContinent;
     private JTextField continentInformation;
-    private List<Continent> listContinents;
-    private Graph graph;
+    //private List<Continent> listContinents;
+    //private Graph graph;
+    private JButton singleGameMode;
 
     /**
      * overwrite the constructor<br/>
@@ -82,6 +83,14 @@ public class RiskGame extends JPanel {
     }
 
     /**
+     * return singlegamemode button
+     * @return jbutton
+     */
+    public JButton getSingleGameMode() {
+        return singleGameMode;
+    }
+
+    /**
      * initialise some buttons,and show them on the menu
      */
     private void initial() {
@@ -97,6 +106,8 @@ public class RiskGame extends JPanel {
         createContinent.setBounds(730, 250, 150, 30);
         continentInformation = new JTextField();
         continentInformation.setBounds(280, 250, 320, 30);
+        singleGameMode = new JButton("Single Game Mode");
+        singleGameMode.setBounds(280, 150, 320, 50);
         add(buttonForEdit);
         add(buttonForGame);
 
@@ -124,6 +135,16 @@ public class RiskGame extends JPanel {
         add(label);
         add(continentInformation);
         add(createContinent);
+        repaint();
+    }
+
+    /**
+     * show choose mode view
+     */
+    public void chooseMode(){
+        remove(buttonForEdit);
+        remove(buttonForGame);
+        add(singleGameMode);
         repaint();
     }
 
