@@ -132,16 +132,23 @@ public class Graph {
             if (line.contains("[Territories]")) {
                 while (input.hasNextLine()) {
                     line = input.nextLine();
+                    if (line.equals("\r\n") || line.equals("")) {
+                        line = input.nextLine();
+                        continue;
+                    }
 
                     List<String> tokens = Arrays.asList(line.split(","));
                     List<String> adjacency = tokens.subList(4, tokens.size());
-                    Continent continent = continents.stream().filter(item -> item.getName().equals(tokens.get(3))).findFirst().get();
-                    Node template = new Node(tokens.get(0), Integer.parseInt(tokens.get(1)), Integer.parseInt(tokens.get(2)), continent, adjacency);
+                    Continent continent = continents.stream().filter(item -> item.getName().replace(" ","").
+                            equals(tokens.get(3).replace(" ",""))).findFirst().get();
+                    Node template = new Node(tokens.get(0), Integer.parseInt(tokens.get(1).replace(" ","")),
+                            Integer.parseInt(tokens.get(2).replace(" ","")), continent, adjacency);
                     nodeList.add(template);
                 }
             }
         }
         setGraphNodes(nodeList);
+
     }
 
 

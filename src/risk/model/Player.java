@@ -327,30 +327,26 @@ public class Player extends Observable {
     public int[] getDiceNumbers(Node attacker, Node defender) {
 
         int[] list = new int[2];
-        int attackerdicenumber = 0;
-        int defenderdicenumber = 0;
-        if (attacker.getArmies() < 2)
-            return null;
+        int attackerDiceNum = 0;
+        int defenderDiceNum = 0;
 
-        switch (attacker.getArmies()) {
-            case 3:
-                attackerdicenumber = 2;
-                break;
-            case 2:
-                attackerdicenumber = 1;
-                break;
-            default:
-                attackerdicenumber = 3;
+        if (attacker.getArmies() < 2) {
+            return null;
+        } else if (attacker.getArmies() <= 3) {
+            attackerDiceNum = attacker.getArmies() - 1;
+        } else {
+            attackerDiceNum = 3;
         }
-        switch (defender.getArmies()) {
-            case 1:
-                defenderdicenumber = 1;
-                break;
-            default:
-                defenderdicenumber = 2;
+
+        if (defender.getArmies() < 2){
+            defenderDiceNum = defender.getArmies();
+        }  else{
+            defenderDiceNum = 2;
         }
-        list[0] = attackerdicenumber;
-        list[1] = defenderdicenumber;
+
+        list[0] = attackerDiceNum;
+        list[1] = defenderDiceNum;
+
         return list;
     }
 
