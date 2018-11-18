@@ -133,7 +133,6 @@ public class Graph {
                 while (input.hasNextLine()) {
                     line = input.nextLine();
                     if (line.equals("\r\n") || line.equals("")) {
-                        line = input.nextLine();
                         continue;
                     }
 
@@ -191,13 +190,13 @@ public class Graph {
      * @param root  the start Node
      */
     public void DFS(Graph graph, Node root) {
-        graph.getGraphNodes().stream().filter(item -> item.getName().equals(root.getName())).findFirst().get().setVisited(true);
+        graph.getGraphNodes().stream().filter(item -> item.getName().trim().equals(root.getName().trim())).findFirst().get().setVisited(true);
         Iterator<String> i = root.getAdjacencyList().listIterator();
         while (i.hasNext()) {
-            String name = i.next();
+            String name = i.next().trim();
             Node src=null;
-            if (graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
-                src = graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().get();
+            if (graph.getGraphNodes().stream().filter(item -> item.getName().trim().equals(name)).findAny().isPresent()) {
+                src = graph.getGraphNodes().stream().filter(item -> item.getName().trim().equals(name)).findAny().get();
                 if (src.isVisited() == false) {
                     DFS(graph, src);
                 }
@@ -329,13 +328,13 @@ public class Graph {
      * @param root     the starting node
      */
     public void subSetDFS(List<Node> nodeList, Node root) {
-        nodeList.stream().filter(item -> item.getName().equals(root.getName())).findFirst().get().setVisited(true);
+        nodeList.stream().filter(item -> item.getName().trim().equals(root.getName().trim())).findFirst().get().setVisited(true);
         Iterator<String> i = root.getAdjacencyList().listIterator();
         while (i.hasNext()) {
-            String name = i.next();
+            String name = i.next().trim();
             Node src = null;
-            if (nodeList.stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
-                src = nodeList.stream().filter(item -> item.getName().equals(name)).findAny().get();
+            if (nodeList.stream().filter(item -> item.getName().trim().equals(name)).findAny().isPresent()) {
+                src = nodeList.stream().filter(item -> item.getName().trim().equals(name)).findAny().get();
                 if (src.isVisited() == false) {
                     subSetDFS(nodeList, src);
              }
@@ -347,7 +346,9 @@ public class Graph {
 
     /**
      * this method verify whether the graph is valid or not it checks three aspects
-     * 1_ if the graph is connected 2_ if its continents are connected 3_ if the number of countries => number of continents
+     * 1_ if the graph is connected
+     * 2_ if its continents are connected
+     * 3_ if the number of countries => number of continents
      *
      * @return a boolean
      */
