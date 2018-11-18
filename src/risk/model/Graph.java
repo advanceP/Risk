@@ -126,7 +126,6 @@ public class Graph {
         List<Node> nodeList = new ArrayList<>();
         File file = new File(fileAddress);
         Scanner input = new Scanner(file);
-        //ArrayList<String>word=new ArrayList<String>();
         String line;
         while (input.hasNextLine()) {
             line = input.nextLine();
@@ -189,9 +188,12 @@ public class Graph {
         Iterator<String> i = root.getAdjacencyList().listIterator();
         while (i.hasNext()) {
             String name = i.next();
-            Node src = graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findFirst().get();
-            if (src.isVisited() == false) {
-                DFS(graph, src);
+            Node src=null;
+            if (graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
+                src = graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().get();
+                if (src.isVisited() == false) {
+                    DFS(graph, src);
+                }
             }
         }
     }
@@ -327,11 +329,9 @@ public class Graph {
             Node src = null;
             if (nodeList.stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
                 src = nodeList.stream().filter(item -> item.getName().equals(name)).findAny().get();
-            }
-            if (src != null) {
                 if (src.isVisited() == false) {
                     subSetDFS(nodeList, src);
-                }
+             }
             }
 
         }
@@ -355,6 +355,7 @@ public class Graph {
         for (int i = 0; i < this.getContinents().size(); i++) {
             List<Node> continentnodes = getContinentNodes(this.getContinents().get(i));
             if (ifSetConnected(continentnodes) == false) {
+            	System.out.println(this.continents.get(i).getName()+" is not connected");
                 return false;
             }
         }
@@ -445,12 +446,15 @@ public class Graph {
         ArrayList<Color> colors = new ArrayList<>();
         colors.add(Color.BLACK);
         colors.add(Color.cyan);
-        colors.add(Color.DARK_GRAY);
+        colors.add(Color.YELLOW);
         colors.add(Color.GRAY);
         colors.add(Color.MAGENTA);
         colors.add(Color.PINK);
         colors.add(Color.ORANGE);
         colors.add(Color.LIGHT_GRAY);
+        colors.add(Color.RED);
+        colors.add(Color.BLUE);
+        colors.add(Color.GREEN);
         for (int i = 0; i < graph.getContinents().size(); i++) {
             graph.getContinents().get(i).setColor(colors.get(i));
         }
