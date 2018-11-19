@@ -136,12 +136,13 @@ public class Graph {
                         continue;
                     }
 
-                    List<String> tokens = Arrays.asList(line.split(","));
+                    List<String> tokens  = new ArrayList<>();
+                    Arrays.asList(line.split(",")).forEach(s-> tokens.add(s.trim()));
                     List<String> adjacency = tokens.subList(4, tokens.size());
-                    Continent continent = continents.stream().filter(item -> item.getName().replace(" ","").
-                            equals(tokens.get(3).replace(" ",""))).findFirst().get();
-                    Node template = new Node(tokens.get(0), Integer.parseInt(tokens.get(1).replace(" ","")),
-                            Integer.parseInt(tokens.get(2).replace(" ","")), continent, adjacency);
+                    Continent continent = continents.stream().filter(item -> item.getName().
+                            equals(tokens.get(3))).findFirst().get();
+                    Node template = new Node(tokens.get(0), Integer.parseInt(tokens.get(1)),
+                            Integer.parseInt(tokens.get(2)), continent, adjacency);
                     nodeList.add(template);
                 }
             }
@@ -190,13 +191,13 @@ public class Graph {
      * @param root  the start Node
      */
     public void DFS(Graph graph, Node root) {
-        graph.getGraphNodes().stream().filter(item -> item.getName().trim().equals(root.getName().trim())).findFirst().get().setVisited(true);
+        graph.getGraphNodes().stream().filter(item -> item.getName().equals(root.getName())).findFirst().get().setVisited(true);
         Iterator<String> i = root.getAdjacencyList().listIterator();
         while (i.hasNext()) {
-            String name = i.next().trim();
-            Node src=null;
-            if (graph.getGraphNodes().stream().filter(item -> item.getName().trim().equals(name)).findAny().isPresent()) {
-                src = graph.getGraphNodes().stream().filter(item -> item.getName().trim().equals(name)).findAny().get();
+            String name = i.next();
+            Node src = null;
+            if (graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
+                src = graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().get();
                 if (src.isVisited() == false) {
                     DFS(graph, src);
                 }
@@ -328,13 +329,13 @@ public class Graph {
      * @param root     the starting node
      */
     public void subSetDFS(List<Node> nodeList, Node root) {
-        nodeList.stream().filter(item -> item.getName().trim().equals(root.getName().trim())).findFirst().get().setVisited(true);
+        nodeList.stream().filter(item -> item.getName().equals(root.getName())).findFirst().get().setVisited(true);
         Iterator<String> i = root.getAdjacencyList().listIterator();
         while (i.hasNext()) {
-            String name = i.next().trim();
+            String name = i.next();
             Node src = null;
-            if (nodeList.stream().filter(item -> item.getName().trim().equals(name)).findAny().isPresent()) {
-                src = nodeList.stream().filter(item -> item.getName().trim().equals(name)).findAny().get();
+            if (nodeList.stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
+                src = nodeList.stream().filter(item -> item.getName().equals(name)).findAny().get();
                 if (src.isVisited() == false) {
                     subSetDFS(nodeList, src);
              }
