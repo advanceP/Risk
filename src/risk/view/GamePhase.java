@@ -648,11 +648,11 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
             label.setBounds(x, y, 100, 30);
             add(label);
             JComboBox strategiebox=new JComboBox();
-            strategiebox.addItem("human");
-            strategiebox.addItem("aggressive");
-            strategiebox.addItem("benevolent");
-            strategiebox.addItem("random");
-            strategiebox.addItem("cheater");
+            strategiebox.addItem("Human");
+            strategiebox.addItem("Aggressive");
+            strategiebox.addItem("Benevolent");
+            strategiebox.addItem("RandomPlayer");
+            strategiebox.addItem("Cheater");
             strategiebox.setBounds(x+110, y, 150,30 );
             add(strategiebox);
             y+=50;

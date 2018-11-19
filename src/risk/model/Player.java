@@ -53,11 +53,15 @@ public class Player extends Observable {
     	switch(strategy)
     	{
     	case "Human" :this.strategy=new Human();break;
+    	case "Aggressive":this.strategy=new Aggressive();break;
+    	case "Benevolent":this.strategy=new Benevolent();break;
+    	case "RandomPlayer":this.strategy=new RandomPlayer();break;
+    	case "Cheater":this.strategy=new Cheater();break;
     	default:
     		this.strategy=new Human();
     	}
     }
-    
+
     /**
      * returns the number of reinforcement for the player
      *
@@ -370,13 +374,16 @@ public class Player extends Observable {
     }
 
     /**
-     * @param country increase the number of armies in each country and decrease its player's reinforcement armies
+     * increase the number of armies in each country and decrease its player's reinforcement armies
      */
     public void reinforcement() {
     	strategy.reinforcement();
     }
 
-    
+    /**
+     * give strategy
+     * @return instance of Strategy
+     */
     public Strategy getStrategy()
     {
     	return this.strategy;
@@ -544,6 +551,18 @@ public class Player extends Observable {
         }
         int result =  cardlist.size();
         return result;
+    }
+
+    public void addArmyRandomly() {
+        Random random=new Random();
+        List<Node> nodes = getNodeList();
+        Node node = nodes.get(random.nextInt(nodes.size()));
+        increaseArmy(node);
+    }
+
+    public void increaseArmy(Node node) {
+        node.increaseArmy();
+        decreaseReinforcement();
     }
 }
 

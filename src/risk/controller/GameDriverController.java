@@ -129,6 +129,20 @@ public class GameDriverController {
                     }
                 }
             });
+
+            label.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    if (state.equals("StartUp")) {
+                        Player player = getCurrentPlayer();
+                        if(player!=null&&player.getStrategy().toString().equals("Human")) {
+                            addArmyByPlayer(e);
+                        }
+                    }
+                }
+            });
+
         }
 
         view.getFortify().addActionListener(new ActionListener() {
@@ -160,17 +174,39 @@ public class GameDriverController {
         view.getStartPlay().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<String> strategie = view.getstrategieInformation();
-                giveStrategieToPlayer(strategie);
+                List<String> strategies = view.getstrategieInformation();
+                giveStrategieToPlayer(strategies);
                 view.removeChooseStrategie();
                 state = "StartUp";
+                playStartup();
             }
         });
     }
 
+    /**
+     * decide which player is playing the game,computer or human
+     */
+    public void playStartup() {
+        Player player=getCurrentPlayer();
+        if(getAllArmies()>0) {
+            if (!player.getStrategy().toString().equals("Human")) {
+                if(player.getReinforcement()>0){
+                    player.addArmyRandomly();
+                }
+                changeCurrentPlayer();
+                playStartup();
+            }else{
+                return;
+            }
+        }else{
+            state = "Reinforcement";
+            reinforcementPhase();
+        }
+    }
+
 
     /**
-     * go in to start up phase
+     * go in to start up phase,initial player
      */
     public void startupPhase() {
         view.getSetPlayer().addActionListener(new ActionListener() {
@@ -182,18 +218,6 @@ public class GameDriverController {
                 view.chooseStrategieForPlayer(players);
             }
         });
-
-        for (GameLabel label : view.getLabelList()) {
-            label.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    super.mouseClicked(e);
-                    if (state.equals("StartUp")) {
-                        addArmyByPlayer(e);
-                    }
-                }
-            });
-        }
     }
 
     /**
@@ -208,13 +232,9 @@ public class GameDriverController {
                 if (labelName.equals(country.getName())) {
                     if (country.getPlayer() == getCurrentPlayer()) {
                         if (country.getPlayer().getReinforcement() > 0) {
-                        	if(country.getPlayer().getStrategy().toString().equals("Human"))
-                        	{
-                        		Human h=(Human) country.getPlayer().getStrategy();
-                        		h.setReinforcementNode(country);
-                        		country.getPlayer().reinforcement();
-                        	} 
+                            country.getPlayer().increaseArmy(country);
                             changeCurrentPlayer();
+                            playStartup();
                             if (getAllArmies() == 0) {
                                 state = "Reinforcement";
                                 reinforcementPhase();
@@ -256,7 +276,7 @@ public class GameDriverController {
                     		Human h=(Human) country.getPlayer().getStrategy();
                     		h.setReinforcementNode(country);
                     		country.getPlayer().reinforcement();
-                    	} 
+                    	}
                     }
                 }
             }
@@ -505,14 +525,14 @@ public class GameDriverController {
         }
     }
 
-    public void giveStrategieToPlayer(List<String> strategie) {
+    public void giveStrategieToPlayer(List<String> strategies) {
+        int index=0;
         for (Player player : players) {
-            int index=0;
-            player.setStrategy(strategie.get(index));
+            player.setStrategy(strategies.get(index));
             player.addObserver(view);
             player.setState("StartUp");
             index++;
-        }
+    }
     }
 
 
