@@ -385,12 +385,6 @@ public class Player extends Observable {
         return (Math.round(result * 100));
     }
 
-    /**
-     * increase the number of armies in each country and decrease its player's reinforcement armies
-     */
-    public void reinforcement() {
-    	//strategy.reinforcement();
-    }
 
     /**
      * give strategy
@@ -583,7 +577,7 @@ public class Player extends Observable {
      * @date 2018-11-19
      */
     public void executeStrategyRein(Node country){
-        this.getStrategy().reinforcement(country);
+        strategy.reinforcement(country);
     }
 }
 

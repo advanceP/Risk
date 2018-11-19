@@ -104,8 +104,9 @@ public class GameDriverController {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);
-                    if (state.equals("Reinforcement")) {
-                        addReinforement(e);
+                    Player player = getCurrentPlayer();
+                    if (state.equals("Reinforcement") && player.getStrategy() instanceof Human) {
+                        addReinforcement(e);
                     }
                 }
             });
@@ -132,7 +133,7 @@ public class GameDriverController {
                     super.mouseClicked(e);
                     if (state.equals("StartUp")) {
                         Player player = getCurrentPlayer();
-                        if(player!=null&&player.getStrategy().toString().equals("Human")) {
+                        if(player!=null&&player.getStrategy() instanceof Human) {
                             addArmyByPlayer(e);
                         }
                     }
@@ -258,7 +259,7 @@ public class GameDriverController {
      * choose to add reinforcecment
      * @param e mouse event
      */
-    public void addReinforement(MouseEvent e) {
+    public void addReinforcement(MouseEvent e) {
         Player player = getCurrentPlayer();
         int reinforces = player.getReinforcement();
         if (reinforces > 0) {
