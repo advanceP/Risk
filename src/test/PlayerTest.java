@@ -134,7 +134,7 @@ public class PlayerTest {
 
         driver.setPlayers(2);
         driver.getPlayers().get(0).setState("StartUp");
-        driver.getPlayers().get(0).Reinforcement();
+        driver.getPlayers().get(0).calculateReinforcement();
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
 
         
@@ -155,7 +155,7 @@ public class PlayerTest {
         driver.setPlayers(2);
         driver.getPlayers().get(0).setState("Reinforcement");
         driver.getPlayers().get(0).setReinforcement(10);
-        driver.getPlayers().get(0).Reinforcement();
+        driver.getPlayers().get(0).calculateReinforcement();
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
 
         assertSame(expectedReinforcment, toTestReinforcment);
@@ -174,7 +174,7 @@ public class PlayerTest {
         driver.getPlayers().get(0).setState("Reinforcement");
         driver.getPlayers().get(0).setReinforcement(10);
         driver.getPlayers().get(0).setNumberOfCountries(10);
-        driver.getPlayers().get(0).Reinforcement();
+        driver.getPlayers().get(0).calculateReinforcement();
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
         assertSame(expectedAdditionalreinforcement, toTestReinforcment);
     }

@@ -23,7 +23,7 @@ public class Player extends Observable {
     private String state;
     private Color color;
     private int reinforcement;
-    private String strategie;
+    private Strategy strategy;
     List<Card> cards = new ArrayList<Card>();
 
     public void setCards(List<Card> cards) {
@@ -47,6 +47,16 @@ public class Player extends Observable {
         this.cards.addAll(cards);
     }
     
+    
+    public void setStrategy(String strategy)
+    {
+    	switch(strategy)
+    	{
+    	case "Human" :this.strategy=new Human();break;
+    	default:
+    		this.strategy=new Human();
+    	}
+    }
     
     /**
      * returns the number of reinforcement for the player
@@ -213,7 +223,7 @@ public class Player extends Observable {
     /**
      *this method calculate the number of reinforcement for each player
      */
-    public void Reinforcement() {
+    public void calculateReinforcement() {
         if (this.state.equals("StartUp"))
             this.setReinforcement(0);
         if (this.state.equals("Reinforcement"))
@@ -366,11 +376,15 @@ public class Player extends Observable {
     /**
      * @param country increase the number of armies in each country and decrease its player's reinforcement armies
      */
-    public void addReinforcementToNode(Node country) {
-        country.increaseArmy();
-        decreaseReinforcement();
+    public void reinforcement() {
+    	strategy.reinforcement();
     }
 
+    
+    public Strategy getStrategy()
+    {
+    	return this.strategy;
+    }
 
     /**
      * this method is being used in fortification phase it transfer armies from one country to another.
@@ -534,15 +548,6 @@ public class Player extends Observable {
         }
         int result =  cardlist.size();
         return result;
-    }
-
-
-    /**
-     * give player a strategie
-     * @param s
-     */
-    public void setStrategie(String s) {
-        strategie=s;
     }
 }
 

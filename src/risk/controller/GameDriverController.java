@@ -2,6 +2,7 @@ package risk.controller;
 
 import risk.model.Card;
 import risk.model.Graph;
+import risk.model.Human;
 import risk.model.Node;
 import risk.model.Player;
 import risk.view.GameLabel;
@@ -207,7 +208,12 @@ public class GameDriverController {
                 if (labelName.equals(country.getName())) {
                     if (country.getPlayer() == getCurrentPlayer()) {
                         if (country.getPlayer().getReinforcement() > 0) {
-                            country.getPlayer().addReinforcementToNode(country);
+                        	if(country.getPlayer().getStrategy().toString().equals("Human"))
+                        	{
+                        		Human h=(Human) country.getPlayer().getStrategy();
+                        		h.setReinforcementNode(country);
+                        		country.getPlayer().reinforcement();
+                        	} 
                             changeCurrentPlayer();
                             if (getAllArmies() == 0) {
                                 state = "Reinforcement";
@@ -227,7 +233,7 @@ public class GameDriverController {
      */
     public void reinforcementPhase() {
         Player currentPlayer = getCurrentPlayer();
-        currentPlayer.Reinforcement();
+        currentPlayer.calculateReinforcement();
         view.createCardView(currentPlayer);
         currentPlayer.checkPlayerCard();
     }
@@ -245,7 +251,12 @@ public class GameDriverController {
             for (Node country : graph.getGraphNodes()) {
                 if (country.getName().equals(labelName)) {
                     if (country.getPlayer() == player) {
-                        player.addReinforcementToNode(country);
+                    	if(country.getPlayer().getStrategy().toString().equals("Human"))
+                    	{
+                    		Human h=(Human) country.getPlayer().getStrategy();
+                    		h.setReinforcementNode(country);
+                    		country.getPlayer().reinforcement();
+                    	} 
                     }
                 }
             }
@@ -497,7 +508,7 @@ public class GameDriverController {
     public void giveStrategieToPlayer(List<String> strategie) {
         for (Player player : players) {
             int index=0;
-            player.setStrategie(strategie.get(index));
+            player.setStrategy(strategie.get(index));
             player.addObserver(view);
             player.setState("StartUp");
             index++;
