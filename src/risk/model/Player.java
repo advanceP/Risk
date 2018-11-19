@@ -296,13 +296,13 @@ public class Player extends Observable {
     }
 
     /**
+     * @description get the result of attacking(includes changing the armies of nodes)
      * @param diceNumberList diceNumberList of attacker( list.get(0) ) and defender( list.get(1) )
      * @param attacker       the node of attacker
      * @param defender       the node of defender
-     * @Description: get the result of attacking(includes changing the armies of nodes)
-     * @return: a list of numbers that node lost	list.get(0) is attacker's and list.get(1) is defender's
-     * @Author: Yiying Liu
-     * @Date: 2018-11-04
+     * @return a list of numbers that node lost	list.get(0) is attacker's and list.get(1) is defender's
+     * @author Yiying Liu
+     * @date 2018-11-04
      */
     public boolean attackResult(Node attacker, Node defender, List<List<Integer>> diceNumberList) {
         if (diceNumberList.isEmpty()) {
@@ -576,8 +576,13 @@ public class Player extends Observable {
         node.increaseArmy();
         decreaseReinforcement();
     }
-
-    public void excuteStrategyRein(Node country){
+    /** 
+     * <p>Description:  using strategy pattern to execute reinforcement</p>
+     * @param country the node of player which add army in reinforcement phase
+     * @author Yiying Liu
+     * @date 2018-11-19
+     */
+    public void executeStrategyRein(Node country){
         this.getStrategy().reinforcement(country);
     }
 }

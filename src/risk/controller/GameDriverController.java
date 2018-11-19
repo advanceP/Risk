@@ -267,7 +267,7 @@ public class GameDriverController {
             for (Node country : graph.getGraphNodes()) {
                 if (country.getName().equals(labelName)) {
                     if (country.getPlayer() == player) {
-                        player.excuteStrategyRein(country);
+                        player.executeStrategyRein(country);
                     		//Human h=(Human) playerStrategy;
                     		//h.setReinforcementNode(country);
                     		//country.getPlayer().reinforcement();

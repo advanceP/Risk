@@ -14,6 +14,7 @@ public class Human implements Strategy {
 		
 		reinforcementNode.increaseArmy();
 		reinforcementNode.getPlayer().decreaseReinforcement();
+		System.out.println("Human");
 	}
 
 	@Override
