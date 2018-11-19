@@ -1,10 +1,6 @@
 package risk.controller;
 
-import risk.model.Card;
-import risk.model.Graph;
-import risk.model.Human;
-import risk.model.Node;
-import risk.model.Player;
+import risk.model.*;
 import risk.view.GameLabel;
 import risk.view.GamePhase;
 
@@ -66,11 +62,11 @@ public class GameDriverController {
      */
     public void loadFile(String absolutePath) {
         try {
-            if (FileController.verifyMapFile(absolutePath) == false) {
+            if (!FileController.verifyMapFile(absolutePath)) {
                 throw new RuntimeException("invalid file");
             }
             graph.createGraph(absolutePath);
-            if (graph.verifyGraph() == false) {
+            if (!graph.verifyGraph()) {
                 graph.setContinents(null);
                 graph.setGraphNodes(null);
                 throw new RuntimeException("invalid graph");
@@ -271,12 +267,10 @@ public class GameDriverController {
             for (Node country : graph.getGraphNodes()) {
                 if (country.getName().equals(labelName)) {
                     if (country.getPlayer() == player) {
-                    	if(country.getPlayer().getStrategy().toString().equals("Human"))
-                    	{
-                    		Human h=(Human) country.getPlayer().getStrategy();
-                    		h.setReinforcementNode(country);
-                    		country.getPlayer().reinforcement();
-                    	}
+                        player.excuteStrategyRein(country);
+                    		//Human h=(Human) playerStrategy;
+                    		//h.setReinforcementNode(country);
+                    		//country.getPlayer().reinforcement();
                     }
                 }
             }

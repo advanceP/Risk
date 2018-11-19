@@ -50,16 +50,25 @@ public class Player extends Observable {
     
     public void setStrategy(String strategy)
     {
-    	switch(strategy)
-    	{
-    	case "Human" :this.strategy=new Human();break;
-    	case "Aggressive":this.strategy=new Aggressive();break;
-    	case "Benevolent":this.strategy=new Benevolent();break;
-    	case "RandomPlayer":this.strategy=new RandomPlayer();break;
-    	case "Cheater":this.strategy=new Cheater();break;
-    	default:
-    		this.strategy=new Human();
-    	}
+        switch (strategy) {
+            case "Human":
+                this.strategy = new Human();
+                break;
+            case "Aggressive":
+                this.strategy = new Aggressive();
+                break;
+            case "Benevolent":
+                this.strategy = new Benevolent();
+                break;
+            case "RandomPlayer":
+                this.strategy = new RandomPlayer();
+                break;
+            case "Cheater":
+                this.strategy = new Cheater();
+                break;
+            default:
+                this.strategy = new Human();
+        }
     }
 
     /**
@@ -207,14 +216,16 @@ public class Player extends Observable {
      * @return a List<Node>
      */
     public List<Node> getNodeList() {
-        return Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getPlayer().getName().equals(this.name)).collect(Collectors.toList());
+        return Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getPlayer().getName().
+                equals(this.name)).collect(Collectors.toList());
     }
 
     public List<Continent> getContinents() {
         for (int i = 0; i < Graph.getGraphInstance().getContinents().size(); i++) {
             if (Graph.getGraphInstance().ifContinentConquered(Graph.getGraphInstance().getContinents().get(i))) {
                 String continentname = Graph.getGraphInstance().getContinents().get(i).getName();
-                Node continentnode = Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getContinent().getName().equals(continentname)).findAny().get();
+                Node continentnode = Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getContinent().
+                                        getName().equals(continentname)).findAny().get();
                 if (continentnode.getPlayer().getName().equals(this.name))
                     continents.add(Graph.getGraphInstance().getContinents().get(i));
             }
@@ -240,7 +251,8 @@ public class Player extends Observable {
         for (int i = 0; i < Graph.getGraphInstance().getContinents().size(); i++) {
             if (Graph.getGraphInstance().ifContinentConquered(Graph.getGraphInstance().getContinents().get(i))) {
                 String continentname = Graph.getGraphInstance().getContinents().get(i).getName();
-                Node continentnode = Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getContinent().getName().equals(continentname)).findAny().get();
+                Node continentnode = Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getContinent().getName().
+                                    equals(continentname)).findAny().get();
                 if (continentnode.getPlayer().getName().equals(this.name))
                     additionalreinforcement += Graph.getGraphInstance().getContinents().get(i).getAwardUnits();
             }
@@ -377,7 +389,7 @@ public class Player extends Observable {
      * increase the number of armies in each country and decrease its player's reinforcement armies
      */
     public void reinforcement() {
-    	strategy.reinforcement();
+    	//strategy.reinforcement();
     }
 
     /**
@@ -484,11 +496,11 @@ public class Player extends Observable {
     /**
      * @param attacker country being used by the player for attack 
      * @param defender country that is being attacked
-     * @param attackerdice number of dices for attacker
-     * @param defenderdice number of armies for defender
+     * @param attackerDice number of dices for attacker
+     * @param defenderDice number of armies for defender
      * @return the results of rolled dices
      */
-    public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerdice, int defenderdice) {
+    public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerDice, int defenderDice) {
         List<List<Integer>> resultList = new ArrayList<>();
         List<Integer> attackerList = new ArrayList<>();
         List<Integer> defenderList = new ArrayList<>();
@@ -497,10 +509,10 @@ public class Player extends Observable {
         Random random = new Random();
         int[] numbers = getDiceNumbers(attacker, defender);
 
-        for (int i = 0; i < attackerdice; i++) {
+        for (int i = 0; i < attackerDice; i++) {
             attackerList.add(random.nextInt(6) + 1);
         }
-        for (int j = 0; j < defenderdice; j++) {
+        for (int j = 0; j < defenderDice; j++) {
             defenderList.add(random.nextInt(6) + 1);
         }
         if (attackerList.size() > 1) {
@@ -563,6 +575,10 @@ public class Player extends Observable {
     public void increaseArmy(Node node) {
         node.increaseArmy();
         decreaseReinforcement();
+    }
+
+    public void excuteStrategyRein(Node country){
+        this.getStrategy().reinforcement(country);
     }
 }
 

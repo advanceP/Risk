@@ -2,8 +2,8 @@ package risk.model;
 
 public class RandomPlayer implements Strategy{
     @Override
-    public void reinforcement() {
-
+    public void reinforcement(Node reinforcementNode) {
+        System.out.println("Random");
     }
 
     @Override

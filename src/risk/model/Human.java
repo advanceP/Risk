@@ -1,15 +1,16 @@
 package risk.model;
 
 public class Human implements Strategy {
-	private Node reinforcementNode;
-	
+
+/*
 	public void setReinforcementNode(Node reinforcement)
 	{
 		this.reinforcementNode=reinforcement;
 	}
+*/
 
 	@Override
-	public void reinforcement() {
+	public void reinforcement(Node reinforcementNode) {
 		
 		reinforcementNode.increaseArmy();
 		reinforcementNode.getPlayer().decreaseReinforcement();
