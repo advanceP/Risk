@@ -1,5 +1,7 @@
 package risk.model;
 
+import risk.controller.GameDriverController;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -279,10 +281,10 @@ public class Player extends Observable {
         Random random = new Random();
         int[] numbers = getDiceNumbers(attacker, defender);
 
-        for (int i = 0; i < numbers[0]; i++) {
+        for (int i = 0; i < attacker.getArmies() && i<4; i++) {
             attackerList.add(random.nextInt(6) + 1);
         }
-        for (int j = 0; j < numbers[1]; j++) {
+        for (int j = 0; j < defender.getArmies() && j<3 && j<attacker.getArmies(); j++) {
             defenderList.add(random.nextInt(6) + 1);
         }
         if (attackerList.size() > 1) {
@@ -384,15 +386,23 @@ public class Player extends Observable {
         result = ((float) (this.getNodeList().size()) / Graph.getGraphInstance().getGraphNodes().size());
         return (Math.round(result * 100));
     }
-
-
     /**
      * give strategy
      * @return instance of Strategy
      */
     public Strategy getStrategy()
     {
-    	return this.strategy;
+        return this.strategy;
+    }
+
+    /**
+     * player attack another player by using dice and attack result function
+     */
+    public boolean attack(Node attacker, Node defender, Integer attackerdice, Integer defenderdice) {
+        boolean flag = strategy.attack(attacker, defender, attackerdice, defenderdice);
+        setChanged();
+        notifyObservers();
+        return flag;
     }
 
     /**
@@ -402,9 +412,8 @@ public class Player extends Observable {
      * @param to     the country who will receive armies
      * @param armies number of armies that will be transfered
      */
-    public void fortification(Node from, Node to, int armies) {
-        from.setArmies(from.getArmies() - armies);
-        to.setArmies(to.getArmies() + armies);
+    public void fortification(Node from, Node to, Integer armies) {
+        strategy.fortification(from,to,armies);
         setChanged();
         notifyObservers();
     }
@@ -570,7 +579,7 @@ public class Player extends Observable {
         node.increaseArmy();
         decreaseReinforcement();
     }
-    /** 
+    /**
      * <p>Description:  using strategy pattern to execute reinforcement</p>
      * @param country the node of player which add army in reinforcement phase
      * @author Yiying Liu

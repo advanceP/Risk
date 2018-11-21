@@ -130,9 +130,9 @@ public class GameDriverController {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);
-                    if (state.equals("StartUp")) {
+                    if (state.equals("StartUp")  ) {
                         Player player = getCurrentPlayer();
-                        if(player!=null&&player.getStrategy() instanceof Human) {
+                        if(player!=null && player.getStrategy() instanceof Human) {
                             addArmyByPlayer(e);
                         }
                     }
@@ -184,15 +184,13 @@ public class GameDriverController {
      */
     public void playStartup() {
         Player player=getCurrentPlayer();
-        if(getAllArmies()>0) {
+        if(getAllReinforcement()>0) {
             if (!player.getStrategy().toString().equals("Human")) {
-                if(player.getReinforcement()>0){
+                if(player.getReinforcement()>0 ){
                     player.addArmyRandomly();
                 }
                 changeCurrentPlayer();
                 playStartup();
-            }else{
-                return;
             }
         }else{
             state = "Reinforcement";
@@ -221,7 +219,7 @@ public class GameDriverController {
      * @param e mouse event
      */
     public void addArmyByPlayer(MouseEvent e) {
-        if (getAllArmies() > 0) {
+        if (getAllReinforcement() > 0) {
             GameLabel label = (GameLabel) e.getSource();
             String labelName = label.getText();
             for (Node country : graph.getGraphNodes()) {
@@ -231,8 +229,7 @@ public class GameDriverController {
                             country.getPlayer().increaseArmy(country);
                             changeCurrentPlayer();
                             playStartup();
-                            if (getAllArmies() == 0) {
-                                state = "Reinforcement";
+                            if (getAllReinforcement() == 0) {
                                 reinforcementPhase();
                             }
                         } else {
@@ -248,10 +245,19 @@ public class GameDriverController {
      * go into reinforcementphase
      */
     public void reinforcementPhase() {
+        state = "Reinforcement";
         Player currentPlayer = getCurrentPlayer();
         currentPlayer.calculateReinforcement();
         view.createCardView(currentPlayer);
         currentPlayer.checkPlayerCard();
+        if(!(currentPlayer.getStrategy() instanceof Human)) {
+            int reinforces = currentPlayer.getReinforcement();
+            if (reinforces > 0) {
+                currentPlayer.executeStrategyRein(null);
+                view.remove(view.exchangeCard);
+                attckPhase(currentPlayer);
+            }
+        }
     }
 
     /**
@@ -268,9 +274,9 @@ public class GameDriverController {
                 if (country.getName().equals(labelName)) {
                     if (country.getPlayer() == player) {
                         player.executeStrategyRein(country);
-                    		//Human h=(Human) playerStrategy;
-                    		//h.setReinforcementNode(country);
-                    		//country.getPlayer().reinforcement();
+                        //Human h=(Human) playerStrategy;
+                        //h.setReinforcementNode(country);
+                        //country.getPlayer().reinforcement();
                     }
                 }
             }
@@ -289,6 +295,16 @@ public class GameDriverController {
         player.setState("Attack");
         state = "Attack";
         view.add(view.endAttackPhase);
+        boolean iswin=false;
+        if(!(player.getStrategy() instanceof Human)) {
+             iswin = player.attack(null, null, null, null);
+            if(!iswin) {
+                playerFortifition(player);
+            }else{
+                view.showWin();
+            }
+        }
+
     }
 
     /**
@@ -312,14 +328,7 @@ public class GameDriverController {
                 break;
             }
         }
-        if (countriesForAttack[1] == null){
-            for (String adjacencyName : defender.getAdjacencyList()){
-                if (adjacencyName.equals(attacker.getName())){
-                    countriesForAttack[1] = defender;
-                }
-                break;
-            }
-        }
+
     }
 
     /**
@@ -330,7 +339,9 @@ public class GameDriverController {
         GameLabel label = (GameLabel) e.getSource();
         String labelName = label.getText();
         for (Node country : graph.getGraphNodes()) {
-            if (labelName.equals(country.getName()) && country.getPlayer() == getCurrentPlayer() && country.getArmies() > 1) {
+            Player player = country.getPlayer();
+            if (labelName.equals(country.getName()) && player == getCurrentPlayer()
+                    && player.getStrategy().toString().equals("Human") && country.getArmies() > 1) {
                 countriesForAttack[0] = country;
                 break;
             }
@@ -344,6 +355,11 @@ public class GameDriverController {
     public void playerFortifition(Player player) {
         player.setState("Fortifition");
         searchNodeByPlyaer();
+        if(!(player.getStrategy() instanceof Human)) {
+            player.fortification(null,null ,null );
+            changeCurrentPlayer();
+            reinforcementPhase();
+        }
     }
 
     /**
@@ -378,28 +394,31 @@ public class GameDriverController {
                 Node attacker = countriesForAttack[0];
                 Node defender = countriesForAttack[1];
                 Player player = getCurrentPlayer();
-                if (attacker.getArmies() <= 1) {
-                    retreat();
-                }
-                int attackerdice = (Integer) view.getAttackerDice().getSelectedItem();
-                int defenderdice = (Integer) view.getDefenderDice().getSelectedItem();
-                List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender, attackerdice, defenderdice);
-                view.showAttackResult(numberofdice);
-                boolean flag = player.attackResult(attacker, defender, numberofdice);
-                view.showAttackMenu(attacker,defender);
-                if (flag) {
-                    view.hideAttackMenu();
-                    moveArmriesToConquest(attacker, defender);
-                }else{
-                    if(attacker.getArmies()==1){
+                if (player.getStrategy() instanceof  Human) {
+                    if (attacker.getArmies() <= 1) {
                         retreat();
                     }
+                    //user choose how many dice to roll
+                    int attackerdice = (Integer) view.getAttackerDice().getSelectedItem();
+                    int defenderdice = (Integer) view.getDefenderDice().getSelectedItem();
+                    List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender, attackerdice, defenderdice);
+                    view.showAttackResult(numberofdice);
+                    boolean flag = player.attack(attacker,defender,attackerdice, defenderdice);
+                    view.showAttackMenu(attacker, defender);
+                    if (flag) {
+                        view.hideAttackMenu();
+                        moveArmriesToConquest(attacker, defender);
+                    } else {
+                        if (attacker.getArmies() == 1) {
+                            retreat();
+                        }
+                    }
+                    List<Node> nodes = graph.getGraphNodes();
+                    if (player.isWin(nodes)) {
+                        view.showWin();
+                    }
+
                 }
-                List<Node> nodes = graph.getGraphNodes();
-                if (player.isWin(nodes)) {
-                    view.showWin();
-                }
-                
             }
         });
 
@@ -545,7 +564,6 @@ public class GameDriverController {
 
     /**
      * get method for players
-     *
      * @return List of the Game's players
      */
     public List<Player> getPlayers() {
@@ -581,7 +599,7 @@ public class GameDriverController {
      *
      * @return integer number of armies
      */
-    public int getAllArmies() {
+    public int getAllReinforcement() {
         int allarmies = 0;
         for (int i = 0; i < players.size(); i++) {
             allarmies += players.get(i).getReinforcement();

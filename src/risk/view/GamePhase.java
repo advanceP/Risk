@@ -494,6 +494,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         if (GameDriverController.getGameDriverInstance().getCurrentPlayer().getState() != null) {
             if (GameDriverController.getGameDriverInstance().getCurrentPlayer().getState().equals("Fortifition")) {
                 showFortifitionPhase();
+            }else{
+                hideFortifitionPhase();
             }
         }
         repaint();
