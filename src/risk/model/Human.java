@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Human implements Strategy {
 
-
 	@Override
 	public void reinforcement(Node node) {
 		node.increaseArmy();
@@ -15,9 +14,9 @@ public class Human implements Strategy {
 
 	@Override
 	public void fortification(Node from, Node to, Integer armies) {
-		from.setArmies(from.getArmies() - armies);
-		to.setArmies(to.getArmies() + armies);
-	}
+        from.setArmies(from.getArmies() - armies);
+        to.setArmies(to.getArmies() + armies);
+    }
 
 	@Override
 	public boolean attack(Node attacker, Node defender, Integer attackerdice, Integer defenderdice) {
@@ -57,20 +56,19 @@ public class Human implements Strategy {
 			}
 			if(defender.getArmies()==0) {
 				player.increaseNumberOfCountries();;
-				defender.setPlayer(player);
-				List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
-				int size = list.size();
-				Random rnd = new Random();
-				attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
+                defender.setPlayer(player);
+                List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
+                int size = list.size();
+                Random rnd = new Random();
+                attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
 
-				if(defender.getPlayer().getNodeList().size()<1)
-				{
-					attacker.getPlayer().addCards(defender.getPlayer().getCards());
-					defender.getPlayer().setCards(null);
-				}
-				return true;
+                if(defender.getPlayer().getNodeList().size()<1)
+                {
+                    attacker.getPlayer().addCards(defender.getPlayer().getCards());
+                    defender.getPlayer().setCards(null);
+                }
+                return true;
 			}
-
 		}
 
 		return false;

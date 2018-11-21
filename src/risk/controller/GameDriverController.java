@@ -180,6 +180,21 @@ public class GameDriverController {
     }
 
     /**
+     * go in to start up phase,initial player
+     */
+    public void startupPhase() {
+        view.getSetPlayer().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Integer number = Integer.valueOf(view.getInputPlayerNumber().getText());
+                setPlayers(number);
+                view.removeButtonSetPlayer();
+                view.chooseStrategieForPlayer(players);
+            }
+        });
+    }
+
+    /**
      * decide which player is playing the game,computer or human
      */
     public void playStartup() {
@@ -198,21 +213,6 @@ public class GameDriverController {
         }
     }
 
-
-    /**
-     * go in to start up phase,initial player
-     */
-    public void startupPhase() {
-        view.getSetPlayer().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Integer number = Integer.valueOf(view.getInputPlayerNumber().getText());
-                setPlayers(number);
-                view.removeButtonSetPlayer();
-                view.chooseStrategieForPlayer(players);
-            }
-        });
-    }
 
     /**
      * in startup phase,click them by using mouse
@@ -299,6 +299,7 @@ public class GameDriverController {
         if(!(player.getStrategy() instanceof Human)) {
              iswin = player.attack(null, null, null, null);
             if(!iswin) {
+                view.remove(view.endAttackPhase);
                 playerFortifition(player);
             }else{
                 view.showWin();
