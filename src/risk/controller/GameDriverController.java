@@ -4,6 +4,7 @@ import risk.model.*;
 import risk.view.GameLabel;
 import risk.view.GamePhase;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import javax.swing.JFrame;
 
 /**
  * this class controls the flow of the game based on the risk game rules, this class uses singleton design pattern
@@ -299,14 +298,26 @@ public class GameDriverController {
     private void getDefender(MouseEvent e) {
         GameLabel label = (GameLabel) e.getSource();
         String labelName = label.getText();
+        Node defender = null;
+        Node attacker = countriesForAttack[0];
         for (Node country : graph.getGraphNodes()) {
             if (labelName.equals(country.getName()) && country.getPlayer() != getCurrentPlayer()) {
-                Node attacker = countriesForAttack[0];
-                for (String adjacencyname : attacker.getAdjacencyList()) {
-                    if (labelName.equals(adjacencyname)) {
-                        countriesForAttack[1] = country;
-                    }
+                defender = country;
+                break;
+            }
+        }
+        for (String adjacencyName : attacker.getAdjacencyList()) {
+            if (labelName.equals(adjacencyName)) {
+                countriesForAttack[1] = defender;
+                break;
+            }
+        }
+        if (countriesForAttack[1] == null){
+            for (String adjacencyName : defender.getAdjacencyList()){
+                if (adjacencyName.equals(attacker.getName())){
+                    countriesForAttack[1] = defender;
                 }
+                break;
             }
         }
     }
@@ -321,6 +332,7 @@ public class GameDriverController {
         for (Node country : graph.getGraphNodes()) {
             if (labelName.equals(country.getName()) && country.getPlayer() == getCurrentPlayer() && country.getArmies() > 1) {
                 countriesForAttack[0] = country;
+                break;
             }
         }
     }

@@ -1,8 +1,8 @@
 package risk.controller;
 
 import risk.model.Continent;
-import risk.model.Node;
 import risk.model.Graph;
+import risk.model.Node;
 import risk.view.MapEditor;
 import risk.view.MapEditorLabel;
 
@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,21 +91,29 @@ public class MapEditorController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == mapEditor.getCreateButton()) {
-                    String countryname = mapEditor.getInputName().getText();
-                    String contientname = (String) mapEditor.getContinents().getSelectedItem();
-                    if (countryname.equals("") || contientname.equals("")) {
+                    String countryName = mapEditor.getInputName().getText();
+                    //nodes can not have the same name
+                    for (Node country: graph.getGraphNodes()){
+                        if (country.getName().equals(countryName)){
+                            throw new RuntimeException("the country already exists in the graph");
+                        }
+                    }
+                    String contientName = (String) mapEditor.getContinents().getSelectedItem();
+                    if (countryName.equals("") || contientName.equals("")) {
                         throw new RuntimeException("empty name or continent");
                     }
                     Continent continent = null;
                     for (Continent c : graph.getContinents()) {
-                        if (c.getName().equals(contientname)) continent = c;
+                        if (c.getName().equals(contientName)){
+                            continent = c;
+                        }
                     }
-                    Node country = new Node(countryname, continent, mapEditor.x, mapEditor.y);
-                    MapEditorLabel label = new MapEditorLabel(countryname);
+                    Node country = new Node(countryName, continent, mapEditor.x, mapEditor.y);
+                    MapEditorLabel label = new MapEditorLabel(countryName);
                     labelList.add(label);
                     graph.getGraphNodes().add(country);
                     mapEditor.hideMenu();
-                    mapEditor.getChooseAdjacency().addItem(countryname);
+                    mapEditor.getChooseAdjacency().addItem(countryName);
                     mapEditor.repaint();
                 }
             }
@@ -117,16 +124,19 @@ public class MapEditorController {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == mapEditor.getChangeButton()) {
                     String countryName = mapEditor.getInputName().getText();
-                    String contientName = (String) mapEditor.getContinents().getSelectedItem();
-                    if (countryName.equals("") || contientName.equals("")) {
+                    String continentName = mapEditor.getContinents().getSelectedItem().toString();
+                    if (countryName.equals("") || continentName.equals("")) {
                         throw new RuntimeException("empty name or continent");
                     }
                     for (Node node : graph.getGraphNodes()) {
                         if (node.isChoose()) {
                             node.setName(countryName);
-                            String continentName = (String) mapEditor.getContinents().getSelectedItem();
+                            //String continentName = (String) mapEditor.getContinents().getSelectedItem();
                             for (Continent c : graph.getContinents()) {
-                                if (c.getName().equals(contientName)) node.setContinent(c);
+                                if (c.getName().equals(continentName)){
+                                    node.setContinent(c);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -149,7 +159,9 @@ public class MapEditorController {
                     }
                     String adjaency = (String) mapEditor.getChooseAdjacency().getSelectedItem();
                     for (Node node : graph.getGraphNodes()) {
-                        if (node.getName().equals(adjaency)) node2 = node;
+                        if (node.getName().equals(adjaency)){
+                            node2 = node;
+                        }
                     }
                     if (node1 != node2) {
                         node1.getAdjacencyList().add(node2.getName());

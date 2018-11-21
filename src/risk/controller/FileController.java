@@ -185,7 +185,8 @@ public class FileController {
                 if (!continentList.containsKey(continentName.replace(" ", ""))) {
                     return false;
                 } else {
-                    continentList.put(continentName.replace(" ", ""), continentList.get(continentName.replace(" ", "")) + 1);
+                    continentList.put(continentName.replace(" ", ""), continentList.
+                                    get(continentName.replace(" ", "")) + 1);
                 }
 
             }
