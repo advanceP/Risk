@@ -56,7 +56,7 @@ public class Player extends Observable {
             case "Human":
                 this.strategy = new Human();
                 break;
-            case "Aggressive":
+        /*    case "Aggressive":
                 this.strategy = new Aggressive();
                 break;
             case "Benevolent":
@@ -67,7 +67,7 @@ public class Player extends Observable {
                 break;
             case "Cheater":
                 this.strategy = new Cheater();
-                break;
+                break;*/
             default:
                 this.strategy = new Human();
         }
@@ -398,8 +398,8 @@ public class Player extends Observable {
     /**
      * player attack another player by using dice and attack result function
      */
-    public boolean attack(Node attacker, Node defender, Integer attackerdice, Integer defenderdice) {
-        boolean flag = strategy.attack(attacker, defender, attackerdice, defenderdice);
+    public boolean attack(Node attacker, Node defender, List<Integer> attackerDiceList, List<Integer> defenderDiceList) {
+        boolean flag = strategy.attack(attacker, defender, attackerDiceList, defenderDiceList);
         setChanged();
         notifyObservers();
         return flag;

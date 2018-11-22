@@ -404,7 +404,7 @@ public class GameDriverController {
                     int defenderdice = (Integer) view.getDefenderDice().getSelectedItem();
                     List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender, attackerdice, defenderdice);
                     view.showAttackResult(numberofdice);
-                    boolean flag = player.attack(attacker,defender,attackerdice, defenderdice);
+                    boolean flag = player.attack(attacker,defender,numberofdice.get(0),numberofdice.get(1));
                     view.showAttackMenu(attacker, defender);
                     if (flag) {
                         view.hideAttackMenu();
@@ -464,7 +464,12 @@ public class GameDriverController {
                 while (!flag) {
                     List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender);
                     view.showAttackResult(numberofdice);
-                    flag = player.attackResult(attacker, defender, numberofdice);
+                    flag = player.attack(attacker, defender, numberofdice.get(0),numberofdice.get(1));
+                    //when you get defeated
+                    if (attacker.getArmies() == 1) {
+                        retreat();
+                        break;
+                    }
                 }
                 if (flag) {
                     view.hideAttackMenu();

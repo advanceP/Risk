@@ -19,34 +19,32 @@ public class Human implements Strategy {
     }
 
 	@Override
-	public boolean attack(Node attacker, Node defender, Integer attackerdice, Integer defenderdice) {
+	public boolean attack(Node attacker, Node defender, List<Integer> attackerDiceList, List<Integer> defenderDiceList) {
 		Player player= GameDriverController.getGameDriverInstance().getCurrentPlayer();
 		List<List<Integer>> resultList = new ArrayList<>();
-		List<Integer> attackerList = new ArrayList<>();
-		List<Integer> defenderList = new ArrayList<>();
-		resultList.add(attackerList);
-		resultList.add(defenderList);
-		Random random = new Random();
+		resultList.add(attackerDiceList);
+		resultList.add(defenderDiceList);
+	/*	Random random = new Random();
 		for (int i = 0; i < attackerdice; i++) {
 			attackerList.add(random.nextInt(6) + 1);
 		}
 		for (int j = 0; j < defenderdice; j++) {
 			defenderList.add(random.nextInt(6) + 1);
+		}*/
+		if (attackerDiceList.size() > 1) {
+			Collections.sort(attackerDiceList, Collections.reverseOrder());
 		}
-		if (attackerList.size() > 1) {
-			Collections.sort(attackerList, Collections.reverseOrder());
-		}
-		if (defenderList.size() > 1) {
-			Collections.sort(defenderList, Collections.reverseOrder());
+		if (defenderDiceList.size() > 1) {
+			Collections.sort(defenderDiceList, Collections.reverseOrder());
 		}
 
-		attackerList = resultList.get(0);
-		defenderList = resultList.get(1);
-		if (attackerList.isEmpty() || defenderList.isEmpty()) {
+		/*attackerList = resultList.get(0);
+		defenderList = resultList.get(1);*/
+		if (attackerDiceList.isEmpty() || defenderDiceList.isEmpty()) {
 			return false;
 		}
-		for (int i = 0; i < attackerList.size() && i < defenderList.size() && i < 2; i++) {
-			if (attackerList.get(i) > defenderList.get(i)) {
+		for (int i = 0; i < attackerDiceList.size() && i < defenderDiceList.size() && i < 2; i++) {
+			if (attackerDiceList.get(i) > defenderDiceList.get(i)) {
 				defender.setArmies(defender.getArmies() - 1);
 			} else {
 				attacker.setArmies(attacker.getArmies() - 1);
