@@ -80,4 +80,10 @@ public class Human implements Strategy {
 		return "Human";
 	}
 
+	@Override
+	public List<Integer> Defend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

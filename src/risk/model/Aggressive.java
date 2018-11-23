@@ -170,4 +170,10 @@ public class Aggressive implements Strategy {
     public String toString() {
         return "Aggressive";
     }
+
+	@Override
+	public List<Integer> Defend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

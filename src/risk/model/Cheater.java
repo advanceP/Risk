@@ -24,4 +24,10 @@ public class Cheater implements Strategy {
     public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
         return false;
     }
+
+	@Override
+	public List<Integer> Defend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

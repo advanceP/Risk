@@ -91,4 +91,10 @@ public class Benevolent implements Strategy {
 		});
     	return weakcountries;
     }
+
+	@Override
+	public List<Integer> Defend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
