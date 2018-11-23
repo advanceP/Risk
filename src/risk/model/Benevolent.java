@@ -11,11 +11,12 @@ import risk.controller.GameDriverController;
 
 public class Benevolent implements Strategy {
 
-
+   
     @Override
     public String toString() {
         return "Benevolent";
     }
+    
 
     @Override
     public void reinforcement(Node node) {
