@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import risk.controller.GameDriverController;
@@ -94,7 +95,9 @@ public class Benevolent implements Strategy {
 
 	@Override
 	public List<Integer> Defend() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Integer>results=new ArrayList<Integer>();
+		Random rnd=new Random();
+		results.add(rnd.nextInt(6)+1);
+		return results;
 	}
 }
