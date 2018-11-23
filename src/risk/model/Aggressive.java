@@ -33,7 +33,7 @@ public class Aggressive implements Strategy {
 
 
     @Override
-    public boolean attack(Node attacker, Node defender, Integer attackerdice, Integer defenderdice) {
+    public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
         Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
         if (attacker == null && defender == null) {
             List<Node> nodes = selectNodesForAttack(player);
