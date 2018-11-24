@@ -2,6 +2,7 @@ package risk.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This is the node
@@ -267,6 +268,20 @@ public class Node {
     @Override
     public String toString() {
         return name;
+    }
+    
+    public List<Node>getHostileNodes()
+    {
+    	List<Node>neighbors=new ArrayList<Node>();
+    	List<Node>hostile=new ArrayList<Node>();
+    	for (String node : getAdjacencyList())
+    	{
+    		Node neighbor=Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getName().equals(node)).findFirst().get();
+    		neighbors.add(neighbor);
+			
+		}
+    	hostile=neighbors.stream().filter(item->item.getPlayer()!=this.player).collect(Collectors.toList());
+    	return hostile;
     }
 
 

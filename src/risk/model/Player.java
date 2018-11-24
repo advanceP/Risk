@@ -588,5 +588,9 @@ public class Player extends Observable {
     public void executeStrategyRein(Node country){
         strategy.reinforcement(country);
     }
+    
+    public List<Integer> Defend() {
+    	return this.strategy.Defend();
+    }
 }
 

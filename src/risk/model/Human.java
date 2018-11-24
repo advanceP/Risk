@@ -24,22 +24,12 @@ public class Human implements Strategy {
 		List<List<Integer>> resultList = new ArrayList<>();
 		resultList.add(attackerDiceList);
 		resultList.add(defenderDiceList);
-	/*	Random random = new Random();
-		for (int i = 0; i < attackerdice; i++) {
-			attackerList.add(random.nextInt(6) + 1);
-		}
-		for (int j = 0; j < defenderdice; j++) {
-			defenderList.add(random.nextInt(6) + 1);
-		}*/
 		if (attackerDiceList.size() > 1) {
 			Collections.sort(attackerDiceList, Collections.reverseOrder());
 		}
 		if (defenderDiceList.size() > 1) {
 			Collections.sort(defenderDiceList, Collections.reverseOrder());
 		}
-
-		/*attackerList = resultList.get(0);
-		defenderList = resultList.get(1);*/
 		if (attackerDiceList.isEmpty() || defenderDiceList.isEmpty()) {
 			return false;
 		}
