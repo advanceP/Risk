@@ -71,9 +71,13 @@ public class Human implements Strategy {
 	}
 
 	@Override
-	public List<Integer> Defend() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Integer> Defend(Integer integers) {
+		List<Integer>results=new ArrayList<Integer>();
+		Random rnd=new Random();
+		for(int i=0;i<integers;i++) {
+			results.add(rnd.nextInt(6) + 1);
+		}
+		return results;
 	}
 
 }

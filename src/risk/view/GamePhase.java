@@ -23,7 +23,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     private List<GameLabel> labelList;
     private JTextField inputPlayerNumber;
     private JButton setPlayer;
-    private JTextField phaseText;
+    private JTextArea phaseText;
     private JComboBox<Node> fortifyFrom;
     private JComboBox<Node> fortifyTo;
     private JComboBox<Integer> fortifyArmies;
@@ -46,6 +46,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     private JButton startPlay;
     private List<JComboBox> tempStrategie;
     private List<JLabel> tempLabel;
+    private String information;
     /**
      * constructor <br/>
      * using freelayout
@@ -80,7 +81,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         inputPlayerNumber.setBounds(1150, 200, 150, 30);
         setPlayer = new JButton("setPlayer");
         setPlayer.setBounds(1150, 280, 100, 30);
-        phaseText = new JTextField();
+        phaseText = new JTextArea();
         phaseText.setBounds(1120, 200, 400, 100);
         fortifyFrom = new JComboBox<>();
         fortifyFrom.setBounds(1120, 400, 200, 30);
@@ -140,14 +141,11 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
      * show the phase on the text
      */
     private void paintPhaseInformation(Graphics g) {
-
         if (GameDriverController.getGameDriverInstance().getPlayers() != null) {
             Player currentplayer = GameDriverController.getGameDriverInstance().getCurrentPlayer();
             phaseText.setText(currentplayer.getState() + " " + currentplayer.getName() +
                     " " + GameDriverController.getGameDriverInstance().getCurrentPlayer().getReinforcement());
         }
-
-
     }
 
     /**
@@ -324,7 +322,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     /**
      * @return testfield
      */
-    public JTextField getPhaseText() {
+    public JTextArea getPhaseText() {
         return phaseText;
     }
 
@@ -411,18 +409,17 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         add(retreat);
         add(autoFight);
         add(attackerDice);
-        add(defenderDice);
         attackinformation.setText(attacker.getName() + " has " + playerdice[0] + "dice " + defender.getName() + " has " + playerdice[1] + " dice");
         add(attackinformation);
         int[] dices = getDiceNumbers(attacker, defender);
         attackerDice.removeAllItems();
-        defenderDice.removeAllItems();
+        //defenderDice.removeAllItems();
         for (int i = 1; i <= dices[0]; i++) {
             attackerDice.addItem(i);
         }
-        for (int i = 1; i <= dices[1]; i++) {
+        /*for (int i = 1; i <= dices[1]; i++) {
             defenderDice.addItem(i);
-        }
+        }*/
         repaint();
     }
 

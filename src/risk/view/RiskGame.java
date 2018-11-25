@@ -23,7 +23,8 @@ public class RiskGame extends JPanel {
     //private List<Continent> listContinents;
     //private Graph graph;
     private JButton singleGameMode;
-
+    private JButton tournamentMode;
+    private JButton back;
     /**
      * overwrite the constructor<br/>
      * use free layout for the whole project
@@ -108,6 +109,10 @@ public class RiskGame extends JPanel {
         continentInformation.setBounds(280, 250, 320, 30);
         singleGameMode = new JButton("Single Game Mode");
         singleGameMode.setBounds(280, 150, 320, 50);
+        tournamentMode=new JButton("TournamentMode");
+        tournamentMode.setBounds(280, 220,320 , 50);
+        back=new JButton("Back");
+        back.setBounds(800, 600, 120, 50);
         add(buttonForEdit);
         add(buttonForGame);
 
@@ -121,6 +126,7 @@ public class RiskGame extends JPanel {
         remove(buttonForGame);
         add(createNewMap);
         add(loadExistFile);
+        add(back);
         repaint();
     }
 
@@ -145,6 +151,7 @@ public class RiskGame extends JPanel {
         remove(buttonForEdit);
         remove(buttonForGame);
         add(singleGameMode);
+        add(tournamentMode);
         repaint();
     }
 

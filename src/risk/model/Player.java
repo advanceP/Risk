@@ -1,7 +1,5 @@
 package risk.model;
 
-import risk.controller.GameDriverController;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -16,7 +14,6 @@ import java.util.stream.Collectors;
  * <li>color
  * <li>reinforcement
  * </ul>
- *
  * @author Farid Omarzadeh
  */
 public class Player extends Observable {
@@ -56,7 +53,7 @@ public class Player extends Observable {
             case "Human":
                 this.strategy = new Human();
                 break;
-        /*    case "Aggressive":
+            case "Aggressive":
                 this.strategy = new Aggressive();
                 break;
             case "Benevolent":
@@ -67,7 +64,7 @@ public class Player extends Observable {
                 break;
             case "Cheater":
                 this.strategy = new Cheater();
-                break;*/
+                break;
             default:
                 this.strategy = new Human();
         }
@@ -503,26 +500,16 @@ public class Player extends Observable {
      * @param defenderDice number of armies for defender
      * @return the results of rolled dices
      */
-    public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerDice, int defenderDice) {
+    public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerDice) {
         List<List<Integer>> resultList = new ArrayList<>();
         List<Integer> attackerList = new ArrayList<>();
-        List<Integer> defenderList = new ArrayList<>();
         resultList.add(attackerList);
-        resultList.add(defenderList);
         Random random = new Random();
-        int[] numbers = getDiceNumbers(attacker, defender);
-
         for (int i = 0; i < attackerDice; i++) {
             attackerList.add(random.nextInt(6) + 1);
         }
-        for (int j = 0; j < defenderDice; j++) {
-            defenderList.add(random.nextInt(6) + 1);
-        }
         if (attackerList.size() > 1) {
             Collections.sort(attackerList, Collections.reverseOrder());
-        }
-        if (defenderList.size() > 1) {
-            Collections.sort(defenderList, Collections.reverseOrder());
         }
         return resultList;
     }
@@ -590,7 +577,11 @@ public class Player extends Observable {
     }
     
     public List<Integer> Defend() {
-    	return this.strategy.Defend();
+    	return this.strategy.Defend(null);
+    }
+
+    public List<Integer> Defend(int attackerdice) {
+        return this.strategy.Defend(attackerdice);
     }
 }
 
