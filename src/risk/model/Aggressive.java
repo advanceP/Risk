@@ -18,7 +18,7 @@ public class Aggressive implements Strategy {
                 reinforcement = strongest.getPlayer().getReinforcement();
             }
         }
-        System.out.println("End Agressive Reinforcement");
+        System.out.println("End Aggressive Reinforcement");
     }
 
     private Node getStrongestNode(List<Node> nodeList) {
@@ -48,7 +48,9 @@ public class Aggressive implements Strategy {
                 while (attacker.getArmies() > 1 ) {
                     defender = chooseDefender(attacker, allNodes, player);
                     if (defender != null && defender.getPlayer()!= player) {
-                        List<List<Integer>> diceNumList = player.getDiceNumList(attacker, defender);
+                        List<List<Integer>> diceNumList = getDiceNumList(attacker);
+                        List<Integer> diceresult = defender.getPlayer().getStrategy().Defend(diceNumList.get(0).size());
+                        diceNumList.add(diceresult);//add Defender
                         boolean flag=false;
                         //attack
                         while(!flag) {
@@ -81,6 +83,21 @@ public class Aggressive implements Strategy {
         }
         System.out.println("End Aggressive Attack");
         return false;
+    }
+
+    private List<List<Integer>> getDiceNumList(Node attacker) {
+        List<List<Integer>> resultList = new ArrayList<>();
+        List<Integer> attackerList = new ArrayList<>();
+        resultList.add(attackerList);
+        Random random = new Random();
+        for (int i = 0; i < attacker.getArmies() && i<4; i++) {
+            attackerList.add(random.nextInt(6) + 1);
+        }
+
+        if (attackerList.size() > 1) {
+            Collections.sort(attackerList, Collections.reverseOrder());
+        }
+        return resultList;
     }
 
 
@@ -172,8 +189,12 @@ public class Aggressive implements Strategy {
     }
 
 	@Override
-	public List<Integer> Defend() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Integer> Defend(Integer integers) {
+        List<Integer>results=new ArrayList<Integer>();
+        Random rnd=new Random();
+        for(int i=0;i<integers;i++) {
+            results.add(rnd.nextInt(6) + 1);
+        }
+        return results;
 	}
 }
