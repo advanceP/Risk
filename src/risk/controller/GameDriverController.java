@@ -200,7 +200,8 @@ public class GameDriverController {
     public void playStartup() {
         Player player=getCurrentPlayer();
         if(getAllReinforcement()>0) {
-            if (!player.getStrategy().toString().equals("Human")) {
+            if (!(player.getStrategy() instanceof  Human)) {
+                System.out.println(111);
                 if(player.getReinforcement()>0 ){
                     player.addArmyRandomly();
                 }
@@ -401,8 +402,9 @@ public class GameDriverController {
                     }
                     //user choose how many dice to roll
                     int attackerdice = (Integer) view.getAttackerDice().getSelectedItem();
-                    int defenderdice = (Integer) view.getDefenderDice().getSelectedItem();
-                    List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender, attackerdice, defenderdice);
+                    List<Integer>  defendDices = defender.getPlayer().Defend(attackerdice);
+                    List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender,attackerdice);
+                    numberofdice.add(defendDices);
                     view.showAttackResult(numberofdice);
                     boolean flag = player.attack(attacker,defender,numberofdice.get(0),numberofdice.get(1));
                     view.showAttackMenu(attacker, defender);

@@ -6,5 +6,5 @@ public interface Strategy {
 	public void reinforcement(Node node);
 	public void fortification(Node from, Node to, Integer armies);
 	public boolean attack(Node attacker, Node defender, List<Integer> attackerDiceList, List<Integer> defenderDiceList);
-	public List<Integer> Defend();
+	public List<Integer> Defend(Integer integers);
 }

@@ -67,7 +67,6 @@ public class RiskGameController {
      * @param frame
      */
     public void addListenerForButtons(JFrame frame) {
-
         view.getButtonForEdit().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
