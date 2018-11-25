@@ -576,11 +576,16 @@ public class Player extends Observable {
         strategy.reinforcement(country);
     }
     
-    public List<Integer> Defend() {
+    /*public List<Integer> Defend() {
     	return this.strategy.Defend(null);
-    }
+    }*/
 
-    public List<Integer> Defend(int attackerdice) {
+    /**
+     * to get the defender's dicenumber
+     * @param attackerdice
+     * @return List<Integer> return defender's dicenumber
+     */
+    public List<Integer> Defend(Integer attackerdice) {
         return this.strategy.Defend(attackerdice);
     }
 }

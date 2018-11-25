@@ -154,6 +154,13 @@ public class RiskGameController {
                 }
             }
         });
+
+        view.getBack().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.backtoMainMenu();
+            }
+        });
     }
 
 

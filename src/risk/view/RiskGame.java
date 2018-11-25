@@ -92,8 +92,18 @@ public class RiskGame extends JPanel {
     }
 
     /**
+     * return bakbutton
+     * @return Jbutton
+     */
+    public JButton getBack() {
+        return back;
+    }
+
+    /**
      * initialise some buttons,and show them on the menu
      */
+
+
     private void initial() {
         buttonForEdit = new JButton("map editor");
         buttonForEdit.setBounds(280, 100, 400, 100);
@@ -152,8 +162,15 @@ public class RiskGame extends JPanel {
         remove(buttonForGame);
         add(singleGameMode);
         add(tournamentMode);
+        add(back);
         repaint();
     }
 
 
+    public void backtoMainMenu() {
+        removeAll();;
+        repaint();
+        add(buttonForEdit);
+        add(buttonForGame);
+    }
 }

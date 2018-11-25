@@ -27,7 +27,7 @@ public class Cheater implements Strategy {
 
     @Override
     public void fortification(Node from, Node to, Integer armies) {
-        if(from == null || to == null){
+        if(from != null || to != null){
             throw new RuntimeException("It is cheater's turn");
         }
 
@@ -89,7 +89,6 @@ public class Cheater implements Strategy {
             List<String> adjacencyList = country.getAdjacencyList();
             list.addAll(adjacencyList);
         }
-
         for (Node country : countryList){
             if (!list.containsAll(country.getAdjacencyList())){
                 neighborList.add(country);

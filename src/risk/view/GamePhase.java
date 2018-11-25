@@ -470,9 +470,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
             int y = 80;
             int i=0;
             for (Player player : players) {
-                //JLabel playername = new JLabel(player.getName() + " " + player.getPercentage() + "%");
-                //playername.setBounds(x, y, 100, 30);
-                //add(playername);
                 playerList.get(i).setText(player.getName() + " " + player.getPercentage() + "%");
                 JComboBox<Continent> continentsOwnByPlayer = new JComboBox<>();
                 continentsOwnByPlayer.setBounds(x, 150, 50, 30);
@@ -487,9 +484,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         add(view1);
         add(view2);
         add(phaseText);
-
-        if (GameDriverController.getGameDriverInstance().getCurrentPlayer().getState() != null) {
-            if (GameDriverController.getGameDriverInstance().getCurrentPlayer().getState().equals("Fortifition")) {
+        Player currentplayer=GameDriverController.getGameDriverInstance().getCurrentPlayer();
+        if (currentplayer.getState() != null) {
+            if (currentplayer.getState().equals("Fortifition") && currentplayer.getStrategy() instanceof Human) {
                 showFortifitionPhase();
             }else{
                 hideFortifitionPhase();

@@ -55,7 +55,7 @@ public class RandomPlayer implements Strategy{
     	Node defendernode=attacknode.getHostileNodes().get(rnd.nextInt(attacknode.getHostileNodes().size()));
     	Player defenderplayer=defendernode.getPlayer();
     	List<Integer>attackerdicelist=Defend(null);
-    	List<Integer>defenderdicelist=defenderplayer.Defend();
+    	List<Integer>defenderdicelist=defenderplayer.Defend(null);
     	if (attackerdicelist.size() > 1) {
 			Collections.sort(attackerdicelist, Collections.reverseOrder());
 		}
