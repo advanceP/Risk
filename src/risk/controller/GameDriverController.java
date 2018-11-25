@@ -18,7 +18,7 @@ import java.util.Random;
 
 /**
  * this class controls the flow of the game based on the risk game rules, this class uses singleton design pattern
- * it has following data memebers:
+ * it has following data members:
  * <ul>
  * <li> graph
  * <li> players
@@ -402,9 +402,9 @@ public class GameDriverController {
                     }
                     //user choose how many dice to roll
                     int attackerdice = (Integer) view.getAttackerDice().getSelectedItem();
-                    List<Integer>  defendDices = defender.getPlayer().Defend(attackerdice);
-                    List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender,attackerdice);
-                    numberofdice.add(defendDices);
+                    int defenderdice = (Integer) view.getDefenderDice().getSelectedItem();
+                    List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender, attackerdice, defenderdice);
+                    view.showAttackResult(numberofdice);
                     view.showAttackResult(numberofdice);
                     boolean flag = player.attack(attacker,defender,numberofdice.get(0),numberofdice.get(1));
                     view.showAttackMenu(attacker, defender);
