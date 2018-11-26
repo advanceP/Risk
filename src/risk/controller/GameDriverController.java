@@ -86,6 +86,7 @@ public class GameDriverController {
         view.addLabel();
         risk.add(view);
         risk.setSize(1600, 1000);
+        risk.setLocationRelativeTo(null);
         risk.setVisible(true);
         startupPhase();
         addListener();
@@ -274,9 +275,6 @@ public class GameDriverController {
                 if (country.getName().equals(labelName)) {
                     if (country.getPlayer() == player) {
                         player.executeStrategyRein(country);
-                        //Human h=(Human) playerStrategy;
-                        //h.setReinforcementNode(country);
-                        //country.getPlayer().reinforcement();
                     }
                 }
             }

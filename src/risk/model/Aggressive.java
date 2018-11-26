@@ -21,7 +21,7 @@ public class Aggressive implements Strategy {
         System.out.println("End Aggressive Reinforcement");
     }
 
-    private Node getStrongestNode(List<Node> nodeList) {
+    public Node getStrongestNode(List<Node> nodeList) {
         Node strongest = nodeList.get(0);
         for (Node node : nodeList) {
             if (node.getArmies() > strongest.getArmies()) {
@@ -169,7 +169,8 @@ public class Aggressive implements Strategy {
         if(from==null && to==null){
             List<Node> list = player.getNodeList();
             to = getStrongestNode(list);
-            List<Node> reachableNodes = Graph.getGraphInstance().reachableNodes(to);
+            List<Node> reachableNodes = new ArrayList<>();
+            reachableNodes=Graph.getGraphInstance().reachableNodes(to);
             reachableNodes.retainAll(list);
             for(Node node:reachableNodes) {
                 from=node;
@@ -178,6 +179,23 @@ public class Aggressive implements Strategy {
                        from.setArmies(from.getArmies()-1);
                        to.setArmies(to.getArmies()+1);
                    }
+                }
+            }
+        }
+    }
+
+    public void reachableNodes(Node to, List<Node> list,List<Node> reachablenodes) {
+        to.setVisited(true);
+        List<String> adjacencyList = to.getAdjacencyList();
+        for (String name : adjacencyList) {
+            //name match
+            for (Node node : list) {
+                if (name.equals(node.getName())) {
+                    if(!node.isVisited()) {
+                        node.setVisited(true);
+                        reachablenodes.add(node);
+                        reachableNodes(node, list, reachablenodes);
+                    }
                 }
             }
         }

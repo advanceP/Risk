@@ -51,11 +51,11 @@ public class RandomPlayer implements Strategy{
     public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
     	Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
     	Random rnd=new Random();
-    	Node attacknode=player.getNodeList().get(player.getNodeList().size());
+    	Node attacknode=player.getNodeList().get(rnd.nextInt(player.getNodeList().size()));
     	Node defendernode=attacknode.getHostileNodes().get(rnd.nextInt(attacknode.getHostileNodes().size()));
     	Player defenderplayer=defendernode.getPlayer();
     	List<Integer>attackerdicelist=Defend(null);
-    	List<Integer>defenderdicelist=defenderplayer.Defend(null);
+    	List<Integer>defenderdicelist=defenderplayer.Defend(attackerdicelist.size());
     	if (attackerdicelist.size() > 1) {
 			Collections.sort(attackerdicelist, Collections.reverseOrder());
 		}

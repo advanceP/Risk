@@ -100,10 +100,16 @@ public class RiskGame extends JPanel {
     }
 
     /**
+     * return tournamentMode button
+     * @return JButton
+     */
+    public JButton getTournamentMode() {
+        return tournamentMode;
+    }
+
+    /**
      * initialise some buttons,and show them on the menu
      */
-
-
     private void initial() {
         buttonForEdit = new JButton("map editor");
         buttonForEdit.setBounds(280, 100, 400, 100);

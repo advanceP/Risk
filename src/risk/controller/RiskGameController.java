@@ -56,7 +56,7 @@ public class RiskGameController {
         frame.setSize(1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
+        frame.setLocationRelativeTo(null);
         RiskGameController controller = new RiskGameController(mainPanel);
         controller.addListenerForButtons(frame);
     }
@@ -159,6 +159,14 @@ public class RiskGameController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 view.backtoMainMenu();
+            }
+        });
+
+        view.getTournamentMode().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TournamentController t=new TournamentController();
+                t.showMenu();
             }
         });
     }
