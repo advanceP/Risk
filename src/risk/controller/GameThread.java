@@ -19,6 +19,8 @@ public class GameThread extends  Thread{
 
     @Override
     public void run() {
+        for(File file : maps) {
 
+        }
     }
 }
