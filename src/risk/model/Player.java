@@ -585,8 +585,8 @@ public class Player extends Observable {
      * @param attackerdice
      * @return List<Integer> return defender's dicenumber
      */
-    public List<Integer> Defend(Integer attackerdice) {
-        return this.strategy.Defend(attackerdice);
+    public List<Integer> Defend(Integer attackerdice,Node defender) {
+        return this.strategy.Defend(attackerdice,defender);
     }
 }
 

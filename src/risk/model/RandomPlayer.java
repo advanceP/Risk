@@ -54,8 +54,8 @@ public class RandomPlayer implements Strategy{
     	Node attacknode=player.getNodeList().get(rnd.nextInt(player.getNodeList().size()));
     	Node defendernode=attacknode.getHostileNodes().get(rnd.nextInt(attacknode.getHostileNodes().size()));
     	Player defenderplayer=defendernode.getPlayer();
-    	List<Integer>attackerdicelist=Defend(null);
-    	List<Integer>defenderdicelist=defenderplayer.Defend(attackerdicelist.size());
+    	List<Integer>attackerdicelist=Defend(null,attacknode);
+    	List<Integer>defenderdicelist=defenderplayer.Defend(attackerdicelist.size(),defendernode);
     	if (attackerdicelist.size() > 1) {
 			Collections.sort(attackerdicelist, Collections.reverseOrder());
 		}
@@ -94,9 +94,18 @@ public class RandomPlayer implements Strategy{
     }
 
 	@Override
-	public List<Integer> Defend(Integer integers) {
+	public List<Integer> Defend(Integer integers,Node defender) {
 		Random rnd=new Random();
-		int dicenumber=rnd.nextInt(2)+1;
+		int size=0;
+		if(defender.getArmies()>2)
+		{
+			size=2;
+		}
+		else
+		{
+			size=1;
+		}
+		int dicenumber=rnd.nextInt(size)+1;
 		List<Integer>results=new ArrayList<Integer>();
 		for(int i=0;i<dicenumber;i++)
 		{

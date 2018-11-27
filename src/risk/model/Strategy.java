@@ -12,5 +12,5 @@ public interface Strategy {
      * @param integers attacker's number of dices
      * @return defender's dice
      */
-	public List<Integer> Defend(Integer integers);
+	public List<Integer> Defend(Integer integers,Node Defender);
 }

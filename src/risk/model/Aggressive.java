@@ -12,6 +12,7 @@ public class Aggressive implements Strategy {
             List<Node> nodeList = player.getNodeList();
             Node strongest = getStrongestNode(nodeList);
             int reinforcement = player.getReinforcement();
+            GameWriter.getGameWriterInstance().Write("Player: "+strongest.getPlayer().getName()+", Reinforced Node: "+strongest.getName()+",Number of armies:"+reinforcement+"\n");
             while (reinforcement > 0) {
                 strongest.increaseArmy();
                 strongest.getPlayer().decreaseReinforcement();
@@ -48,18 +49,23 @@ public class Aggressive implements Strategy {
                 while (attacker.getArmies() > 1 ) {
                     defender = chooseDefender(attacker, allNodes, player);
                     if (defender != null && defender.getPlayer()!= player) {
+                    	
                         List<List<Integer>> diceNumList = getDiceNumList(attacker);
-                        List<Integer> diceresult = defender.getPlayer().getStrategy().Defend(diceNumList.get(0).size());
+                        List<Integer> diceresult = defender.getPlayer().getStrategy().Defend(diceNumList.get(0).size(),defender);
                         diceNumList.add(diceresult);//add Defender
+                        GameWriter.getGameWriterInstance().Write("Attacking Country: "+attacker.getName()+
+                        		", Defending Country: "+defender.getName()+"");
                         boolean flag=false;
                         //attack
                         while(!flag) {
                             flag=attackResult(attacker, defender, diceNumList);
                             if(attacker.getArmies()==1) {
+                            	GameWriter.getGameWriterInstance().Write(attacker.getName()+" retreated\n");
                                 break;
                             }
                         }
                         if(flag) {
+                        	GameWriter.getGameWriterInstance().Write(defender.getName()+" got defeated\n");
                             //move army
                             defender.setPlayer(player);
                             player.increaseNumberOfCountries();
@@ -79,6 +85,7 @@ public class Aggressive implements Strategy {
                 }
             }
             System.out.println("End Aggressive Attack");
+            GameWriter.getGameWriterInstance().close();
             return checkAllcountryBelongToPlayer;
         }
         System.out.println("End Aggressive Attack");
@@ -131,9 +138,11 @@ public class Aggressive implements Strategy {
         if(node.getArmies()>2){
             conquestCountry.setArmies(2);
             node.setArmies(node.getArmies()-2);
+        	GameWriter.getGameWriterInstance().Write("moved armies: "+2+"\n");
         }else{
             conquestCountry.setArmies(1);
             node.setArmies(node.getArmies()-1);
+            GameWriter.getGameWriterInstance().Write("moved armies: "+1+"\n");
         }
     }
 
@@ -207,10 +216,19 @@ public class Aggressive implements Strategy {
     }
 
 	@Override
-	public List<Integer> Defend(Integer integers) {
+	public List<Integer> Defend(Integer integers,Node defender) {
+		int size=0;
+		if(defender.getArmies()>2)
+		{
+			size=2;
+		}
+		else
+		{
+			size=1;
+		}
         List<Integer>results=new ArrayList<Integer>();
         Random rnd=new Random();
-        for(int i=0;i<integers;i++) {
+        for(int i=0;i<integers&&i<size;i++) {
             results.add(rnd.nextInt(6) + 1);
         }
         return results;

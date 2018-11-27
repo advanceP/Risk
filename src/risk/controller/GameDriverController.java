@@ -399,7 +399,7 @@ public class GameDriverController {
                     }
                     //user choose how many dice to roll
                     int attackerdice = (Integer) view.getAttackerDice().getSelectedItem();
-                    List<Integer>  defendDices = defender.getPlayer().Defend(attackerdice);
+                    List<Integer>  defendDices = defender.getPlayer().Defend(attackerdice,defender);
                     List<List<Integer>> numberofdice = player.getDiceNumList(attacker, defender,attackerdice);
                     numberofdice.add(defendDices);
                     view.showAttackResult(numberofdice);

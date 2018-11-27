@@ -71,7 +71,7 @@ public class Cheater implements Strategy {
     }
 
 	@Override
-	public List<Integer> Defend(Integer integer) {
+	public List<Integer> Defend(Integer integer,Node defender) {
 
         List<Integer> list = new ArrayList<>();
         list.add(6);

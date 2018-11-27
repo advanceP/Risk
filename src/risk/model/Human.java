@@ -4,6 +4,9 @@ import risk.controller.GameDriverController;
 
 import java.util.*;
 
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+
 public class Human implements Strategy {
 
 	@Override
@@ -71,13 +74,57 @@ public class Human implements Strategy {
 	}
 
 	@Override
-	public List<Integer> Defend(Integer integers) {
-		List<Integer>results=new ArrayList<Integer>();
-		Random rnd=new Random();
-		for(int i=0;i<integers;i++) {
-			results.add(rnd.nextInt(6) + 1);
+	public List<Integer> Defend(Integer integers,Node defender) {
+		
+		
+		int size=0;
+		if(defender.getArmies()>1)
+		{
+			size=2;
 		}
-		return results;
+		else
+		{
+			size=1;
+		}
+		size=Math.min(size,integers);
+        Object[] possibilities=new Object[2];
+        if(size==2)
+        {
+        	possibilities[0]=1;
+        	possibilities[1]=2;
+        }
+        else
+        {
+        	possibilities[0]=1;
+        	possibilities[1]=1;
+        }
+		
+		Integer s = (Integer)JOptionPane.showInputDialog(
+		                    null,
+		                    "Select",
+		                    defender.getName(),
+		                    JOptionPane.PLAIN_MESSAGE,
+		                    null,
+		                    possibilities,
+		                    "1");
+		while(s==null)
+		{
+			s = (Integer)JOptionPane.showInputDialog(
+                    null,
+                    "Select",
+                    defender.getName(),
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    "1");
+		}
+		size=s;
+        List<Integer>results=new ArrayList<Integer>();
+        Random rnd=new Random();
+        for(int i=0;i<integers&&i<size;i++) {
+            results.add(rnd.nextInt(6) + 1);
+        }
+        return results;
 	}
 
 }

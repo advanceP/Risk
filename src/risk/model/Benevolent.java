@@ -95,10 +95,13 @@ public class Benevolent implements Strategy {
     }
 
 	@Override
-	public List<Integer> Defend(Integer integers) {
-		List<Integer>results=new ArrayList<Integer>();
-		Random rnd=new Random();
-		results.add(rnd.nextInt(6)+1);
-		return results;
+	public List<Integer> Defend(Integer integers,Node defender) {
+		int size=1;	
+        List<Integer>results=new ArrayList<Integer>();
+        Random rnd=new Random();
+        for(int i=0;i<integers&&i<size;i++) {
+            results.add(rnd.nextInt(6) + 1);
+        }
+        return results;
 	}
 }
