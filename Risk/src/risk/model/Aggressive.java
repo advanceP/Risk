@@ -18,7 +18,7 @@ public class Aggressive implements Strategy {
                 reinforcement = strongest.getPlayer().getReinforcement();
             }
         }
-        System.out.println("End Aggressive Reinforcement");
+        System.out.println("End hAggressive Reinforcement");
     }
 
     public Node getStrongestNode(List<Node> nodeList) {
