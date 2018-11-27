@@ -7,42 +7,91 @@ import risk.controller.FileController;
 import static org.junit.Assert.*;
 
 public class FileControllerTest {
-
+    /**
+     * test correct map
+     */
     @Test
-    public void verifyMapFile() {
+    public void verifyMapFile1(){
         FileController fileController = new FileController();
         String commonPath = "src/test/";
-
         String fileRightMap = commonPath + "Montreal.map";
         assertTrue(fileController.verifyMapFile(fileRightMap));
-        System.out.println("the result of verifying test file : " + fileRightMap + " is correct");
-
-        String errorMap1 = commonPath + "error1.map";      // error place : continent=2a
+    }
+    /**
+     * test error map
+     * error place : continent=2a   2a is not a number
+     */
+    @Test
+    public void verifyMapFile2(){
+        FileController fileController = new FileController();
+        String commonPath = "src/test/";
+        String errorMap1 = commonPath + "error1.map";
         assertFalse(fileController.verifyMapFile(errorMap1));
-        System.out.println("the result of verifying test file : " + errorMap1 + " is correct");
-
-        String errorMap2 = commonPath + "error2.map";     //error place : continent==4
+    }
+    /**
+     * test error map
+     * error place : continent==4
+     */
+    @Test
+    public void verifyMapFile3(){
+        FileController fileController = new FileController();
+        String commonPath = "src/test/";
+        String errorMap2 = commonPath + "error2.map";
         assertFalse(fileController.verifyMapFile(errorMap2));
-        System.out.println("the result of verifying test file : " + errorMap2 + " is correct");
-
-        String errorMap3 = commonPath + "error3.map";     // the name of continent in node is different in Continents
+    }
+    /**
+     * test error map
+     * the name of continent in node is different in Continents
+     */
+    @Test
+    public void verifyMapFile4(){
+        FileController fileController = new FileController();
+        String commonPath = "src/test/";
+        String errorMap3 = commonPath + "error3.map";
         assertFalse(fileController.verifyMapFile(errorMap3));
-        System.out.println("the result of verifying test file : " + errorMap3 + " is correct");
-
-        String errorMap4 = commonPath + "error4.map";     // only have[Continents] information in file
+    }
+    /**
+     * test error map
+     * only have[Continents] information in file
+     */
+    @Test
+    public void verifyMapFile5(){
+        FileController fileController = new FileController();
+        String commonPath = "src/test/";
+        String errorMap4 = commonPath + "error4.map";
         assertFalse(fileController.verifyMapFile(errorMap4));
-        System.out.println("the result of verifying test file : " + errorMap4 + " is correct");
-
-        String errorMap5 = commonPath + "error5.map";     // it's empty file
+    }
+    /**
+     * test error map
+     * it's an empty file
+     */
+    @Test
+    public void verifyMapFile6(){
+        FileController fileController = new FileController();
+        String commonPath = "src/test/";
+        String errorMap5 = commonPath + "error5.map";
         assertFalse(fileController.verifyMapFile(errorMap5));
-        System.out.println("the result of verifying test file : " + errorMap5 + " is correct");
-
-        String correctMap1 = commonPath + "correctFile1.map";     //somewhere different : a1,200,300,av,de,
+    }
+    /**
+     * test correct map
+     * somewhere different : a1,200,300,av,de,
+     */
+    @Test
+    public void verifyMapFile7(){
+        FileController fileController = new FileController();
+        String commonPath = "src/test/";
+        String correctMap1 = commonPath + "correctFile1.map";
         assertTrue(fileController.verifyMapFile(correctMap1));
-        System.out.println("the result of verifying test file : " + correctMap1 + " is correct");
-
-        String correctMap2 = commonPath + "correctFile2.map";     //the continent name in [Continents] and [Territories]
+    }
+    /**
+     * test correct map
+     * the continent name in [Continents] and [Territories] has extra space
+     */
+    @Test
+    public void verifyMapFile8(){
+        FileController fileController = new FileController();
+        String commonPath = "src/test/";
+        String correctMap2 = commonPath + "correctFile2.map";
         assertTrue(fileController.verifyMapFile(correctMap2));
-        System.out.println("the result of verifying test file : " + correctMap2 + " is correct");
     }
 }

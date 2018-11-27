@@ -1,10 +1,9 @@
 [Continents]
-a=0
-b=0
+a=3
+b=4
 
 [Territories]
-india,468,250,a,china
-china,544,300,a,india,uk
-uk,726,345,b,china,usa
-usa,622,464,b,uk
-newone,409,411,a,india
+a,679,202,a,b,c
+b,520,217,a,a
+c,672,356,b,a,d
+d,514,421,b,c
