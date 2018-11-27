@@ -34,7 +34,6 @@ public class Graph {
         this.continents = new ArrayList<Continent>();
     }
 
-
     /**
      * this is the set method for continents
      *

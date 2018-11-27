@@ -26,11 +26,11 @@ public class MapEditor extends JPanel {
     private JTextField inputName;
     private JLabel nameLable;
     private JLabel selectContinent;
-    private JComboBox<String> continents;
+    private JComboBox<Continent> continents;
     private JButton deleteButton;
     private JButton createButton;
     private JButton changeButton;
-    private JComboBox<String> chooseAdjacency;
+    private JComboBox<Node> chooseAdjacency;
     private JButton addAdjacency;
     private JButton saveMap;
 
@@ -74,7 +74,7 @@ public class MapEditor extends JPanel {
      *
      * @return continents name
      */
-    public JComboBox<String> getContinents() {
+    public JComboBox<Continent> getContinents() {
         return continents;
     }
 
@@ -92,7 +92,7 @@ public class MapEditor extends JPanel {
         selectContinent = new JLabel("Continent");
         selectContinent.setBounds(970, 100, 120, 30);
         for (Continent obj : graph.getContinents()) {
-            continents.addItem(obj.getName());
+            continents.addItem(obj);
         }
 
         chooseAdjacency = new JComboBox<>();
@@ -120,7 +120,7 @@ public class MapEditor extends JPanel {
     public void searchForAllCountries() {
         if (graph.getGraphNodes() != null) {
             for (Node node : graph.getGraphNodes()) {
-                chooseAdjacency.addItem(node.getName());
+                chooseAdjacency.addItem(node);
             }
         }
     }
@@ -284,7 +284,7 @@ public class MapEditor extends JPanel {
      * get adjacency
      * @return JComboBox<String>
      */
-    public JComboBox<String> getChooseAdjacency() {
+    public JComboBox<Node> getChooseAdjacency() {
         return chooseAdjacency;
     }
 

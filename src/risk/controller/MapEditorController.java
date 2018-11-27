@@ -98,22 +98,13 @@ public class MapEditorController {
                             throw new RuntimeException("the country already exists in the graph");
                         }
                     }
-                    String contientName = (String) mapEditor.getContinents().getSelectedItem();
-                    if (countryName.equals("") || contientName.equals("")) {
-                        throw new RuntimeException("empty name or continent");
-                    }
-                    Continent continent = null;
-                    for (Continent c : graph.getContinents()) {
-                        if (c.getName().equals(contientName)){
-                            continent = c;
-                        }
-                    }
+                    Continent continent = (Continent) mapEditor.getContinents().getSelectedItem();
                     Node country = new Node(countryName, continent, mapEditor.x, mapEditor.y);
                     MapEditorLabel label = new MapEditorLabel(countryName);
                     labelList.add(label);
                     graph.getGraphNodes().add(country);
                     mapEditor.hideMenu();
-                    mapEditor.getChooseAdjacency().addItem(countryName);
+                    mapEditor.getChooseAdjacency().addItem(country);
                     mapEditor.repaint();
                 }
             }
@@ -150,22 +141,16 @@ public class MapEditorController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Node node1 = null;
-                Node node2 = null;
                 if (e.getSource() == mapEditor.getAddAdjacency()) {
                     for (Node node : graph.getGraphNodes()) {
                         if (node.isChoose()) {
                             node1 = node;
                         }
                     }
-                    String adjaency = (String) mapEditor.getChooseAdjacency().getSelectedItem();
-                    for (Node node : graph.getGraphNodes()) {
-                        if (node.getName().equals(adjaency)){
-                            node2 = node;
-                        }
-                    }
-                    if (node1 != node2) {
-                        node1.getAdjacencyList().add(node2.getName());
-                        node2.getAdjacencyList().add(node1.getName());
+                    Node adjaency = (Node) mapEditor.getChooseAdjacency().getSelectedItem();
+                    if (node1 != adjaency) {
+                        node1.getAdjacencyList().add(adjaency.getName());
+                        adjaency.getAdjacencyList().add(node1.getName());
                         mapEditor.repaint();
                     }
                 }
