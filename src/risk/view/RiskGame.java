@@ -20,11 +20,10 @@ public class RiskGame extends JPanel {
     private JButton loadExistFile;
     private JButton createContinent;
     private JTextField continentInformation;
-    //private List<Continent> listContinents;
-    //private Graph graph;
     private JButton singleGameMode;
     private JButton tournamentMode;
     private JButton back;
+    private JButton loadGame;
     /**
      * overwrite the constructor<br/>
      * use free layout for the whole project
@@ -108,6 +107,13 @@ public class RiskGame extends JPanel {
     }
 
     /**
+     * @return jButton button for load a game process
+     */
+    public JButton getLoadGame() {
+        return loadGame;
+    }
+
+    /**
      * initialise some buttons,and show them on the menu
      */
     private void initial() {
@@ -129,6 +135,8 @@ public class RiskGame extends JPanel {
         tournamentMode.setBounds(280, 220,320 , 50);
         back=new JButton("Back");
         back.setBounds(800, 600, 120, 50);
+        loadGame=new JButton("load Game");
+        loadGame.setBounds(280, 320, 320, 50);
         add(buttonForEdit);
         add(buttonForGame);
 
@@ -168,13 +176,14 @@ public class RiskGame extends JPanel {
         remove(buttonForGame);
         add(singleGameMode);
         add(tournamentMode);
+        add(loadGame);
         add(back);
         repaint();
     }
 
 
     public void backtoMainMenu() {
-        removeAll();;
+        removeAll();
         repaint();
         add(buttonForEdit);
         add(buttonForGame);

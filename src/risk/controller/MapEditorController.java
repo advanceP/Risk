@@ -123,12 +123,7 @@ public class MapEditorController {
                         if (node.isChoose()) {
                             node.setName(countryName);
                             //String continentName = (String) mapEditor.getContinents().getSelectedItem();
-                            for (Continent c : graph.getContinents()) {
-                                if (c.getName().equals(continentName)){
-                                    node.setContinent(c);
-                                    break;
-                                }
-                            }
+                            node.setContinent((Continent) mapEditor.getContinents().getSelectedItem());
                         }
                     }
                     mapEditor.hideUpdateMenu();

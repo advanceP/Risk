@@ -5,6 +5,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * the view is for tournament mode
+ */
 public class TournamentView extends JPanel {
     private JTextField inputMapNumber;
     private JTextField inputPlayer;
@@ -57,40 +60,67 @@ public class TournamentView extends JPanel {
         add(confirm);
     }
 
-
+    /**
+     * @return confirm button
+     */
     public JButton getConfirm() {
         return confirm;
     }
 
-
+    /**
+     * @return the textfield of map input
+     */
     public JTextField getInputMapNumber() {
         return inputMapNumber;
     }
 
+    /**
+     * @return the textfield of player input
+     */
     public JTextField getInputPlayer() {
         return inputPlayer;
     }
 
+    /**
+     * @return the textfield of turns input
+     */
     public JTextField getTurns() {
         return turns;
     }
 
+    /**
+     * @return the textfield of games input
+     */
     public JTextField getInputGames() {
         return inputGames;
     }
 
+    /**
+     * @return list of Jcombobox which store stratrgy name
+     */
     public List<JComboBox<String>> getStrategies() {
         return strategies;
     }
 
+    /**
+     * @return select map
+     */
     public List<JButton> getMapButtons() {
         return mapButtons;
     }
 
+    /**
+     * @return play button
+     */
     public JButton getPlay() {
         return play;
     }
 
+    /**
+     * the number is set,then show the menu of map select and strategy select
+     * @param numberofmap the number of maps being input
+     * @param numberofplayer the number of players being input
+     */
     public void createMenu(int numberofmap, int numberofplayer) {
         removeAll();
         int x=20;
@@ -115,6 +145,10 @@ public class TournamentView extends JPanel {
         repaint();
     }
 
+    /**
+     * add strategy to the Jcombobox
+     * @param j the JCombobox
+     */
     private void addStrategies(JComboBox<String> j) {
         j.addItem("Aggressive");
         j.addItem("Benevolent");

@@ -1,14 +1,19 @@
 package risk.controller;
 
+import risk.model.Graph;
 import risk.view.TournamentView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this countroller for tournament mode
+ */
 public class TournamentController {
 
     private TournamentView view;
@@ -22,6 +27,9 @@ public class TournamentController {
         view=new TournamentView();
     }
 
+    /**
+     * show the menu
+     */
     public void showMenu() {
         JFrame frame=new JFrame("choose");
         frame.setSize(800, 800);
@@ -32,6 +40,10 @@ public class TournamentController {
         addListener(frame);
     }
 
+    /**
+     * add listener for buttons
+     * @param frame this frame
+     */
     public void addListener(JFrame frame) {
 
         view.getConfirm().addActionListener(new ActionListener() {
@@ -50,7 +62,7 @@ public class TournamentController {
                 if(!(numberofgames>0&&numberofmap<6)) {
                     throw new RuntimeException("index out of bounds");
                 }
-                if(!(turns>0&&turns<6)) {
+                if(!(turns>9&&turns<51)) {
                     throw new RuntimeException("index out of bounds");
                 }
                 view.createMenu(numberofmap,numberofplayer);
@@ -69,15 +81,16 @@ public class TournamentController {
                 if(maps.size()!=numberofgames) {
                     throw new RuntimeException("numbers of map doesn't match");
                 }
-                for(int i=0;i<numberofgames;i++) {
-                    GameThread gameThread=new GameThread(strategies, maps,numberofplayer, turns);
-                    gameThread.start();
-                }
+                //startPlay();
             }
         });
 
     }
 
+    /**
+     * this method is be called when the number of maps and player is set
+     * @param frame this frame
+     */
     public void addListenerDynamic(JFrame frame) {
         List<JButton> mapButtons = view.getMapButtons();
         for(JButton b : mapButtons) {
@@ -98,4 +111,23 @@ public class TournamentController {
             });
         }
     }
+
+
+    /*public void startPlay() {
+        for(File file :maps ) {
+            for(int i=0;i<numberofgames;i++) {
+                GameDriverController driver = GameDriverController.getGameDriverInstance();
+                driver.loadFile(file.getAbsolutePath());
+                driver.setPlayers(numberofplayer);
+                driver.giveStrategieToPlayer(strategies);
+                String winner="";
+                try{
+                    winner = driver.startGame(turns);
+                }catch(RuntimeException e){
+                    winner=e.getMessage();
+                }
+                System.out.println(winner);
+            }
+        }
+    }*/
 }

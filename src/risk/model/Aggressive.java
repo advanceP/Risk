@@ -4,7 +4,14 @@ import risk.controller.GameDriverController;
 
 import java.util.*;
 
+/**
+ * this is a strategy for aggressive attacker
+ */
 public class Aggressive implements Strategy {
+    /**
+     * aggressive attack
+     * @param node if it's computer ,pass null
+     */
     @Override
     public void reinforcement(Node node) {
         Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
@@ -22,6 +29,11 @@ public class Aggressive implements Strategy {
         System.out.println("End Aggressive Reinforcement");
     }
 
+    /**
+     * get the strongest in player's node
+     * @param nodeList player's node
+     * @return the strongest node
+     */
     public Node getStrongestNode(List<Node> nodeList) {
         Node strongest = nodeList.get(0);
         for (Node node : nodeList) {
@@ -32,7 +44,14 @@ public class Aggressive implements Strategy {
         return strongest;
     }
 
-
+    /**
+     * aggressive attack
+     * @param attacker the attack node
+     * @param defender the defend node
+     * @param attackerdice
+     * @param defenderdice
+     * @return
+     */
     @Override
     public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
         Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
@@ -92,6 +111,11 @@ public class Aggressive implements Strategy {
         return false;
     }
 
+    /**
+     * get the number of dice
+     * @param attacker the attack node
+     * @return number of dice
+     */
     private List<List<Integer>> getDiceNumList(Node attacker) {
         List<List<Integer>> resultList = new ArrayList<>();
         List<Integer> attackerList = new ArrayList<>();
@@ -107,7 +131,13 @@ public class Aggressive implements Strategy {
         return resultList;
     }
 
-
+    /**
+     * this is the attack result
+     * @param attacker attack node
+     * @param defender defend node
+     * @param diceNumList the dices
+     * @return boolean ,if denfender is be conquest,true
+     */
     private boolean attackResult(Node attacker, Node defender, List<List<Integer>> diceNumList) {
         if (diceNumList.isEmpty()) {
             return false;
@@ -134,6 +164,11 @@ public class Aggressive implements Strategy {
 
     }
 
+    /**
+     * move army from attacker to defender
+     * @param node attacker
+     * @param conquestCountry defender
+     */
     private void moveArmyToConquestCountry(Node node, Node conquestCountry) {
         if(node.getArmies()>2){
             conquestCountry.setArmies(2);
@@ -146,7 +181,13 @@ public class Aggressive implements Strategy {
         }
     }
 
-
+    /**
+     * choose a defender base on attacker
+     * @param node attacker
+     * @param allNodes all nodes in graph
+     * @param player the currentplayer
+     * @return defender
+     */
     private Node chooseDefender(Node node, List<Node> allNodes, Player player) {
         List<String> adjacencyList = node.getAdjacencyList();
         for(String name : adjacencyList) {
@@ -161,6 +202,11 @@ public class Aggressive implements Strategy {
         return null;
     }
 
+    /**
+     * select country for attack
+     * @param player the current player
+     * @return list of attack node
+     */
     private List<Node> selectNodesForAttack(Player player) {
         List<Node> nodes=new ArrayList<>();
         for(Node node:player.getNodeList()) {
@@ -171,7 +217,12 @@ public class Aggressive implements Strategy {
         return nodes;
     }
 
-
+    /**
+     * fortification phase
+     * @param from  the country gonna fortify,null if it's a computer
+     * @param to  the country gonna  receive fortify,null if it's a computer
+     * @param armies the army gonna fortify,null if it's a computer
+     */
     @Override
     public void fortification(Node from, Node to, Integer armies) {
         Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
@@ -193,6 +244,12 @@ public class Aggressive implements Strategy {
         }
     }
 
+    /**
+     * in fortification ,search nodes for fortification
+     * @param to the country which needs fortification
+     * @param list player's country
+     * @param reachablenodes the result
+     */
     public void reachableNodes(Node to, List<Node> list,List<Node> reachablenodes) {
         to.setVisited(true);
         List<String> adjacencyList = to.getAdjacencyList();
@@ -215,6 +272,11 @@ public class Aggressive implements Strategy {
         return "Aggressive";
     }
 
+    /**
+     * the way this strategy how to defend
+     * @param integers attacker's number of dices
+     * @return number of dice
+     */
 	@Override
 	public List<Integer> Defend(Integer integers,Node defender) {
 		int size=0;

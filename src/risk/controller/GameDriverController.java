@@ -39,7 +39,6 @@ public class GameDriverController {
     int index;
     private String state="";
     Node[] countriesForAttack = new Node[2];
-
     /**
      * Constructor , initialize the graph,index,staticColorList
      */
@@ -91,6 +90,7 @@ public class GameDriverController {
         startupPhase();
         addListener();
     }
+
 
     /**
      * put some button listener on the view
@@ -178,6 +178,13 @@ public class GameDriverController {
                 playStartup();
             }
         });
+
+        view.getSaveGame().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     /**
@@ -211,6 +218,7 @@ public class GameDriverController {
         }else{
             state = "Reinforcement";
             reinforcementPhase();
+
         }
     }
 
@@ -611,6 +619,7 @@ public class GameDriverController {
         }
         return allarmies;
     }
+
 
 
 }

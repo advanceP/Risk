@@ -169,6 +169,19 @@ public class RiskGameController {
                 t.showMenu();
             }
         });
+
+        view.getLoadGame().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jFileChooser = new JFileChooser();
+                int select = jFileChooser.showOpenDialog(frame); //this method need a JFrame as parameter
+                if (select == JFileChooser.APPROVE_OPTION) {
+                    File file = jFileChooser.getSelectedFile();
+                } else {
+                    System.out.println("file has been cancel");
+                }
+            }
+        });
     }
 
 
