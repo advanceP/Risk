@@ -78,10 +78,10 @@ public class TournamentController {
                     String strategy = j.getSelectedItem().toString();
                     strategies.add(strategy);
                 }
-                if(maps.size()!=numberofgames) {
+                if(maps.size()!=numberofmap) {
                     throw new RuntimeException("numbers of map doesn't match");
                 }
-                //startPlay();
+                startPlay();
             }
         });
 
@@ -113,7 +113,8 @@ public class TournamentController {
     }
 
 
-    /*public void startPlay() {
+    public void startPlay() {
+        List<String> winners=new ArrayList<>();
         for(File file :maps ) {
             for(int i=0;i<numberofgames;i++) {
                 GameDriverController driver = GameDriverController.getGameDriverInstance();
@@ -121,13 +122,13 @@ public class TournamentController {
                 driver.setPlayers(numberofplayer);
                 driver.giveStrategieToPlayer(strategies);
                 String winner="";
-                try{
-                    winner = driver.startGame(turns);
-                }catch(RuntimeException e){
-                    winner=e.getMessage();
-                }
-                System.out.println(winner);
+                winner = driver.startGame(turns);
+                winners.add(winner);
+                Graph.getGraphInstance().reset();
+                driver.reset();
             }
         }
-    }*/
+        view.createCell(numberofmap,numberofgames,winners);
+
+    }
 }

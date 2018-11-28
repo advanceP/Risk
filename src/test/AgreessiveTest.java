@@ -54,4 +54,22 @@ public class AgreessiveTest {
         assertTrue(nodes.containsAll(nodes2));
         assertTrue(nodes2.containsAll(nodes));
     }
+
+
+    @Test
+    public void testGetStrongestNode() {
+        driver.setPlayers(2);
+        List<String> str = new ArrayList<>();
+        str.add("Aggressive");
+        str.add("Aggressive");
+        driver.giveStrategieToPlayer(str);
+        List<Player> players = driver.getPlayers();
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        nodeList.get(0).setArmies(4);
+        Aggressive strategy = (Aggressive) currentPlayer.getStrategy();
+        Node strongestNode = strategy.getStrongestNode(currentPlayer.getNodeList());
+        assertSame(nodeList.get(0), strongestNode);
+    }
+
 }

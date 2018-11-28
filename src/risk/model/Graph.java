@@ -35,6 +35,14 @@ public class Graph {
     }
 
     /**
+     * reset Graph
+     */
+    public void reset(){
+        this.graphNodes = new ArrayList<Node>();
+        this.continents = new ArrayList<Continent>();
+    }
+
+    /**
      * this is the set method for continents
      *
      * @param continents continents of the graph

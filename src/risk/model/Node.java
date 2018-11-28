@@ -33,7 +33,7 @@ public class Node {
     private int x;  //coordinate for graph
     private int y;  //coordinate for graph
     private List<String> adjacencyList = new ArrayList<>();
-
+    private List<Node> adjacencyNodes=new ArrayList<>();
     private boolean choose;
     private boolean isVisited = false;
 
@@ -207,6 +207,23 @@ public class Node {
         return adjacencyList;
     }
 
+    /**
+     * return type node
+     * @return List<Node>
+     */
+    public List<Node> getAdjacencyNodes() {
+        if(adjacencyNodes.isEmpty()) {
+            List<Node> graphNodes = Graph.getGraphInstance().getGraphNodes();
+            for (String str : adjacencyList) {
+                for (Node node : graphNodes) {
+                    if (str.equalsIgnoreCase(node.getName())) {
+                        adjacencyNodes.add(node);
+                    }
+                }
+            }
+        }
+        return adjacencyNodes;
+    }
 
     /**
      * set the Neighbor list of the node
