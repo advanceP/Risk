@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -620,6 +622,37 @@ public class GameDriverController {
         return allarmies;
     }
 
+    public void saveGame()
+    {
+    	try {
+			FileWriter fw=new FileWriter("game.txt");
+			fw.write("[Continents]\r\n");
+			for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
+			{
+				fw.write(graph.getContinents().get(i).getName()+"="+graph.getContinents().get(i).getAwardUnits()+"\r\n");
+			}
+			fw.write("[Territories]\r\n");
+			for(int i=0;i<graph.getGraphInstance().getGraphNodes().size();i++)
+			{
+				Node node=graph.getGraphInstance().getGraphNodes().get(i);
+				fw.write(node.getPlayer().getName()+","+node.getArmies()+","+node.getName()+","+node.getX()+","+node.getY()+","+node.getContinent().getName());
+				for (String adj : node.getAdjacencyList()) {
+					fw.append(","+adj);
+				}
+				fw.write("\r\n");
+			}
+			fw.write("[Players]\r\n");
+			for(int i=0;i<players.size();i++)
+			{
+				fw.write(players.get(i).getName()+","+players.get(i).getColor()+","+players.get(i).getReinforcement()+","+players.get(i).getState()+"\r\n");				
+			}
+			fw.write(getCurrentPlayer().getName());
 
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 
 }
