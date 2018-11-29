@@ -107,6 +107,7 @@ public class GameDriverTest
             e.printStackTrace();
         }
         driver = GameDriverController.getGameDriverInstance();
+        driver.reset();
         int expectedvalue = 8;
         driver.setPlayers(2,false);
         assertSame(expectedvalue, driver.getAllReinforcement());

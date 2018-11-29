@@ -107,23 +107,24 @@ public class GraphTest
         ArrayList<Color> initiatedColor = new ArrayList<>();
         expectedColors.add(Color.BLACK);
         expectedColors.add(Color.cyan);
-        expectedColors.add(Color.DARK_GRAY);
+        expectedColors.add(Color.YELLOW);
         expectedColors.add(Color.GRAY);
         expectedColors.add(Color.MAGENTA);
         expectedColors.add(Color.PINK);
         expectedColors.add(Color.ORANGE);
         expectedColors.add(Color.LIGHT_GRAY);
+        expectedColors.add(Color.RED);
+        expectedColors.add(Color.BLUE);
+        expectedColors.add(Color.GREEN);
 
 
         try {
-
             graph.createGraph(colorsMap);
             graph.getColorTOContinent();
 
             for (int i = 0; i < graph.getContinents().size(); i++) {
                 initiatedColor.add(graph.getContinents().get(i).getColor());
             }
-
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();

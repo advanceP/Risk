@@ -1,55 +1,42 @@
 [Players]
-Player_0,42,StartUp,Benevolent
-Player_1,42,StartUp,Aggressive
+Player_0,22,StartUp,Aggressive,14
+Player_1,23,StartUp,Human,14
 [CurrentPlayer]
-Player_0
+Player_1
 [Continents]
-North America=5
-South America=2
-Africa=3
-Europe=5
-Asia=7
-Australia=2
+Montreal Est=3
+Montreal Centre-Est=4
+Montreal Centre-Ouest=4
+Montreal Centre=3
+Montreal Ouest=6
 [Territories]
-Player_0,1,Scandinavia,463,127,Europe,Iceland,Great Britain,Northern Europe,Ukraine
-Player_1,1,Middle East,530,234,Asia,Ukraine,Afghanistan,India,Southern Europe,Egypt,East Africa
-Player_0,1,Southern Europe,473,197,Europe,Northern Europe,Ukraine,Middle East,Egypt,North Africa,Western Europe
-Player_1,1,Afghanistan,585,192,Asia,Ural,China,India,Middle East,Ukraine
-Player_0,1,Central America,183,262,North America,Western United States,Eastern United States,Venezuala
-Player_1,1,Western United States,159,204,North America,Alberta,Ontario,Eastern United States,Central America
-Player_0,1,Great Britain,419,169,Europe,Iceland,Scandinavia,Western Europe,Northern Europe
-Player_1,1,Ukraine,524,157,Europe,Ural,Afghanistan,Middle East,Southern Europe,Northern Europe,Scandinavia
-Player_0,1,Quebec,253,166,North America,Greenland,Ontario,Eastern United States
-Player_1,1,Argentina,263,407,South America,Peru,Brazil
-Player_0,1,Siam,671,270,Asia,China,India,Indonesia
-Player_1,1,Eastern Australia,779,381,Australia,Western Australia,New Guinea
-Player_0,1,North Africa,420,264,Africa,Brazil,Western Europe,Southern Europe,Egypt,East Africa,Congo
-Player_1,1,Northwest Territory,148,127,North America,Alaska,Alberta,Ontario,Greenland
-Player_0,1,China,662,217,Asia,Ural,Siberia,Mongolia,Siam,India,Afghanistan
-Player_1,1,Mongolia,707,188,Asia,Siberia,Irkutsk,Japan,China,Kamchatka
-Player_0,1,Madagascar,536,361,Africa,East Africa,South Africa
-Player_1,1,Kamchatka,806,125,Asia,Yatusk,Irkutsk,Japan,Alaska,Mongolia
-Player_0,1,Indonesia,698,314,Australia,Siam,New Guinea,Western Australia
-Player_1,1,Egypt,480,249,Africa,Southern Europe,North Africa,Middle East,East Africa
-Player_0,1,Congo,475,318,Africa,North Africa,East Africa,South Africa
-Player_1,1,India,612,249,Asia,China,Siam,Afghanistan,Middle East
-Player_0,1,Yatusk,738,118,Asia,Siberia,Irkutsk,Kamchatka
-Player_1,1,Japan,759,220,Asia,Kamchatka,Mongolia
-Player_0,1,Brazil,308,337,South America,Venezuala,Peru,Argentina,North Africa
-Player_1,1,New Guinea,768,325,Australia,Indonesia,Western Australia,Eastern Australia
-Player_0,1,East Africa,517,298,Africa,Egypt,Middle East,Congo,North Africa,South Africa,Madagascar
-Player_1,1,South Africa,483,371,Africa,Congo,East Africa,Madagascar
-Player_0,1,Greenland,324,76,North America,Northwest Territory,Ontario,Quebec,Iceland
-Player_1,1,Ural,613,136,Asia,Siberia,China,Afghanistan,Ukraine
-Player_0,1,Siberia,666,110,Asia,Yatusk,Irkutsk,Mongolia,China,Ural
-Player_1,1,Ontario,199,167,North America,Northwest Territory,Alberta,Greenland,Quebec,Western United States,Eastern United States
-Player_0,1,Venezuala,259,303,South America,Central America,Peru,Brazil
-Player_1,1,Western Australia,729,373,Australia,Indonesia,New Guinea,Eastern Australia
-Player_0,1,Alaska,70,126,North America,Northwest Territory,Alberta,Kamchatka
-Player_1,1,Eastern United States,219,216,North America,Ontario,Quebec,Western United States,Central America
-Player_0,1,Peru,262,349,South America,Venezuala,Brazil,Argentina
-Player_1,1,Irkutsk,698,152,Asia,Siberia,Yatusk,Kamchatka,Mongolia
-Player_0,1,Northern Europe,460,173,Europe,Great Britain,Scandinavia,Ukraine,Southern Europe,Western Europe
-Player_1,1,Western Europe,423,202,Europe,Great Britain,Northern Europe,Southern Europe,North Africa
-Player_0,1,Alberta,147,163,North America,Alaska,Northwest Territory,Ontario,Western United States
-Player_1,1,Iceland,380,126,Europe,Greenland,Great Britain,Scandinavia
+Player_0,2,Mont-Royal,240,200,Montreal Centre-Ouest,Saint-Laurent,Ahuntsic,Villeray,Outremont,NDG,Hampstead
+Player_1,1,Beaconsfield,70,290,Montreal Ouest,Pointe-Claire,Kirkland,Ste-Anne-de-Bellevue
+Player_0,1,Lachine,210,270,Montreal Centre,La Salle,Hampstead,Saint-Laurent,Dorval
+Player_1,1,Ste-Anne-de-Bellevue,30,285,Montreal Ouest,Beaconsfield,Kirkland,Senneville
+Player_0,2,Saint-Laurent,200,210,Montreal Centre-Ouest,Ahuntsic,Mont-Royal,Hampstead,Pierrefonds,Lachine,Dorval,NDG
+Player_1,1,Ile Bizard,60,220,Montreal Ouest,Senneville
+Player_0,1,Pointe-Claire,120,260,Montreal Ouest,Dorval,Pierrefonds,Kirkland,Beaconsfield
+Player_1,1,Plateau,300,180,Montreal Centre-Est,Mercier,Rosemont,Outremont,Ville-Marie
+Player_0,4,Pointe St-Charles,290,240,Montreal Centre,Ville-Marie,Westmount,Verdun,NDG,La Salle,Hampstead
+Player_1,1,Villeray,265,150,Montreal Centre-Est,Ahuntsic,Montreal Nord,St-Leonard,Rosemont,Mont-Royal,Outremont
+Player_0,1,Hampstead,230,245,Montreal Centre-Ouest,Saint-Laurent,Mont-Royal,NDG,Pointe St-Charles,La Salle,Lachine
+Player_1,1,Ahuntsic,230,160,Montreal Centre-Est,Montreal Nord,Villeray,Mont-Royal,Saint-Laurent,Pierrefonds
+Player_0,1,Outremont,270,195,Montreal Centre-Est,Villeray,Rosemont,Plateau,Ville-Marie,NDG,Mont-Royal
+Player_1,1,Anjou,300,95,Montreal Est,RDP-PAT,Montreal Nord,Mercier,St-Leonard
+Player_0,1,Rosemont,290,160,Montreal Centre-Est,St-Leonard,Villeray,Mercier,Plateau,Outremont
+Player_1,1,Pierrefonds,125,220,Montreal Ouest,Saint-Laurent,Ahuntsic,Dorval,Pointe-Claire,Kirkland,Senneville
+Player_0,1,RDP-PAT,330,50,Montreal Est,Anjou,Montreal Nord,Mercier
+Player_1,1,Westmount,275,225,Montreal Centre-Ouest,NDG,Ville-Marie,Pointe St-Charles
+Player_0,1,Ville-Marie,300,210,Montreal Centre,Plateau,Outremont,NDG,Westmount,Pointe St-Charles
+Player_1,1,Mercier,325,130,Montreal Est,RDP-PAT,Anjou,St-Leonard,Rosemont,Plateau
+Player_0,1,Kirkland,80,265,Montreal Ouest,Senneville,Ste-Anne-de-Bellevue,Beaconsfield,Pointe-Claire,Pierrefonds
+Player_1,1,Senneville,75,240,Montreal Ouest,Ile Bizard,Ste-Anne-de-Bellevue,Kirkland,Pierrefonds
+Player_0,1,St-Leonard,270,120,Montreal Est,Montreal Nord,Anjou,Mercier,Rosemont,Villeray
+Player_1,1,Verdun,300,260,Montreal Centre,La Salle,Pointe St-Charles
+Player_0,2,Dorval,165,260,Montreal Ouest,Saint-Laurent,Lachine,Pointe-Claire,Pierrefonds
+Player_1,1,Montreal Nord,255,110,Montreal Est,RDP-PAT,Anjou,St-Leonard,Ahuntsic,Villeray
+Player_0,1,NDG,255,220,Montreal Centre-Ouest,Mont-Royal,Outremont,Ville-Marie,Westmount,Pointe St-Charles,Hampstead,Saint-Laurent
+Player_1,6,La Salle,260,285,Montreal Centre,Lachine,Pointe St-Charles,Verdun,Hampstead
+[Other]
+1,StartUp

@@ -34,6 +34,7 @@ public class PlayerTest {
             e.printStackTrace();
         }
         driver = GameDriverController.getGameDriverInstance();
+        driver.reset();
     }
 
     /**
