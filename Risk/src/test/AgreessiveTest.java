@@ -58,7 +58,7 @@ public class AgreessiveTest {
         assertTrue(nodes2.containsAll(nodes));
     }
     /**
-     * test to see if weather benevolent player attack or not
+     * test to see if weather benevolent player attack or not(it should not)
      */
     @Test
     public void testBenevolentAttack() {
@@ -76,6 +76,29 @@ public class AgreessiveTest {
         
     }
 
+    /**
+     * test to see if the Cheater player reinforcement double the number of armies
+     */
+    @Test
+    public void testCheaterReinforcement() {
+        driver.setPlayers(2);
+        List<String> str = new ArrayList<>();
+        str.add("Cheater");
+        str.add("Cheater");
+        driver.giveStrategieToPlayer(str);
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        nodeList.get(0).setArmies(10);
+        Cheater strategy = (Cheater) currentPlayer.getStrategy();
+        strategy.reinforcement(null);
+        int cheaterArmies = nodeList.get(0).getArmies();
+        int expectedArmeis =20;
+        assertSame(expectedArmeis,cheaterArmies);
+    }
+    
+    
+
+    
     
 
 
