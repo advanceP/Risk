@@ -7,13 +7,13 @@ import risk.controller.FileController;
 import static org.junit.Assert.*;
 
 public class FileControllerTest {
+    String commonPath = "src/test/";
     /**
      * test correct map
      */
     @Test
     public void verifyMapFile1(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String fileRightMap = commonPath + "Montreal.map";
         assertTrue(fileController.verifyMapFile(fileRightMap));
     }
@@ -24,7 +24,6 @@ public class FileControllerTest {
     @Test
     public void verifyMapFile2(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String errorMap1 = commonPath + "error1.map";
         assertFalse(fileController.verifyMapFile(errorMap1));
     }
@@ -35,7 +34,6 @@ public class FileControllerTest {
     @Test
     public void verifyMapFile3(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String errorMap2 = commonPath + "error2.map";
         assertFalse(fileController.verifyMapFile(errorMap2));
     }
@@ -46,7 +44,6 @@ public class FileControllerTest {
     @Test
     public void verifyMapFile4(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String errorMap3 = commonPath + "error3.map";
         assertFalse(fileController.verifyMapFile(errorMap3));
     }
@@ -57,7 +54,6 @@ public class FileControllerTest {
     @Test
     public void verifyMapFile5(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String errorMap4 = commonPath + "error4.map";
         assertFalse(fileController.verifyMapFile(errorMap4));
     }
@@ -68,7 +64,6 @@ public class FileControllerTest {
     @Test
     public void verifyMapFile6(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String errorMap5 = commonPath + "error5.map";
         assertFalse(fileController.verifyMapFile(errorMap5));
     }
@@ -79,7 +74,6 @@ public class FileControllerTest {
     @Test
     public void verifyMapFile7(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String correctMap1 = commonPath + "correctFile1.map";
         assertTrue(fileController.verifyMapFile(correctMap1));
     }
@@ -90,8 +84,23 @@ public class FileControllerTest {
     @Test
     public void verifyMapFile8(){
         FileController fileController = new FileController();
-        String commonPath = "src/test/";
         String correctMap2 = commonPath + "correctFile2.map";
         assertTrue(fileController.verifyMapFile(correctMap2));
+    }
+    /**
+     * test error map
+     * has same continent name or country name in mapFile
+     */
+    @Test
+    public void verifyMapFile9(){
+        FileController fileController = new FileController();
+        String errorMap6 = commonPath + "error6.map";
+        assertFalse(fileController.verifyMapFile(errorMap6));
+    }
+    @Test
+    public void verifyMapFile10(){
+        FileController fileController = new FileController();
+        String errorMap7 = commonPath + "error7.map";
+        assertFalse(fileController.verifyMapFile(errorMap7));
     }
 }

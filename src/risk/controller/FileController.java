@@ -140,6 +140,9 @@ public class FileController {
             boolean notNode = false;
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             line = reader.readLine();
+
+            Set<String> continentSet = new HashSet<>();
+            Set<String> nodeSet = new HashSet<>();
             while (line != null) {
                 if (line.equals("\r\n") || line.equals("")) {
                     line = reader.readLine();
@@ -157,6 +160,10 @@ public class FileController {
                 }
                 if (contFlag) {
                     String continent[] = line.split("=");
+                    String temp = continent[0].trim().toLowerCase();
+                    if (!continentSet.add(temp)){
+                        return false;
+                    }
                     if (continent.length > 2) {
                         return false;
                     }
@@ -166,6 +173,10 @@ public class FileController {
 
                 if (nodeFlag) {
                     String node[] = line.split(",");
+                    String temp = node[0].trim().toLowerCase();
+                    if (!nodeSet.add(temp)){
+                        return false;
+                    }
                     int index = line.indexOf(',');
                     nodeList.put(node[0], line.substring(index + 1));
                 }
