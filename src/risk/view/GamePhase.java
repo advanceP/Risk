@@ -142,7 +142,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
      * show the phase on the text
      */
     private void paintPhaseInformation(Graphics g) {
-        if (GameDriverController.getGameDriverInstance().getPlayers() != null) {
+        if (!GameDriverController.getGameDriverInstance().getPlayers().isEmpty()) {
             Player currentplayer = GameDriverController.getGameDriverInstance().getCurrentPlayer();
             phaseText.setText(currentplayer.getState() + " " + currentplayer.getName() +
                     " " + GameDriverController.getGameDriverInstance().getCurrentPlayer().getReinforcement());
@@ -466,7 +466,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     @Override
     public void update(Observable obj, Object o) {
         List<Player> players = GameDriverController.getGameDriverInstance().getPlayers();
-        if (players != null) {
+        if (!players.isEmpty()) {
             int x = 1120;
             int y = 80;
             int i=0;

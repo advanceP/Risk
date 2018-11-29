@@ -262,7 +262,7 @@ public class GameDriverController {
                             changeCurrentPlayer(true);
                             playStartup(true);
                             if (getAllReinforcement() == 0) {
-                                roundsOfComputer(true);
+                               roundsOfComputer(true);
                             }
                         } else {
                             changeCurrentPlayer(true);

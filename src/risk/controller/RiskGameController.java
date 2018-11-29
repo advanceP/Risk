@@ -141,10 +141,6 @@ public class RiskGameController {
                         List<Continent> listContinents = new ArrayList<>();
                         for (int i = 0; i < split.length; i++) {
                             String[] str = split[i].split(",");
-                            //List<String> list = Arrays.asList(str);
-                            //remove same name of continents
-                            //list.stream().distinct().collect(Collectors.toList());
-
                             for (int j = 0; j < str[j].length(); j++) {
                                 int awardUnit = Integer.valueOf(str[1]);
                                 Continent continent = new Continent(str[0], awardUnit);
