@@ -2,14 +2,23 @@ package risk.controller;
 
 import risk.model.Continent;
 import risk.model.Graph;
+import risk.model.Node;
+import risk.model.Player;
 import risk.view.RiskGame;
 
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This is where game start,main methods is here<br/>
@@ -191,6 +200,84 @@ public class RiskGameController {
                 }
             }
         });
+    }
+    
+    public GameDriverController getSavedGame(File file)
+    {
+    	try {
+    		
+			Scanner input = new Scanner(file);
+			String line;
+			while (input.hasNextLine()) {
+	            line = input.nextLine();
+	            if (line.contains("[Players]")) {
+	                while (input.hasNextLine()) {
+	                    line = input.nextLine();
+	                    if (line.equals("\r\n") || line.equals("")) {
+	                        continue;
+	                    }
+	                    if(line.equals("[CurrentPlayer]"))
+	                    	break;
+
+	                    List<String> tokens  = new ArrayList<>();
+	                    Arrays.asList(line.split(",")).forEach(s-> tokens.add(s.trim()));
+	                    Player player=new Player();
+	                    player.setName(tokens.get(0));
+	                    player.setReinforcement(Integer.parseInt(tokens.get(1)));
+	                    player.setStrategy(tokens.get(2));
+	                    player.setState(tokens.get(3));
+	                    GameDriverController.getGameDriverInstance().addPlayer(player);
+	                }
+	            }
+	            if (line.contains("[CurrentPlayer]")) {
+	                    line = input.nextLine();
+	                    String current=line;
+	                    Player currentplayer=GameDriverController.getGameDriverInstance().getPlayers().stream().filter(item->item.getName().equals(current)).findFirst().get();
+	                }
+	            if(line.contains("[Continents]")){
+	            	while (input.hasNextLine()) {
+	                    line = input.nextLine();
+	                    if (line.equals("\r\n") || line.equals("")) {
+	                        continue;
+	                    }
+	                    if(line.equals("[Territories]"))
+	                    	break;
+	                    List<String> tokens = Arrays.asList(line.split("="));
+	                    Continent continent = new Continent(tokens.get(0), Integer.parseInt(tokens.get(1)));
+	                    Graph.getGraphInstance().addContinent(continent);
+	             }
+			   }
+	            if (line.contains("[Territories]")) {
+	                while (input.hasNextLine()) {
+	                    line = input.nextLine();
+	                    if (line.equals("\r\n") || line.equals("")) {
+	                        continue;
+	                    }
+
+	                    List<String> tokens  = new ArrayList<>();
+	                    Arrays.asList(line.split(",")).forEach(s-> tokens.add(s.trim()));
+	                    List<String> adjacency = tokens.subList(6, tokens.size());
+	                    Continent continent = graph.getContinents().stream().filter(item -> item.getName().
+	                            equals(tokens.get(5))).findFirst().get();
+	                    Node template = new Node(tokens.get(2), Integer.parseInt(tokens.get(3)),
+	                            Integer.parseInt(tokens.get(4)), continent, adjacency);
+	                    Player player=GameDriverController.getGameDriverInstance().getPlayers().stream().filter(item->item.getName().equals(tokens.get(0))).findFirst().get();
+	                    template.setPlayer(player);
+	                    template.setArmies(Integer.parseInt(tokens.get(1)));
+	                    graph.getGraphInstance().addNode(template);
+	                }
+	            }
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	int colorindex=0;
+    	for (int i = 0; i < GameDriverController.getGameDriverInstance().getPlayers().size(); i++) {
+    		GameDriverController.getGameDriverInstance().getPlayers().get(i).setColor(GameDriverController.getGameDriverInstance().staticColorList.get(colorindex));
+            colorindex++;
+        }
+    	return GameDriverController.getGameDriverInstance();
     }
 
 }

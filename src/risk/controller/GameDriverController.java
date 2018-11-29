@@ -55,6 +55,7 @@ public class GameDriverController {
         staticColorList.add(Color.RED);
         staticColorList.add(Color.YELLOW);
         view = GamePhase.getPanelInstance();
+        players = new ArrayList<Player>();
     }
 
     private GameDriverController(File file){
@@ -629,6 +630,15 @@ public class GameDriverController {
 
         return gameDriver;
     }
+    
+    /**
+     * this method will add player to our game
+     * @param player a player to be added to the Game
+     */
+    public void addPlayer(Player player)
+    {
+    	this.players.add(player);
+    }
 
     /**
      * this method create players for the game ,randomly assign countries to them, and initialize number of armies for them.
@@ -641,7 +651,6 @@ public class GameDriverController {
         int colorindex = 0;
         Random rnd = new Random();
         int numberofarmies = (graph.getGraphNodes().size()) / (numberOfPlayers - 1);
-        players = new ArrayList<Player>();
         for (int i = 0; i < numberOfPlayers; i++) {
             Player temporaryplayer = new Player();
             temporaryplayer.setName("Player_" + i);
@@ -753,6 +762,14 @@ public class GameDriverController {
     {
     	try {
 			FileWriter fw=new FileWriter("game.txt");
+			fw.write("[Players]\r\n");
+			for(int i=0;i<players.size();i++)
+			{
+				fw.write(players.get(i).getName()+","+players.get(i).getReinforcement()+","+players.get(i).getState()+","+players.get(i).getStrategy().toString()+"\r\n");
+			}
+			fw.write("[CurrentPlayer]\r\n");
+			fw.write(getCurrentPlayer().getName());
+			
 			fw.write("[Continents]\r\n");
 			for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
 			{
@@ -768,12 +785,6 @@ public class GameDriverController {
 				}
 				fw.write("\r\n");
 			}
-			fw.write("[Players]\r\n");
-			for(int i=0;i<players.size();i++)
-			{
-				fw.write(players.get(i).getName()+","+players.get(i).getColor()+","+players.get(i).getReinforcement()+","+players.get(i).getState()+"\r\n");
-			}
-			fw.write(getCurrentPlayer().getName());
 
 			fw.close();
 		} catch (IOException e) {
@@ -781,5 +792,6 @@ public class GameDriverController {
 			e.printStackTrace();
 		}
     }
+    
 
 }
