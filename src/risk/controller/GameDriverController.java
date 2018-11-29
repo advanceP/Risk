@@ -745,6 +745,22 @@ public class GameDriverController {
     }
 
 
+    public void setIndex(int index)
+    {
+    	this.index=index;
+    }
+    
+    public void setState(String state)
+    {
+    	this.state=state;
+    }
+    
+    public void setPlayers(List<Player>players)
+    {
+    	this.players=players;
+    }
+
+
     /**
      * this method returns the sum of the all armies that each player has
      *
@@ -758,36 +774,43 @@ public class GameDriverController {
         return allarmies;
     }
 
-    public void saveGame() {
-        try {
-            FileWriter fw = new FileWriter("game.txt");
-            fw.write("[Players]\r\n");
-            for (int i = 0; i < players.size(); i++) {
-                fw.write(players.get(i).getName() + "," + players.get(i).getReinforcement() + "," + players.get(i).getState() + "," + players.get(i).getStrategy().toString() + "\r\n");
-            }
-            fw.write("[CurrentPlayer]\r\n");
-            fw.write(getCurrentPlayer().getName());
+    public void saveGame()
+    {
+    	try {
+			FileWriter fw=new FileWriter("game.txt");
+			fw.write("[Players]\r\n");
+			for(int i=0;i<players.size();i++)
+			{
+				fw.write(players.get(i).getName()+","+players.get(i).getReinforcement()+","+players.get(i).getState()+","+players.get(i).getStrategy().toString()+","+players.get(i).getNumberOfCountries()+"\r\n");
+			}
+			fw.write("[CurrentPlayer]\r\n");
+			fw.write(getCurrentPlayer().getName());
+			
+			fw.write("[Continents]\r\n");
+			for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
+			{
+				fw.write(graph.getContinents().get(i).getName()+"="+graph.getContinents().get(i).getAwardUnits()+"\r\n");
+			}
+			fw.write("[Territories]\r\n");
+			for(int i=0;i<graph.getGraphInstance().getGraphNodes().size();i++)
+			{
+				Node node=graph.getGraphInstance().getGraphNodes().get(i);
+				fw.write(node.getPlayer().getName()+","+node.getArmies()+","+node.getName()+","+node.getX()+","+node.getY()+","+node.getContinent().getName());
+				for (String adj : node.getAdjacencyList()) {
+					fw.append(","+adj);
+				}
+				fw.write("\r\n");
+			}
+			fw.write("[Other]\r\n");
+			fw.write(index+","+this.state+"\r\n");
 
-            fw.write("[Continents]\r\n");
-            for (int i = 0; i < Graph.getGraphInstance().getContinents().size(); i++) {
-                fw.write(graph.getContinents().get(i).getName() + "=" + graph.getContinents().get(i).getAwardUnits() + "\r\n");
-            }
-            fw.write("[Territories]\r\n");
-            for (int i = 0; i < graph.getGraphInstance().getGraphNodes().size(); i++) {
-                Node node = graph.getGraphInstance().getGraphNodes().get(i);
-                fw.write(node.getPlayer().getName() + "," + node.getArmies() + "," + node.getName() + "," + node.getX() + "," + node.getY() + "," + node.getContinent().getName());
-                for (String adj : node.getAdjacencyList()) {
-                    fw.append("," + adj);
-                }
-                fw.write("\r\n");
-            }
-
-            fw.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
+
 
 
 }

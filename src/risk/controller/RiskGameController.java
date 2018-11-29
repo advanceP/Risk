@@ -201,7 +201,7 @@ public class RiskGameController {
     public GameDriverController getSavedGame(File file)
     {
     	try {
-    		
+    		List<Player>temporaryplayerlist=new ArrayList<Player>();
 			Scanner input = new Scanner(file);
 			String line;
 			while (input.hasNextLine()) {
@@ -222,13 +222,14 @@ public class RiskGameController {
 	                    player.setReinforcement(Integer.parseInt(tokens.get(1)));
 	                    player.setStrategy(tokens.get(2));
 	                    player.setState(tokens.get(3));
-	                    GameDriverController.getGameDriverInstance().addPlayer(player);
+	                    player.setNumberOfCountries(Integer.parseInt(tokens.get(4)));
+	                    temporaryplayerlist.add(player);
 	                }
 	            }
 	            if (line.contains("[CurrentPlayer]")) {
 	                    line = input.nextLine();
 	                    String current=line;
-	                    Player currentplayer=GameDriverController.getGameDriverInstance().getPlayers().stream().filter(item->item.getName().equals(current)).findFirst().get();
+	                    Player currentplayer=temporaryplayerlist.stream().filter(item->item.getName().equals(current)).findFirst().get();
 	                }
 	            if(line.contains("[Continents]")){
 	            	while (input.hasNextLine()) {
@@ -249,6 +250,8 @@ public class RiskGameController {
 	                    if (line.equals("\r\n") || line.equals("")) {
 	                        continue;
 	                    }
+	                    if(line.equals("[Other]"))
+	                    	break;
 
 	                    List<String> tokens  = new ArrayList<>();
 	                    Arrays.asList(line.split(",")).forEach(s-> tokens.add(s.trim()));
@@ -257,23 +260,40 @@ public class RiskGameController {
 	                            equals(tokens.get(5))).findFirst().get();
 	                    Node template = new Node(tokens.get(2), Integer.parseInt(tokens.get(3)),
 	                            Integer.parseInt(tokens.get(4)), continent, adjacency);
-	                    Player player=GameDriverController.getGameDriverInstance().getPlayers().stream().filter(item->item.getName().equals(tokens.get(0))).findFirst().get();
+	                    Player player=temporaryplayerlist.stream().filter(item->item.getName().equals(tokens.get(0))).findFirst().get();
 	                    template.setPlayer(player);
 	                    template.setArmies(Integer.parseInt(tokens.get(1)));
 	                    graph.getGraphInstance().addNode(template);
 	                }
 	            }
+	            if (line.contains("[Other]")) {
+	                while (input.hasNextLine()) {
+	                    line = input.nextLine();
+	                    if (line.equals("\r\n") || line.equals("")) {
+	                        continue;
+	                    }
+
+	                    List<String> tokens  = new ArrayList<>();
+	                    Arrays.asList(line.split(",")).forEach(s-> tokens.add(s.trim()));
+	                    GameDriverController.getGameDriverInstance().setIndex(Integer.parseInt(tokens.get(0)));
+	                    if(tokens.size()>1)
+	                    {
+	                    GameDriverController.getGameDriverInstance().setState(tokens.get(1));
+	                    }
+	                }
+	            }
 			}
+			int colorindex=0;
+	    	for (int i = 0; i < temporaryplayerlist.size(); i++) {
+	    		temporaryplayerlist.get(i).setColor(GameDriverController.getGameDriverInstance().staticColorList.get(colorindex));
+	            colorindex++;
+	    	}
+	    	gameDriverController.getGameDriverInstance().setPlayers(temporaryplayerlist);
+	    	Graph.getGraphInstance().getColorTOContinent();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	int colorindex=0;
-    	for (int i = 0; i < GameDriverController.getGameDriverInstance().getPlayers().size(); i++) {
-    		GameDriverController.getGameDriverInstance().getPlayers().get(i).setColor(GameDriverController.getGameDriverInstance().staticColorList.get(colorindex));
-            colorindex++;
-        }
     	return GameDriverController.getGameDriverInstance();
     }
-
 }
