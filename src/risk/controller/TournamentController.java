@@ -56,10 +56,10 @@ public class TournamentController {
                 if (!(mapNum > 0 && mapNum < 6)) {
                     throw new RuntimeException("index out of bounds");
                 }
-                if (!(playerNum > 1 && mapNum < 5)) {
+                if (!(playerNum > 1 && playerNum < 5)) {
                     throw new RuntimeException("index out of bounds");
                 }
-                if (!(times > 0 && mapNum < 6)) {
+                if (!(times > 0 && times < 6)) {
                     throw new RuntimeException("index out of bounds");
                 }
                 if (!(turns > 9 && turns < 51)) {
