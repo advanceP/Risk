@@ -64,7 +64,9 @@ public class Cheater implements Strategy {
             for (String name : country.getAdjacencyList()){
                 Node neighbor = allCountries.stream().filter(item -> item.getName().equalsIgnoreCase(name)).findAny().get();
                 if (!neighbor.getPlayer().equals(cheater)){
-                    neighbor.getPlayer().decreaseNumberOfCountries();
+                    Player another = neighbor.getPlayer();
+                    another.decreaseNumberOfCountries();
+                    cheater.increaseNumberOfCountries();
                     neighbor.setPlayer(cheater);
                     break;
                 }

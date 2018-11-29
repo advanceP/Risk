@@ -524,7 +524,9 @@ public class Player extends Observable {
         return resultList;
     }
 
-
+    public void checkCountries(){
+        numberOfCountries = this.getNodeList().size();
+    }
     /**
      * @return how many card in the player
      */
@@ -585,10 +587,6 @@ public class Player extends Observable {
     public void executeStrategyRein(Node country){
         strategy.reinforcement(country);
     }
-    
-    /*public List<Integer> Defend() {
-    	return this.strategy.Defend(null);
-    }*/
 
     /**
      * to get the defender's dicenumber
