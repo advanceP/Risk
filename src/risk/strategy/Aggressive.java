@@ -1,8 +1,15 @@
-package risk.model;
+package risk.strategy;
 
 import risk.controller.GameDriverController;
+import risk.model.GameWriter;
+import risk.model.Graph;
+import risk.model.Node;
+import risk.model.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 /**
  * this is a strategy for aggressive attacker

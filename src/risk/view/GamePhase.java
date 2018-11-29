@@ -2,6 +2,7 @@ package risk.view;
 
 import risk.controller.GameDriverController;
 import risk.model.*;
+import risk.strategy.Human;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,7 @@
 package risk.model;
 
+import risk.strategy.*;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;

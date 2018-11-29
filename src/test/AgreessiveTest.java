@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import risk.controller.GameDriverController;
 import risk.model.*;
+import risk.strategy.Aggressive;
+import risk.strategy.Cheater;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

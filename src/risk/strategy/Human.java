@@ -1,6 +1,9 @@
-package risk.model;
+package risk.strategy;
 
 import risk.controller.GameDriverController;
+import risk.model.Card;
+import risk.model.Node;
+import risk.model.Player;
 
 import javax.swing.*;
 import java.util.*;

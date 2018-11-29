@@ -1,6 +1,7 @@
 package risk.controller;
 
 import risk.model.*;
+import risk.strategy.Human;
 import risk.view.GameLabel;
 import risk.view.GamePhase;
 

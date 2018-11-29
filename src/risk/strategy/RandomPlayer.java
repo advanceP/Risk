@@ -1,11 +1,15 @@
-package risk.model;
+package risk.strategy;
 
 import risk.controller.GameDriverController;
+import risk.model.Card;
+import risk.model.Graph;
+import risk.model.Node;
+import risk.model.Player;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class RandomPlayer implements Strategy{
+public class RandomPlayer implements Strategy {
 
 
     @Override
@@ -30,7 +34,7 @@ public class RandomPlayer implements Strategy{
     	{
     		Random rnd=new Random();
     		Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
-    		List<Node> countries=Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getPlayer()==player).collect(Collectors.toList());
+    		List<Node> countries= Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getPlayer()==player).collect(Collectors.toList());
     		Node firstnode=countries.get(rnd.nextInt(countries.size()));
     		int min=0;
     		int max=firstnode.getArmies()-1;

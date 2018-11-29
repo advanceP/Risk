@@ -1,4 +1,6 @@
-package risk.model;
+package risk.strategy;
+
+import risk.model.Node;
 
 import java.util.List;
 
