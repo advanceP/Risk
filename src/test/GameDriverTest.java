@@ -41,7 +41,7 @@ public class GameDriverTest
         }
         driver = GameDriverController.getGameDriverInstance();
         int expectedvalue = 3;
-        driver.setPlayers(2, true);
+        driver.setPlayers(2, false);
         driver.getCurrentPlayer().setState("StartUp");
         driver.getCurrentPlayer().calculateReinforcement();
         assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
@@ -63,7 +63,7 @@ public class GameDriverTest
         }
         driver = GameDriverController.getGameDriverInstance();
         int expectedvalue = 5;
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         driver.getCurrentPlayer().setState("StartUp");
         driver.getCurrentPlayer().calculateReinforcement();
         assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
@@ -86,7 +86,7 @@ public class GameDriverTest
         }
         driver = GameDriverController.getGameDriverInstance();
         int expectedvalue = 4;
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         driver.getCurrentPlayer().setState("StartUp");
         assertSame(expectedvalue, driver.getCurrentPlayer().getReinforcement());
     }
@@ -108,7 +108,7 @@ public class GameDriverTest
         }
         driver = GameDriverController.getGameDriverInstance();
         int expectedvalue = 8;
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         assertSame(expectedvalue, driver.getAllReinforcement());
     }
 

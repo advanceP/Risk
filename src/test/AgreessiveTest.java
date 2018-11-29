@@ -38,12 +38,9 @@ public class AgreessiveTest {
 
     @Test
     public void testReachableNodes() {
-        driver.setPlayers(2, true);
-        List<String> str = new ArrayList<>();
-        str.add("Aggressive");
-        str.add("Aggressive");
-        driver.giveStrategyToPlayer(str, true);
-        List<Player> players = driver.getPlayers();
+        driver.setPlayers(2, false);
+        driver.getPlayers().get(0).setStrategy("Aggressive");
+        driver.getPlayers().get(1).setStrategy("Aggressive");
         Player currentPlayer = driver.getCurrentPlayer();
         List<Node> nodeList = currentPlayer.getNodeList();
         nodeList.get(0).setArmies(4);
@@ -60,11 +57,9 @@ public class AgreessiveTest {
 
     @Test
     public void testGetStrongestNode() {
-        driver.setPlayers(2, true);
-        List<String> str = new ArrayList<>();
-        str.add("Aggressive");
-        str.add("Aggressive");
-        driver.giveStrategyToPlayer(str,true);
+        driver.setPlayers(2, false);
+        driver.getPlayers().get(0).setStrategy("Aggressive");
+        driver.getPlayers().get(1).setStrategy("Aggressive");
         List<Player> players = driver.getPlayers();
         Player currentPlayer = driver.getCurrentPlayer();
         List<Node> nodeList = currentPlayer.getNodeList();
@@ -79,17 +74,9 @@ public class AgreessiveTest {
      */
     @Test
     public void testBenevolentAttack() {
-        driver.setPlayers(2,true);
-        List<String> str = new ArrayList<>();
-        str.add("Benevolent");
-        str.add("Benevolent");
-        driver.giveStrategyToPlayer(str, true);
-        Player currentPlayer = driver.getCurrentPlayer();
-        List<Node> nodeList = currentPlayer.getNodeList();
-        nodeList.get(0).setArmies(10);
-        //currentPlayer.executeStrategyRein(null);
-        boolean attack = currentPlayer.attack(null, null, null, null);
-        assertFalse(attack);
+    	driver.setPlayers(2, false);
+    	driver.getPlayers().get(0).setStrategy("Benevolent");
+    	assertFalse(driver.getPlayers().get(0).attack(null, null, null, null));
 
     }
 
@@ -98,11 +85,9 @@ public class AgreessiveTest {
      */
     @Test
     public void testCheaterReinforcement() {
-        driver.setPlayers(2,true);
-        List<String> str = new ArrayList<>();
-        str.add("Cheater");
-        str.add("Cheater");
-        driver.giveStrategyToPlayer(str, true);
+        driver.setPlayers(2,false);
+        driver.getPlayers().get(0).setStrategy("Cheater");
+        driver.getPlayers().get(1).setStrategy("Cheater");
         Player currentPlayer = driver.getCurrentPlayer();
         List<Node> nodeList = currentPlayer.getNodeList();
         nodeList.get(0).setArmies(10);
@@ -120,11 +105,9 @@ public class AgreessiveTest {
      */
     @Test
     public void testCheaterReinforcementAll() {
-        driver.setPlayers(2, true);
-        List<String> str = new ArrayList<>();
-        str.add("Cheater");
-        str.add("Cheater");
-        driver.giveStrategyToPlayer(str, true);
+        driver.setPlayers(2, false);
+        driver.getPlayers().get(0).setStrategy("Cheater");
+        driver.getPlayers().get(1).setStrategy("Cheater");
         Player currentPlayer = driver.getCurrentPlayer();
         List<Node> nodeList = currentPlayer.getNodeList();
         nodeList.get(0).setArmies(10);
@@ -145,11 +128,9 @@ public class AgreessiveTest {
      */
     @Test
     public void testAgressive() {
-        driver.setPlayers(2, true);
-        List<String> str = new ArrayList<>();
-        str.add("Aggressive");
-        str.add("Aggressive");
-        driver.giveStrategyToPlayer(str, true);
+        driver.setPlayers(2, false);
+        driver.getPlayers().get(0).setStrategy("Aggressive");
+        driver.getPlayers().get(1).setStrategy("Aggressive");
         Player currentPlayer = driver.getCurrentPlayer();
         List<Node> nodeList = currentPlayer.getNodeList();
         Node node1 = nodeList.get(0);

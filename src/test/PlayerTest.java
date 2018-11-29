@@ -42,7 +42,7 @@ public class PlayerTest {
     @Test
     public void testNumberOfCountries() {
         int expectedvalue = 2;
-        driver.setPlayers(2, true);
+        driver.setPlayers(2, false);
         assertSame(expectedvalue, driver.getPlayers().get(0).getNumberOfCountries());
     }
 
@@ -51,7 +51,7 @@ public class PlayerTest {
      */
     @Test
     public void testSameExchangeCard() {
-        driver.setPlayers(2, true);
+        driver.setPlayers(2, false);
         int expectedvalue = 7;
         int cardnumbers = 1;
         List<Card> cards = new ArrayList<Card>();
@@ -70,7 +70,7 @@ public class PlayerTest {
      */
     @Test
     public void testFiveExchangeCard() {
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         int expectedvalue = 7;
         int cardnumbers = 2;
         List<Card> cards = new ArrayList<Card>();
@@ -94,7 +94,7 @@ public class PlayerTest {
         int playerCoutries = 0;
         int expectedNumberOfCountries = 0;
 
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         driver.getPlayers().get(0).setNumberOfCountries(3);
         expectedNumberOfCountries = 3;
         playerCoutries = driver.getPlayers().get(0).getNumberOfCountries();
@@ -113,7 +113,7 @@ public class PlayerTest {
         int toTestReinforcment = 0;
 
 
-        driver.setPlayers(2, true);
+        driver.setPlayers(2, false);
         driver.getPlayers().get(0).setReinforcement(initialReinforcement);
         driver.getPlayers().get(0).increaseReinforcement();
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
@@ -131,7 +131,7 @@ public class PlayerTest {
         int toTestReinforcment = 0;
 
 
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         driver.getPlayers().get(0).setState("StartUp");
         driver.getPlayers().get(0).calculateReinforcement();
         toTestReinforcment = driver.getPlayers().get(0).getReinforcement();
@@ -151,7 +151,7 @@ public class PlayerTest {
         int toTestReinforcment = 0;
 
 
-        driver.setPlayers(2, true);
+        driver.setPlayers(2, false);
         driver.getPlayers().get(0).setState("Reinforcement");
         driver.getPlayers().get(0).setReinforcement(10);
         driver.getPlayers().get(0).calculateReinforcement();
@@ -169,7 +169,7 @@ public class PlayerTest {
     public void testAditionalReinforcement() throws FileNotFoundException {
         int expectedAdditionalreinforcement = 13;
         int toTestReinforcment = 0;
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         driver.getPlayers().get(0).setState("Reinforcement");
         driver.getPlayers().get(0).setReinforcement(10);
         driver.getPlayers().get(0).setNumberOfCountries(10);
@@ -183,7 +183,7 @@ public class PlayerTest {
      */
     @Test
     public void testAttackResult(){
-        driver.setPlayers(2,true);
+        driver.setPlayers(2,false);
         Player p1=driver.getPlayers().get(0);
         Player p2=driver.getPlayers().get(1);
         Continent con=new Continent("asia", 2);
