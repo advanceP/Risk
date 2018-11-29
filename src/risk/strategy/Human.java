@@ -48,6 +48,7 @@ public class Human implements Strategy {
 			}
 			if(defender.getArmies()==0) {
 				player.increaseNumberOfCountries();
+				defender.getPlayer().decreaseNumberOfCountries();
                 defender.setPlayer(player);
                 List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
                 int size = list.size();

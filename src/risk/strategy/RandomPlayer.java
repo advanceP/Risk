@@ -86,7 +86,8 @@ public class RandomPlayer implements Strategy {
 				return false;
 			}
 			if(defendernode.getArmies()==0) {
-				player.increaseNumberOfCountries();;
+				player.increaseNumberOfCountries();
+				defendernode.getPlayer().decreaseNumberOfCountries();
 				defendernode.setPlayer(player);
                 List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
                 int size = list.size();

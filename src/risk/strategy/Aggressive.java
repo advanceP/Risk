@@ -104,6 +104,7 @@ public class Aggressive implements Strategy {
                         if(flag) {
                         	//GameWriter.getGameWriterInstance().Write(defender.getName()+" got defeated\n");
                             //move army
+                            defender.getPlayer().decreaseNumberOfCountries();
                             defender.setPlayer(player);
                             player.increaseNumberOfCountries();
                             moveArmyToConquestCountry(attacker,defender);

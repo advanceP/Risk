@@ -158,6 +158,15 @@ public class Player extends Observable {
         notifyObservers();
     }
 
+    /**
+     * decreases the Number of Countries that player owns by One
+     */
+    public void decreaseNumberOfCountries() {
+        this.numberOfCountries--;
+        setChanged();
+        notifyObservers();
+    }
+
 
     /**
      * Increase the Number of Countries a Player owns
