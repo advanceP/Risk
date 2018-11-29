@@ -293,7 +293,7 @@ public class Node {
     	List<Node>hostile=new ArrayList<Node>();
     	for (String node : getAdjacencyList())
     	{
-    		Node neighbor=Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getName().equals(node)).findFirst().get();
+    		Node neighbor=Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getName().equalsIgnoreCase(node)).findFirst().get();
     		neighbors.add(neighbor);
 			
 		}

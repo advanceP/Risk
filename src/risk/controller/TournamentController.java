@@ -1,13 +1,11 @@
 package risk.controller;
 
-import risk.model.Graph;
 import risk.view.TournamentView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,21 +15,22 @@ import java.util.List;
 public class TournamentController {
 
     private TournamentView view;
-    private List<String> strategies=new ArrayList<>();
-    private List<File> maps=new ArrayList<>();
-    int numberofmap;
-    int numberofplayer;
-    int numberofgames;
+    private List<String> strategies = new ArrayList<>();
+    private List<File> maps = new ArrayList<>();
+    int mapNum;
+    int playerNum;
+    int times;
     int turns;
+
     public TournamentController() {
-        view=new TournamentView();
+        view = new TournamentView();
     }
 
     /**
      * show the menu
      */
     public void showMenu() {
-        JFrame frame=new JFrame("choose");
+        JFrame frame = new JFrame("choose");
         frame.setSize(800, 800);
         frame.add(view);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +41,7 @@ public class TournamentController {
 
     /**
      * add listener for buttons
+     *
      * @param frame this frame
      */
     public void addListener(JFrame frame) {
@@ -49,23 +49,23 @@ public class TournamentController {
         view.getConfirm().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                numberofmap = Integer.parseInt(view.getInputMapNumber().getText());
-                numberofplayer = Integer.parseInt(view.getInputPlayer().getText());
-                numberofgames = Integer.parseInt(view.getInputGames().getText());
+                mapNum = Integer.parseInt(view.getInputMapNumber().getText());
+                playerNum = Integer.parseInt(view.getInputPlayer().getText());
+                times = Integer.parseInt(view.getInputGames().getText());
                 turns = Integer.parseInt(view.getTurns().getText());
-                if(!(numberofmap>0&&numberofmap<6)) {
+                if (!(mapNum > 0 && mapNum < 6)) {
                     throw new RuntimeException("index out of bounds");
                 }
-                if(!(numberofplayer>1&&numberofmap<5)) {
+                if (!(playerNum > 1 && mapNum < 5)) {
                     throw new RuntimeException("index out of bounds");
                 }
-                if(!(numberofgames>0&&numberofmap<6)) {
+                if (!(times > 0 && mapNum < 6)) {
                     throw new RuntimeException("index out of bounds");
                 }
-                if(!(turns>9&&turns<51)) {
+                if (!(turns > 9 && turns < 51)) {
                     throw new RuntimeException("index out of bounds");
                 }
-                view.createMenu(numberofmap,numberofplayer);
+                view.createMenu(mapNum, playerNum);
                 addListenerDynamic(frame);
             }
         });
@@ -74,11 +74,11 @@ public class TournamentController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<JComboBox<String>> list = view.getStrategies();
-                for(JComboBox<String> j : list) {
+                for (JComboBox<String> j : list) {
                     String strategy = j.getSelectedItem().toString();
                     strategies.add(strategy);
                 }
-                if(maps.size()!=numberofmap) {
+                if (maps.size() != mapNum) {
                     throw new RuntimeException("numbers of map doesn't match");
                 }
                 startPlay();
@@ -89,11 +89,12 @@ public class TournamentController {
 
     /**
      * this method is be called when the number of maps and player is set
+     *
      * @param frame this frame
      */
     public void addListenerDynamic(JFrame frame) {
         List<JButton> mapButtons = view.getMapButtons();
-        for(JButton b : mapButtons) {
+        for (JButton b : mapButtons) {
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -114,21 +115,52 @@ public class TournamentController {
 
 
     public void startPlay() {
-        List<String> winners=new ArrayList<>();
-        for(File file :maps ) {
-            for(int i=0;i<numberofgames;i++) {
+        List<String> winners = new ArrayList<>();
+        for (File file : maps) {
+            for (int i = 0; i < times; i++) {
                 GameDriverController driver = GameDriverController.getGameDriverInstance();
                 driver.loadFile(file.getAbsolutePath());
-                driver.setPlayers(numberofplayer);
-                driver.giveStrategieToPlayer(strategies);
-                String winner="";
-                winner = driver.startGame(turns);
+                driver.setPlayers(playerNum, false);
+                driver.giveStrategyToPlayer(strategies, false);
+
+                String winner = driver.startGame(turns);
                 winners.add(winner);
-                Graph.getGraphInstance().reset();
-                driver.reset();
+                //Graph.getGraphInstance().reset();
+                //driver.reset();
             }
         }
-        view.createCell(numberofmap,numberofgames,winners);
+        view.createCell(mapNum, times, winners);
 
     }
+    /**
+     * <p>Description: just for test</p>
+     * @param mapPath
+     * @param players
+     * @param limit
+     * @return
+     * @author Yiying Liu
+     * @date 2018-11-27
+     */
+    /*public void startGame(String mapPath, List<String> players, int limit){
+
+        GameDriverController gameDriverController = GameDriverController.getGameDriverInstance(mapPath);
+
+        gameDriverController.setPlayers(players.size(), false);
+        gameDriverController.giveStrategyToPlayer(players, false);
+
+        Player player = null;
+        gameDriverController.playStartup(false);
+
+        for (int i = 0 ; i < limit; i++){
+            player = gameDriverController.getCurrentPlayer();
+            gameDriverController.reinforcementPhase(false);
+            gameDriverController.attackPhase(player, false);
+            gameDriverController.fortificationPhase(player, false);
+            if (player.isWin(gameDriverController.graph.getGraphNodes())){
+                break;
+            }
+            gameDriverController.changeCurrentPlayer(false);
+        }
+        System.out.println(player.getName());
+    }*/
 }

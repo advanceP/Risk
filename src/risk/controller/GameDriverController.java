@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -56,6 +57,11 @@ public class GameDriverController {
         view = GamePhase.getPanelInstance();
     }
 
+    private GameDriverController(File file){
+        graph = Graph.getGraphInstance();
+        loadFile(file.getAbsolutePath());
+
+    }
     /**
      * reset driver
      */
@@ -108,8 +114,9 @@ public class GameDriverController {
     }
 
     public String startGame(int turns) {
-        this.turns=turns;
-        String winner = playStartup();
+        this.turns = turns;
+        playStartup(false);
+        String winner = roundsOfComputer(false);
         return winner;
     }
 
@@ -147,7 +154,7 @@ public class GameDriverController {
                     }
                 }
             });
-
+            //add army by human players
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -174,9 +181,15 @@ public class GameDriverController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 view.hideFortifitionPhase();
-                changeCurrentPlayer();
-                state = "Reinforcement";
-                reinforcementPhase();
+                changeCurrentPlayer(true);
+                if (getCurrentPlayer().getStrategy() instanceof Human){
+                    reinforcementPhase(true);
+                }else {
+                    String result = roundsOfComputer(true);
+                    if (result != null && !result.isEmpty()){
+                        view.showWin();
+                    }
+                }
             }
         });
 
@@ -188,15 +201,15 @@ public class GameDriverController {
                 player.exchangeCardToArmies(cards);
             }
         });
-
+        //after choosing strategy ,start game
         view.getStartPlay().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<String> strategies = view.getstrategieInformation();
-                giveStrategieToPlayer(strategies);
+                giveStrategyToPlayer(strategies, true);
                 view.removeChooseStrategie();
                 state = "StartUp";
-                playStartup();
+                playStartup(true);
             }
         });
 
@@ -211,7 +224,7 @@ public class GameDriverController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Integer number = Integer.valueOf(view.getInputPlayerNumber().getText());
-                setPlayers(number);
+                setPlayers(number, true);
                 view.removeButtonSetPlayer();
                 view.chooseStrategieForPlayer(players);
             }
@@ -219,24 +232,20 @@ public class GameDriverController {
     }
 
     /**
-     * decide which player is playing the game,computer or human
+     * <p>Description: decide which player is playing the game,computer or human</p>
+     * @param needView true: need to show view in game
+     * @date 2018-11-27
      */
-    public String playStartup() {
-        Player player=getCurrentPlayer();
-        if(getAllReinforcement()>0) {
-            if (! (player.getStrategy() instanceof Human)) {
-                if(player.getReinforcement()>0 ){
-                    player.addArmyRandomly();
-                }
-                changeCurrentPlayer();
-                String winner = playStartup();
-                return winner;
+    public String playStartup(boolean needView){
+        Player currentPlayer = getCurrentPlayer();
+        while (! (currentPlayer.getStrategy() instanceof Human) && getAllReinforcement() > 0){
+            if (currentPlayer.getReinforcement() > 0){
+                currentPlayer.addArmyRandomly();
             }
-        }else{
-            state = "Reinforcement";
-            String winner=reinforcementPhase();
-            return winner;
+            changeCurrentPlayer(needView);
+            currentPlayer = getCurrentPlayer();
         }
+
         return null;
     }
 
@@ -254,23 +263,70 @@ public class GameDriverController {
                     if (country.getPlayer() == getCurrentPlayer()) {
                         if (country.getPlayer().getReinforcement() > 0) {
                             country.getPlayer().increaseArmy(country);
-                            changeCurrentPlayer();
-                            playStartup();
+                            changeCurrentPlayer(true);
+                            playStartup(true);
                             if (getAllReinforcement() == 0) {
-                                reinforcementPhase();
+                                reinforcementPhase(true);
                             }
                         } else {
-                            changeCurrentPlayer();
+                            changeCurrentPlayer(true);
                         }
                     }
+                    break;
                 }
             }
         }
     }
 
+    public String roundsOfComputer(boolean needView){
+        Player currentPlayer = getCurrentPlayer();
+        while (turns > 0){
+            if (!(currentPlayer.getStrategy() instanceof Human)){
+                reinforcementPhase(needView);
+                attackPhase(currentPlayer, needView);
+                if (currentPlayer.isWin(graph.getGraphNodes())){
+                    return currentPlayer.getName();
+                }
+                fortificationPhase(currentPlayer, needView);
+                changeCurrentPlayer(needView);
+                currentPlayer = getCurrentPlayer();
+                turns--;
+            } else {
+                reinforcementPhase(needView);
+                return null;
+            }
+
+        }
+        return "Draw";
+    }
 
     /**
-     * choose to add reinforcecment
+     * <p>Description: go into reinforcement phase</p>
+     * @param needView true: need to show view in game
+     * @date 2018-11-27
+     */
+    public String reinforcementPhase(boolean needView){
+        state = "Reinforcement";
+        Player currentPlayer = getCurrentPlayer();
+        currentPlayer.calculateReinforcement();
+        if (needView){
+            view.createCardView(currentPlayer);
+        }
+        currentPlayer.checkPlayerCard();
+        if (! (currentPlayer.getStrategy() instanceof Human)){
+            if (currentPlayer.getReinforcement() > 0){
+                currentPlayer.executeStrategyRein(null);
+                if (needView){
+                    view.remove(view.exchangeCard);
+                }
+
+            }
+        }
+        return null;
+    }
+
+    /**
+     * choose to add reinforcement
      * @param e mouse event
      */
     public void addReinforcement(MouseEvent e) {
@@ -288,50 +344,33 @@ public class GameDriverController {
             }
         } else {
             view.remove(view.exchangeCard);
-            attckPhase(player);
+            attackPhase(player, true);
         }
     }
 
-    /**
-     * go into reinforcementphase
-     */
-    public String reinforcementPhase() {
-        state = "Reinforcement";
-        Player currentPlayer = getCurrentPlayer();
-        currentPlayer.calculateReinforcement();
-        view.createCardView(currentPlayer);
-        currentPlayer.checkPlayerCard();
-        if(!(currentPlayer.getStrategy() instanceof Human)) {
-            int reinforces = currentPlayer.getReinforcement();
-            if (reinforces > 0) {
-                currentPlayer.executeStrategyRein(null);
-                view.remove(view.exchangeCard);
-                String winner=attckPhase(currentPlayer);
-                return winner;
-            }
-        }
-        return null;
-    }
 
     /**
-     * go in to attack phase
-     * @param player
+     * <p>Description: go in to attack phase</p>
+     * @param player current player
+     * @param needView true: need to show view in game
+     * @date 2018-11-27
      */
-    public String attckPhase(Player player) {
-        view.hideCardView();
+    public String attackPhase(Player player, boolean needView){
+        if (needView){
+            view.hideCardView();
+            view.add(view.endAttackPhase);
+        }
         player.setState("Attack");
         state = "Attack";
-        view.add(view.endAttackPhase);
-        boolean iswin=false;
-        if(!(player.getStrategy() instanceof Human)) {
-             iswin = player.attack(null, null, null, null);
-             //check is player alive
+        boolean isWin = false;
+        if (! (player.getStrategy() instanceof Human)){
+            isWin = player.attack(null, null,null, null);
             checkPlayerAlive();
-            if(!iswin) {
-                view.remove(view.endAttackPhase);
-                String winner = playerFortifition(player);
-                return winner;
-            }else{
+            if (isWin){
+                if (needView){
+                    view.remove(view.endAttackPhase);
+                }
+            }else if (needView){
                 view.showWin();
                 return player.getStrategy().toString();
             }
@@ -339,26 +378,6 @@ public class GameDriverController {
         return null;
     }
 
-    /**
-     * go into fortifition
-     * @param player the current player
-     */
-    public String playerFortifition(Player player) {
-        player.setState("Fortifition");
-        turns--;
-        if(turns==0) {
-            return "draw";
-        }else {
-            searchNodeByPlyaer();
-            if (!(player.getStrategy() instanceof Human)) {
-                player.fortification(null, null, null);
-                changeCurrentPlayer();
-                String winner = reinforcementPhase();
-                return winner;
-            }
-        }
-        return null;
-    }
 
     /**
      * get defender
@@ -381,6 +400,7 @@ public class GameDriverController {
                 break;
             }
         }
+
     }
 
     /**
@@ -400,6 +420,37 @@ public class GameDriverController {
         }
     }
 
+    /**
+     * <p>Description: go into fortification</p>
+     * @param player the current player
+     * @param needView true: need to show view in game
+     * @date 2018-11-26
+     */
+    public String fortificationPhase(Player player, boolean needView){
+        player.setState("Fortification");
+        searchNodeByPlayer(needView);
+        if (! (player.getStrategy() instanceof Human)){
+            player.fortification(null, null, null);
+        }
+        return null;
+    }
+        /*
+    public String playerFortifition(Player player, boolean needView) {
+        player.setState("Fortification");
+        turns--;
+        if(turns==0) {
+            return "draw";
+        }else {
+            searchNodeByPlayer(needView);
+            if(!(player.getStrategy() instanceof Human)) {
+                player.fortification(null,null ,null );
+                changeCurrentPlayer(needView);
+                String winner =  reinforcementPhase(needView);
+                return winner;
+            }
+        }
+        return null;
+    }*/
 
     /**
      * select fortify army from view
@@ -409,7 +460,12 @@ public class GameDriverController {
         Node from = (Node) view.getFortifyFrom().getSelectedItem();
         Node to = (Node) view.getFortifyTo().getSelectedItem();
         int number = (Integer) view.getFortifyArmies().getSelectedItem();
-        player.fortification(from, to, number);
+        if (from.getArmies() - 1 > number){
+            player.fortification(from, to, number);
+        }else {
+            throw new RuntimeException("There is no more armies");
+        }
+
     }
 
     /**
@@ -428,11 +484,14 @@ public class GameDriverController {
     /**
      * search the fortify army by player
      */
-    public void searchNodeByPlyaer() {
-        view.getFortifyFrom().removeAllItems();
+    public void searchNodeByPlayer(boolean needView) {
+
         Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
-        for (Node node : player.getNodeList()) {
-            view.getFortifyFrom().addItem(node);
+        if (needView) {
+            view.getFortifyFrom().removeAllItems();
+            for (Node node : player.getNodeList()) {
+                view.getFortifyFrom().addItem(node);
+            }
         }
     }
 
@@ -499,7 +558,8 @@ public class GameDriverController {
                 view.remove(view.endAttackPhase);
                 retreat();
                 Player player = getCurrentPlayer();
-                playerFortifition(player);
+                fortificationPhase(player, true);
+                //playerFortifition(player, true);
             }
         });
 
@@ -563,8 +623,10 @@ public class GameDriverController {
      * @return gameDriver an instance of the class's dataType
      */
     public static GameDriverController getGameDriverInstance() {
-        if (gameDriver == null)
+        if (gameDriver == null){
             gameDriver = new GameDriverController();
+        }
+
         return gameDriver;
     }
 
@@ -573,7 +635,7 @@ public class GameDriverController {
      *
      * @param numberOfPlayers number of players.
      */
-    public void setPlayers(int numberOfPlayers) {
+    public void setPlayers(int numberOfPlayers, boolean needView) {
         if (numberOfPlayers > 4)
             throw new RuntimeException("number of players should be less than 4");
         int colorindex = 0;
@@ -585,7 +647,10 @@ public class GameDriverController {
             temporaryplayer.setName("Player_" + i);
             players.add(temporaryplayer);
         }
-        view.createPlayerLabel(players);
+        if (needView){
+            view.createPlayerLabel(players);
+        }
+
         for (int i = 0; i < players.size(); i++)
             players.get(i).setReinforcement(numberofarmies);
         int playerindex = 0;
@@ -598,22 +663,33 @@ public class GameDriverController {
                 playerindex = 0;
             }
         }
-        for (int i = 0; i < players.size(); i++) {
-            players.get(i).setColor(staticColorList.get(colorindex));
-            colorindex++;
+        if (needView){
+            for (int i = 0; i < players.size(); i++) {
+                players.get(i).setColor(staticColorList.get(colorindex));
+                colorindex++;
+            }
         }
+
         for (int i = 0; i < players.size(); i++) {
             for (int j = 0; j < graph.getGraphNodes().size(); j++)
                 if (graph.getGraphNodes().get(j).getPlayer().getName().equals(players.get(i).getName()))
                     players.get(i).increaseNumberOfCountries();
         }
     }
-
-    public void giveStrategieToPlayer(List<String> strategies) {
+    /**
+     * <p>Description: give a strategy to each player</p>
+     * @param strategies  strategies List of players
+     * @param needView  true: need to show view in game
+     * @date 2018-11-26
+     */
+    public void giveStrategyToPlayer(List<String> strategies, boolean needView) {
         int index=0;
         for (Player player : players) {
+
             player.setStrategy(strategies.get(index));
-            player.addObserver(view);
+            if (needView){
+                player.addObserver(view);
+            }
             player.setState("StartUp");
             index++;
         }
@@ -636,21 +712,27 @@ public class GameDriverController {
      */
     public Player getCurrentPlayer() {
         //emergency surgey,why removing the player,index somehow went wrong
-        if(index==players.size()) index--;
+        if(index==players.size()){
+            index--;
+        }
         return players.get(index);
     }
 
-
     /**
-     * this method changes the current player in a round robin fashion
+     * <p>Description: this method changes the current player in a round robin fashion</p>
+     * @param needView true: need to show view in game
+     * @date 2018-11-26
      */
-    public void changeCurrentPlayer() {
+    public void changeCurrentPlayer(boolean needView) {
         if (index < players.size() - 1)
             index++;
         else {
             index = 0;
         }
-        view.repaint();
+        if (needView){
+            view.repaint();
+        }
+
     }
 
 

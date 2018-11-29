@@ -34,6 +34,12 @@ public class RiskGameController {
         mapEditorController = new MapEditorController();
         gameDriverController = GameDriverController.getGameDriverInstance();
     }
+    /**
+     for computer game test
+     */
+    public RiskGameController(){
+
+    }
 
     /**
      * return view instance
@@ -120,13 +126,16 @@ public class RiskGameController {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == view.getCreateContinent()) {
                     String information = view.getContinentInformation().getText();
-                    if (information.equals("")) {
-                        return;
-                    } else {
+
+                    if (!information.isEmpty()) {
                         String[] split = information.split(";");
                         List<Continent> listContinents = new ArrayList<>();
                         for (int i = 0; i < split.length; i++) {
                             String[] str = split[i].split(",");
+                            //List<String> list = Arrays.asList(str);
+                            //remove same name of continents
+                            //list.stream().distinct().collect(Collectors.toList());
+
                             for (int j = 0; j < str[j].length(); j++) {
                                 int awardUnit = Integer.valueOf(str[1]);
                                 Continent continent = new Continent(str[0], awardUnit);
@@ -183,6 +192,5 @@ public class RiskGameController {
             }
         });
     }
-
 
 }

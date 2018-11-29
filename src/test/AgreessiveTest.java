@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 public class AgreessiveTest {
 
@@ -36,11 +36,11 @@ public class AgreessiveTest {
 
     @Test
     public void testReachableNodes() {
-        driver.setPlayers(2);
+        driver.setPlayers(2, true);
         List<String> str = new ArrayList<>();
         str.add("Aggressive");
         str.add("Aggressive");
-        driver.giveStrategieToPlayer(str);
+        driver.giveStrategyToPlayer(str, true);
         List<Player> players = driver.getPlayers();
         Player currentPlayer = driver.getCurrentPlayer();
         List<Node> nodeList = currentPlayer.getNodeList();
@@ -58,11 +58,11 @@ public class AgreessiveTest {
 
     @Test
     public void testGetStrongestNode() {
-        driver.setPlayers(2);
+        driver.setPlayers(2, true);
         List<String> str = new ArrayList<>();
         str.add("Aggressive");
         str.add("Aggressive");
-        driver.giveStrategieToPlayer(str);
+        driver.giveStrategyToPlayer(str,true);
         List<Player> players = driver.getPlayers();
         Player currentPlayer = driver.getCurrentPlayer();
         List<Node> nodeList = currentPlayer.getNodeList();
@@ -72,4 +72,96 @@ public class AgreessiveTest {
         assertSame(nodeList.get(0), strongestNode);
     }
 
+    /**
+     * test to see if weather benevolent player attack or not(it should not)
+     */
+    @Test
+    public void testBenevolentAttack() {
+        driver.setPlayers(2,true);
+        List<String> str = new ArrayList<>();
+        str.add("Benevolent");
+        str.add("Benevolent");
+        driver.giveStrategyToPlayer(str, true);
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        nodeList.get(0).setArmies(10);
+        //currentPlayer.executeStrategyRein(null);
+        boolean attack = currentPlayer.attack(null, null, null, null);
+        assertFalse(attack);
+
+    }
+
+    /**
+     * test to see if the Cheater player reinforcement double the number of armies
+     */
+    @Test
+    public void testCheaterReinforcement() {
+        driver.setPlayers(2,true);
+        List<String> str = new ArrayList<>();
+        str.add("Cheater");
+        str.add("Cheater");
+        driver.giveStrategyToPlayer(str, true);
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        nodeList.get(0).setArmies(10);
+        Cheater strategy = (Cheater) currentPlayer.getStrategy();
+        strategy.reinforcement(null);
+        int cheaterArmies = nodeList.get(0).getArmies();
+        int expectedArmeis =20;
+        assertSame(expectedArmeis,cheaterArmies);
+    }
+
+
+
+    /**
+     * test to see if the Cheater player reinforcement double the number of armies and it's in all countries
+     */
+    @Test
+    public void testCheaterReinforcementAll() {
+        driver.setPlayers(2, true);
+        List<String> str = new ArrayList<>();
+        str.add("Cheater");
+        str.add("Cheater");
+        driver.giveStrategyToPlayer(str, true);
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        nodeList.get(0).setArmies(10);
+        nodeList.get(1).setArmies(2);
+        Cheater strategy = (Cheater) currentPlayer.getStrategy();
+        strategy.reinforcement(null);
+        int cheaterArmies = nodeList.get(0).getArmies();
+        int expectedArmeis =20;
+        int cheaterArmies2 = nodeList.get(1).getArmies();
+        int expectedArmeis2 =4;
+        assertSame(expectedArmeis,cheaterArmies);
+        assertSame(expectedArmeis2,cheaterArmies2);
+    }
+
+
+    /**
+     * test to see if the Aggressive player reinforcement only increase the strongest Country
+     */
+    @Test
+    public void testAgressive() {
+        driver.setPlayers(2, true);
+        List<String> str = new ArrayList<>();
+        str.add("Aggressive");
+        str.add("Aggressive");
+        driver.giveStrategyToPlayer(str, true);
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        Node node1 = nodeList.get(0);
+        Node anotherNode = nodeList.get(1);
+        node1.setArmies(10);
+        anotherNode.setArmies(3);
+        int strongestNodeArmiesBefore = node1.getArmies();
+        int anotherNodeArmiesBefore = anotherNode.getArmies();
+        Aggressive strategy = (Aggressive) currentPlayer.getStrategy();
+        strategy.reinforcement(null);
+        Node strongestNode = strategy.getStrongestNode(nodeList);
+        int strongestNodeArmiesAfter = strongestNode.getArmies();
+        int anotherNodeArmiesAfter = anotherNode.getArmies();
+        assertSame(anotherNodeArmiesBefore,anotherNodeArmiesAfter);
+        assertThat(strongestNodeArmiesAfter, not(equalTo(strongestNodeArmiesBefore)));
+    }
 }

@@ -198,13 +198,13 @@ public class Graph {
      * @param root  the start Node
      */
     public void DFS(Graph graph, Node root) {
-        graph.getGraphNodes().stream().filter(item -> item.getName().equals(root.getName())).findFirst().get().setVisited(true);
+        graph.getGraphNodes().stream().filter(item -> item.getName().equalsIgnoreCase(root.getName())).findFirst().get().setVisited(true);
         Iterator<String> i = root.getAdjacencyList().listIterator();
         while (i.hasNext()) {
             String name = i.next();
             Node src = null;
-            if (graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
-                src = graph.getGraphNodes().stream().filter(item -> item.getName().equals(name)).findAny().get();
+            if (graph.getGraphNodes().stream().filter(item -> item.getName().equalsIgnoreCase(name)).findAny().isPresent()) {
+                src = graph.getGraphNodes().stream().filter(item -> item.getName().equalsIgnoreCase(name)).findAny().get();
                 if (src.isVisited() == false) {
                     DFS(graph, src);
                 }
@@ -298,7 +298,7 @@ public class Graph {
         List<Node> adjacencylist = new ArrayList<Node>();
         for (int i = 0; i < root.getAdjacencyList().size(); i++) {
             String adjacentname = root.getAdjacencyList().get(i);
-            Node adjacentNode = this.getGraphNodes().stream().filter(item -> item.getName().equals(adjacentname)).findFirst().get();
+            Node adjacentNode = this.getGraphNodes().stream().filter(item -> item.getName().equalsIgnoreCase(adjacentname)).findFirst().get();
             if (adjacentNode.getPlayer().getName().equals(playername)) {
                 adjacencylist.add(adjacentNode);
             }
@@ -310,7 +310,7 @@ public class Graph {
             List<Node> neighbors = new ArrayList<Node>();
             for (int i = 0; i < node.getAdjacencyList().size(); i++) {
                 String adjacentname = node.getAdjacencyList().get(i);
-                Node adjacentNode = this.getGraphNodes().stream().filter(item -> item.getName().equals(adjacentname)).findFirst().get();
+                Node adjacentNode = this.getGraphNodes().stream().filter(item -> item.getName().equalsIgnoreCase(adjacentname)).findFirst().get();
                 if (adjacentNode.getPlayer().getName().equals(playername)) {
                     neighbors.add(adjacentNode);
                 }
@@ -336,13 +336,13 @@ public class Graph {
      * @param root     the starting node
      */
     public void subSetDFS(List<Node> nodeList, Node root) {
-        nodeList.stream().filter(item -> item.getName().equals(root.getName())).findFirst().get().setVisited(true);
+        nodeList.stream().filter(item -> item.getName().equalsIgnoreCase(root.getName())).findFirst().get().setVisited(true);
         Iterator<String> i = root.getAdjacencyList().listIterator();
         while (i.hasNext()) {
             String name = i.next();
             Node src = null;
-            if (nodeList.stream().filter(item -> item.getName().equals(name)).findAny().isPresent()) {
-                src = nodeList.stream().filter(item -> item.getName().equals(name)).findAny().get();
+            if (nodeList.stream().filter(item -> item.getName().equalsIgnoreCase(name)).findAny().isPresent()) {
+                src = nodeList.stream().filter(item -> item.getName().equalsIgnoreCase(name)).findAny().get();
                 if (src.isVisited() == false) {
                     subSetDFS(nodeList, src);
              }
