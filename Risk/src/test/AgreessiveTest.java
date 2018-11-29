@@ -98,6 +98,30 @@ public class AgreessiveTest {
     
     
 
+    /**
+     * test to see if the Cheater player reinforcement double the number of armies and it's in all countries
+     */
+    @Test
+    public void testCheaterReinforcementAll() {
+        driver.setPlayers(2);
+        List<String> str = new ArrayList<>();
+        str.add("Cheater");
+        str.add("Cheater");
+        driver.giveStrategieToPlayer(str);
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        nodeList.get(0).setArmies(10);
+        nodeList.get(1).setArmies(2);
+        Cheater strategy = (Cheater) currentPlayer.getStrategy();
+        strategy.reinforcement(null);
+        int cheaterArmies = nodeList.get(0).getArmies();
+        int expectedArmeis =20;
+        int cheaterArmies2 = nodeList.get(1).getArmies();
+        int expectedArmeis2 =4;
+        assertSame(expectedArmeis,cheaterArmies);
+        assertSame(expectedArmeis2,cheaterArmies2);
+    }
+    
     
     
 
