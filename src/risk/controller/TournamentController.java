@@ -113,7 +113,11 @@ public class TournamentController {
         }
     }
 
-
+    /**
+     * <p>Description: computers play several games in several maps</p>
+     * @author Yiying Liu
+     * @date 2018-11-29
+     */
     public void startPlay() {
         List<String> winners = new ArrayList<>();
         for (File file : maps) {
@@ -125,42 +129,10 @@ public class TournamentController {
 
                 String winner = driver.startGame(turns);
                 winners.add(winner);
-                //Graph.getGraphInstance().reset();
-                //driver.reset();
+                driver.reset();
             }
         }
         view.createCell(mapNum, times, winners);
 
     }
-    /**
-     * <p>Description: just for test</p>
-     * @param mapPath
-     * @param players
-     * @param limit
-     * @return
-     * @author Yiying Liu
-     * @date 2018-11-27
-     */
-    /*public void startGame(String mapPath, List<String> players, int limit){
-
-        GameDriverController gameDriverController = GameDriverController.getGameDriverInstance(mapPath);
-
-        gameDriverController.setPlayers(players.size(), false);
-        gameDriverController.giveStrategyToPlayer(players, false);
-
-        Player player = null;
-        gameDriverController.playStartup(false);
-
-        for (int i = 0 ; i < limit; i++){
-            player = gameDriverController.getCurrentPlayer();
-            gameDriverController.reinforcementPhase(false);
-            gameDriverController.attackPhase(player, false);
-            gameDriverController.fortificationPhase(player, false);
-            if (player.isWin(gameDriverController.graph.getGraphNodes())){
-                break;
-            }
-            gameDriverController.changeCurrentPlayer(false);
-        }
-        System.out.println(player.getName());
-    }*/
 }

@@ -68,13 +68,7 @@ public class GameDriverController {
      */
      public void reset() {
          index = 0;
-         graph = Graph.getGraphInstance();
-         staticColorList = new ArrayList<Color>();
-         staticColorList.add(Color.BLUE);
-         staticColorList.add(Color.GREEN);
-         staticColorList.add(Color.RED);
-         staticColorList.add(Color.YELLOW);
-         view = GamePhase.getPanelInstance();
+         players = new ArrayList<Player>();
      }
 
     /**
@@ -267,7 +261,7 @@ public class GameDriverController {
                             changeCurrentPlayer(true);
                             playStartup(true);
                             if (getAllReinforcement() == 0) {
-                                reinforcementPhase(true);
+                                roundsOfComputer(true);
                             }
                         } else {
                             changeCurrentPlayer(true);
@@ -278,7 +272,13 @@ public class GameDriverController {
             }
         }
     }
-
+    /**
+     * <p>Description: what computer do in it's turn</p>
+     * @param needView true: need to show view in game
+     * @return  winner's name   if it ran out of turns ,it will return "Draw"
+     * @author Yiying Liu
+     * @date 2018-11-29
+     */
     public String roundsOfComputer(boolean needView){
         Player currentPlayer = getCurrentPlayer();
         while (turns > 0){
@@ -435,23 +435,7 @@ public class GameDriverController {
         }
         return null;
     }
-        /*
-    public String playerFortifition(Player player, boolean needView) {
-        player.setState("Fortification");
-        turns--;
-        if(turns==0) {
-            return "draw";
-        }else {
-            searchNodeByPlayer(needView);
-            if(!(player.getStrategy() instanceof Human)) {
-                player.fortification(null,null ,null );
-                changeCurrentPlayer(needView);
-                String winner =  reinforcementPhase(needView);
-                return winner;
-            }
-        }
-        return null;
-    }*/
+
 
     /**
      * select fortify army from view
@@ -461,7 +445,7 @@ public class GameDriverController {
         Node from = (Node) view.getFortifyFrom().getSelectedItem();
         Node to = (Node) view.getFortifyTo().getSelectedItem();
         int number = (Integer) view.getFortifyArmies().getSelectedItem();
-        if (from.getArmies() - 1 > number){
+        if (from.getArmies() > number){
             player.fortification(from, to, number);
         }else {
             throw new RuntimeException("There is no more armies");
@@ -560,7 +544,6 @@ public class GameDriverController {
                 retreat();
                 Player player = getCurrentPlayer();
                 fortificationPhase(player, true);
-                //playerFortifition(player, true);
             }
         });
 
