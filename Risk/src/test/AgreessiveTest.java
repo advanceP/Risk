@@ -123,7 +123,32 @@ public class AgreessiveTest {
     }
     
     
-    
+    /**
+     * test to see if the Aggressive player reinforcement only increase the strongest Country
+     */
+    @Test
+    public void testAgressive() {
+        driver.setPlayers(2);
+        List<String> str = new ArrayList<>();
+        str.add("Aggressive");
+        str.add("Aggressive");
+        driver.giveStrategieToPlayer(str);
+        Player currentPlayer = driver.getCurrentPlayer();
+        List<Node> nodeList = currentPlayer.getNodeList();
+        Node node1 = nodeList.get(0);
+        Node anotherNode = nodeList.get(1);
+        node1.setArmies(10);
+        anotherNode.setArmies(3);
+        int strongestNodeArmiesBefore = node1.getArmies();
+        int anotherNodeArmiesBefore = anotherNode.getArmies();
+        Aggressive strategy = (Aggressive) currentPlayer.getStrategy();
+        strategy.reinforcement(null);
+        Node strongestNode = strategy.getStrongestNode(nodeList);
+        int strongestNodeArmiesAfter = strongestNode.getArmies();
+        int anotherNodeArmiesAfter = anotherNode.getArmies();
+        assertSame(anotherNodeArmiesBefore,anotherNodeArmiesAfter);
+        assertThat(strongestNodeArmiesAfter, not(equalTo(strongestNodeArmiesBefore)));
+    }
 
 
 
