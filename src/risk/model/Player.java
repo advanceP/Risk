@@ -488,7 +488,7 @@ public class Player extends Observable {
      * @return boolean
      */
     public boolean isWin(List<Node> nodes) {
-        if (numberOfCountries == nodes.size()) {
+        if (getNodeList().size() == nodes.size()) {
             this.setState("Win");
             return true;
         }
