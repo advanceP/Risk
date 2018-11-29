@@ -17,7 +17,8 @@ import org.junit.runners.Suite;
         FileControllerTest.class,
         GameDriverTest.class,
         GraphTest.class,
-        PlayerTest.class
+        PlayerTest.class,
+        AgreessiveTest.class,
 })
 
 public class JunitTestSuite 

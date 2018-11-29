@@ -56,7 +56,12 @@ public class Benevolent implements Strategy {
     		List<Node>weakCountries=weakestCountries();
     		Node strongcountry=weakCountries.get(weakCountries.size()-1);
     		List<Node>reachableweakcountries=weakestCountries(Graph.getGraphInstance().reachableNodes(strongcountry));
-			Node weakcountry=reachableweakcountries.get(0);
+    		Node weakcountry=null;
+    		if(!reachableweakcountries.isEmpty())
+    		{
+			weakcountry=reachableweakcountries.get(0);
+    		}
+    		weakcountry=strongcountry;
 			int numberofarmies=(strongcountry.getArmies()-weakcountry.getArmies())/2;
 			strongcountry.setArmies(strongcountry.getArmies()-numberofarmies);
 			weakcountry.setArmies(weakcountry.getArmies()+numberofarmies);

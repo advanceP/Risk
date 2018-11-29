@@ -40,7 +40,12 @@ public class RandomPlayer implements Strategy{
     		int max=firstnode.getArmies()-1;
     		int numberofarmies=rnd.nextInt(max-min)+min;
     		List<Node> reachable=Graph.getGraphInstance().reachableNodes(firstnode);
-    		Node secondnode=reachable.get(rnd.nextInt(reachable.size()));
+    		Node secondnode=null;
+    		if(!reachable.isEmpty())
+    		{
+    		secondnode=reachable.get(rnd.nextInt(reachable.size()));
+    		}
+    		secondnode=firstnode;
     		firstnode.setArmies(firstnode.getArmies()-numberofarmies);
     		secondnode.setArmies(secondnode.getArmies()+numberofarmies);	
     	}
@@ -67,24 +72,24 @@ public class RandomPlayer implements Strategy{
 		}
 		for (int i = 0; i < attackerdicelist.size() && i < defenderdicelist.size() && i < 2; i++) {
 			if (attackerdicelist.get(i) > defenderdicelist.get(i)) {
-				defender.setArmies(defender.getArmies() - 1);
+				defendernode.setArmies(defendernode.getArmies() - 1);
 			} else {
-				attacker.setArmies(attacker.getArmies() - 1);
+				attacknode.setArmies(attacknode.getArmies() - 1);
 			}
-			if (attacker.getArmies() == 1) {
+			if (attacknode.getArmies() == 1) {
 				return false;
 			}
-			if(defender.getArmies()==0) {
+			if(defendernode.getArmies()==0) {
 				player.increaseNumberOfCountries();;
-                defender.setPlayer(player);
+				defendernode.setPlayer(player);
                 List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
                 int size = list.size();
-                attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
+                attacknode.getPlayer().addCards(list.get(rnd.nextInt(size)));
 
-                if(defender.getPlayer().getNodeList().size()<1)
+                if(defendernode.getPlayer().getNodeList().size()<1)
                 {
-                    attacker.getPlayer().addCards(defender.getPlayer().getCards());
-                    defender.getPlayer().setCards(null);
+                    attacknode.getPlayer().addCards(defendernode.getPlayer().getCards());
+                    defendernode.getPlayer().setCards(null);
                 }
                 return true;
 			}
