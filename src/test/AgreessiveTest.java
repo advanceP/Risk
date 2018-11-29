@@ -127,7 +127,7 @@ public class AgreessiveTest {
      * test to see if the Aggressive player reinforcement only increase the strongest Country
      */
     @Test
-    public void testAgressive() {
+    public void testAggressive() {
         driver.setPlayers(2, false);
         driver.getPlayers().get(0).setStrategy("Aggressive");
         driver.getPlayers().get(1).setStrategy("Aggressive");

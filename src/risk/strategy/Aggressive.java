@@ -17,16 +17,19 @@ import java.util.Random;
 public class Aggressive implements Strategy {
     /**
      * aggressive attack
+     *
      * @param node if it's computer ,pass null
      */
     @Override
     public void reinforcement(Node node) {
-        Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
-        if(node==null) {
+        Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
+        //GameWriter.getGameWriterInstance().Write("[Reinforcement]");
+        if (node == null) {
             List<Node> nodeList = player.getNodeList();
             Node strongest = getStrongestNode(nodeList);
             int reinforcement = player.getReinforcement();
-            //GameWriter.getGameWriterInstance().Write("Player: "+strongest.getPlayer().getName()+", Reinforced Node: "+strongest.getName()+",Number of armies:"+reinforcement+"\n");
+            //GameWriter.getGameWriterInstance().Write("Reinforced Node: " + strongest.getName() + ",Number of armies:" + reinforcement + "\n");
+
             while (reinforcement > 0) {
                 strongest.increaseArmy();
                 strongest.getPlayer().decreaseReinforcement();
@@ -38,25 +41,26 @@ public class Aggressive implements Strategy {
 
     /**
      * get the strongest in player's node
+     *
      * @param nodeList player's node
      * @return the strongest node
      */
     public Node getStrongestNode(List<Node> nodeList) {
-        Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
-        List<Node> candidates=new ArrayList<>();
+        Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
+        List<Node> candidates = new ArrayList<>();
         for (Node node : nodeList) {
             List<Node> adjacencyList = node.getAdjacencyNodes();
-            for(Node adj:adjacencyList) {
-                if(adj.getPlayer()!=player) {
+            for (Node adj : adjacencyList) {
+                if (adj.getPlayer() != player) {
                     candidates.add(node);
                     break;
                 }
             }
         }
         Node strongest = candidates.get(0);
-        for(Node n:candidates) {
-            if(n.getArmies()>strongest.getArmies()) {
-                strongest=n;
+        for (Node n : candidates) {
+            if (n.getArmies() > strongest.getArmies()) {
+                strongest = n;
             }
         }
         return strongest;
@@ -64,66 +68,69 @@ public class Aggressive implements Strategy {
 
     /**
      * aggressive attack
-     * @param attacker the attack node
-     * @param defender the defend node
+     *
+     * @param attacker     the attack node
+     * @param defender     the defend node
      * @param attackerdice
      * @param defenderdice
      * @return is the attack win all the map
      */
     @Override
     public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
-        Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
+        Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
+        GameWriter.getGameWriterInstance().Write("[Attack]");
         if (attacker == null && defender == null) {
             List<Node> nodes = selectNodesForAttack(player);
             if (nodes.isEmpty()) {
                 return false;
             }
             List<Node> allNodes = Graph.getGraphInstance().getGraphNodes();
+
             //begin attack
-            int index=0;
-            while(index<nodes.size()) {
-                attacker=nodes.get(index);
-                while (attacker.getArmies() > 1 ) {
+            int index = 0;
+            while (index < nodes.size()) {
+                attacker = nodes.get(index);
+                while (attacker.getArmies() > 1) {
                     defender = chooseDefender(attacker, allNodes, player);
-                    if (defender != null && defender.getPlayer()!= player) {
-                    	
+                    if (defender != null && defender.getPlayer() != player) {
+
                         List<List<Integer>> diceNumList = getDiceNumList(attacker);
-                        List<Integer> diceresult = defender.getPlayer().getStrategy().Defend(diceNumList.get(0).size(),defender);
-                        diceNumList.add(diceresult);//add Defender
-                       // GameWriter.getGameWriterInstance().Write("Attacking Country: "+attacker.getName()+
-                        //		", Defending Country: "+defender.getName()+"");
-                        boolean flag=false;
+                        List<Integer> diceResult = defender.getPlayer().getStrategy().
+                                Defend(diceNumList.get(0).size(), defender);
+                        diceNumList.add(diceResult);//add Defender
+                        GameWriter.getGameWriterInstance().Write(player.getName() + ": Attacking Country: " + attacker.getName() +
+                                ", Defending Country: " + defender.getName() + "");
+                        boolean flag = false;
                         //attack
-                        while(!flag) {
-                            flag=attackResult(attacker, defender, diceNumList);
-                            if(attacker.getArmies()==1) {
-                            	//GameWriter.getGameWriterInstance().Write(attacker.getName()+" retreated\n");
+                        while (!flag) {
+                            flag = attackResult(attacker, defender, diceNumList);
+                            if (attacker.getArmies() == 1) {
                                 break;
                             }
                         }
-                        if(flag) {
-                        	//GameWriter.getGameWriterInstance().Write(defender.getName()+" got defeated\n");
+                        if (flag) {
+                            GameWriter.getGameWriterInstance().Write(defender.getName() + " got defeated\n");
                             //move army
                             defender.getPlayer().decreaseNumberOfCountries();
                             defender.setPlayer(player);
                             player.increaseNumberOfCountries();
-                            moveArmyToConquestCountry(attacker,defender);
+                            moveArmyToConquestCountry(attacker, defender);
                             nodes.add(defender);
                         }
-                    }else {
+                    } else {
                         break;
                     }
                 }
                 index++;
             }
-            boolean checkAllcountryBelongToPlayer=true;
-            for(Node n:allNodes) {
-                if(n.getPlayer()!=player) {
-                    checkAllcountryBelongToPlayer=false;
+            boolean checkAllcountryBelongToPlayer = true;
+            for (Node n : allNodes) {
+                if (n.getPlayer() != player) {
+                    checkAllcountryBelongToPlayer = false;
                 }
             }
             System.out.println("End Aggressive Attack");
-            //GameWriter.getGameWriterInstance().close();
+            GameWriter.getGameWriterInstance().flush();
             return checkAllcountryBelongToPlayer;
         }
         return false;
@@ -131,6 +138,7 @@ public class Aggressive implements Strategy {
 
     /**
      * get the number of dice
+     *
      * @param attacker the attack node
      * @return number of dice
      */
@@ -139,7 +147,7 @@ public class Aggressive implements Strategy {
         List<Integer> attackerList = new ArrayList<>();
         resultList.add(attackerList);
         Random random = new Random();
-        for (int i = 0; i < attacker.getArmies() && i<4; i++) {
+        for (int i = 0; i < attacker.getArmies() && i < 4; i++) {
             attackerList.add(random.nextInt(6) + 1);
         }
 
@@ -151,8 +159,9 @@ public class Aggressive implements Strategy {
 
     /**
      * this is the attack result
-     * @param attacker attack node
-     * @param defender defend node
+     *
+     * @param attacker    attack node
+     * @param defender    defend node
      * @param diceNumList the dices
      * @return boolean ,if denfender is be conquest,true
      */
@@ -184,31 +193,35 @@ public class Aggressive implements Strategy {
 
     /**
      * move army from attacker to defender
-     * @param node attacker
+     *
+     * @param node            attacker
      * @param conquestCountry defender
      */
     private void moveArmyToConquestCountry(Node node, Node conquestCountry) {
-        if(node.getArmies()>2){
+        if (node.getArmies() > 2) {
             conquestCountry.setArmies(2);
-            node.setArmies(node.getArmies()-2);
-        	GameWriter.getGameWriterInstance().Write("moved armies: "+2+"\n");
-        }else{
+            node.setArmies(node.getArmies() - 2);
+            GameWriter.getGameWriterInstance().Write(node.getPlayer().getName() + ": " + node.getName() +
+                    " moved 2" + " armies to " + conquestCountry.getName() + "\n");
+        } else {
             conquestCountry.setArmies(1);
-            node.setArmies(node.getArmies()-1);
-            GameWriter.getGameWriterInstance().Write("moved armies: "+1+"\n");
+            node.setArmies(node.getArmies() - 1);
+            GameWriter.getGameWriterInstance().Write(node.getPlayer().getName() + ": " + node.getName() +
+                    " moved 1" + " armies to " + conquestCountry.getName() + "\n");
         }
     }
 
     /**
      * choose a defender base on attacker
-     * @param node attacker
+     *
+     * @param node     attacker
      * @param allNodes all nodes in graph
-     * @param player the currentplayer
+     * @param player   the currentplayer
      * @return defender
      */
     private Node chooseDefender(Node node, List<Node> allNodes, Player player) {
         List<Node> adjacencyList = node.getAdjacencyNodes();
-        for(Node country:adjacencyList) {
+        for (Node country : adjacencyList) {
             if (country.getPlayer() != player) {
                 return country;
             }
@@ -218,13 +231,14 @@ public class Aggressive implements Strategy {
 
     /**
      * select country for attack
+     *
      * @param player the current player
      * @return list of attack node
      */
     private List<Node> selectNodesForAttack(Player player) {
-        List<Node> nodes=new ArrayList<>();
-        for(Node node:player.getNodeList()) {
-            if(node.getArmies()>1) {
+        List<Node> nodes = new ArrayList<>();
+        for (Node node : player.getNodeList()) {
+            if (node.getArmies() > 1) {
                 nodes.add(node);
             }
         }
@@ -233,44 +247,58 @@ public class Aggressive implements Strategy {
 
     /**
      * fortification phase
-     * @param from  the country gonna fortify,null if it's a computer
-     * @param to  the country gonna  receive fortify,null if it's a computer
+     *
+     * @param from   the country gonna fortify,null if it's a computer
+     * @param to     the country gonna  receive fortify,null if it's a computer
      * @param armies the army gonna fortify,null if it's a computer
      */
     @Override
     public void fortification(Node from, Node to, Integer armies) {
-        Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
-        if(from==null && to==null){
+        Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
+        GameWriter.getGameWriterInstance().Write("[Fortification]");
+        if (from == null && to == null) {
             List<Node> list = player.getNodeList();
             to = getStrongestNode(list);
             List<Node> reachableNodes = new ArrayList<>();
-            reachableNodes=Graph.getGraphInstance().reachableNodes(to);
+            reachableNodes = Graph.getGraphInstance().reachableNodes(to);
             reachableNodes.retainAll(list);
-            for(Node node:reachableNodes) {
-                from=node;
-                if(from.getArmies()>1){
-                   while(from.getArmies()>1) {
-                       from.setArmies(from.getArmies()-1);
-                       to.setArmies(to.getArmies()+1);
-                   }
+            if (reachableNodes.isEmpty()){
+                GameWriter.getGameWriterInstance().Write("There is no more country to fortify");
+            }
+            boolean hasFortification = false;
+            for (Node node : reachableNodes) {
+                from = node;
+
+                if (from.getArmies() > 1) {
+                    int moveNum = from.getArmies() - 1;
+                    to.setArmies(to.getArmies() + moveNum);
+                    from.setArmies(1);
+                    hasFortification = true;
+                    GameWriter.getGameWriterInstance().Write(player.getName() + " moved " + moveNum + " army/armies from " + from.getName() + " to " + to.getName());
                 }
+
+            }
+            if (!hasFortification){
+                GameWriter.getGameWriterInstance().Write("There is no more army to fortify");
             }
         }
+        GameWriter.getGameWriterInstance().flush();
     }
 
     /**
      * in fortification ,search nodes for fortification
-     * @param to the country which needs fortification
-     * @param list player's country
+     *
+     * @param to             the country which needs fortification
+     * @param list           player's country
      * @param reachablenodes the result
      */
-    public void reachableNodes(Node to, List<Node> list,List<Node> reachablenodes) {
+    public void reachableNodes(Node to, List<Node> list, List<Node> reachablenodes) {
         to.setVisited(true);
         List<Node> adjacencyList = to.getAdjacencyNodes();
         for (Node adj : adjacencyList) {
             // match
-            if(list.contains(adj)){
-                if(!adj.isVisited()) {
+            if (list.contains(adj)) {
+                if (!adj.isVisited()) {
                     adj.setVisited(true);
                     reachablenodes.add(adj);
                     reachableNodes(adj, list, reachablenodes);
@@ -286,25 +314,23 @@ public class Aggressive implements Strategy {
 
     /**
      * the way this strategy how to defend
+     *
      * @param integers attacker's number of dices
      * @return number of dice
      */
-	@Override
-	public List<Integer> Defend(Integer integers,Node defender) {
-		int size=0;
-		if(defender.getArmies()>2)
-		{
-			size=2;
-		}
-		else
-		{
-			size=1;
-		}
-        List<Integer>results=new ArrayList<Integer>();
-        Random rnd=new Random();
-        for(int i=0;i<integers&&i<size;i++) {
+    @Override
+    public List<Integer> Defend(Integer integers, Node defender) {
+        int size = 0;
+        if (defender.getArmies() > 2) {
+            size = 2;
+        } else {
+            size = 1;
+        }
+        List<Integer> results = new ArrayList<Integer>();
+        Random rnd = new Random();
+        for (int i = 0; i < integers && i < size; i++) {
             results.add(rnd.nextInt(6) + 1);
         }
         return results;
-	}
+    }
 }

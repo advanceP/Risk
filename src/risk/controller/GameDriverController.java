@@ -1,9 +1,6 @@
 package risk.controller;
 
-import risk.model.Card;
-import risk.model.Graph;
-import risk.model.Node;
-import risk.model.Player;
+import risk.model.*;
 import risk.strategy.Human;
 import risk.view.GameLabel;
 import risk.view.GamePhase;
@@ -286,6 +283,8 @@ public class GameDriverController {
     public String roundsOfComputer(boolean needView) {
         Player currentPlayer = getCurrentPlayer();
         while (turns > 0) {
+            GameWriter.getGameWriterInstance().Write("It's " + currentPlayer.getName() +"'s turn: \r\n");
+            GameWriter.getGameWriterInstance().flush();
             currentPlayer.checkCountries();
             if (!(currentPlayer.getStrategy() instanceof Human)) {
                 reinforcementPhase(needView);

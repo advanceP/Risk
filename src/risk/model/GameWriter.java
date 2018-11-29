@@ -32,6 +32,13 @@ public class GameWriter {
 			e.printStackTrace();
 		}
 	}
+	public void flush(){
+		try{
+			fw.flush();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}
 	public void close()
 	{
 		try {

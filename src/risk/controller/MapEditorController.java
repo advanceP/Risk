@@ -94,7 +94,7 @@ public class MapEditorController {
                     String countryName = mapEditor.getInputName().getText();
                     //nodes can not have the same name
                     for (Node country: graph.getGraphNodes()){
-                        if (country.getName().equals(countryName)){
+                        if (country.getName().trim().equalsIgnoreCase(countryName.trim())){
                             throw new RuntimeException("the country already exists in the graph");
                         }
                     }
