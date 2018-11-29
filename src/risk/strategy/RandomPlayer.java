@@ -36,9 +36,13 @@ public class RandomPlayer implements Strategy {
     		Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
     		List<Node> countries= Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getPlayer()==player).collect(Collectors.toList());
     		Node firstnode=countries.get(rnd.nextInt(countries.size()));
-    		int min=0;
-    		int max=firstnode.getArmies()-1;
-    		int numberofarmies=rnd.nextInt(max-min)+min;
+    		int max=0;
+    		max=firstnode.getArmies()-1;
+    		int numberofarmies=0;
+    		if(max>0)
+    		{
+    			numberofarmies=rnd.nextInt(max);
+    		}
     		List<Node> reachable=Graph.getGraphInstance().reachableNodes(firstnode);
     		Node secondnode=null;
     		if(!reachable.isEmpty())
@@ -57,6 +61,8 @@ public class RandomPlayer implements Strategy {
     	Player player=GameDriverController.getGameDriverInstance().getCurrentPlayer();
     	Random rnd=new Random();
     	Node attacknode=player.getNodeList().get(rnd.nextInt(player.getNodeList().size()));
+    	if(attacknode.getHostileNodes().size()==0)
+    		return false;
     	Node defendernode=attacknode.getHostileNodes().get(rnd.nextInt(attacknode.getHostileNodes().size()));
     	Player defenderplayer=defendernode.getPlayer();
     	List<Integer>attackerdicelist=Defend(null,attacknode);
