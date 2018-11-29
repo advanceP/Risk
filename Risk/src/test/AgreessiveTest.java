@@ -58,7 +58,7 @@ public class AgreessiveTest {
         assertTrue(nodes2.containsAll(nodes));
     }
     /**
-     * test to see if weather benevolent player attack or not(should not attack)
+     * test to see if weather benevolent player attack or not
      */
     @Test
     public void testBenevolentAttack() {
@@ -75,4 +75,9 @@ public class AgreessiveTest {
         assertFalse(attack);
         
     }
-    }
+
+    
+
+
+
+}
