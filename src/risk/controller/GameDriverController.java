@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,6 +41,7 @@ public class GameDriverController {
     int index;
     private String state="";
     Node[] countriesForAttack = new Node[2];
+    int turns=999;
     /**
      * Constructor , initialize the graph,index,staticColorList
      */
@@ -53,6 +56,19 @@ public class GameDriverController {
         view = GamePhase.getPanelInstance();
     }
 
+    /**
+     * reset driver
+     */
+     public void reset() {
+         index = 0;
+         graph = Graph.getGraphInstance();
+         staticColorList = new ArrayList<Color>();
+         staticColorList.add(Color.BLUE);
+         staticColorList.add(Color.GREEN);
+         staticColorList.add(Color.RED);
+         staticColorList.add(Color.YELLOW);
+         view = GamePhase.getPanelInstance();
+     }
 
     /**
      * load the map file
@@ -91,6 +107,11 @@ public class GameDriverController {
         addListener();
     }
 
+    public String startGame(int turns) {
+        this.turns=turns;
+        String winner = playStartup();
+        return winner;
+    }
 
     /**
      * put some button listener on the view
@@ -179,12 +200,7 @@ public class GameDriverController {
             }
         });
 
-        view.getSaveGame().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
     }
 
     /**
@@ -205,7 +221,7 @@ public class GameDriverController {
     /**
      * decide which player is playing the game,computer or human
      */
-    public void playStartup() {
+    public String playStartup() {
         Player player=getCurrentPlayer();
         if(getAllReinforcement()>0) {
             if (! (player.getStrategy() instanceof Human)) {
@@ -213,13 +229,15 @@ public class GameDriverController {
                     player.addArmyRandomly();
                 }
                 changeCurrentPlayer();
-                playStartup();
+                String winner = playStartup();
+                return winner;
             }
         }else{
             state = "Reinforcement";
-            reinforcementPhase();
-
+            String winner=reinforcementPhase();
+            return winner;
         }
+        return null;
     }
 
 
@@ -250,24 +268,6 @@ public class GameDriverController {
         }
     }
 
-    /**
-     * go into reinforcementphase
-     */
-    public void reinforcementPhase() {
-        state = "Reinforcement";
-        Player currentPlayer = getCurrentPlayer();
-        currentPlayer.calculateReinforcement();
-        view.createCardView(currentPlayer);
-        currentPlayer.checkPlayerCard();
-        if(!(currentPlayer.getStrategy() instanceof Human)) {
-            int reinforces = currentPlayer.getReinforcement();
-            if (reinforces > 0) {
-                currentPlayer.executeStrategyRein(null);
-                view.remove(view.exchangeCard);
-                attckPhase(currentPlayer);
-            }
-        }
-    }
 
     /**
      * choose to add reinforcecment
@@ -293,10 +293,31 @@ public class GameDriverController {
     }
 
     /**
+     * go into reinforcementphase
+     */
+    public String reinforcementPhase() {
+        state = "Reinforcement";
+        Player currentPlayer = getCurrentPlayer();
+        currentPlayer.calculateReinforcement();
+        view.createCardView(currentPlayer);
+        currentPlayer.checkPlayerCard();
+        if(!(currentPlayer.getStrategy() instanceof Human)) {
+            int reinforces = currentPlayer.getReinforcement();
+            if (reinforces > 0) {
+                currentPlayer.executeStrategyRein(null);
+                view.remove(view.exchangeCard);
+                String winner=attckPhase(currentPlayer);
+                return winner;
+            }
+        }
+        return null;
+    }
+
+    /**
      * go in to attack phase
      * @param player
      */
-    public void attckPhase(Player player) {
+    public String attckPhase(Player player) {
         view.hideCardView();
         player.setState("Attack");
         state = "Attack";
@@ -304,14 +325,39 @@ public class GameDriverController {
         boolean iswin=false;
         if(!(player.getStrategy() instanceof Human)) {
              iswin = player.attack(null, null, null, null);
+             //check is player alive
+            checkPlayerAlive();
             if(!iswin) {
                 view.remove(view.endAttackPhase);
-                playerFortifition(player);
+                String winner = playerFortifition(player);
+                return winner;
             }else{
                 view.showWin();
+                return player.getStrategy().toString();
             }
         }
+        return null;
+    }
 
+    /**
+     * go into fortifition
+     * @param player the current player
+     */
+    public String playerFortifition(Player player) {
+        player.setState("Fortifition");
+        turns--;
+        if(turns==0) {
+            return "draw";
+        }else {
+            searchNodeByPlyaer();
+            if (!(player.getStrategy() instanceof Human)) {
+                player.fortification(null, null, null);
+                changeCurrentPlayer();
+                String winner = reinforcementPhase();
+                return winner;
+            }
+        }
+        return null;
     }
 
     /**
@@ -335,7 +381,6 @@ public class GameDriverController {
                 break;
             }
         }
-
     }
 
     /**
@@ -355,19 +400,6 @@ public class GameDriverController {
         }
     }
 
-    /**
-     * go into fortifition
-     * @param player the current player
-     */
-    public void playerFortifition(Player player) {
-        player.setState("Fortifition");
-        searchNodeByPlyaer();
-        if(!(player.getStrategy() instanceof Human)) {
-            player.fortification(null,null ,null );
-            changeCurrentPlayer();
-            reinforcementPhase();
-        }
-    }
 
     /**
      * select fortify army from view
@@ -378,6 +410,19 @@ public class GameDriverController {
         Node to = (Node) view.getFortifyTo().getSelectedItem();
         int number = (Integer) view.getFortifyArmies().getSelectedItem();
         player.fortification(from, to, number);
+    }
+
+    /**
+     * when a attack is end,check player is alive,if not,remove the player
+     */
+    public void checkPlayerAlive() {
+        Player temp=null;
+        for(Player player:players) {
+            if (player.getNodeList().size()==0) {
+                temp=player;
+            }
+        }
+        players.remove(temp);
     }
 
     /**
@@ -590,6 +635,8 @@ public class GameDriverController {
      * @return Player that is going to play
      */
     public Player getCurrentPlayer() {
+        //emergency surgey,why removing the player,index somehow went wrong
+        if(index==players.size()) index--;
         return players.get(index);
     }
 
@@ -620,6 +667,37 @@ public class GameDriverController {
         return allarmies;
     }
 
+    public void saveGame()
+    {
+    	try {
+			FileWriter fw=new FileWriter("game.txt");
+			fw.write("[Continents]\r\n");
+			for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
+			{
+				fw.write(graph.getContinents().get(i).getName()+"="+graph.getContinents().get(i).getAwardUnits()+"\r\n");
+			}
+			fw.write("[Territories]\r\n");
+			for(int i=0;i<graph.getGraphInstance().getGraphNodes().size();i++)
+			{
+				Node node=graph.getGraphInstance().getGraphNodes().get(i);
+				fw.write(node.getPlayer().getName()+","+node.getArmies()+","+node.getName()+","+node.getX()+","+node.getY()+","+node.getContinent().getName());
+				for (String adj : node.getAdjacencyList()) {
+					fw.append(","+adj);
+				}
+				fw.write("\r\n");
+			}
+			fw.write("[Players]\r\n");
+			for(int i=0;i<players.size();i++)
+			{
+				fw.write(players.get(i).getName()+","+players.get(i).getColor()+","+players.get(i).getReinforcement()+","+players.get(i).getState()+"\r\n");
+			}
+			fw.write(getCurrentPlayer().getName());
 
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 
 }

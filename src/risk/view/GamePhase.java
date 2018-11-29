@@ -46,7 +46,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     private JButton startPlay;
     private List<JComboBox> tempStrategie;
     private List<JLabel> tempLabel;
-    private JButton saveGame;
     /**
      * constructor <br/>
      * using freelayout
@@ -118,8 +117,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         defenderDice.setBounds(1220, 500, 100, 20);
         startPlay = new JButton("start Play");
         startPlay.setBounds(1120, 700, 100, 30);
-        saveGame=new JButton("saveGame");
-        saveGame.setBounds(1120, 900, 100, 30);
         add(inputPlayerNumber);
         add(setPlayer);
     }
@@ -382,10 +379,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
      */
     public JComboBox<Integer> getDefenderDice() {
         return defenderDice;
-    }
-
-    public JButton getSaveGame() {
-        return saveGame;
     }
 
     public JButton getStartPlay() {
@@ -672,7 +665,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         for(JLabel label:tempLabel) {
             remove(label);
         }
-        add(saveGame);
     }
 
     public List<String> getstrategieInformation() {

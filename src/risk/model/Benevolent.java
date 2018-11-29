@@ -55,12 +55,11 @@ public class Benevolent implements Strategy {
     	{
     		List<Node>weakCountries=weakestCountries();
     		Node strongcountry=weakCountries.get(weakCountries.size()-1);
-    		
     		List<Node>reachableweakcountries=weakestCountries(Graph.getGraphInstance().reachableNodes(strongcountry));
-    		Node weakcountry=reachableweakcountries.get(0);
-    		int numberofarmies=(strongcountry.getArmies()-weakcountry.getArmies())/2;
-    		strongcountry.setArmies(strongcountry.getArmies()-numberofarmies);
-    		weakcountry.setArmies(weakcountry.getArmies()+numberofarmies);
+			Node weakcountry=reachableweakcountries.get(0);
+			int numberofarmies=(strongcountry.getArmies()-weakcountry.getArmies())/2;
+			strongcountry.setArmies(strongcountry.getArmies()-numberofarmies);
+			weakcountry.setArmies(weakcountry.getArmies()+numberofarmies);
     	}
     	
     }
@@ -85,12 +84,14 @@ public class Benevolent implements Strategy {
     {
     	List<Node>weakcountries=new ArrayList<Node>();
     	weakcountries=nodeList;
+		System.out.println(1+" "+weakcountries);
     	Collections.sort(weakcountries, new Comparator<Node>() {
     		public int compare(Node first,Node second)
     		{
     			return first.getArmies()-second.getArmies();
     		}
 		});
+		System.out.println(2+" "+weakcountries);
     	return weakcountries;
     }
 

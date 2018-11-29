@@ -155,4 +155,23 @@ public class TournamentView extends JPanel {
         j.addItem("Cheater");
         j.addItem("RandomPlayer");
     }
+
+    public void createCell(int numberofmap, int numberofgames, List<String> winners) {
+        removeAll();
+        int y=100;
+        for(int i=0;i<numberofmap;i++) {
+            int x=100;
+            JLabel map=new JLabel("map"+i);
+            map.setBounds(x, y, 100, 30);
+            add(map);
+            for(int j=0;j<numberofgames;j++) {
+                JLabel result=new JLabel(winners.get(j+(i-1)*j));
+                result.setBounds(x+120, y, 100, 30);
+                add(result);
+                x+=120;
+            }
+            y+=50;
+        }
+        repaint();
+    }
 }
