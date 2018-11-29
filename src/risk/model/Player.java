@@ -482,7 +482,7 @@ public class Player extends Observable {
 
     /**
      * this method determine whether a player won the game or not
-     * @param nodes number of nodes
+     * @param nodes nodeList of all nodes in graph
      * @return boolean
      */
     public boolean isWin(List<Node> nodes) {
@@ -497,7 +497,6 @@ public class Player extends Observable {
      * @param attacker country being used by the player for attack 
      * @param defender country that is being attacked
      * @param attackerDice number of dices for attacker
-     * @param defenderDice number of armies for defender
      * @return the results of rolled dices
      */
     public List<List<Integer>> getDiceNumList(Node attacker, Node defender, int attackerDice) {

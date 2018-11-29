@@ -8,11 +8,13 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import risk.model.Graph;
+import risk.model.Node;
 
 
 /**
@@ -129,6 +131,24 @@ public class GraphTest
         for (int j = 0; j < graph.getContinents().size(); j++) {
             assertEquals(expectedColors.get(j), initiatedColor.get(j));
         }
+
+    }
+
+    @Test
+    public void testGetAdjacencyNodes() {
+        try {
+            graph.createGraph(validMap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Node node = graph.getGraphNodes().get(0);
+        List<Node> adjacencyNodes = node.getAdjacencyNodes();
+        List<String> names=new ArrayList<>();
+        for(Node n:adjacencyNodes) {
+            String name = n.getName();
+            names.add(name);
+        }
+        assertTrue(node.getAdjacencyList().containsAll(names));
 
     }
 

@@ -23,7 +23,7 @@ public interface Strategy {
 	 * @param defender the defend node
 	 * @param attackerDiceList the number of dice and the number of each roll
 	 * @param defenderDiceList the number of dice and the number of each roll
-	 * @return attack is win or not
+	 * @return is this attack win the whole game or not
 	 */
 	public boolean attack(Node attacker, Node defender, List<Integer> attackerDiceList, List<Integer> defenderDiceList);
 

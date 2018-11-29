@@ -2,10 +2,8 @@ package risk.model;
 
 import risk.controller.GameDriverController;
 
+import javax.swing.*;
 import java.util.*;
-
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 
 public class Human implements Strategy {
 
@@ -46,7 +44,7 @@ public class Human implements Strategy {
 				return false;
 			}
 			if(defender.getArmies()==0) {
-				player.increaseNumberOfCountries();;
+				player.increaseNumberOfCountries();
                 defender.setPlayer(player);
                 List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
                 int size = list.size();

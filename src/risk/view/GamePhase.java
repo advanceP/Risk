@@ -7,9 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This is also is a panel for user play the game
@@ -485,7 +486,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         add(phaseText);
         Player currentplayer=GameDriverController.getGameDriverInstance().getCurrentPlayer();
         if (currentplayer.getState() != null) {
-            if (currentplayer.getState().equals("Fortifition") && currentplayer.getStrategy() instanceof Human) {
+            if (currentplayer.getState().equals("Fortification") && currentplayer.getStrategy() instanceof Human) {
                 showFortifitionPhase();
             }else{
                 hideFortifitionPhase();

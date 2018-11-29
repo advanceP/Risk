@@ -35,7 +35,7 @@ public class Cheater implements Strategy {
         List<Node> neighborList = findNeighbors(cheater);
         if (!neighborList.isEmpty()){
             Random random = new Random();
-            int index = random.nextInt(neighborList.size() + 1);
+            int index = random.nextInt(neighborList.size());
             Node country = neighborList.get(index);
             country.setArmies(country.getArmies()*2);
         }
@@ -54,19 +54,21 @@ public class Cheater implements Strategy {
         List<Node> neighborList = findNeighbors(cheater);
         if (!neighborList.isEmpty()){
             Random random = new Random();
-            int index = random.nextInt(neighborList.size() + 1);
+            int index = random.nextInt(neighborList.size());
             Node country = neighborList.get(index);
 
             List<Node> allCountries = Graph.getGraphInstance().getGraphNodes();
             for (String name : country.getAdjacencyList()){
-                Node neighbor = allCountries.stream().filter(item -> item.getName().equals(name)).findAny().get();
+                Node neighbor = allCountries.stream().filter(item -> item.getName().equalsIgnoreCase(name)).findAny().get();
                 if (!neighbor.getPlayer().equals(cheater)){
                     neighbor.setPlayer(cheater);
                     break;
                 }
             }
+            System.out.println("End Cheater Attack");
             return true;
         }
+        System.out.println("Failed/End Cheater Attack");
         return false;
     }
 
@@ -86,8 +88,7 @@ public class Cheater implements Strategy {
         List<Node> neighborList = new ArrayList<>();
         Set<String> list = new HashSet<>();
         for (Node country : countryList){
-            List<String> adjacencyList = country.getAdjacencyList();
-            list.addAll(adjacencyList);
+            list.add(country.getName());
         }
         for (Node country : countryList){
             if (!list.containsAll(country.getAdjacencyList())){
