@@ -2,59 +2,11 @@
 It's Player_0's turn: 
 
 [Attack]
-Player_0: Attacking Country: Mont-Royal, Defending Country: Ahuntsic
-Player_0: Attacking Country: Saint-Laurent, Defending Country: Ahuntsic
-Ahuntsic got defeated
+Player_0: Attacking Country: uk, Defending Country: china
+china got defeated
 
-Player_0: Saint-Laurent moved 2 armies to Ahuntsic
-
-Player_0: Attacking Country: Saint-Laurent, Defending Country: Pierrefonds
-Pierrefonds got defeated
-
-Player_0: Saint-Laurent moved 2 armies to Pierrefonds
-
-Player_0: Attacking Country: Pointe-Claire, Defending Country: Beaconsfield
-Beaconsfield got defeated
-
-Player_0: Pointe-Claire moved 1 armies to Beaconsfield
-
-Player_0: Attacking Country: Pointe St-Charles, Defending Country: Westmount
-Player_0: Attacking Country: Hampstead, Defending Country: La Salle
-La Salle got defeated
-
-Player_0: Hampstead moved 1 armies to La Salle
-
-Player_0: Attacking Country: Outremont, Defending Country: Villeray
-Player_0: Attacking Country: Ville-Marie, Defending Country: Plateau
-Plateau got defeated
-
-Player_0: Ville-Marie moved 2 armies to Plateau
-
-Player_0: Attacking Country: Kirkland, Defending Country: Senneville
-Senneville got defeated
-
-Player_0: Kirkland moved 2 armies to Senneville
-
-Player_0: Attacking Country: Kirkland, Defending Country: Ste-Anne-de-Bellevue
-Ste-Anne-de-Bellevue got defeated
-
-Player_0: Kirkland moved 2 armies to Ste-Anne-de-Bellevue
-
-Player_0: Attacking Country: NDG, Defending Country: Westmount
-Player_0: Attacking Country: Ahuntsic, Defending Country: Montreal Nord
-Player_0: Attacking Country: Plateau, Defending Country: Mercier
-Mercier got defeated
-
-Player_0: Plateau moved 1 armies to Mercier
-
-Player_0: Attacking Country: Senneville, Defending Country: Ile Bizard
-Ile Bizard got defeated
-
-Player_0: Senneville moved 1 armies to Ile Bizard
+Player_0: uk moved 1 armies to china
 
 [Fortification]
-Player_0 moved 1 army/armies from Saint-Laurent to Mont-Royal
-Player_0 moved 1 army/armies from Pierrefonds to Mont-Royal
-Player_0 moved 3 army/armies from Dorval to Mont-Royal
-Player_0 moved 1 army/armies from Ste-Anne-de-Bellevue to Mont-Royal
+Player_0 moved 2 army/armies from usa to china
 It's Player_1's turn: 

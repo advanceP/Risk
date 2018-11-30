@@ -1,7 +1,0 @@
-[Continents]
-a=2
-b=2
-
-[Territories]
-china,516,211,a,usa
-usa,567,364,b,china
