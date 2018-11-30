@@ -220,8 +220,8 @@ public class RiskGameController {
 	                    Player player=new Player();
 	                    player.setName(tokens.get(0));
 	                    player.setReinforcement(Integer.parseInt(tokens.get(1)));
-	                    player.setStrategy(tokens.get(2));
-	                    player.setState(tokens.get(3));
+	                    player.setStrategy(tokens.get(3));
+	                    player.setState(tokens.get(2));
 	                    player.setNumberOfCountries(Integer.parseInt(tokens.get(4)));
 	                    temporaryplayerlist.add(player);
 	                }
