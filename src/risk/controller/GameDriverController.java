@@ -128,6 +128,8 @@ public class GameDriverController {
         for(Player p: players){
             p.addObserver(view);
         }
+        addListener();
+        view.createPlayerLabel(players);
     }
 
     /**
@@ -828,7 +830,6 @@ public class GameDriverController {
 			}
 			fw.write("[Other]\r\n");
 			fw.write(index+","+this.state+"\r\n");
-
 			fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -847,7 +848,6 @@ public class GameDriverController {
     public void decide() {
         Player player=getCurrentPlayer();
         state=player.getState();
-        System.out.println(state);
         switch (state) {
             case "StartUp": playStartup(true); break;
             case "Reinforcement": reinforcementPhase(true);break;

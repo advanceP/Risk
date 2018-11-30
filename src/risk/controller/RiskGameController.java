@@ -297,7 +297,6 @@ public class RiskGameController {
 	    	gameDriverController.getGameDriverInstance().setPlayers(temporaryplayerlist);
 	    	Graph.getGraphInstance().getColorTOContinent();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	return GameDriverController.getGameDriverInstance();
