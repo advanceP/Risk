@@ -36,10 +36,10 @@ public class MapEditor extends JPanel {
 
 
     /**
-     * constructor<br/>
+     * constructor
      * initialise the class member and put panel in frame
      *
-     * @throws HeadlessException
+     * @throws HeadlessException no name for the controctor
      */
     public MapEditor() {
         super();
@@ -234,7 +234,7 @@ public class MapEditor extends JPanel {
 
     /**
      * generate
-     * @return List<JLabel>
+     * @return List
      */
     public List<JLabel> getLabelList() {
         return labelList;
@@ -282,7 +282,7 @@ public class MapEditor extends JPanel {
 
     /**
      * get adjacency
-     * @return JComboBox<String>
+     * @return JComboBox
      */
     public JComboBox<Node> getChooseAdjacency() {
         return chooseAdjacency;
@@ -290,7 +290,7 @@ public class MapEditor extends JPanel {
 
     /**
      * set coordinate
-     * @param x
+     * @param x the coordinate
      */
     public void setX(int x) {
         this.x = x;

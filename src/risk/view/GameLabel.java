@@ -11,9 +11,8 @@ import java.io.Serializable;
  */
 public class GameLabel extends JLabel implements Serializable {
     /**
-     * constructor<br/>
+     * constructor
      * initialise the member in this class
-     *
      * @param text this will give the country name for
      */
     public GameLabel(String text) {

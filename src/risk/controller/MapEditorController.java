@@ -17,9 +17,6 @@ import java.util.List;
 
 /**
  *this class is the controller for maoEditor
- * <li/> graph
- * <li/>mapEditor view
- * <li/> labelList
  */
 public class MapEditorController {
 
@@ -30,7 +27,7 @@ public class MapEditorController {
 
     /**
      * add continents on the graph
-     * @param listContinents
+     * @param listContinents a group of conitinent
      */
     public void addContinentsToGraph(List<Continent> listContinents) {
         graph.getContinents().addAll(listContinents);
@@ -49,7 +46,7 @@ public class MapEditorController {
 
     /**
      * load the file
-     * @param absolutePath
+     * @param absolutePath file path
      */
     public void loadFile(String absolutePath) {
         try {

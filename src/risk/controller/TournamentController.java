@@ -117,7 +117,6 @@ public class TournamentController {
     /**
      * <p>Description: computers play several games in several maps</p>
      * @author Yiying Liu
-     * @date 2018-11-29
      */
     public void startPlay() {
         List<String> winners = new ArrayList<>();

@@ -50,6 +50,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     private List<JComboBox> tempStrategie;
     private List<JLabel> tempLabel;
     private JButton saveGame;
+    private List<JComboBox> continentList=new ArrayList<>();
     /**
      * constructor <br/>
      * using freelayout
@@ -332,21 +333,21 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     }
 
     /**
-     * @return JComboBox<Node>
+     * @return JComboBox
      */
     public JComboBox<Node> getFortifyFrom() {
         return fortifyFrom;
     }
 
     /**
-     * @return JComboBox<Node>
+     * @return JComboBox
      */
     public JComboBox<Node> getFortifyTo() {
         return fortifyTo;
     }
 
     /**
-     * @return JComboBox<Node>
+     * @return JComboBox
      */
     public JComboBox<Integer> getFortifyArmies() {
         return fortifyArmies;
@@ -367,21 +368,21 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     }
 
     /**
-     * @return List<GameLabel>
+     * @return List
      */
     public List<GameLabel> getLabelList() {
         return labelList;
     }
 
     /**
-     * @return JComboBox<Integer>
+     * @return JComboBox
      */
     public JComboBox<Integer> getAttackerDice() {
         return attackerDice;
     }
 
     /**
-     * @return JComboBox<Integer>
+     * @return JComboBox
      */
     public JComboBox<Integer> getDefenderDice() {
         return defenderDice;
@@ -389,7 +390,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
 
     /**
      * return strategy
-     * @return
+     * @return return a button from view
      */
     public JButton getStartPlay() {
         return startPlay;
@@ -441,8 +442,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
 
     /**
      * return two player's dices
-     * @param attacker
-     * @param defender
+     * @param attacker attacker node
+     * @param defender defender node
      * @return two player's dices
      */
     public int[] getDiceNumbers(Node attacker, Node defender) {
@@ -475,8 +476,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
 
     /**
      * using observale pattern
-     * @param obj
-     * @param o
+     * @param obj the generdate player
+     * @param o no use
      */
     @Override
     public void update(Observable obj, Object o) {
@@ -487,12 +488,12 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
             int i=0;
             for (Player player : players) {
                 playerList.get(i).setText(player.getName() + " " + player.getPercentage() + "%");
-                JComboBox<Continent> continentsOwnByPlayer = new JComboBox<>();
-                continentsOwnByPlayer.setBounds(x, 150, 50, 30);
-                for (Continent con : player.getContinents()) {
-                    continentsOwnByPlayer.addItem(con);
+                if(!continentList.isEmpty()) {
+                    continentList.get(i).removeAllItems();
+                    for (Continent con : player.getContinents()) {
+                        continentList.get(i).addItem(con);
+                    }
                 }
-                add(continentsOwnByPlayer);
                 x = x + 100;
                 i++;
             }
@@ -542,8 +543,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
 
     /**
      * if a attack success,show fortify menu
-     * @param attacker
-     * @param defender
+     * @param attacker attacker node
+     * @param defender defender node
      */
     public void moveArmiesToQuest(Node attacker, Node defender) {
         add(fortifyFrom);
@@ -608,7 +609,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
 
     /**
      * select the card
-     * @return
+     * @return a card list
      */
     public List<Card> getSelectCard() {
         List<Card> result = new ArrayList<>();
@@ -671,7 +672,19 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
             tempStrategie.add(strategiebox);
             tempLabel.add(label);
         }
+        addContinent(players);
         repaint();
+    }
+
+    public void addContinent(List<Player> players) {
+        int x=1120;
+        for(Player player : players) {
+            JComboBox<Continent> continentsOwnByPlayer = new JComboBox<>();
+            continentsOwnByPlayer.setBounds(x, 150, 100, 30);
+            continentList.add(continentsOwnByPlayer);
+            add(continentsOwnByPlayer);
+            x+=120;
+        }
     }
 
     public void removeChooseStrategie() {
@@ -694,4 +707,11 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     }
 
 
+    public void removeCards(List<Card> cards) {
+        if(!cards.isEmpty()) {
+            for(JCheckBox box:cardList) {
+                remove(box);
+            }
+        }
+    }
 }

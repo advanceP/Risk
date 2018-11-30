@@ -30,9 +30,8 @@ public class Continent  {
 
     /**
      * constructor
-     *
-     * @param name
-     * @param awardUnits
+     * @param name continent name
+     * @param awardUnits extra awardUnits
      */
     public Continent(String name, int awardUnits) {
         super();
@@ -51,9 +50,9 @@ public class Continent  {
     /**
      * the constructor
      *
-     * @param name
-     * @param awardUnits
-     * @param color
+     * @param name Continent name
+     * @param awardUnits extra units
+     * @param color different continents,different color
      */
     public Continent(String name, int awardUnits, Color color) {
         this.name = name;

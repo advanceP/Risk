@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * This is the panel for map editor<br/>
+ * This is the panel for map editor
  * using free layout for the whole project
  *
  * @author Hao Chen
@@ -25,7 +25,7 @@ public class RiskGame extends JPanel {
     private JButton back;
     private JButton loadGame;
     /**
-     * overwrite the constructor<br/>
+     * overwrite the constructor
      * use free layout for the whole project
      */
     public RiskGame() {

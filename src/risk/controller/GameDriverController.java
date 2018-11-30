@@ -74,8 +74,7 @@ public class GameDriverController {
 
     /**
      * load the map file
-     *
-     * @param absolutePath
+     * @param absolutePath the file path
      */
     public void loadFile(String absolutePath) {
         try {
@@ -128,6 +127,8 @@ public class GameDriverController {
         for(Player p: players){
             p.addObserver(view);
         }
+        view.addContinent(players);
+        view.add(view.getSaveGame());
         addListener();
         view.createPlayerLabel(players);
     }
@@ -210,6 +211,7 @@ public class GameDriverController {
             public void actionPerformed(ActionEvent e) {
                 Player player = getCurrentPlayer();
                 List<Card> cards = view.getSelectCard();
+                view.removeCards(cards);
                 player.exchangeCardToArmies(cards);
             }
         });
@@ -252,9 +254,8 @@ public class GameDriverController {
 
     /**
      * <p>Description: decide which player is playing the game,computer or human</p>
-     *
      * @param needView true: need to show view in game
-     * @date 2018-11-27
+     * @return  String of winner
      */
     public String playStartup(boolean needView) {
         Player currentPlayer = getCurrentPlayer();
@@ -305,7 +306,6 @@ public class GameDriverController {
      * @param needView true: need to show view in game
      * @return winner's name   if it ran out of turns ,it will return "Draw"
      * @author Yiying Liu
-     * @date 2018-11-29
      */
     public String roundsOfComputer(boolean needView) {
         Player currentPlayer = getCurrentPlayer();
@@ -335,9 +335,8 @@ public class GameDriverController {
 
     /**
      * <p>Description: go into reinforcement phase</p>
-     *
      * @param needView true: need to show view in game
-     * @date 2018-11-27
+     * @return  string of winner
      */
     public String reinforcementPhase(boolean needView) {
         state = "Reinforcement";
@@ -386,10 +385,9 @@ public class GameDriverController {
 
     /**
      * <p>Description: go in to attack phase</p>
-     *
      * @param player   current player
      * @param needView true: need to show view in game
-     * @date 2018-11-27
+     * @return winner
      */
     public String attackPhase(Player player, boolean needView) {
         if (needView) {
@@ -460,10 +458,9 @@ public class GameDriverController {
 
     /**
      * <p>Description: go into fortification</p>
-     *
      * @param player   the current player
      * @param needView true: need to show view in game
-     * @date 2018-11-26
+     * @return String of winner
      */
     public String fortificationPhase(Player player, boolean needView) {
         player.setState("Fortification");
@@ -506,6 +503,7 @@ public class GameDriverController {
     }
 
     /**
+     * @param needView true or false
      * search the fortify army by player
      */
     public void searchNodeByPlayer(boolean needView) {
@@ -665,7 +663,7 @@ public class GameDriverController {
 
     /**
      * this method create players for the game ,randomly assign countries to them, and initialize number of armies for them.
-     *
+     * @param needView true or false
      * @param numberOfPlayers number of players.
      */
     public void setPlayers(int numberOfPlayers, boolean needView) {
@@ -714,7 +712,6 @@ public class GameDriverController {
      *
      * @param strategies strategies List of players
      * @param needView   true: need to show view in game
-     * @date 2018-11-26
      */
     public void giveStrategyToPlayer(List<String> strategies, boolean needView) {
         int index = 0;
@@ -755,9 +752,7 @@ public class GameDriverController {
 
     /**
      * <p>Description: this method changes the current player in a round robin fashion</p>
-     *
      * @param needView true: need to show view in game
-     * @date 2018-11-26
      */
     public void changeCurrentPlayer(boolean needView) {
         if (index < players.size() - 1)

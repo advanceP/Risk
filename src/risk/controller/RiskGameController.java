@@ -21,9 +21,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This is where game start,main methods is here<br/>
+ * This is where game start,main methods is here
  * also this is a controller
- *
  * @author Hao Chen
  */
 public class RiskGameController {
@@ -61,7 +60,7 @@ public class RiskGameController {
     /**
      * this method is create a frame for UI,and add a panel to the frame,add start the menu
      *
-     * @param args
+     * @param args the mian param
      */
     public static void main(String[] args) {
 
@@ -78,8 +77,7 @@ public class RiskGameController {
 
     /**
      * give listener to buttons to mointor them if its be cliecked
-     *
-     * @param frame
+     * @param frame this frame
      */
     public void addListenerForButtons(JFrame frame) {
         view.getButtonForEdit().addActionListener(new ActionListener() {

@@ -1,15 +1,9 @@
 package risk.strategy;
 
 import risk.controller.GameDriverController;
-import risk.model.GameWriter;
-import risk.model.Graph;
-import risk.model.Node;
-import risk.model.Player;
+import risk.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * this is a strategy for aggressive attacker
@@ -71,8 +65,8 @@ public class Aggressive implements Strategy {
      *
      * @param attacker     the attack node
      * @param defender     the defend node
-     * @param attackerdice
-     * @param defenderdice
+     * @param attackerdice attacker node
+     * @param defenderdice defender node
      * @return is the attack win all the map
      */
     @Override
@@ -93,16 +87,14 @@ public class Aggressive implements Strategy {
                 while (attacker.getArmies() > 1) {
                     defender = chooseDefender(attacker, allNodes, player);
                     if (defender != null && defender.getPlayer() != player) {
-
-                        List<List<Integer>> diceNumList = getDiceNumList(attacker);
-                        List<Integer> diceResult = defender.getPlayer().getStrategy().
-                                Defend(diceNumList.get(0).size(), defender);
-                        diceNumList.add(diceResult);//add Defender
                         GameWriter.getGameWriterInstance().Write(player.getName() + ": Attacking Country: " + attacker.getName() +
                                 ", Defending Country: " + defender.getName() + "");
                         boolean flag = false;
                         //attack
                         while (!flag) {
+                            List<List<Integer>> diceNumList = getDiceNumList(attacker);
+                            List<Integer> diceResult = defender.getPlayer().getStrategy().Defend(diceNumList.get(0).size(), defender);
+                            diceNumList.add(diceResult);//add Defender
                             flag = attackResult(attacker, defender, diceNumList);
                             if (attacker.getArmies() == 1) {
                                 break;
@@ -143,10 +135,10 @@ public class Aggressive implements Strategy {
      * @return number of dice
      */
     private List<List<Integer>> getDiceNumList(Node attacker) {
-        List<List<Integer>> resultList = new ArrayList<>();
-        List<Integer> attackerList = new ArrayList<>();
-        resultList.add(attackerList);
-        Random random = new Random();
+            List<List<Integer>> resultList = new ArrayList<>();
+            List<Integer> attackerList = new ArrayList<>();
+            resultList.add(attackerList);
+            Random random = new Random();
         for (int i = 0; i < attacker.getArmies() && i < 4; i++) {
             attackerList.add(random.nextInt(6) + 1);
         }
@@ -184,6 +176,16 @@ public class Aggressive implements Strategy {
                 return false;
             }
             if (defender.getArmies() == 0) {
+                List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
+                int size = list.size();
+                Random rnd = new Random();
+                attacker.getPlayer().addCards(list.get(rnd.nextInt(size)));
+
+                if(defender.getPlayer().getNodeList().size()<1)
+                {
+                    attacker.getPlayer().addCards(defender.getPlayer().getCards());
+                    defender.getPlayer().setCards(null);
+                }
                 return true;
             }
         }

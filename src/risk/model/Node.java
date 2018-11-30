@@ -200,7 +200,7 @@ public class Node  {
 
     /**
      * Returns a List of Neighbors Names
-     * @return List<String>
+     * @return List String
      */
     public List<String> getAdjacencyList() {
         return adjacencyList;
@@ -208,7 +208,7 @@ public class Node  {
 
     /**
      * return type node
-     * @return List<Node>
+     * @return List Node
      */
     public List<Node> getAdjacencyNodes() {
         if(adjacencyNodes.isEmpty()) {

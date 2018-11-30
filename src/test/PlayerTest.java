@@ -88,7 +88,7 @@ public class PlayerTest {
 
     /**
      * test setNumberOfCountries
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException file exception
      */
     @Test
     public void testSetNumberOfCountries() throws FileNotFoundException {
@@ -105,7 +105,7 @@ public class PlayerTest {
 
     /**
      * test reinforcement
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when file goes wrong
      */
     @Test
     public void testReinforcement() throws FileNotFoundException {
@@ -124,7 +124,7 @@ public class PlayerTest {
 
     /**
      * test startuupphase
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException file goes wrong
      */
     @Test
     public void testReinforcementStartupState() throws FileNotFoundException {
@@ -144,7 +144,7 @@ public class PlayerTest {
 
     /**
      * test ReinforcementReinforcementState()
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException file goes wrong
      */
     @Test
     public void testReinforcementReinforcementState() throws FileNotFoundException {
@@ -164,7 +164,7 @@ public class PlayerTest {
 
     /**
      * test Aditional Reinforcement
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException file goes wrong
      */
     @Test
     public void testAditionalReinforcement() throws FileNotFoundException {

@@ -108,6 +108,8 @@ public class Player extends Observable {
      */
     public void increaseReinforcement(int army) {
         this.reinforcement += army;
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -224,7 +226,7 @@ public class Player extends Observable {
     /**
      * Returns the List of Countries that Player Owns
      *
-     * @return a List<Node>
+     * @return a List Node
      */
     public List<Node> getNodeList() {
         return Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getPlayer().getName().
@@ -275,11 +277,8 @@ public class Player extends Observable {
     /**
      * @param attacker the country which attacks others
      * @param defender the country which is attacked
-     * @Description: get the arrayList of numbers that attacker and defender rolling the dice
      * @return: the result of dice number lists of two countries. the first list is dice numbers of attacker, and second
      * is defender's
-     * @Author: Yiying Liu
-     * @Date: 2018-11-04
      */
     public List<List<Integer>> getDiceNumList(Node attacker, Node defender) {
         List<List<Integer>> resultList = new ArrayList<>();
@@ -307,13 +306,12 @@ public class Player extends Observable {
     }
 
     /**
-     * @description get the result of attacking(includes changing the armies of nodes)
+     * @deprecated get the result of attacking(includes changing the armies of nodes)
      * @param diceNumberList diceNumberList of attacker( list.get(0) ) and defender( list.get(1) )
      * @param attacker       the node of attacker
      * @param defender       the node of defender
      * @return a list of numbers that node lost	list.get(0) is attacker's and list.get(1) is defender's
      * @author Yiying Liu
-     * @date 2018-11-04
      */
     public boolean attackResult(Node attacker, Node defender, List<List<Integer>> diceNumberList) {
         if (diceNumberList.isEmpty()) {
@@ -406,6 +404,11 @@ public class Player extends Observable {
 
     /**
      * player attack another player by using dice and attack result function
+     * @param attacker attacker node
+     * @param defender defender node
+     * @param attackerDiceList the rusult of dice
+     * @param defenderDiceList the result of dice
+     * @return is win the game or not
      */
     public boolean attack(Node attacker, Node defender, List<Integer> attackerDiceList, List<Integer> defenderDiceList) {
         boolean flag = strategy.attack(attacker, defender, attackerDiceList, defenderDiceList);
@@ -579,20 +582,22 @@ public class Player extends Observable {
         node.increaseArmy();
         decreaseReinforcement();
     }
+
+
     /**
      * <p>Description:  using strategy pattern to execute reinforcement</p>
      * @param country the node of player which add army in reinforcement phase
      * @author Yiying Liu
-     * @date 2018-11-19
      */
     public void executeStrategyRein(Node country){
         strategy.reinforcement(country);
     }
 
     /**
-     * to get the defender's dicenumber
-     * @param attackerdice
-     * @return List<Integer> return defender's dicenumber
+     * the way strategy defend
+     * @param attackerdice the number of attacker roll
+     * @param defender the defender node
+     * @return the result dice of defender
      */
     public List<Integer> Defend(Integer attackerdice,Node defender) {
         return this.strategy.Defend(attackerdice,defender);

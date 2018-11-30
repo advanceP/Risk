@@ -98,7 +98,7 @@ public class Graph  {
      * this method reads the text file and creates the graph
      *
      * @param fileAddress address of the file
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException is a file exception file file was wrong
      */
     public void createContinents(String fileAddress) throws FileNotFoundException {
         List<Continent> continentlist = new ArrayList<>();
@@ -127,7 +127,7 @@ public class Graph  {
      * this method reads a map file and creates continents , it's being used inside CreateGraph method
      *
      * @param fileAddress address of the file
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException file exception
      */
     public void createGraph(String fileAddress) throws FileNotFoundException {
         createContinents(fileAddress);
@@ -357,7 +357,7 @@ public class Graph  {
      * this method verify whether the graph is valid or not it checks three aspects
      * 1_ if the graph is connected
      * 2_ if its continents are connected
-     * 3_ if the number of countries => number of continents
+     * 3_ if the number of countries = number of continents
      *
      * @return a boolean
      */

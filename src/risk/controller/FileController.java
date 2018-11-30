@@ -15,10 +15,9 @@ public class FileController {
     /**
      * @param filePath filepath of this txt file
      * @param content  information of the map and user
-     * @Description: write and save as a txt file
+     * @deprecated : write and save as a txt file
      * @return: flag whether write and save a file successfully
-     * @Author: Yiying Liu
-     * @Date: 2018-10-16
+     * @author: Yiying Liu
      */
 
     public static boolean writeFile(String filePath, String content) {
@@ -83,10 +82,9 @@ public class FileController {
 
     /**
      * @param graph the map wanted to save
-     * @Description: convert map information to StringBuffer type
+     *  convert map information to StringBuffer type
      * @return: mapInfo     the result of conversion
-     * @Author: Yiying Liu
-     * @Date: 2018-10-16
+     * @author: Yiying Liu
      */
 
     public StringBuffer getMapInfo(Graph graph) {
@@ -122,10 +120,9 @@ public class FileController {
 
     /**
      * @param filePath the Path of map file
-     * @Description: to verify wheather the map is correct
+     *  to verify wheather the map is correct
      * @return: true : map is correct      false : map is incorrect
-     * @Author: Yiying Liu
-     * @Date: 2018-10-16
+     * @author: Yiying Liu
      */
 
     public static boolean verifyMapFile(String filePath) {
