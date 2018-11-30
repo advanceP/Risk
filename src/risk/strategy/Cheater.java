@@ -5,6 +5,7 @@ import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;
 
+import java.io.Serializable;
 import java.util.*;
 
 public class Cheater implements Strategy {
@@ -68,6 +69,7 @@ public class Cheater implements Strategy {
                     another.decreaseNumberOfCountries();
                     cheater.increaseNumberOfCountries();
                     neighbor.setPlayer(cheater);
+                    cheater.increaseNumberOfCountries();
                     break;
                 }
             }

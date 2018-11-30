@@ -3,6 +3,7 @@ package risk.model;
 import risk.strategy.*;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -532,14 +533,14 @@ public class Player extends Observable {
      */
     public int checkPlayerCard() {
         List<Card> cardlist = getCards();
-        Card Artillery = Card.Artillery;
-        Card cavalry = Card.Cavalry;
-        Card infantry = Card.Infantry;
-        ArrayList<Card> type = new ArrayList<>();
-        type.add(Artillery);
-        type.add(cavalry);
-        type.add(infantry);
-        while (cardlist.size() > 5) {
+            Card Artillery = Card.Artillery;
+            Card cavalry = Card.Cavalry;
+            Card infantry = Card.Infantry;
+            ArrayList<Card> type = new ArrayList<>();
+            type.add(Artillery);
+            type.add(cavalry);
+            type.add(infantry);
+            while (cardlist.size() > 5) {
             int[] flag=new int[3];
             int[] index={-1,-1,-1};
             for(Card c:cardlist){

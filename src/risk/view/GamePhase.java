@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -48,6 +49,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
     private JButton startPlay;
     private List<JComboBox> tempStrategie;
     private List<JLabel> tempLabel;
+    private JButton saveGame;
     /**
      * constructor <br/>
      * using freelayout
@@ -119,6 +121,8 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         defenderDice.setBounds(1220, 500, 100, 20);
         startPlay = new JButton("start Play");
         startPlay.setBounds(1120, 700, 100, 30);
+        saveGame=new JButton("save game");
+        saveGame.setBounds(1120, 900, 100, 30);
         add(inputPlayerNumber);
         add(setPlayer);
     }
@@ -383,8 +387,19 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         return defenderDice;
     }
 
+    /**
+     * return strategy
+     * @return
+     */
     public JButton getStartPlay() {
         return startPlay;
+    }
+
+    /**
+     * @return  saveGameButton
+     */
+    public JButton getSaveGame() {
+        return saveGame;
     }
 
     /**
@@ -667,6 +682,7 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         for(JLabel label:tempLabel) {
             remove(label);
         }
+        add(saveGame);
     }
 
     public List<String> getstrategieInformation() {
@@ -676,4 +692,6 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         }
         return list;
     }
+
+
 }

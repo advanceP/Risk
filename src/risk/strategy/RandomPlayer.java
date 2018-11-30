@@ -6,6 +6,7 @@ import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
