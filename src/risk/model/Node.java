@@ -1,9 +1,7 @@
 package risk.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This is the node
@@ -290,15 +288,15 @@ public class Node  {
     
     public List<Node>getHostileNodes()
     {
-    	List<Node>neighbors=new ArrayList<Node>();
     	List<Node>hostile=new ArrayList<Node>();
     	for (String node : getAdjacencyList())
     	{
-    		Node neighbor=Graph.getGraphInstance().getGraphNodes().stream().filter(item->item.getName().equalsIgnoreCase(node)).findFirst().get();
-    		neighbors.add(neighbor);
-			
+    	    for (Node country: Graph.getGraphInstance().getGraphNodes()){
+    	            if (country.getName().equalsIgnoreCase(node) && country.getPlayer() != this.getPlayer()){
+                        hostile.add(country);
+                    }
+            }
 		}
-    	hostile=neighbors.stream().filter(item->item.getPlayer()!=this.player).collect(Collectors.toList());
     	return hostile;
     }
 

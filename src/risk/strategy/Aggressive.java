@@ -23,12 +23,12 @@ public class Aggressive implements Strategy {
     @Override
     public void reinforcement(Node node) {
         Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
-        //GameWriter.getGameWriterInstance().Write("[Reinforcement]");
+        GameWriter.getGameWriterInstance().Write("[Reinforcement]");
         if (node == null) {
             List<Node> nodeList = player.getNodeList();
             Node strongest = getStrongestNode(nodeList);
             int reinforcement = player.getReinforcement();
-            //GameWriter.getGameWriterInstance().Write("Reinforced Node: " + strongest.getName() + ",Number of armies:" + reinforcement + "\n");
+            GameWriter.getGameWriterInstance().Write("Reinforced Node: " + strongest.getName() + ",Number of armies:" + reinforcement + "\n");
 
             while (reinforcement > 0) {
                 strongest.increaseArmy();
@@ -274,7 +274,8 @@ public class Aggressive implements Strategy {
                     to.setArmies(to.getArmies() + moveNum);
                     from.setArmies(1);
                     hasFortification = true;
-                    GameWriter.getGameWriterInstance().Write(player.getName() + " moved " + moveNum + " army/armies from " + from.getName() + " to " + to.getName());
+                    GameWriter.getGameWriterInstance().Write(player.getName() + " moved " + moveNum +
+                                                        " army/armies from " + from.getName() + " to " + to.getName());
                 }
 
             }
