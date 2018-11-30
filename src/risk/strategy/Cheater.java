@@ -1,10 +1,7 @@
 package risk.strategy;
 
 import risk.controller.GameDriverController;
-import risk.model.GameWriter;
-import risk.model.Graph;
-import risk.model.Node;
-import risk.model.Player;
+import risk.model.*;
 
 import java.util.*;
 
@@ -40,7 +37,7 @@ public class Cheater implements Strategy {
 
         Player cheater = GameDriverController.getGameDriverInstance().getCurrentPlayer();
         List<Node> neighborList = findNeighbors(cheater);
-        
+
         if (!neighborList.isEmpty()){
             Random random = new Random();
             int index = random.nextInt(neighborList.size());
@@ -75,6 +72,11 @@ public class Cheater implements Strategy {
                     another.decreaseNumberOfCountries();
                     cheater.increaseNumberOfCountries();
                     neighbor.setPlayer(cheater);
+                    List<Card> list = Collections.unmodifiableList(Arrays.asList(Card.values()));
+                    int size = list.size();
+                    Random rnd = new Random();
+                    cheater.addCards(list.get(rnd.nextInt(size)));
+
                     GameWriter.getGameWriterInstance().Write(cheater.getName() + ": attack " + neighbor.getName() + "\n");
                     break;
                 }

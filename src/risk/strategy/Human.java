@@ -2,30 +2,38 @@ package risk.strategy;
 
 import risk.controller.GameDriverController;
 import risk.model.Card;
+import risk.model.GameWriter;
 import risk.model.Node;
 import risk.model.Player;
 
 import javax.swing.*;
-import java.io.Serializable;
 import java.util.*;
 
 public class Human implements Strategy {
 
 	@Override
 	public void reinforcement(Node node) {
+
 		node.increaseArmy();
 		node.getPlayer().decreaseReinforcement();
+		GameWriter.getGameWriterInstance().Write("Reinforced Node: " + node.getName() +
+				",Number of armies: 1 " + "\n");
 	}
 
 	@Override
 	public void fortification(Node from, Node to, Integer armies) {
+
         from.setArmies(from.getArmies() - armies);
         to.setArmies(to.getArmies() + armies);
+        GameWriter.getGameWriterInstance().Write(from.getPlayer().getName() + " moved " + armies +
+											" army/armies from " + from.getName() + " to " + to.getName());
     }
 
 	@Override
 	public boolean attack(Node attacker, Node defender, List<Integer> attackerDiceList, List<Integer> defenderDiceList) {
 		Player player= GameDriverController.getGameDriverInstance().getCurrentPlayer();
+		GameWriter.getGameWriterInstance().Write(player.getName() + ": Attacking Country: " + attacker.getName() +
+				", Defending Country: " + defender.getName() + "");
 		List<List<Integer>> resultList = new ArrayList<>();
 		resultList.add(attackerDiceList);
 		resultList.add(defenderDiceList);
