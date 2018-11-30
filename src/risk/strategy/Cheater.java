@@ -1,11 +1,11 @@
 package risk.strategy;
 
 import risk.controller.GameDriverController;
+import risk.model.GameWriter;
 import risk.model.Graph;
 import risk.model.Node;
 import risk.model.Player;
 
-import java.io.Serializable;
 import java.util.*;
 
 public class Cheater implements Strategy {
@@ -25,7 +25,10 @@ public class Cheater implements Strategy {
         Player cheater = GameDriverController.getGameDriverInstance().getCurrentPlayer();
         for (Node country : cheater.getNodeList()){
             country.setArmies(country.getArmies() * 2);
+            GameWriter.getGameWriterInstance().Write("Reinforced Node: " + country.getName() +
+                                                    ",Number of armies:" + country.getArmies() + "\n");
         }
+        GameWriter.getGameWriterInstance().flush();
         System.out.println("End Cheater Reinforcement");
     }
 
@@ -37,11 +40,14 @@ public class Cheater implements Strategy {
 
         Player cheater = GameDriverController.getGameDriverInstance().getCurrentPlayer();
         List<Node> neighborList = findNeighbors(cheater);
+        
         if (!neighborList.isEmpty()){
             Random random = new Random();
             int index = random.nextInt(neighborList.size());
             Node country = neighborList.get(index);
             country.setArmies(country.getArmies()*2);
+            GameWriter.getGameWriterInstance().Write(cheater.getName() + " doubled armies of " + country.getName() + "\n");
+            GameWriter.getGameWriterInstance().flush();
         }
 
         System.out.println("End Cheater fortification");
@@ -69,7 +75,7 @@ public class Cheater implements Strategy {
                     another.decreaseNumberOfCountries();
                     cheater.increaseNumberOfCountries();
                     neighbor.setPlayer(cheater);
-                    cheater.increaseNumberOfCountries();
+                    GameWriter.getGameWriterInstance().Write(cheater.getName() + ": attack " + neighbor.getName() + "\n");
                     break;
                 }
             }

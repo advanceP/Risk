@@ -123,7 +123,7 @@ public class TournamentController {
         List<String> winners = new ArrayList<>();
         for (File file : maps) {
             for (int i = 0; i < times; i++) {
-                GameWriter.getGameWriterInstance().Write("The " + (i + 1) + "times in map : " + file.getName());
+                GameWriter.getGameWriterInstance().Write("The " + (i + 1) + " times in map : " + file.getName());
                 GameDriverController driver = GameDriverController.getGameDriverInstance();
                 driver.loadFile(file.getAbsolutePath());
                 driver.setPlayers(playerNum, false);

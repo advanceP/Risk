@@ -329,6 +329,7 @@ public class GameDriverController {
             }
 
         }
+        GameWriter.getGameWriterInstance().Write("Result: Draw\n");
         return "Draw";
     }
 
