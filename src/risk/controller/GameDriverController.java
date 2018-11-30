@@ -317,12 +317,15 @@ public class GameDriverController {
                 reinforcementPhase(needView);
                 attackPhase(currentPlayer, needView);
                 if (currentPlayer.isWin(graph.getGraphNodes())) {
+                    GameWriter.getGameWriterInstance().Write("winner: " + currentPlayer.getName() + "\n");
+                    GameWriter.getGameWriterInstance().flush();
                     return currentPlayer.getName();
                 }
                 fortificationPhase(currentPlayer, needView);
                 changeCurrentPlayer(needView);
                 currentPlayer = getCurrentPlayer();
                 turns--;
+                System.out.println(turns);
             } else {
                 reinforcementPhase(needView);
                 return null;
@@ -330,6 +333,7 @@ public class GameDriverController {
 
         }
         GameWriter.getGameWriterInstance().Write("Result: Draw\n");
+        GameWriter.getGameWriterInstance().flush();
         return "Draw";
     }
 

@@ -22,11 +22,12 @@ public class Aggressive implements Strategy {
             List<Node> nodeList = player.getNodeList();
             Node strongest = getStrongestNode(nodeList);
             int reinforcement = player.getReinforcement();
-            GameWriter.getGameWriterInstance().Write("Reinforced Node: " + strongest.getName() + ",Number of armies:" + reinforcement + "\n");
 
             while (reinforcement > 0) {
                 strongest.increaseArmy();
                 strongest.getPlayer().decreaseReinforcement();
+                GameWriter.getGameWriterInstance().Write("Reinforced Node: " + strongest.getName() +
+                                                    ",Number of armies:" + reinforcement + "\n");
                 reinforcement = strongest.getPlayer().getReinforcement();
             }
         }
