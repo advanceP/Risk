@@ -201,7 +201,12 @@ public class RiskGameController {
             }
         });
     }
-    
+
+    /**
+     * load the game
+     * @param file file
+     * @return gamedriver
+     */
     public GameDriverController getSavedGame(File file)
     {
     	try {

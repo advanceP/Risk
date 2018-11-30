@@ -156,6 +156,12 @@ public class TournamentView extends JPanel {
         j.addItem("RandomPlayer");
     }
 
+    /**
+     * create cell
+     * @param numberofmap number of map
+     * @param numberofgames number of game
+     * @param winners the winners
+     */
     public void createCell(int numberofmap, int numberofgames, List<String> winners) {
         removeAll();
         int y=100;

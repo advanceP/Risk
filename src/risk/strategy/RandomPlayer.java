@@ -6,14 +6,26 @@ import risk.model.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * random
+ */
 public class RandomPlayer implements Strategy {
 
-
+    /**
+     * to String
+     *
+     * @return string
+     */
     @Override
     public String toString() {
         return "RandomPlayer";
     }
 
+    /**
+     * reinforcement
+     *
+     * @param node if it's computer ,pass null
+     */
     @Override
     public void reinforcement(Node node) {
         Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
@@ -22,12 +34,19 @@ public class RandomPlayer implements Strategy {
         while (player.getReinforcement() > 0) {
             Node reinNode = player.getNodeList().get(rnd.nextInt(player.getNodeList().size()));
             GameWriter.getGameWriterInstance().Write("Reinforced Node: " +
-                                                reinNode.getName() + ",Number of armies:" + 1 + "\n");
+                    reinNode.getName() + ",Number of armies:" + 1 + "\n");
             player.increaseArmy(reinNode);
         }
         System.out.println("End Random Reinforcement");
     }
 
+    /**
+     * fortification
+     *
+     * @param from   the country gonna fortify,null if it's a computer
+     * @param to     the country gonna  receive fortify,null if it's a computer
+     * @param armies the army gonna fortify,null if it's a computer
+     */
     @Override
     public void fortification(Node from, Node to, Integer armies) {
         GameWriter.getGameWriterInstance().Write("[Fortification]");
@@ -35,7 +54,7 @@ public class RandomPlayer implements Strategy {
             Random rnd = new Random();
             Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
             List<Node> countries = Graph.getGraphInstance().getGraphNodes().stream().filter(item ->
-                                    item.getPlayer() == player).collect(Collectors.toList());
+                    item.getPlayer() == player).collect(Collectors.toList());
             Node firstnode = countries.get(rnd.nextInt(countries.size()));
 
             int max = firstnode.getArmies() - 1;
@@ -57,13 +76,22 @@ public class RandomPlayer implements Strategy {
 
     }
 
+    /**
+     * attack by player
+     *
+     * @param attacker     the attack node
+     * @param defender     the defend node
+     * @param attackerdice
+     * @param defenderdice
+     * @return win or not
+     */
     @Override
     public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
         GameWriter.getGameWriterInstance().Write("[Attack]");
         Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
         Random rnd = new Random();
         Node attacknode = player.getNodeList().get(rnd.nextInt(player.getNodeList().size()));
-        if (attacknode.getHostileNodes().size() == 0){
+        if (attacknode.getHostileNodes().size() == 0) {
             GameWriter.getGameWriterInstance().Write("There is no more country can be attack\n");
             GameWriter.getGameWriterInstance().flush();
             System.out.println("End Random Attack");
@@ -85,7 +113,7 @@ public class RandomPlayer implements Strategy {
             return false;
         }
         GameWriter.getGameWriterInstance().Write(player.getName() + ": Attacking Country: " + attacknode.getName() +
-                                            ", Defending Country: " + defendernode.getName());
+                ", Defending Country: " + defendernode.getName());
         for (int i = 0; i < attackerdicelist.size() && i < defenderdicelist.size() && i < 2; i++) {
             if (attackerdicelist.get(i) > defenderdicelist.get(i)) {
                 defendernode.setArmies(defendernode.getArmies() - 1);
@@ -121,6 +149,13 @@ public class RandomPlayer implements Strategy {
         return false;
     }
 
+    /**
+     * strategy defend
+     *
+     * @param integers attacker's number of dices
+     * @param defender
+     * @return list of result
+     */
     @Override
     public List<Integer> Defend(Integer integers, Node defender) {
         Random rnd = new Random();

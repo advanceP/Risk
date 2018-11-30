@@ -692,6 +692,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         repaint();
     }
 
+    /**
+     * add cointinent
+     * @param players this player
+     */
     public void addContinent(List<Player> players) {
         int x=1120;
         for(Player player : players) {
@@ -703,6 +707,9 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         }
     }
 
+    /**
+     * remove strategy pane
+     */
     public void removeChooseStrategie() {
         remove(startPlay);
         for(JComboBox jb:tempStrategie) {
@@ -714,6 +721,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         add(saveGame);
     }
 
+    /**
+     * get strategy
+     * @return String
+     */
     public List<String> getstrategieInformation() {
         ArrayList<String> list=new ArrayList<>();
         for(JComboBox jb:tempStrategie) {
@@ -722,7 +733,10 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         return list;
     }
 
-
+    /**
+     * remove cards
+     * @param cards the card ownby player
+     */
     public void removeCards(List<Card> cards) {
         if(!cards.isEmpty()) {
             for(JCheckBox box:cardList) {

@@ -11,13 +11,19 @@ import java.util.stream.Collectors;
 
 public class Benevolent implements Strategy {
 
-
+    /**
+     * to String
+     * @return String
+     */
     @Override
     public String toString() {
         return "Benevolent";
     }
 
-
+    /**
+     * benelovet reinforcement
+     * @param node if it's computer ,pass null
+     */
     @Override
     public void reinforcement(Node node) {
         GameWriter.getGameWriterInstance().Write("[Reinforcement]");
@@ -44,6 +50,12 @@ public class Benevolent implements Strategy {
         GameWriter.getGameWriterInstance().flush();
     }
 
+    /**
+     * player fortify
+     * @param from  the country gonna fortify,null if it's a computer
+     * @param to  the country gonna  receive fortify,null if it's a computer
+     * @param armies the army gonna fortify,null if it's a computer
+     */
     @Override
     public void fortification(Node from, Node to, Integer armies) {
         GameWriter.getGameWriterInstance().Write("[Fortification]");
@@ -66,6 +78,14 @@ public class Benevolent implements Strategy {
 
     }
 
+    /**
+     * player attack
+     * @param attacker the attack node
+     * @param defender the defend node
+     * @param attackerdice
+     * @param defenderdice
+     * @return
+     */
     @Override
     public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
         GameWriter.getGameWriterInstance().Write("[Attack]");
@@ -74,6 +94,10 @@ public class Benevolent implements Strategy {
         return false;
     }
 
+    /**
+     * get weakcountry
+     * @return list of node
+     */
     public List<Node> weakestCountries() {
         Player player = GameDriverController.getGameDriverInstance().getCurrentPlayer();
         List<Node> weakcountries = Graph.getGraphInstance().getGraphNodes().stream().filter(item -> item.getPlayer() == player).collect(Collectors.toList());
@@ -85,6 +109,10 @@ public class Benevolent implements Strategy {
         return weakcountries;
     }
 
+    /**
+     * @param nodeList nodelist
+     * @return list of node
+     */
     public List<Node> weakestCountries(List<Node> nodeList) {
         List<Node> weakcountries = new ArrayList<Node>();
         weakcountries = nodeList;
@@ -98,6 +126,12 @@ public class Benevolent implements Strategy {
         return weakcountries;
     }
 
+    /**
+     * strategy dendend
+     * @param integers attacker's number of dices
+     * @param defender
+     * @return
+     */
     @Override
     public List<Integer> Defend(Integer integers, Node defender) {
         int size = 1;

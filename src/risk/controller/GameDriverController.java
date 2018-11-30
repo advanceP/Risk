@@ -64,6 +64,7 @@ public class GameDriverController {
         loadFile(file.getAbsolutePath());
 
     }*/
+
     /**
      * reset driver
      */
@@ -74,6 +75,7 @@ public class GameDriverController {
 
     /**
      * load the map file
+     *
      * @param absolutePath the file path
      */
     public void loadFile(String absolutePath) {
@@ -124,7 +126,7 @@ public class GameDriverController {
         risk.setSize(1600, 1000);
         risk.setLocationRelativeTo(null);
         risk.setVisible(true);
-        for(Player p: players){
+        for (Player p : players) {
             p.addObserver(view);
         }
         view.addContinent(players);
@@ -254,8 +256,9 @@ public class GameDriverController {
 
     /**
      * <p>Description: decide which player is playing the game,computer or human</p>
+     *
      * @param needView true: need to show view in game
-     * @return  String of winner
+     * @return String of winner
      */
     public String playStartup(boolean needView) {
         Player currentPlayer = getCurrentPlayer();
@@ -310,7 +313,7 @@ public class GameDriverController {
     public String roundsOfComputer(boolean needView) {
         Player currentPlayer = getCurrentPlayer();
         while (turns > 0) {
-            GameWriter.getGameWriterInstance().Write("It's " + currentPlayer.getName() +"'s turn: \r\n");
+            GameWriter.getGameWriterInstance().Write("It's " + currentPlayer.getName() + "'s turn: \r\n");
             GameWriter.getGameWriterInstance().flush();
             currentPlayer.checkCountries();
             if (!(currentPlayer.getStrategy() instanceof Human)) {
@@ -339,8 +342,9 @@ public class GameDriverController {
 
     /**
      * <p>Description: go into reinforcement phase</p>
+     *
      * @param needView true: need to show view in game
-     * @return  string of winner
+     * @return string of winner
      */
     public String reinforcementPhase(boolean needView) {
         state = "Reinforcement";
@@ -389,6 +393,7 @@ public class GameDriverController {
 
     /**
      * <p>Description: go in to attack phase</p>
+     *
      * @param player   current player
      * @param needView true: need to show view in game
      * @return winner
@@ -462,6 +467,7 @@ public class GameDriverController {
 
     /**
      * <p>Description: go into fortification</p>
+     *
      * @param player   the current player
      * @param needView true: need to show view in game
      * @return String of winner
@@ -508,7 +514,7 @@ public class GameDriverController {
 
     /**
      * @param needView true or false
-     * search the fortify army by player
+     *                 search the fortify army by player
      */
     public void searchNodeByPlayer(boolean needView) {
 
@@ -667,7 +673,8 @@ public class GameDriverController {
 
     /**
      * this method create players for the game ,randomly assign countries to them, and initialize number of armies for them.
-     * @param needView true or false
+     *
+     * @param needView        true or false
      * @param numberOfPlayers number of players.
      */
     public void setPlayers(int numberOfPlayers, boolean needView) {
@@ -756,6 +763,7 @@ public class GameDriverController {
 
     /**
      * <p>Description: this method changes the current player in a round robin fashion</p>
+     *
      * @param needView true: need to show view in game
      */
     public void changeCurrentPlayer(boolean needView) {
@@ -770,20 +778,31 @@ public class GameDriverController {
 
     }
 
-
-    public void setIndex(int index)
-    {
-    	this.index=index;
+    /**
+     * setIndex
+     *
+     * @param index index of player
+     */
+    public void setIndex(int index) {
+        this.index = index;
     }
 
-    public void setState(String state)
-    {
-    	this.state=state;
+    /**
+     * set state
+     *
+     * @param state stete pf player
+     */
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public void setPlayers(List<Player>players)
-    {
-    	this.players=players;
+    /**
+     * set player
+     *
+     * @param players players
+     */
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
 
@@ -800,45 +819,45 @@ public class GameDriverController {
         return allarmies;
     }
 
-    public void saveGame()
-    {
-    	try {
-			FileWriter fw=new FileWriter("game.txt");
-			fw.write("[Players]\r\n");
-			for(int i=0;i<players.size();i++)
-			{
-				fw.write(players.get(i).getName()+","+players.get(i).getReinforcement()+","+players.get(i).getState()+","+players.get(i).getStrategy().toString()+","+players.get(i).getNumberOfCountries()+"\r\n");
-			}
-			fw.write("[CurrentPlayer]\r\n");
-			fw.write(getCurrentPlayer().getName());
-			fw.write("\r\n");
+    /**
+     * save game
+     */
+    public void saveGame() {
+        try {
+            FileWriter fw = new FileWriter("game.txt");
+            fw.write("[Players]\r\n");
+            for (int i = 0; i < players.size(); i++) {
+                fw.write(players.get(i).getName() + "," + players.get(i).getReinforcement() + "," + players.get(i).getState() + "," + players.get(i).getStrategy().toString() + "," + players.get(i).getNumberOfCountries() + "\r\n");
+            }
+            fw.write("[CurrentPlayer]\r\n");
+            fw.write(getCurrentPlayer().getName());
+            fw.write("\r\n");
 
-			fw.write("[Continents]\r\n");
-			for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
-			{
-				fw.write(graph.getContinents().get(i).getName()+"="+graph.getContinents().get(i).getAwardUnits()+"\r\n");
-			}
-			fw.write("[Territories]\r\n");
-			for(int i=0;i<graph.getGraphInstance().getGraphNodes().size();i++)
-			{
-				Node node=graph.getGraphInstance().getGraphNodes().get(i);
-				fw.write(node.getPlayer().getName()+","+node.getArmies()+","+node.getName()+","+node.getX()+","+node.getY()+","+node.getContinent().getName());
-				for (String adj : node.getAdjacencyList()) {
-					fw.append(","+adj);
-				}
-				fw.write("\r\n");
-			}
-			fw.write("[Other]\r\n");
-			fw.write(index+","+this.state+"\r\n");
-			fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            fw.write("[Continents]\r\n");
+            for (int i = 0; i < Graph.getGraphInstance().getContinents().size(); i++) {
+                fw.write(graph.getContinents().get(i).getName() + "=" + graph.getContinents().get(i).getAwardUnits() + "\r\n");
+            }
+            fw.write("[Territories]\r\n");
+            for (int i = 0; i < graph.getGraphInstance().getGraphNodes().size(); i++) {
+                Node node = graph.getGraphInstance().getGraphNodes().get(i);
+                fw.write(node.getPlayer().getName() + "," + node.getArmies() + "," + node.getName() + "," + node.getX() + "," + node.getY() + "," + node.getContinent().getName());
+                for (String adj : node.getAdjacencyList()) {
+                    fw.append("," + adj);
+                }
+                fw.write("\r\n");
+            }
+            fw.write("[Other]\r\n");
+            fw.write(index + "," + this.state + "\r\n");
+            fw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
      * return view
+     *
      * @return GamePhase view
      */
     public GamePhase getView() {
@@ -846,13 +865,21 @@ public class GameDriverController {
     }
 
     public void decide() {
-        Player player=getCurrentPlayer();
-        state=player.getState();
+        Player player = getCurrentPlayer();
+        state = player.getState();
         switch (state) {
-            case "StartUp": playStartup(true); break;
-            case "Reinforcement": reinforcementPhase(true);break;
-            case "Attack": attackPhase(player,true);break;
-            case "Fortification":fortificationPhase(player, true); break;
+            case "StartUp":
+                playStartup(true);
+                break;
+            case "Reinforcement":
+                reinforcementPhase(true);
+                break;
+            case "Attack":
+                attackPhase(player, true);
+                break;
+            case "Fortification":
+                fortificationPhase(player, true);
+                break;
         }
     }
 }
