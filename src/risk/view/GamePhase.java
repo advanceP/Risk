@@ -150,7 +150,23 @@ public class GamePhase extends JPanel implements ItemListener, Observer {
         if (!GameDriverController.getGameDriverInstance().getPlayers().isEmpty()) {
             Player currentplayer = GameDriverController.getGameDriverInstance().getCurrentPlayer();
             phaseText.setText(currentplayer.getState() + " " + currentplayer.getName() +
-                    " " + GameDriverController.getGameDriverInstance().getCurrentPlayer().getReinforcement());
+                    " " + GameDriverController.getGameDriverInstance().getCurrentPlayer().getReinforcement()+"\r\n");
+            if(currentplayer.getState()!=null) {
+                switch (currentplayer.getState()) {
+                    case "StartUp": phaseText.append("add your own country one by one");
+                    case "Reinforcement":
+                        phaseText.append("you can reinforce any country you have");
+                        break;
+                    case "Attack":
+                        phaseText.append("you can attack country near you");
+                        phaseText.append("if you only have one country,you can't attack");
+                        break;
+                    case "Fortify":
+                        phaseText.append("you can fortify the country which you are reachable and one direction");
+                        break;
+                }
+            }
+
         }
     }
 
