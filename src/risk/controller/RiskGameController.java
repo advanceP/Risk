@@ -260,7 +260,7 @@ public class RiskGameController {
 	                    List<String> tokens  = new ArrayList<>();
 	                    Arrays.asList(line.split(",")).forEach(s-> tokens.add(s.trim()));
 	                    List<String> adjacency = tokens.subList(6, tokens.size());
-	                    Continent continent = graph.getContinents().stream().filter(item -> item.getName().
+	                    Continent continent = graph.getGraphInstance().getContinents().stream().filter(item -> item.getName().
 	                            equals(tokens.get(5))).findFirst().get();
 	                    Node template = new Node(tokens.get(2), Integer.parseInt(tokens.get(3)),
 	                            Integer.parseInt(tokens.get(4)), continent, adjacency);

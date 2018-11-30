@@ -1,12 +1,173 @@
 
-It's Player_0's turn: 
+Reinforced Node: La Salle,Number of armies:20
+
+Reinforced Node: Plateau,Number of armies:4
+
+Reinforced Node: Kirkland,Number of armies:2
+
+Reinforced Node: Anjou,Number of armies:2
+
+Reinforced Node: Hampstead,Number of armies:2
+
+Reinforced Node: Pointe St-Charles,Number of armies:2
+
+Reinforced Node: Pierrefonds,Number of armies:2
+
+Reinforced Node: Saint-Laurent,Number of armies:2
+
+Reinforced Node: Ahuntsic,Number of armies:2
+
+Reinforced Node: Villeray,Number of armies:2
+
+Reinforced Node: Outremont,Number of armies:2
+
+Reinforced Node: Mont-Royal,Number of armies:2
+
+Reinforced Node: Verdun,Number of armies:2
+
+Reinforced Node: Ste-Anne-de-Bellevue,Number of armies:2
+
+Reinforced Node: Saint-Laurent,Number of armies:20
+
+Reinforced Node: St-Leonard,Number of armies:2
+
+Reinforced Node: Pointe-Claire,Number of armies:2
+
+Reinforced Node: Ile Bizard,Number of armies:2
+
+Reinforced Node: Pointe St-Charles,Number of armies:2
+
+Reinforced Node: Mont-Royal,Number of armies:2
+
+Reinforced Node: Ville-Marie,Number of armies:2
+
+Reinforced Node: Verdun,Number of armies:2
+
+Reinforced Node: Rosemont,Number of armies:2
+
+Reinforced Node: Kirkland,Number of armies:2
+
+Reinforced Node: RDP-PAT,Number of armies:2
+
+Reinforced Node: Dorval,Number of armies:2
+
+Reinforced Node: Hampstead,Number of armies:2
+
+Reinforced Node: Pierrefonds,Number of armies:2
+
+[Reinforcement]
+Reinforced Node: Outremont,Number of armies:28
+
+Reinforced Node: Outremont,Number of armies:27
+
+Reinforced Node: Outremont,Number of armies:26
+
+Reinforced Node: Outremont,Number of armies:25
+
+Reinforced Node: Outremont,Number of armies:24
+
+Reinforced Node: Outremont,Number of armies:23
+
+Reinforced Node: Outremont,Number of armies:22
+
+Reinforced Node: Outremont,Number of armies:21
+
+Reinforced Node: Outremont,Number of armies:20
+
+Reinforced Node: Outremont,Number of armies:19
+
+Reinforced Node: Outremont,Number of armies:18
+
+Reinforced Node: Outremont,Number of armies:17
+
+Reinforced Node: Outremont,Number of armies:16
+
+Reinforced Node: Outremont,Number of armies:15
+
+Reinforced Node: Outremont,Number of armies:14
+
+Reinforced Node: Outremont,Number of armies:13
+
+Reinforced Node: Outremont,Number of armies:12
+
+Reinforced Node: Outremont,Number of armies:11
+
+Reinforced Node: Outremont,Number of armies:10
+
+Reinforced Node: Outremont,Number of armies:9
+
+Reinforced Node: Outremont,Number of armies:8
+
+Reinforced Node: Outremont,Number of armies:7
+
+Reinforced Node: Outremont,Number of armies:6
+
+Reinforced Node: Outremont,Number of armies:5
+
+Reinforced Node: Outremont,Number of armies:4
+
+Reinforced Node: Outremont,Number of armies:3
+
+Reinforced Node: Outremont,Number of armies:2
+
+Reinforced Node: Outremont,Number of armies:1
+
+[Reinforcement]
+Reinforced Node: Dorval,Number of armies:28
+
+Reinforced Node: Dorval,Number of armies:27
+
+Reinforced Node: Dorval,Number of armies:26
+
+Reinforced Node: Dorval,Number of armies:25
+
+Reinforced Node: Dorval,Number of armies:24
+
+Reinforced Node: Dorval,Number of armies:23
+
+Reinforced Node: Dorval,Number of armies:22
+
+Reinforced Node: Dorval,Number of armies:21
+
+Reinforced Node: Dorval,Number of armies:20
+
+Reinforced Node: Dorval,Number of armies:19
+
+Reinforced Node: Dorval,Number of armies:18
+
+Reinforced Node: Dorval,Number of armies:17
+
+Reinforced Node: Dorval,Number of armies:16
+
+Reinforced Node: Dorval,Number of armies:15
+
+Reinforced Node: Dorval,Number of armies:14
+
+Reinforced Node: Dorval,Number of armies:13
+
+Reinforced Node: Dorval,Number of armies:12
+
+Reinforced Node: Dorval,Number of armies:11
+
+Reinforced Node: Dorval,Number of armies:10
+
+Reinforced Node: Dorval,Number of armies:9
+
+Reinforced Node: Dorval,Number of armies:8
+
+Reinforced Node: Dorval,Number of armies:7
+
+Reinforced Node: Dorval,Number of armies:6
+
+Reinforced Node: Dorval,Number of armies:5
+
+Reinforced Node: Dorval,Number of armies:4
+
+Reinforced Node: Dorval,Number of armies:3
+
+Reinforced Node: Dorval,Number of armies:2
+
+Reinforced Node: Dorval,Number of armies:1
 
 [Attack]
-Player_0: Attacking Country: uk, Defending Country: china
-china got defeated
-
-Player_0: uk moved 1 armies to china
-
-[Fortification]
-Player_0 moved 2 army/armies from usa to china
-It's Player_1's turn: 
+Do not attack any country

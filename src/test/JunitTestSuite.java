@@ -19,6 +19,7 @@ import org.junit.runners.Suite;
         GraphTest.class,
         PlayerTest.class,
         AgreessiveTest.class,
+        RiskGameControllerTest.class,
 })
 
 public class JunitTestSuite 

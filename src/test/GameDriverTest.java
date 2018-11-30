@@ -4,11 +4,14 @@ package test;
 import org.junit.After;
 import org.junit.Test;
 import risk.controller.GameDriverController;
+import risk.controller.RiskGameController;
 import risk.model.Graph;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -112,6 +115,17 @@ public class GameDriverTest
         driver.setPlayers(2,false);
         assertSame(expectedvalue, driver.getAllReinforcement());
     }
+    
+    @Test
+	public void testPlayerNumberSavedGame()
+	{
+		int expectedvalue=2;
+		RiskGameController controller=new RiskGameController();
+		File file=new File("src/test/game.txt");
+		GameDriverController driver=controller.getSavedGame(file);
+		assertSame(expectedvalue, driver.getPlayers().size());
+		
+	}
 
     /**
      * clear node
