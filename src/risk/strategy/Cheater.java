@@ -12,7 +12,11 @@ public class Cheater implements Strategy {
     public String toString() {
         return "Cheater";
     }
-
+    /**
+     * aggressive attack
+     *
+     * @param node if it's computer ,pass null
+     */
     @Override
     public void reinforcement(Node node) {
         if (node != null){
@@ -28,7 +32,13 @@ public class Cheater implements Strategy {
         GameWriter.getGameWriterInstance().flush();
         System.out.println("End Cheater Reinforcement");
     }
-
+    /**
+     * fortification phase
+     *
+     * @param from   the country gonna fortify,null if it's a computer
+     * @param to     the country gonna  receive fortify,null if it's a computer
+     * @param armies the army gonna fortify,null if it's a computer
+     */
     @Override
     public void fortification(Node from, Node to, Integer armies) {
         if(from != null || to != null){
@@ -50,7 +60,15 @@ public class Cheater implements Strategy {
         System.out.println("End Cheater fortification");
 
     }
-
+    /**
+     * aggressive attack
+     *
+     * @param attacker     the attack node
+     * @param defender     the defend node
+     * @param attackerdice attacker node
+     * @param defenderdice defender node
+     * @return is the attack win all the map
+     */
     @Override
     public boolean attack(Node attacker, Node defender, List<Integer> attackerdice, List<Integer> defenderdice) {
         if (attacker != null || defender != null){
@@ -87,18 +105,27 @@ public class Cheater implements Strategy {
         System.out.println("Failed/End Cheater Attack");
         return false;
     }
-
+    /**
+     * the way this strategy how to defend
+     *
+     * @param integers attacker's number of dices
+     * @return number of dice
+     */
 	@Override
-	public List<Integer> Defend(Integer integer,Node defender) {
+	public List<Integer> Defend(Integer integers,Node defender) {
 
         List<Integer> list = new ArrayList<>();
         list.add(6);
-        if (integer.equals(2)){
+        if (integers.equals(2)){
             list.add(6);
         }
 		return list;
 	}
-
+    /**
+     * find country list which connect country of another player
+     *
+     * @param player computer player
+     */
 	private List<Node> findNeighbors(Player player){
         List<Node> countryList = player.getNodeList();
         List<Node> neighborList = new ArrayList<>();
