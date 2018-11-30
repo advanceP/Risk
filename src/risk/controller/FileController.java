@@ -92,6 +92,13 @@ public class FileController {
         List<Node> nodeList = graph.getGraphNodes();
         List<Continent> continentList = graph.getContinents();
 
+        StringBuffer mapDetail = new StringBuffer();
+        mapDetail.append("[Map]" + "\r\n");
+        mapDetail.append("author=player" + "\r\n");
+        mapDetail.append("image=null\r\n");
+        mapDetail.append("wrap=no\r\n");
+        mapDetail.append("scroll=horizontal\r\n\r\n");
+
         StringBuffer continentsInfo = new StringBuffer();
         continentsInfo.append("[Continents]" + "\r\n");
         StringBuffer nodesInfo = new StringBuffer();
@@ -113,6 +120,7 @@ public class FileController {
             String continentDetail = continent.getName() + "=" + continent.getAwardUnits() + "\r\n";
             continentsInfo.append(continentDetail);
         }
+        mapInfo.append(mapDetail);
         mapInfo.append(continentsInfo.append("\r\n"));
         mapInfo.append(nodesInfo.append("\r\n"));
         return mapInfo;
