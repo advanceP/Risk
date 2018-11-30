@@ -3,6 +3,7 @@ package risk.model;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 import java.util.Queue;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  *
  * @author Farid Omarzadeh
  */
-public class Graph {
+public class Graph  {
     private static Graph graph = null;
 
     List<Node> graphNodes;

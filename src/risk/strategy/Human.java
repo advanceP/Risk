@@ -6,6 +6,7 @@ import risk.model.Node;
 import risk.model.Player;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.*;
 
 public class Human implements Strategy {

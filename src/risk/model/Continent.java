@@ -1,6 +1,7 @@
 package risk.model;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * this class is being used for continent. it has following data members:
@@ -12,7 +13,7 @@ import java.awt.Color;
  *
  * @author Farid Omarzadeh
  */
-public class Continent {
+public class Continent  {
     private String name;
     private int awardUnits;
     private Color color;

@@ -1,5 +1,6 @@
 package risk.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
  * @author Farid Omarzadeh
  *
  */
-public class Node {
+public class Node  {
     private String name;
     private int armies;
     private Continent continent;

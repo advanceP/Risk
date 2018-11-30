@@ -59,6 +59,11 @@ public class GameDriverController {
         players = new ArrayList<Player>();
     }
 
+    /*private GameDriverController(File file){
+        graph = Graph.getGraphInstance();
+        loadFile(file.getAbsolutePath());
+
+    }*/
     /**
      * reset driver
      */
@@ -110,6 +115,19 @@ public class GameDriverController {
         playStartup(false);
         String winner = roundsOfComputer(false);
         return winner;
+    }
+
+    public void continueGame() {
+        JFrame risk = new JFrame();
+        view = GamePhase.getPanelInstance();
+        view.addLabel();
+        risk.add(view);
+        risk.setSize(1600, 1000);
+        risk.setLocationRelativeTo(null);
+        risk.setVisible(true);
+        for(Player p: players){
+            p.addObserver(view);
+        }
     }
 
     /**
@@ -205,8 +223,15 @@ public class GameDriverController {
             }
         });
 
+        view.getSaveGame().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveGame();
+            }
+        });
 
     }
+
 
     /**
      * go in to start up phase,initial player
@@ -748,12 +773,12 @@ public class GameDriverController {
     {
     	this.index=index;
     }
-    
+
     public void setState(String state)
     {
     	this.state=state;
     }
-    
+
     public void setPlayers(List<Player>players)
     {
     	this.players=players;
@@ -784,7 +809,8 @@ public class GameDriverController {
 			}
 			fw.write("[CurrentPlayer]\r\n");
 			fw.write(getCurrentPlayer().getName());
-			
+			fw.write("\r\n");
+
 			fw.write("[Continents]\r\n");
 			for(int i=0;i<Graph.getGraphInstance().getContinents().size();i++)
 			{
@@ -810,6 +836,23 @@ public class GameDriverController {
 		}
     }
 
+    /**
+     * return view
+     * @return GamePhase view
+     */
+    public GamePhase getView() {
+        return view;
+    }
 
-
+    public void decide() {
+        Player player=getCurrentPlayer();
+        state=player.getState();
+        System.out.println(state);
+        switch (state) {
+            case "StartUp": playStartup(true); break;
+            case "Reinforcement": reinforcementPhase(true);break;
+            case "Attack": attackPhase(player,true);break;
+            case "Fortification":fortificationPhase(player, true); break;
+        }
+    }
 }

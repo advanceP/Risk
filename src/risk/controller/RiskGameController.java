@@ -163,6 +163,7 @@ public class RiskGameController {
                     File file = jFileChooser.getSelectedFile();
                     gameDriverController.loadFile(file.getAbsolutePath());
                     gameDriverController.startGame();
+
                 } else {
                         System.out.println("file has been cancel");
                 }
@@ -191,6 +192,11 @@ public class RiskGameController {
                 int select = jFileChooser.showOpenDialog(frame); //this method need a JFrame as parameter
                 if (select == JFileChooser.APPROVE_OPTION) {
                     File file = jFileChooser.getSelectedFile();
+                    GameDriverController driver = getSavedGame(file);
+                    driver.continueGame();
+                    driver.getView().removeButtonSetPlayer();
+                    driver.decide();
+
                 } else {
                     System.out.println("file has been cancel");
                 }

@@ -2,6 +2,7 @@ package risk.strategy;
 
 import risk.model.Node;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface Strategy {
